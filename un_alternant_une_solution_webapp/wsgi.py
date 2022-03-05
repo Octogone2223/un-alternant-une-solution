@@ -1,5 +1,5 @@
 """
-WSGI config for un_alternant_un_solution_webapp project.
+WSGI config for un_alternant_une_solution_webapp project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'un_alternant_un_solution_webapp.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE',
+                      'un_alternant_une_solution_webapp.settings')
 
 application = get_wsgi_application()
