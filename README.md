@@ -3,7 +3,7 @@
 ## for using sass :
 
 ``
-python manage.py sass authentification/static/styles/scss/ authentification/static/styles/css/ --watch
+python manage.py sass authentication/static/styles/scss/ authentication/static/styles/css/ --watch
 ``
 
 **replace by the path of your styles folder !**
