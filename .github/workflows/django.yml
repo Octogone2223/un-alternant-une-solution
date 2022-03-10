@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: get db list # checking our the code at current commit that triggers the workflow
         run: |
-          psql 
+          psql -h 0.0.0.0 -U postgres -d github-actions -ppostgres
           \list
       - name: Checkout code # checking our the code at current commit that triggers the workflow
         uses: actions/checkout@v2
