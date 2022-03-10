@@ -40,6 +40,7 @@ jobs:
     steps:
       - name: get db list # checking our the code at current commit that triggers the workflow
         run: |
+          psql 
           \list
       - name: Checkout code # checking our the code at current commit that triggers the workflow
         uses: actions/checkout@v2
