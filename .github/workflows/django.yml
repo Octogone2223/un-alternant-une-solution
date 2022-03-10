@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ ci/cd-tests ]
   pull_request:
-    branches: [ develop ]
+    branches: [ ci/cd-tests ]
 
 env:
   DATABASE_PASSWORD: postgres
