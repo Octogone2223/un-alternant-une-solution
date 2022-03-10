@@ -1,14 +1,14 @@
 {% load static tailwind_tags %}
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="dark">
+{% load tailwind_tags %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    {% tailwind_css %}
+
     <link rel="stylesheet" href="{% static 'styles/css/app.css' %}">
 
     {# HOT RELOAD SCRIPT #}
@@ -18,6 +18,10 @@
     <script
         src="https://gistcdn.githack.com/Lilian-MMI/f23496a8c50ca94d62ec20d0d3591851/raw/52867fe3589247dd300846262e0a71866326cfd6/fontawesome.min.js">
     </script>
+
+    <!-- TAILWIND CSS -->
+    {% tailwind_css %}
+ 
 
     {# VUEJS #}
     <script src="https://unpkg.com/vue@3"></script>
