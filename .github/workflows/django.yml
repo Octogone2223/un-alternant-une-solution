@@ -50,7 +50,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Check Syntax # check code formatting
-        run: pycodestyle --statistics .
+        run: pycodestyle --statistics --ignore=E501 .
       - name: Run Migrations # run migrations to create table in side car db container
         run: python manage.py migrate
       - name: Run Tests
