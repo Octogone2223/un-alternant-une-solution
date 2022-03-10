@@ -59,6 +59,9 @@ module.exports = {
         "danger-alpha": "rgba(247, 119, 127, 0.15)",
         "success-alpha": "rgba(25, 244, 178, 0.1)",
       },
+      container: {
+        center: true,
+      },
     },
   },
   variants: {

@@ -3,6 +3,19 @@
 
 {% block content %}
 
-<h1 class="bg-secondary text-white">Hello</h1>
+{% include './components/home/hero.html' %}
+<div class="mt-20">
+  {% include './components/home/section1.html' %}
+</div>
+<div class="mt-20">
+  {% include './components/home/section2.html' %}
+</div>
+<div class="mt-20">
+  {% include './components/home/section3.html' %}
+</div>
+
+<div class="mt-20">
+  {% include './components/footer.html' %}
+</div>
 
 {% endblock %}
