@@ -19,4 +19,5 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 def get_api_data(self):
     LA_BONNE_ALTERNANCE_API_URL = 'https://labonnealternance.apprentissage.beta.gouv.fr/api/V1/formations?romes=F1603%2CI1308&latitude=48.845&longitude=2.3752&radius=30&diploma=3&caller=contact%40domaine%20nom_de_societe'
     response = requests.get(LA_BONNE_ALTERNANCE_API_URL)
+
     print(response.text)
