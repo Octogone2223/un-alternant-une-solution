@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div>
+    {% for item in '1234' %}
+    <p>[[ message ]]</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+{% block vueJs %}
+<script>
+    const app = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                message: 'Hello Vue!',
+                title: 'OUIIII'
+            }
+        }
+    }).mount('#app')
+</script>
+{% endblock %}
