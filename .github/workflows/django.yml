@@ -7,10 +7,10 @@ on:
     branches: [ ci/cd-tests ]
 
 env:
-  DATABASE_PASSWORD: 3fc5ed1833891f062798111a97d4a4396b670c16a2ea614a6b8d4093ce442f27
-  DATABASE_NAME: d6ciu6qsd262o4
-  DATABASE_USER: hojkcrjpjxpkth
-  DATABASE_HOST: ec2-176-34-105-15.eu-west-1.compute.amazonaws.com
+  DATABASE_PASSWORD: postgres
+  DATABASE_NAME: github-actions
+  DATABASE_USER: postgres
+  DATABASE_HOST: 0.0.0.0
   DATABASE_PORT: 5432
   PORT: 5000
 
@@ -38,9 +38,6 @@ jobs:
           --health-retries 5
         # options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-      - name: get docker ip code # checking our the code at current commit that triggers the workflow
-        run: |
-          docker ps
       - name: Checkout code # checking our the code at current commit that triggers the workflow
         uses: actions/checkout@v2
       - name: Cache dependency # caching dependency will make our build faster.
