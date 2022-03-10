@@ -1,6 +1,6 @@
 # un-alternant-une-solution (develop branch)
 
-## for using sass :
+## for using sass
 ``
 python manage.py sass authentication/static/styles/scss/ authentication/static/styles/css/ --watch
 ``
