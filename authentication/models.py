@@ -60,6 +60,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name="Email"
     )
 
+    first_name = models.CharField(max_length=75, verbose_name="First Name")
+    last_name = models.CharField(max_length=75, verbose_name="Last Name")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     # Other required fields for authentication
     # If the user is a staff, defaults to false
     is_staff = models.BooleanField(default=False)
@@ -78,15 +84,26 @@ class Company(models.Model):
     class Meta:
         db_table = "company"
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=75, verbose_name="Company Name")
     description = models.TextField(verbose_name="Company Description")
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
+    userCompanies = models.ManyToManyField(User, through='UserCompany')
 
     def __str__(self):
         return f'{self.name}'
+
+
+class UserCompany(models.Model):
+    class Meta:
+        db_table = "user_company"
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    company = models.OneToOneField(Company, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user}'
 
 
 class Student(models.Model):
@@ -94,8 +111,7 @@ class Student(models.Model):
         db_table = "student"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=75, verbose_name="First Name")
-    last_name = models.CharField(max_length=75, verbose_name="Last Name")
+
     birthday = models.DateField(verbose_name="Birthday")
     linkedin_url = models.URLField(verbose_name="LinkedIn URL")
     cv_path = models.CharField(max_length=255, verbose_name="CV Path")
@@ -103,3 +119,28 @@ class Student(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+
+class School(models.Model):
+    class Meta:
+        db_table = "school"
+
+    name = models.CharField(max_length=75, verbose_name="School Name")
+    city = models.CharField(max_length=75, verbose_name="City")
+    street = models.CharField(max_length=75, verbose_name="Street")
+    zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
+    userSchools = models.ManyToManyField(User, through='UserSchool')
+
+    def __str__(self):
+        return f'{self.name}'
+
+
+class UserSchool(models.Model):
+    class Meta:
+        db_table = "user_school"
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    school = models.OneToOneField(School, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user}'
