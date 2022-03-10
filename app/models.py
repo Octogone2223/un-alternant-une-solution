@@ -13,11 +13,12 @@ class Status(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-    
+
+
 class Job(models.Model):
     class Meta:
         db_table = "job"
-        
+
     name = models.CharField(max_length=75, verbose_name="Job Name")
     description = models.TextField(verbose_name="Job Description")
     wage = models.FloatField(verbose_name="Job Wage")
@@ -28,9 +29,10 @@ class Job(models.Model):
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return f'{self.name}'
+
 
 class JobDating(models.Model):
     class Meta:
@@ -46,7 +48,7 @@ class JobDating(models.Model):
 
     def __str__(self):
         return f'{self.student.firstname | self.job.name}'
-    
+
 
 class Profession(models.Model):
     class Meta:
@@ -57,8 +59,8 @@ class Profession(models.Model):
 
     def __str__(self):
         return f'{self.name} | {self.code}'
-    
-    
+
+
 class Course(models.Model):
     class Meta:
         db_table = "course"
