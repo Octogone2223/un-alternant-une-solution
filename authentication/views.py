@@ -38,9 +38,6 @@ def sign_up(request):
 
 
 def sign_in(request):
-    if request.method == 'GET':
-        return render(request, 'sign_in.html')
-
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -54,6 +51,8 @@ def sign_in(request):
 
         else:
             return redirect('sign_in')
+
+    return render(request, 'sign_in.html')
 
 
 @login_required(login_url='sign_in')

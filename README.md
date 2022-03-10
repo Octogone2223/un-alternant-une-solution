@@ -7,3 +7,7 @@ python manage.py sass authentication/static/styles/scss/ authentication/static/s
 ``
 
 **replace by the path of your styles folder !**
+
+## for using vue :
+
+checkout the example at authentication/templates/sign_in.html & app/templates/base.html
