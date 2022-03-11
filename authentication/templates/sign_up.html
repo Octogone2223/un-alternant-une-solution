@@ -1,19 +1,42 @@
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
-</head>
 
-<body>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="email" name="email" required>
-        <input type="password" name="password" required>
-        <button type="submit">S'inscrire</button>
-    </form>
-</body>
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-2">
+    <div class="flex flex-col items-start justify-center px-8">
+        <div>
+            <h2 class="text-secondary font-bold text-4xl">Inscription</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 mt-10">
+                <div class="flex flex-col">
+                    <label for="" class="font-bold mb-2 hover">Nom:</label>
+                    <input type="text" class="rounded-md shadow-lg border-2 border-black hover:border-black" placeholder="John">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-blue-500 h-screen flex flex-col justify-center items-center px-10" style="background-image: url('/static/authbackground.png'); background-repeat: no-repeat; background-size: cover;">
+        <div class="">
+            <h2 class="font-bold text-3xl text-white mb-5">Besoin d'aide ?</h2>
+            <p class="text-white">Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez des difficultés dans vos démarches en ligne ? Pour trouver une réponse ou une solution à votre problème, consultez la foire aux questions du portail de l'alternance.</p>
+        </div>
+    </div>
+    
+</div>
 
-</html>
+{% include './components/footer.html' %}
+{% endblock %}
+
+
+<!-- {% block vueJs %}
+<script>
+    const app = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                message: 'Hello Vue!',
+                title: 'OUIIII'
+            }
+        }
+    }).mount('#app')
+</script>
+{% endblock %} -->
