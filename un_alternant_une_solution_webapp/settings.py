@@ -51,8 +51,7 @@ INSTALLED_APPS = [
     'django_sass',
     'authentication',
     'app',
-    'tailwind',
-    'theme'
+    'tailwind'
 ]
 
 TAILWIND_APP_NAME = 'theme'
