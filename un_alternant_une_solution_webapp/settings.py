@@ -46,12 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'theme',
     'django.contrib.staticfiles',
     'django_sass',
     'authentication',
     'app',
-    'tailwind',
-    'theme'
+    'tailwind'
 ]
 
 TAILWIND_APP_NAME = 'theme'
@@ -184,4 +184,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
 
-NPM_BIN_PATH = "/usr/local/bin/npm"
+NPM_BIN_PATH = "/app/.heroku/node/bin/npm"
