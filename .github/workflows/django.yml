@@ -38,10 +38,6 @@ jobs:
           --health-retries 5
         # options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-      - name: get db list # checking our the code at current commit that triggers the workflow
-        run: |
-          psql -h 0.0.0.0 --no-password -l
-          \list
       - name: Checkout code # checking our the code at current commit that triggers the workflow
         uses: actions/checkout@v2
       - name: Cache dependency # caching dependency will make our build faster.
