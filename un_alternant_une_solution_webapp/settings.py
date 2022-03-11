@@ -46,12 +46,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'theme',
+    'theme.apps.ThemeConfig',
     'django.contrib.staticfiles',
     'django_sass',
     'authentication',
     'app',
-    'tailwind'
+    'tailwind',
+    'theme'
 ]
 
 TAILWIND_APP_NAME = 'theme'
