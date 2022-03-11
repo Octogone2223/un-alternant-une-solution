@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import EmailValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+
+from job.models import Job
 # Create your models here.
 
 
@@ -68,16 +70,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Other required fields for authentication
     # If the user is a staff, defaults to false
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)  # ! check
 
     # If the user account is active or not. Defaults to True.
     # If the value is set to false, user will not be allowed to sign in.
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)  # ! check
 
     USERNAME_FIELD = 'email'
 
     # Custom user manager
-    objects = UserManager()
+    objects = UserManager()  # ! check
 
 
 class Company(models.Model):
@@ -85,11 +87,15 @@ class Company(models.Model):
         db_table = "company"
 
     name = models.CharField(max_length=75, verbose_name="Company Name")
-    description = models.TextField(verbose_name="Company Description")
-    city = models.CharField(max_length=75, verbose_name="City")
-    street = models.CharField(max_length=75, verbose_name="Street")
-    zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
-    userCompanies = models.ManyToManyField(User, through='UserCompany')
+    description = models.TextField(
+        verbose_name="Company Description", null=True)
+    city = models.CharField(max_length=75, verbose_name="City", null=True)
+    street = models.CharField(max_length=75, verbose_name="Street", null=True)
+    zip_code = models.CharField(
+        max_length=75, verbose_name="Zip Code", null=True)
+    user_companies = models.ManyToManyField(
+        User, through='UserCompany')  # ! check
+    jobs = models.ManyToManyField(Job)
 
     def __str__(self):
         return f'{self.name}'
@@ -140,7 +146,7 @@ class UserSchool(models.Model):
         db_table = "user_school"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    school = models.OneToOneField(School, on_delete=models.CASCADE)
+    school = models.OneToOneField(School, on_delete=models.CASCADE)  # ! check
 
     def __str__(self):
         return f'{self.user}'
