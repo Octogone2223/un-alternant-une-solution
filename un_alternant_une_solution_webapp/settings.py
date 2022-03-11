@@ -33,14 +33,11 @@ SECRET_KEY = 'django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'un-alternant-une-solution.herokuapp.com'
-]
-
 
 # Application definition
 
 INSTALLED_APPS = [
+    'theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'un_alternant_une_solution_webapp.urls'
@@ -179,3 +177,5 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
+
+NPM_BIN_PATH = NODE_HOME+"/bin/npm"
