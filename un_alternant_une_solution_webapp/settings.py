@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'authentication',
     'app',
     'tailwind',
-    'theme'
+    'theme',
+    'job',
 ]
 
 TAILWIND_APP_NAME = 'theme'
@@ -124,10 +125,11 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Paris'
 
 CELERY_BEAT_SCHEDULE = {
     'hello': {
-        'task': 'un_alternant_une_solution_webapp.celery.get_api_data',
+        'task': 'job.tasks.get_api_data',
         'schedule': crontab()  # execute every minute
     }
 }

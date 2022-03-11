@@ -29,11 +29,11 @@ def sign_up(request):
             user.save()
             company.save()
 
-        except Exception as e:
+        except Exception as e:  # ! check
             return render(request, 'sign_up.html', {'error': e})
 
         login(request, user)
-        request.session.set_expiry(1 * 24 * 60 * 60)  # 1 day
+        request.session.set_expiry(1 * 24 * 60 * 60)  # 1 day # ! check
         return redirect('private')
 
 
@@ -60,7 +60,7 @@ def private(request):
     return render(request, 'private.html')
 
 
-@login_required(login_url='sign_in')
+@login_required(login_url='sign_in')  # ! check
 def sign_out(request):
     logout(request)
     return redirect('sign_in')
