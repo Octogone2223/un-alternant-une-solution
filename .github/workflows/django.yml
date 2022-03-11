@@ -10,7 +10,7 @@ env:
   DATABASE_PASSWORD: postgres
   DATABASE_NAME: github-actions
   DATABASE_USER: postgres
-  DATABASE_HOST: 0.0.0.0
+  DATABASE_HOST: postgres
   DATABASE_PORT: 5432
   PORT: 5000
 
