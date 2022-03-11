@@ -5,9 +5,13 @@
         <br/>en faveur de la jeunesse !</h1>
     </div>
     <div class="flex flex-col lg:flex-row items-center lg:justify-center mt-10 space-y-4 lg:space-y-0 lg:space-x-4">
-      <button class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary">Je suis étudiant</button>
-      <button class="text-white text-sm font-bold bg-secondary lg:bg-primary py-2 px-8 w-48 h-14 rounded-full hover:text-secondary">Je suis employeur</button>
+      <a href="{% url 'authentication:sign_in' %}" class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer">Je suis étudiant</a>
+      <a href="{% url 'authentication:sign_in' %}" class="text-white text-sm font-bold bg-secondary lg:bg-primary py-2 px-8 w-48 h-14 rounded-full hover:text-secondary flex justify-center items-center cursor-pointer">Je suis employeur</a>
     </div>
   </div>
 
 </div>
+
+<script>
+  
+</script>
