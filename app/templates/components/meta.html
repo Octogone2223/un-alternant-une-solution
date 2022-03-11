@@ -1,8 +1,6 @@
-{% load static tailwind_tags %}
-
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-{% load tailwind_tags %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,8 +17,20 @@
         src="https://gistcdn.githack.com/Lilian-MMI/f23496a8c50ca94d62ec20d0d3591851/raw/52867fe3589247dd300846262e0a71866326cfd6/fontawesome.min.js">
     </script>
 
-    <!-- TAILWIND CSS -->
-    {% tailwind_css %}
+   
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                primary: "#00AFB9",
+                secondary: "#243A48"
+              }
+            }
+          }
+        }
+      </script>
  
 
     {# VUEJS #}

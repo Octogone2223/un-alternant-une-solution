@@ -1,42 +1,100 @@
-{% extends "base.html" %}
-
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="grid grid-cols-1 lg:grid-cols-2">
-    <div class="flex flex-col items-start justify-center px-8">
-        <div>
-            <h2 class="text-secondary font-bold text-4xl">Inscription</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 mt-10">
-                <div class="flex flex-col">
-                    <label for="" class="font-bold mb-2 hover">Nom:</label>
-                    <input type="text" class="rounded-md shadow-lg border-2 border-black hover:border-black" placeholder="John">
-                </div>
-            </div>
+  <div class="flex flex-col items-start justify-start px-8">
+    <div
+      class="my-10 flex flex-col items-center lg:items-start justify-center w-full"
+    >
+      <h2 class="text-secondary font-bold text-4xl">Inscription</h2>
+      <div class="mt-10">
+        <h2 class="font-bold">Type de compte:</h2>
+        <div class="flex flex-row flex-wrap space-x-5">
+          <div class="mt-5 flex flex-row items-center space-x-2">
+            <label for="" class="font-medium">Entreprise</label>
+            <input type="radio" name="account_type" class="" />
+          </div>
+          <div class="mt-5 flex flex-row items-center space-x-2">
+            <label for="" class="font-medium">École</label>
+            <input type="radio" name="account_type" class="" />
+          </div>
+          <div class="mt-5 flex flex-row items-center space-x-2">
+            <label for="" class="font-medium">Étudiant</label>
+            <input type="radio" name="account_type" class="" />
+          </div>
         </div>
-    </div>
-    <div class="bg-blue-500 h-screen flex flex-col justify-center items-center px-10" style="background-image: url('/static/authbackground.png'); background-repeat: no-repeat; background-size: cover;">
-        <div class="">
-            <h2 class="font-bold text-3xl text-white mb-5">Besoin d'aide ?</h2>
-            <p class="text-white">Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez des difficultés dans vos démarches en ligne ? Pour trouver une réponse ou une solution à votre problème, consultez la foire aux questions du portail de l'alternance.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 mt-10 gap-8 w-full">
+        <div class="flex flex-col col-span-2 lg:col-span-1">
+          <label for="" class="font-bold mb-2 hover">Nom:</label>
+          <input
+            type="text"
+            class="rounded-md py-3 px-4 shadow-lg border-2 border-black hover:border-black"
+            placeholder="John"
+          />
         </div>
+        <div class="flex flex-col col-span-2 lg:col-span-1">
+          <label for="" class="font-bold mb-2 hover">Prénom:</label>
+          <input
+            type="text"
+            class="py-3 px-4 rounded-md shadow-lg border-2 border-black hover:border-black"
+            placeholder="Doe"
+          />
+        </div>
+        <div class="flex flex-col col-span-2">
+          <label for="" class="font-bold mb-2 hover">Email:</label>
+          <input
+            type="email"
+            class="py-3 px-4 rounded-md shadow-lg border-2 border-black hover:border-black"
+            placeholder="johndoe@xxxx.xx"
+          />
+        </div>
+        <div class="flex flex-col col-span-2">
+          <label for="" class="font-bold mb-2 hover">Mot de passe:</label>
+          <input
+            type="password"
+            class="py-3 px-4 rounded-md shadow-lg border-2 border-black hover:border-black"
+            placeholder="•••••••••"
+          />
+        </div>
+        <div class="flex flex-col col-span-2">
+          <label for="" class="font-bold mb-2 hover"
+            >Confirmation mot de passe:</label
+          >
+          <input
+            type="password"
+            class="py-3 px-4 rounded-md shadow-lg border-2 border-black hover:border-black"
+            placeholder="•••••••••"
+          />
+        </div>
+      </div>
+      <div class="mt-10 flex justify-center w-full">
+        <button
+          class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:bg-primary flex justify-center items-center cursor-pointer"
+        >
+          S'inscrire
+        </button>
+      </div>
     </div>
-    
+  </div>
+  <div class="hidden lg:block">
+    <div
+      class="bg-blue-500 h-screen flex flex-col justify-center items-center px-10"
+      style="
+        background-image: url('/static/authbackground.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+      "
+    >
+      <div class="">
+        <h2 class="font-bold text-3xl text-white mb-5">Besoin d'aide ?</h2>
+        <p class="text-white">
+          Vous n'avez pas trouvé l'information que vous recherchiez ? Vous
+          rencontrez des difficultés dans vos démarches en ligne ? Pour trouver
+          une réponse ou une solution à votre problème, consultez la foire aux
+          questions du portail de l'alternance.
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 
-{% include './components/footer.html' %}
-{% endblock %}
-
-
-<!-- {% block vueJs %}
-<script>
-    const app = Vue.createApp({
-        delimiters: ["[[", "]]"],
-        data() {
-            return {
-                message: 'Hello Vue!',
-                title: 'OUIIII'
-            }
-        }
-    }).mount('#app')
-</script>
-{% endblock %} -->
+{% include './components/footer.html' %} {% endblock %}

@@ -7,8 +7,6 @@ from authentication.models import Company, User
 
 
 def sign_up(request):
-    if request.method == 'GET':
-        return render(request, 'sign_up.html')
 
     if request.method == 'POST':
         try:
@@ -35,6 +33,8 @@ def sign_up(request):
         login(request, user)
         request.session.set_expiry(1 * 24 * 60 * 60)  # 1 day
         return redirect('private')
+
+    return render(request, 'sign_up.html')
 
 
 def sign_in(request):
