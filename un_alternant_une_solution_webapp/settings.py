@@ -124,9 +124,9 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Paris'
 
 CELERY_BEAT_SCHEDULE = {
-    'hello': {
+    'la_bonne_alternance_api_job': {
         'task': 'job.tasks.get_api_data',
-        'schedule': crontab()  # execute every minute
+        'schedule': crontab(minute='*/1'),
     }
 }
 

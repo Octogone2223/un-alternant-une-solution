@@ -87,10 +87,12 @@ class Company(models.Model):
         db_table = "company"
 
     name = models.CharField(max_length=75, verbose_name="Company Name")
-    description = models.TextField(verbose_name="Company Description")
-    city = models.CharField(max_length=75, verbose_name="City")
-    street = models.CharField(max_length=75, verbose_name="Street")
-    zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
+    description = models.TextField(
+        verbose_name="Company Description", null=True)
+    city = models.CharField(max_length=75, verbose_name="City", null=True)
+    street = models.CharField(max_length=75, verbose_name="Street", null=True)
+    zip_code = models.CharField(
+        max_length=75, verbose_name="Zip Code", null=True)
     user_companies = models.ManyToManyField(
         User, through='UserCompany')  # ! check
     jobs = models.ManyToManyField(Job)
