@@ -32,7 +32,9 @@ Le cours a été dispensé par [Antoine NGUYEN](https://github.com/tonioo).
 ### Installations
 
 1. Installer les dépendences
-  `pip install -r requirements.txt`
+  ```sh
+    pip install -r requirements.txt
+  ```
 
 2. Ajouter les variables d'environnement dans un fichier .env à la racine du projet
 
@@ -68,6 +70,13 @@ Le cours a été dispensé par [Antoine NGUYEN](https://github.com/tonioo).
 
 **Remplacer le chemin de votre dossier de styles !**
 
-## Pour l'utilisation de vue
+### Pour l'utilisation de vue
 
 Regarder l'exemple au niveau de `authentication/templates/sign_in.html` et de `app/templates/base.html`
+
+### Pour l'utilisation de Docker
+
+```sh
+  docker-compose up
+```
+
