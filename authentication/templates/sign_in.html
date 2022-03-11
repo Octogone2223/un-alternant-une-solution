@@ -3,24 +3,57 @@
 
 {% block content %}
 
-<div>
-    {% for item in '1234' %}
-    <p>[[ message ]]</p>
-    {% endfor %}
-</div>
+    <div class="grid grid-cols-1 md:grid-cols-2">
+        <div style="background-image:url('/static/img/rick-roll-rick-ashley.gif')" class="bg-cover bg-no-repeat hidden md:flex h-screen flex-col justify-center">
+            <div class="px-28 text-white">
+                <div class="font-bold text-3xl mb-7">
+                    Besoin d’aide ?
+                </div>
+                <div>
+                    Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez des difficultés dans vos démarches en ligne ? Pour trouver une réponse ou une solution à votre problème, consultez la foire aux questions du portail de l'alternance.
+                </div>
+            </div>
+        </div>
+        <div class="h-screen flex flex-col justify-center">
+            <div class="px-32">
+                <div class="font-bold text-3xl">
+                    Connexion
+                </div>
+                <div class="mt-10">
+                    <label class="block mb-3">
+                        <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                        Email
+                        </span>
+                        <input type="email" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="you@example.fr" />
+                    </label>
+                    <label class="block">
+                        <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                        Mot de passe
+                        </span>
+                        <input type="password" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="**********" />
+                    </label>
+                </div>
+                <div class="mt-10 flex flex-col items-center">
+
+                    <button class="w-1/2 mb-5 text-white bg-secondary focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Connexion</button>
+                    <p>Pas encore de compte ? <a class="cursor-pointer text-blue-300"> s'inscrire</a></p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    {% include './components/footer.html' %}
+
 {% endblock %}
+
+
 
 
 {% block vueJs %}
 <script>
-    const app = Vue.createApp({
-        delimiters: ["[[", "]]"],
-        data() {
-            return {
-                message: 'Hello Vue!',
-                title: 'OUIIII'
-            }
-        }
-    }).mount('#app')
+    
 </script>
 {% endblock %}
