@@ -1,56 +1,85 @@
+from http.client import UNAUTHORIZED
+import json
+from multiprocessing import AuthenticationError
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from authentication.models import Company, User
+from authentication.models import Company, Student, User
+from .forms import CompanySerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSerializer
+from rest_framework import serializers
 
 # Create your views here.
 
 
 def sign_up(request):
-
     if request.method == 'POST':
-        try:
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            user = User.objects.create_user(email=email, password=password)
+        body = request.body.decode('utf-8')
+        bodyJson = json.loads(body)
 
-            company = Company()
-            company.name = request.POST.get('company_name', 'company_name')
-            company.description = request.POST.get(
-                'company_description', 'company_description')
-            company.city = request.POST.get('company_city', 'company_city')
-            company.street = request.POST.get(
-                'company_street', 'company_street')
-            company.zip_code = request.POST.get('zip_code', 'zip_code')
-            company.user = user
+        if bodyJson['accountType'] == '1':
+            userSerializer = UserSignUpSerializer(data=bodyJson)
+            companySerializer = CompanySerializer(data=bodyJson)
+            if userSerializer.is_valid() and companySerializer.is_valid():
+                user = User.objects.create_user(userSerializer.valitade_data)
+                company = Company.objects.create(
+                    companySerializer.validated_data)
+                company.user = user.save()
+                company.save()
+                login(request, user)
+                return redirect('sign_in')
+            else:
+                return render(request, 'sign_up.html', {'errors': UserSignUpSerializer(data=bodyJson).errors + CompanySerializer(data=bodyJson).errors})
 
-            user.save()
-            company.save()
+        elif bodyJson['accountType'] == '2':
+            if UserSignUpSerializer(data=bodyJson).is_valid() and SchoolSerializer(data=bodyJson).is_valid():
+                user = UserSignUpSerializer(data=bodyJson)
+                school = SchoolSerializer(data=bodyJson)
+                school.user = user.save()
+                user.save()
+                login(request, user)
+                return redirect('sign_in')
+            else:
+                return render(request, 'sign_up.html', {'errors': UserSignUpSerializer(data=bodyJson).errors + SchoolSerializer(data=bodyJson).errors})
 
-        except Exception as e:  # ! check
-            return render(request, 'sign_up.html', {'error': e})
-
-        login(request, user)
-        request.session.set_expiry(1 * 24 * 60 * 60)  # 1 day # ! check
-        return redirect('private')
+        elif bodyJson['accountType'] == '3':
+            userSerializer = UserSignUpSerializer(data=bodyJson)
+            try:
+                userSerializer.__check_email__(bodyJson)
+                if userSerializer.is_valid():
+                    user = User.objects.create_user(
+                        **userSerializer.validated_data
+                    )
+                    student = Student.objects.create(
+                        user=user)
+                    return HttpResponse({'status': 'success'})
+                else:
+                    return HttpResponseBadRequest(json.dumps(userSerializer.errors))
+            except serializers.ValidationError as e:
+                return HttpResponseBadRequest(json.dumps(e.detail))
 
     return render(request, 'sign_up.html')
 
 
 def sign_in(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        body = request.body.decode('utf-8')
+        bodyJson = json.loads(body)
 
-        user = authenticate(email=email, password=password)
+        userSerializer = UserSignInSerializer(data=bodyJson)
 
-        if user is not None:
-            login(request, user)
-            request.session.set_expiry(1 * 24 * 60 * 60)  # 1 day
-            return redirect('private')
+        if userSerializer.is_valid():
+            user = authenticate(**userSerializer.validated_data)
+
+            if user is not None:
+                login(request, user)
+                return HttpResponse({'status': 'success'})
+
+            else:
+                return HttpResponse({'status': 'failure'}, status=UNAUTHORIZED)
 
         else:
-            return redirect('sign_in')
+            return HttpResponseBadRequest(json.dumps(userSerializer.errors))
 
     return render(request, 'sign_in.html')
 

@@ -35,7 +35,6 @@ SECRET_KEY = 'django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,11 +48,16 @@ INSTALLED_APPS = [
     'authentication',
     'app',
     'job',
+    'rest_framework'
 ]
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 1  # 1 day
+
+LOGIN_URL = 'auth/sign_in/'
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -98,8 +102,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'un_alternant_une_solution_webapp.wsgi.application'
 
 
 # Database
