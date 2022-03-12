@@ -71,8 +71,8 @@ def createCompany(company):
             defaults={
                 'description': description,
                 'city': city,
-                'street':  street,
-                'zip_code':  zip_code,
+                'street': street,
+                'zip_code': zip_code,
             }
         )
         return company
