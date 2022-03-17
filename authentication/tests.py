@@ -23,8 +23,8 @@ class AuthenticationTests(TestCase):
 
     # Student sign up
     def test_student_signup(self):
-        response = self.client.post(
-            "/auth/sign-up/",
+        response = self.client.post()
+        (    '/auth/sign-up/',
             {
                 'account_type': '3',
                 'first_name': 'TestStudent',
