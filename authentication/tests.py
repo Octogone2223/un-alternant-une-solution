@@ -26,12 +26,12 @@ class AuthenticationTests(TestCase):
         response = self.client.post(
             '/auth/sign-up/',
             {
-                account_type: '3',
-                first_name: 'TestStudent',
-                last_name: 'TESTSTUDENT',
-                email: 'student@test.com',
-                password: 'TestStudent',
-                confirmPassword: 'TestStudent'
+                'account_type': '3',
+                'first_name': 'TestStudent',
+                'last_name': 'TESTSTUDENT',
+                'email': 'student@test.com',
+                'password': 'TestStudent',
+                'confirmPassword': 'TestStudent'
             }
         )
         self.assertEqual(response.status_code, 200)
