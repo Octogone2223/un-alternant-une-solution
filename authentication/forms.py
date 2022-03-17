@@ -32,10 +32,15 @@ class UserSignInSerializer(serializers.Serializer):
     password = serializers.CharField()
 
 
-class CompanySerializer(serializers.ModelSerializer):
+class CompanySignUpSerializer(serializers.Serializer):
     class Meta:
         model = Company
-        fields = ('description', 'name', 'city', 'street', 'zip_code')
+
+    name = serializers.CharField()
+    description = serializers.CharField()
+    city = serializers.CharField()
+    street = serializers.CharField()
+    zip_code = serializers.CharField()
 
 
 class SchoolSerializer(serializers.ModelSerializer):

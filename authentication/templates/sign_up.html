@@ -37,7 +37,7 @@
 
 
       <div class="mt-10 flex flex-col items-center w-full" v-if="accountType==3">
-        <button @click="handleLoginForm"
+        <button @click="handleSubmitRegisterStudent"
           class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-lg hover:bg-primary flex justify-center items-center cursor-pointer">
           {% trans 'Inscription' %}
         </button>
@@ -57,7 +57,7 @@
             questions du portail de l'alternance.</p>
         </div>
         <div class="flex flex-col items-center lg:items-end lg:w-fit">
-          <button @click="handleLoginForm"
+          <button @click="handleRegister"
             class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-lg hover:bg-primary flex justify-center items-center cursor-pointer">
             {% trans 'Inscription' %}
           </button>
@@ -99,26 +99,60 @@
         classObject: {
           'lg:grid-cols-2': this.activeAccount == 3
         },
-        accountType: '3',
-        loginForm: {
+        accountType: '1',
+        registerFormStudent: {
           first_name: '',
           last_name: '',
           email: '',
           password: '',
           confirmPassword: '',
+          errors: {
+            first_name: [],
+            last_name: [],
+            email: [],
+            password: [],
+            confirmPassword: [],
+          },
         },
-        errors: {
-          first_name: [],
-          last_name: [],
-          email: [],
-          password: [],
-          confirmPassword: [],
+        registerFormCompany: {
+          name: 'test',
+          first_name: '',
+          last_name: '',
+          email: 'test',
+          city: 'test',
+          zip_code: 'test',
+          street: 'test',
+          description: 'test',
+          password: 'test',
+          confirmPassword: 'test',
+          errors: {
+            name: [],
+            first_name: [],
+            last_name: [],
+            email: [],
+            city: [],
+            zip_code: [],
+            street: [],
+            description: [],
+            password: [],
+            confirmPassword: [],
+          },
         },
       }
     },
     methods: {
-      async handleLoginForm() {
-        this.errors = {
+      handleRegister() {
+        if (this.accountType == 1) {
+          this.handleSubmitRegisterCompany()
+        } else if (this.accountType == 2) {
+          this.handleSubmitRegisterSchool()
+        } else if (this.accountType == 3) {
+          this.handleSubmitRegisterStudent()
+        }
+      },
+
+      async handleSubmitRegisterStudent() {
+        this.registerFormStudent.errors = {
           first_name: [],
           last_name: [],
           email: [],
@@ -126,26 +160,27 @@
           confirmPassword: [],
         }
 
-        if (!this.loginForm.first_name) {
-          this.errors.first_name.push('Veuillez entrer votre nom')
+
+        if (!this.registerFormStudent.first_name) {
+          this.registerFormStudent.errors.first_name.push('Veuillez entrer votre nom')
         }
-        if (!this.loginForm.last_name) {
-          this.errors.last_name.push('Veuillez entrer votre prénom')
+        if (!this.registerFormStudent.last_name) {
+          this.registerFormStudent.errors.last_name.push('Veuillez entrer votre prénom')
         }
-        if (!this.loginForm.email) {
-          this.errors.email.push('Veuillez entrer votre email')
+        if (!this.registerFormStudent.email) {
+          this.registerFormStudent.errors.email.push('Veuillez entrer votre email')
         }
-        if (!this.loginForm.password) {
-          this.errors.password.push('Veuillez entrer votre mot de passe')
+        if (!this.registerFormStudent.password) {
+          this.registerFormStudent.errors.password.push('Veuillez entrer votre mot de passe')
         }
-        if (!this.loginForm.confirmPassword) {
-          this.errors.confirmPassword.push('Veuillez confirmer votre mot de passe')
+        if (!this.registerFormStudent.confirmPassword) {
+          this.registerFormStudent.errors.confirmPassword.push('Veuillez confirmer votre mot de passe')
         }
-        if (this.loginForm.password !== this.loginForm.confirmPassword) {
-          this.errors.confirmPassword.push('Les mots de passe ne correspondent pas')
+        if (this.registerFormStudent.password !== this.registerFormStudent.confirmPassword) {
+          this.registerFormStudent.errors.confirmPassword.push('Les mots de passe ne correspondent pas')
         }
 
-        if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) return
+        if (Object.entries(this.registerFormStudent.errors).some(([key, val]) => val.length > 0)) return
 
         const response = await fetch('/auth/sign-up/', {
           method: 'POST',
@@ -153,7 +188,7 @@
             "X-CSRFToken": getCookie("csrftoken"),
           },
           body: JSON.stringify({
-            ...this.loginForm,
+            ...this.registerFormStudent,
             accountType: this.accountType
           }),
         })
@@ -163,12 +198,89 @@
           window.location.href = '/auth/sign-in/'
         } else {
           const data = await response.json()
-          this.errors = Object.entries(data).reduce((acc, [key, val]) => {
+          this.registerFormStudent.errors = Object.entries(data).reduce((acc, [key, val]) => {
             return {
               ...acc,
               [key]: val
             }
-          }, this.errors)
+          }, this.registerFormStudent.errors)
+        }
+      },
+
+      async handleSubmitRegisterCompany() {
+        this.registerFormCompany.errors = {
+          name: [],
+          email: [],
+          first_name: [],
+          last_name: [],
+          city: [],
+          zip_code: [],
+          street: [],
+          description: [],
+          password: [],
+          confirmPassword: [],
+        }
+
+        if (!this.registerFormCompany.name) {
+          this.registerFormCompany.errors.name.push('Veuillez entrer un nom d\'entreprise')
+        }
+        if (!this.registerFormCompany.first_name) {
+          this.registerFormCompany.errors.first_name.push('Veuillez entrer le prénom du propriétaire')
+        }
+        if (!this.registerFormCompany.last_name) {
+          this.registerFormCompany.errors.last_name.push('Veuillez entrer le nom du propriétaire')
+        }
+        if (!this.registerFormCompany.city) {
+          this.registerFormCompany.errors.city.push('Veuillez entrer une ville de résidence')
+        }
+        if (!this.registerFormCompany.zip_code) {
+          this.registerFormCompany.errors.zip_code.push('Veuillez entrer un code postal')
+        }
+        if (!this.registerFormCompany.street) {
+          this.registerFormCompany.errors.street.push('Veuillez entrer un numéro et un nom de rue')
+        }
+        if (!this.registerFormCompany.description) {
+          this.registerFormCompany.errors.description.push(
+            'Veuillez renseigner une description de votre activité')
+        }
+        if (!this.registerFormCompany.email) {
+          this.registerFormCompany.errors.email.push('Veuillez entrer votre email')
+        }
+        if (!this.registerFormCompany.password) {
+          this.registerFormCompany.errors.password.push('Veuillez entrer votre mot de passe')
+        }
+        if (!this.registerFormCompany.confirmPassword) {
+          this.registerFormCompany.errors.confirmPassword.push('Veuillez confirmer votre mot de passe')
+        }
+        if (this.registerFormCompany.password !== this.registerFormCompany.confirmPassword) {
+          this.registerFormCompany.errors.confirmPassword.push('Les mots de passe ne correspondent pas')
+        }
+
+
+        if (Object.entries(this.registerFormCompany.errors).some(([key, val]) => val.length > 0)) return
+
+        const response = await fetch('/auth/sign-up/', {
+          method: 'POST',
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({
+            ...this.registerFormCompany,
+            accountType: this.accountType
+          }),
+        })
+
+
+        if (response.status === 200) {
+          window.location.href = '/auth/sign-in/'
+        } else {
+          const data = await response.json()
+          this.registerFormCompany.errors = Object.entries(data).reduce((acc, [key, val]) => {
+            return {
+              ...acc,
+              [key]: val
+            }
+          }, this.registerFormCompany.errors)
         }
       }
     },
@@ -186,9 +298,9 @@
   .fade-leave-to {
     opacity: 0;
   }
+
   .fade-enter-from {
     transition-delay: .5s;
   }
-
 </style>
 {% endblock %}

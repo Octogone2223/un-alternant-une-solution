@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from authentication.models import Company, Student, User
-from .forms import CompanySerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSerializer
+from .forms import CompanySignUpSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSerializer
 from rest_framework import serializers
 
 # Create your views here.
@@ -19,15 +19,25 @@ def sign_up(request):
 
         if bodyJson['accountType'] == '1':
             userSerializer = UserSignUpSerializer(data=bodyJson)
-            companySerializer = CompanySerializer(data=bodyJson)
-            if userSerializer.is_valid() and companySerializer.is_valid():
-                user = User.objects.create_user(userSerializer.valitade_data)
-                company = Company.objects.create(
-                    companySerializer.validated_data)
-                company.user = user.save()
-                company.save()
-                login(request, user)
-                return redirect('sign_in')
+            companySerializer = CompanySignUpSerializer(data=bodyJson)
+            try:
+                userSerializer.__check_email__(bodyJson)
+                if userSerializer.is_valid() and companySerializer.is_valid():
+                    user = User.objects.create_user(
+                        **userSerializer.validated_data
+                    )
+                    company = Company.objects.create(
+                        **companySerializer.validated_data)
+
+                    company.users.add(user)
+
+                    return HttpResponse({'status': 'success'})
+                else:
+                    return HttpResponseBadRequest(json.dumps(userSerializer.errors + companySerializer.errors))
+
+            except serializers.ValidationError as e:
+                return HttpResponseBadRequest(json.dumps(e.detail))
+
             else:
                 return render(request, 'sign_up.html', {'errors': UserSignUpSerializer(data=bodyJson).errors + CompanySerializer(data=bodyJson).errors})
 
