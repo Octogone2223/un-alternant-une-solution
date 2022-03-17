@@ -1,89 +1,79 @@
 {% extends "base.html" %} {% block content %}
-<div class="grid grid-cols-1 lg:grid-cols-2">
-  <div class="flex flex-col items-start justify-start px-8">
-    <div
-      class="my-10 flex flex-col items-center lg:items-start justify-center w-full"
-    >
+<div class="flex flex-col lg:flex-row" v-bind:class="classObject" id="signup">
+  <div class="flex flex-col items-start justify-start px-8 w-full">
+    <div class="my-10 flex flex-col items-center lg:items-start justify-center w-full">
       <h2 class="text-secondary font-bold text-4xl">Inscription</h2>
+      {% csrf_token %}
       <div class="mt-10">
         <h2 class="font-bold">Type de compte:</h2>
         <div class="flex flex-row flex-wrap space-x-5">
           <div class="mt-5 flex flex-row items-center space-x-2">
             <label for="" class="font-medium">Entreprise</label>
-            <input type="radio" name="account_type" class="" />
+            <input type="radio" name="account_type" class="" v-model="accountType" value="1" />
           </div>
           <div class="mt-5 flex flex-row items-center space-x-2">
             <label for="" class="font-medium">École</label>
-            <input type="radio" name="account_type" class="" />
+            <input type="radio" name="account_type" class="" v-model="accountType" value="2" />
           </div>
           <div class="mt-5 flex flex-row items-center space-x-2">
             <label for="" class="font-medium">Étudiant</label>
-            <input type="radio" name="account_type" class="" />
+            <input type="radio" name="account_type" class="" v-model="accountType" value="3" />
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 mt-10 gap-8 w-full">
-        <div class="flex flex-col col-span-2 lg:col-span-1">
-          <label for="" class="font-bold mb-2 hover">Nom:</label>
-          <input
-            type="text"
-            class="rounded-md py-3 px-4 shadow-lg border-2 border-black hover:border-black"
-            placeholder="John"
-          />
-        </div>
-        <div class="flex flex-col col-span-2 lg:col-span-1">
-          <label for="" class="font-bold mb-2 hover">Prénom:</label>
-          <input
-            type="text"
-            class="py-3 px-4 rounded-md shadow-lg border-2 border-black hover:border-black"
-            placeholder="Doe"
-          />
-        </div>
-        <div class="flex flex-col col-span-2">
-          <label for="" class="font-bold mb-2 hover">Email:</label>
-          <input
-            type="email"
-            class="py-3 px-4 rounded-md shadow-lg border-2 border-black hover:border-black"
-            placeholder="johndoe@xxxx.xx"
-          />
-        </div>
-        <div class="flex flex-col col-span-2">
-          <label for="" class="font-bold mb-2 hover">Mot de passe:</label>
-          <input
-            type="password"
-            class="py-3 px-4 rounded-md shadow-lg border-2 border-black hover:border-black"
-            placeholder="•••••••••"
-          />
-        </div>
-        <div class="flex flex-col col-span-2">
-          <label for="" class="font-bold mb-2 hover"
-            >Confirmation mot de passe:</label
-          >
-          <input
-            type="password"
-            class="py-3 px-4 rounded-md shadow-lg border-2 border-black hover:border-black"
-            placeholder="•••••••••"
-          />
-        </div>
-      </div>
-      <div class="mt-10 flex justify-center w-full">
-        <button
-          class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:bg-primary flex justify-center items-center cursor-pointer"
-        >
+      <transition-group mode="out-in">
+        <Transition name="fade">
+          {% include './components/student_signup.html'%}
+        </Transition>
+        <Transition name="fade">
+          {% include './components/company_signup.html'%}
+        </Transition>
+        <Transition name="fade">
+          {% include './components/school_signup.html'%}
+        </Transition>
+      </transition-group>
+
+
+      <div class="mt-10 flex flex-col items-center w-full" v-if="accountType==3">
+        <button @click="handleLoginForm"
+          class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-lg hover:bg-primary flex justify-center items-center cursor-pointer">
           S'inscrire
         </button>
+        <div class="text-secondary mt-4">
+          Déjà un compte ? <a href="/auth/sign-in"
+            class="font-semibold text-primary cursor-pointer hover:text-secondary">Se connecter</a>
+        </div>
       </div>
+
+      <div
+        class="mt-10 space-y-10 lg:space-y-0 w-full flex flex-col lg:flex-row justify-center lg:items-center lg:justify-between"
+        v-if="accountType !=3">
+        <div class="lg:w-3/6">
+          <h3 class="text-secondary font-medium text-2xl mb-5 text-center lg:text-left">Besoin d’aide ?</h3>
+          <p>Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez des difficultés dans vos
+            démarches en ligne ? Pour trouver une réponse ou une solution à votre problème, consultez la foire aux
+            questions du portail de l'alternance.</p>
+        </div>
+        <div class="flex flex-col items-center lg:items-end lg:w-fit">
+          <button @click="handleLoginForm"
+            class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-lg hover:bg-primary flex justify-center items-center cursor-pointer">
+            S'inscrire
+          </button>
+          <div class="text-secondary mt-4">
+            Déjà un compte ? <a href="/auth/sign-in"
+              class="font-semibold text-primary cursor-pointer hover:text-secondary">Se connecter</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-  <div class="hidden lg:block">
-    <div
-      class="bg-blue-500 h-screen flex flex-col justify-center items-center px-10"
-      style="
+  <div class="hidden lg:block" v-if="accountType==3">
+    <div class="h-screen flex flex-col justify-center items-center px-10" style="
         background-image: url('/static/authbackground.png');
         background-repeat: no-repeat;
         background-size: cover;
-      "
-    >
+      ">
       <div class="">
         <h2 class="font-bold text-3xl text-white mb-5">Besoin d'aide ?</h2>
         <p class="text-white">
@@ -97,4 +87,108 @@
   </div>
 </div>
 
+
+
 {% include './components/footer.html' %} {% endblock %}
+
+{% block vueJs %}
+<script>
+  const app2 = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        classObject: {
+          'lg:grid-cols-2': this.activeAccount == 3
+        },
+        accountType: '3',
+        loginForm: {
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        },
+        errors: {
+          first_name: [],
+          last_name: [],
+          email: [],
+          password: [],
+          confirmPassword: [],
+        },
+      }
+    },
+    methods: {
+      async handleLoginForm() {
+        this.errors = {
+          first_name: [],
+          last_name: [],
+          email: [],
+          password: [],
+          confirmPassword: [],
+        }
+
+        if (!this.loginForm.first_name) {
+          this.errors.first_name.push('Veuillez entrer votre nom')
+        }
+        if (!this.loginForm.last_name) {
+          this.errors.last_name.push('Veuillez entrer votre prénom')
+        }
+        if (!this.loginForm.email) {
+          this.errors.email.push('Veuillez entrer votre email')
+        }
+        if (!this.loginForm.password) {
+          this.errors.password.push('Veuillez entrer votre mot de passe')
+        }
+        if (!this.loginForm.confirmPassword) {
+          this.errors.confirmPassword.push('Veuillez confirmer votre mot de passe')
+        }
+        if (this.loginForm.password !== this.loginForm.confirmPassword) {
+          this.errors.confirmPassword.push('Les mots de passe ne correspondent pas')
+        }
+
+        if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) return
+
+        const response = await fetch('/auth/sign-up/', {
+          method: 'POST',
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({
+            ...this.loginForm,
+            accountType: this.accountType
+          }),
+        })
+
+
+        if (response.status === 200) {
+          window.location.href = '/auth/sign-in/'
+        } else {
+          const data = await response.json()
+          this.errors = Object.entries(data).reduce((acc, [key, val]) => {
+            return {
+              ...acc,
+              [key]: val
+            }
+          }, this.errors)
+        }
+      }
+    },
+  }).mount('#signup')
+</script>
+
+<style>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  .fade-enter-from {
+    transition-delay: .5s;
+  }
+</style>
+{% endblock %}
