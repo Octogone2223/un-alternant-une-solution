@@ -21,50 +21,31 @@
             <button class="rounded-full bg-primary text-white p-4 w-full">Rechercher</button>
         </div>
     </div>
-    <div class="w-full flex">
-        <div class="basis-1/3  h-[800px] overflow-auto cursor-pointer">
-            {% for job in jobs %}
-            <div class="bg-white shadow-lg h-[300px] rounded-xl overflow-hidden m-2 p-4 flex flex-col"
-                data-job-id="{{ job.id }}" @click="getJobDetail">
-                <h1 class="font-bold text-secondary">{{ job.name }}</h1>
-                <p class="uppercase mt-3">{{ job.company }}</p>
-                <p class="uppercase mt-3">
-                    {% if job.location %}
-                    {{job.location}}</p>
-                {% else %}
-                44000 Nantes
-                {% endif %}
-                <p class="italic mt-3">{{ job.description |slice:"0:250" }} ...</p>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="basis-2/3">
-            <div class="bg-white shadow-lg rounded-xl m-2 p-4 flex flex-col w-full border-solid border-black border-2"
-                v-if="!job">
-                <h1 class="font-bold text-secondary">{{ jobs.0.name }}</h1>
-                <p class="uppercase mt-3">{{ jobs.0.company }}</p>
-                <p class="uppercase mt-3">
-                    {% if jobs.0.location %}
-                    {{jobs.0.location}}</p>
-                {% else %}
-                44000 Nantes
-                {% endif %}
-                <p class="italic my-3">{{ jobs.0.description }}</p>
-                <button href="/jobs/{{ jobs.0.id }}"
-                    class="bg-secondary rounded-xl text-white p-4 w-full mt-auto uppercase mt-12">postuler</button>
-            </div>
-            <div class="bg-white shadow-lg rounded-xl m-2 p-4 flex flex-col w-full border-solid border-black border-2"
-                v-else>
-                <h1 class="font-bold text-secondary">[[ job.name ]]</h1>
-                <p class="uppercase mt-3">[[ job.company ]]</p>
-                <p class="uppercase mt-3">
-                    44000 Nantes
-                </p>
-                <p class="italic my-3">[[ job.description ]]</p>
-                <button href="/jobs/[[ job.id ]]"
-                    class="bg-secondary rounded-xl text-white p-4 w-full mt-auto uppercase mt-12">postuler</button>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-20">
+        <div class="">
+            <!-- Single Job Post -->
+            <div
+                class="bg-white shadow-lg h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll">
+                <h2 class="font-bold">Développeur JAVA/J2EE H/F - POEI</h2>
+
+                <p class="uppercase">Talent RH</p>
+
+                <p class="uppercase">44000</p>
+
+                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi maxime veniam in illum dolore
+                    atque ipsa nemo consequatur, hic sunt, odio incidunt nulla. Voluptatum laborum hic facilis debitis
+                    optio quod?</p>
+
+                <button class="block lg:hidden bg-secondary">Postuler</button>
+
+                <div class="self-baseline">
+                    <p>Il y'a 2 jours.</p>
+                </div>
             </div>
         </div>
+
+        <div class="hidden lg:block lg:col-span-2 h-screen bg-white border-[2px] border-secondary rounded-lg"></div>
     </div>
 </div>
 
