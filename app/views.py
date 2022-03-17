@@ -9,5 +9,4 @@ def home(request):
 
 @login_required(login_url='authentication:sign_in')
 def profile(request):
-    
-    return render(request, "profile.html", {'typeUser' :request.user.getUserType() })
+    return render(request, "profile.html", {'typeUser': request.user.getUserType()})
