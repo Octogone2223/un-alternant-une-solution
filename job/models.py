@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
-
+from authentication.models import Company
 # Create your models here.
 
 
@@ -31,6 +31,12 @@ class Job(models.Model):
     api_id = models.CharField(max_length=255, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+
+    company = models.ForeignKey(
+        Company, on_delete=models.CASCADE, related_name='job_company+')
+
+    def __str__(self):
+        return self.name
 
     def __str__(self):
         return self.name

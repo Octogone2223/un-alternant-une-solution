@@ -77,7 +77,7 @@
       </Transition>
 
       <div class="mt-10 flex justify-center w-full">
-        <button @click="handleLoginForm"
+        <button @click="handleSubmitLoginForm"
           class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:bg-primary flex justify-center items-center cursor-pointer">
           S'inscrire
         </button>
@@ -131,7 +131,7 @@
       }
     },
     methods: {
-      async handleLoginForm() {
+      async handleSubmitLoginForm() {
         this.errors = {
           first_name: [],
           last_name: [],

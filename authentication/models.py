@@ -2,7 +2,6 @@ from django.db import models
 from django.core.validators import EmailValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-from job.models import Job
 # Create your models here.
 
 
@@ -95,7 +94,7 @@ class Company(models.Model):
         max_length=75, verbose_name="Zip Code", null=True)
     user_companies = models.ManyToManyField(
         User, through='UserCompany')  # ! check
-    jobs = models.ManyToManyField(Job)
+    jobs = models.ManyToManyField('job.Job', related_name='company_jobs+')
 
     def __str__(self):
         return f'{self.name}'
