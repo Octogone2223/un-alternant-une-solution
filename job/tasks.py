@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from ctypes import Array
 import datetime
 from time import time
 import requests
@@ -6,7 +7,7 @@ from authentication.models import Company
 import json
 
 from job.celery import app as celery_app
-from job.models import Job, JobCode, LastIndexApi
+from job.models import Job, JobCode, JobIdFromPreviousRequest, LastIndexApi
 
 
 @celery_app.task
@@ -15,11 +16,17 @@ def get_api_data():
         pk=1, defaults={'last_index': 0})
 
     job_codes = JobCode.objects.all().order_by(
-        'id').filter(pk__gt=last_index_api.last_index)[:9]
+        'code', 'id').distinct('code').filter(pk__gt=last_index_api.last_index)[:9]
 
     if job_codes.count() == 0:
         job_codes = JobCode.objects.all().order_by(
             'id').filter(pk__gt=0)[:9]
+
+        LastIndexApi.objects.filter(pk=1).update(
+            last_index=0)
+    else:
+        LastIndexApi.objects.filter(pk=1).update(
+            last_index=list(job_codes.values_list('id', flat=True))[-1])
 
     job_codes_comma = ','.join(str(job_code.code) for job_code in job_codes)
 
@@ -29,26 +36,31 @@ def get_api_data():
     if response.status_code != 200:
         return
 
-    if job_codes.count() != 0:
-        LastIndexApi.objects.filter(pk=1).update(
-            last_index=last_index_api.last_index + 9)
-    else:
-        LastIndexApi.objects.filter(pk=1).update(
-            last_index=9)
-
     response_json = json.loads(response.text)
+    listJobIdFromResponse = []
 
     for result in response_json['peJobs']['results']:
         company = createCompany(result['company'])
+        listJobIdFromResponse.append(result['job']['id'])
 
         if company is not None:
             createJob(result, company)
 
     for result in response_json['matchas']['results']:
         company = createCompany(result['company'])
+        listJobIdFromResponse.append(result['job']['id'])
 
         if company is not None:
             createJob(result, company)
+
+    jobs_codes_request = list(map(lambda x: x.code, job_codes))
+
+    deleteOldJobs(listJobIdFromResponse, jobs_codes_request)
+
+    JobIdFromPreviousRequest.objects.create(
+        job_ids=listJobIdFromResponse,
+        job_codes=jobs_codes_request
+    )
 
 
 def createCompany(company):
@@ -118,3 +130,15 @@ def createJob(request, company):
         )
         company.jobs.add(job)
         return job
+
+
+def deleteOldJobs(listJobIdFromResponse, jobs_codes_request):
+    old_jobs = JobIdFromPreviousRequest.objects.filter(
+        job_codes__contains=jobs_codes_request)
+
+    for old_job in old_jobs:
+        for old_job_id in old_job.job_ids:
+            if old_job_id not in listJobIdFromResponse:
+                job = Job.objects.get(api_id=old_job_id)
+                job.delete()
+                old_job.delete()

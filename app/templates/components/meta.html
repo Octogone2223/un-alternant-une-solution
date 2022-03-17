@@ -1,36 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% load static %}
 
-    <link rel="stylesheet" href="{% static 'styles/css/app.css' %}" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
 
-    {# HOT RELOAD SCRIPT #}
-    <script src="https://livejs.com/live.js" defer></script>
+  <link rel="stylesheet" href="{% static 'styles/css/app.css' %}" />
 
-    {# FONT AWESOME SCRIPT #}
-    <script src="https://gistcdn.githack.com/Lilian-MMI/f23496a8c50ca94d62ec20d0d3591851/raw/52867fe3589247dd300846262e0a71866326cfd6/fontawesome.min.js"></script>
+  {# HOT RELOAD SCRIPT #}
+  <script src="https://livejs.com/live.js" defer></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#00AFB9",
-              secondary: "#243A48",
-            },
+  {# FONT AWESOME SCRIPT #}
+  <script
+    src="https://gistcdn.githack.com/Lilian-MMI/f23496a8c50ca94d62ec20d0d3591851/raw/52867fe3589247dd300846262e0a71866326cfd6/fontawesome.min.js">
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00AFB9",
+            secondary: "#243A48",
           },
         },
-      };
-    </script>
+      },
+    };
+  </script>
 
-    {# VUEJS #}
-    <script src="https://unpkg.com/vue@3"></script>
+  {# VUEJS #}
+  <script src="https://unpkg.com/vue@3"></script>
 
-    <title>1alternant1solution {% if title %}- {{title}}{% endif %}</title>
-  </head>
+  <script>
+    const getCookie = (c_name) => {
+      if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+          c_start = c_start + c_name.length + 1;
+          c_end = document.cookie.indexOf(";", c_start);
+          if (c_end == -1) c_end = document.cookie.length;
+          return unescape(document.cookie.substring(c_start, c_end));
+        }
+      }
+      return "";
+    }
+  </script>
+
+  <title>1alternant1solution {% if title %}- {{title}}{% endif %}</title>
+</head>
+
 </html>

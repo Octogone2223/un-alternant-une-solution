@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -65,3 +66,14 @@ class LastIndexApi(models.Model):
 
     def __str__(self):
         return self.last_index
+
+
+class JobIdFromPreviousRequest(models.Model):
+    class Meta:
+        db_table = "job_id_from_previous_request"
+
+    job_codes = ArrayField(base_field=models.CharField(max_length=255))
+    job_ids = ArrayField(base_field=models.CharField(max_length=255))
+
+    def __str__(self):
+        return self.job_id
