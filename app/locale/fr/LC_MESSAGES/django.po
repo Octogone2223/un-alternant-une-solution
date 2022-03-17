@@ -5,17 +5,22 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Language: \n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"POT-Creation-Date: 2022-03-17 09:13+0100\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"Content-Transfer-Encoding: 8bit"
+"POT-Creation-Date: 2022-03-17 11:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app/templates/components/footer.html:11
+#: app/templates/components/navbar.html:11
+msgid "APropos"
+msgstr "À Propos"
 
 #: app/templates/components/home/hero.html:7
 msgid "HomeHeroSentences1"
@@ -33,18 +38,65 @@ msgstr "Je suis étudiant"
 msgid "IamCompany"
 msgstr "Je suis employeur"
 
+#: app/templates/components/home/section1.html:4
+msgid "S1Title"
+msgstr "Votre alternance en quelques cliques"
+
+#: app/templates/components/home/section1.html:9
+msgid "SAtitle"
+msgstr "Le job de vos rêves"
+
+#: app/templates/components/home/section1.html:11
+msgid "SAmessage"
+msgstr ""
+"Renseignez le métier que vous souhaitez faire et la localisation (Ville ou "
+"Code postal)."
+
+#: app/templates/components/home/section1.html:16
+msgid "SBtitle"
+msgstr "En un clin d'oeil"
+
+#: app/templates/components/home/section1.html:18
+msgid "SBmessage"
+msgstr ""
+"Obtenez la liste des formations et entreprises proches de chez vous dans le "
+"domaine recherché."
+
+#: app/templates/components/home/section1.html:23
+msgid "SCtitle"
+msgstr "Un contact facile"
+
+#: app/templates/components/home/section1.html:25
+msgid "SCmessage"
+msgstr ""
+"Contactez facilement les centres de formation ou les entreprises pour "
+"postuler."
+
+#: app/templates/components/home/section2.html:7
+msgid "HelpNeed"
+msgstr "Besoin d'aide ?"
+
+#: app/templates/components/home/section2.html:8
+msgid "HelpNeedMessage"
+msgstr ""
+"Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez "
+"des difficultés dans vos démarches en ligne ? Pour trouver une réponse ou "
+"une solution à votre problème, consultez la foire aux questions du portail "
+"de l'alternance."
+
+#: app/templates/components/navbar.html:9
 msgid "Home"
 msgstr "Accueil"
 
+#: app/templates/components/navbar.html:10
 msgid "Apprenticeship"
 msgstr "Alternances"
 
-msgid "APropos"
-msgstr "À Propos"
-
+#: app/templates/components/navbar.html:12
 msgid "Courses"
 msgstr "Formations"
 
+#: app/templates/components/navbar.html:21
 msgid "Assistance"
 msgstr "Assistance"
 
@@ -57,45 +109,5 @@ msgstr "Inscription"
 msgid "Déconnexion"
 msgstr "Déconnexion"
 
-msgid "Section1Title.Section1Atitle.Section1Amessage"
-msgstr ""
-
-msgid "HelpNeed"
-msgstr "Besoin d'aide ?"
-
 msgid "SBTtitle"
 msgstr "En un clin d’œil"
-
-msgid "SBmessage"
-msgstr ""
-"Obtenez la liste des formations et entreprises proches de chez vous dans le "
-"domaine recherché."
-
-msgid "S1Title"
-msgstr "Votre alternance en quelques cliques"
-
-msgid "SAtitle"
-msgstr "Le job de vos rêves"
-
-msgid "SCtitle"
-msgstr "Un contact facile"
-
-msgid "SAmessage"
-msgstr ""
-"Renseignez le métier que vous souhaitez faire et la localisation (Ville ou "
-"Code postal)."
-
-msgid "SCmessage"
-msgstr ""
-"Contactez facilement les centres de formation ou les entreprises pour "
-"postuler."
-
-msgid "HelpNeedMessage"
-msgstr ""
-"Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez "
-"des difficultés dans vos démarches en ligne ? Pour trouver une réponse ou "
-"une solution à votre problème, consultez la foire aux questions du portail "
-"de l'alternance."
-
-msgid "SBtitle"
-msgstr "En un clin d'oeil"

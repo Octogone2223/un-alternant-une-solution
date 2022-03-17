@@ -5,17 +5,22 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Language: zh\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"POT-Creation-Date: 2022-03-17 09:13+0100\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"Content-Transfer-Encoding: 8bit"
+"POT-Creation-Date: 2022-03-17 11:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: app/templates/components/footer.html:11
+#: app/templates/components/navbar.html:11
+msgid "APropos"
+msgstr "关于我们"
 
 #: app/templates/components/home/hero.html:7
 msgid "HomeHeroSentences1"
@@ -33,18 +38,57 @@ msgstr "我是一名学生"
 msgid "IamCompany"
 msgstr "我是一名雇主"
 
+#: app/templates/components/home/section1.html:4
+msgid "S1Title"
+msgstr "你的工作经验只需点击几下"
+
+#: app/templates/components/home/section1.html:9
+msgid "SAtitle"
+msgstr "你的梦想工作"
+
+#: app/templates/components/home/section1.html:11
+msgid "SAmessage"
+msgstr "输入你想从事的职业和地点（城市或邮政编码）。"
+
+#: app/templates/components/home/section1.html:16
+msgid "SBtitle"
+msgstr "在一眨眼的时间里"
+
+#: app/templates/components/home/section1.html:18
+msgid "SBmessage"
+msgstr "获取你附近的培训课程和公司名单，这些都是你所寻找的领域。"
+
+#: app/templates/components/home/section1.html:23
+msgid "SCtitle"
+msgstr "轻松接触"
+
+#: app/templates/components/home/section1.html:25
+msgid "SCmessage"
+msgstr "轻松地联系培训中心或公司来申请。"
+
+#: app/templates/components/home/section2.html:7
+msgid "HelpNeed"
+msgstr "需要帮助吗？"
+
+#: app/templates/components/home/section2.html:8
+msgid "HelpNeedMessage"
+msgstr ""
+"没有找到你要找的信息？你的在线程序是否遇到了困难？要找到答案或解决你的问题，"
+"请查阅工作联系培训门户网站的常见问题。"
+
+#: app/templates/components/navbar.html:9
 msgid "Home"
 msgstr "首页"
 
+#: app/templates/components/navbar.html:10
 msgid "Apprenticeship"
 msgstr "替代方案"
 
-msgid "APropos"
-msgstr "关于我们"
-
+#: app/templates/components/navbar.html:12
 msgid "Courses"
 msgstr "培训"
 
+#: app/templates/components/navbar.html:21
 msgid "Assistance"
 msgstr "支持"
 
@@ -57,35 +101,5 @@ msgstr "注册"
 msgid "Déconnexion"
 msgstr "登出"
 
-msgid "Section1Title.Section1Atitle.Section1Amessage"
-msgstr ""
-
-msgid "HelpNeed"
-msgstr "需要帮助吗？"
-
 msgid "SBTtitle"
 msgstr "一目了然"
-
-msgid "SBmessage"
-msgstr "获取你附近的培训课程和公司名单，这些都是你所寻找的领域。"
-
-msgid "S1Title"
-msgstr "你的工作经验只需点击几下"
-
-msgid "SAtitle"
-msgstr "你的梦想工作"
-
-msgid "SCtitle"
-msgstr "轻松接触"
-
-msgid "SAmessage"
-msgstr "输入你想从事的职业和地点（城市或邮政编码）。"
-
-msgid "SCmessage"
-msgstr "轻松地联系培训中心或公司来申请。"
-
-msgid "HelpNeedMessage"
-msgstr "没有找到你要找的信息？你的在线程序是否遇到了困难？要找到答案或解决你的问题，请查阅工作联系培训门户网站的常见问题。"
-
-msgid "SBtitle"
-msgstr "在一眨眼的时间里"
