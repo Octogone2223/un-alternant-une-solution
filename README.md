@@ -39,11 +39,7 @@ Le cours a été dispensé par [Antoine NGUYEN](https://github.com/tonioo).
 2. Ajouter les variables d'environnement dans un fichier .env à la racine du projet
 
   ```bin
-    DATABASE_PASSWORD=YOUR_DATABASE_PASSWORD
-    DATABASE_USER=YOUR_DATABASE_USERNAME
-    DATABASE_NAME=YOUR_DATABASE_NAME
-    DATABASE_HOST=YOUR_DATABASE_HOST
-    DATABASE_PORT=YOUR_DATABASE_PORT (5432 is default)
+    DATABASE_URL = postgres://YOUR_DATABASE_USERNAME:YOUR_DATABASE_PASSWORD@YOUR_DATABASE_HOST/YOUR_DATABASE_NAME:5432
   ```
 
 3. Lancer une migration la base de données
