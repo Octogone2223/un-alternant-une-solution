@@ -1,59 +1,137 @@
 {% extends "base.html" %}
 
-
+{% load i18n %}
 {% block content %}
 
-    <div class="grid grid-cols-1 md:grid-cols-2">
-        <div style="background-image:url('/static/img/rick-roll-rick-ashley.gif')" class="bg-cover bg-no-repeat hidden md:flex h-screen flex-col justify-center">
-            <div class="px-28 text-white">
-                <div class="font-bold text-3xl mb-7">
-                    Besoin d’aide ?
-                </div>
-                <div>
-                    Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez des difficultés dans vos démarches en ligne ? Pour trouver une réponse ou une solution à votre problème, consultez la foire aux questions du portail de l'alternance.
-                </div>
+<div class="grid grid-cols-1 md:grid-cols-2">
+    <div style="background-image:url('/static/img/authbackground.png')"
+        class="bg-cover bg-no-repeat hidden md:flex h-screen flex-col justify-center">
+        <div class="px-28 text-white">
+            <div class="font-bold text-3xl mb-7">
+                {% trans 'HelpNeed' %}
             </div>
-        </div>
-        <div class="h-screen flex flex-col justify-center">
-            <div class="px-32">
-                <div class="font-bold text-3xl">
-                    Connexion
-                </div>
-                <div class="mt-10">
-                    <label class="block mb-3">
-                        <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-                        Email
-                        </span>
-                        <input type="email" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="you@example.fr" />
-                    </label>
-                    <label class="block">
-                        <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-                        Mot de passe
-                        </span>
-                        <input type="password" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="**********" />
-                    </label>
-                </div>
-                <div class="mt-10 flex flex-col items-center">
-
-                    <button class="w-1/2 mb-5 text-white bg-secondary focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Connexion</button>
-                    <p>Pas encore de compte ? <a class="cursor-pointer text-blue-300"> s'inscrire</a></p>
-                </div>
-
-
+            <div>
+                {% trans 'HelpNeedMessage' %}
             </div>
         </div>
     </div>
+    <div class="h-screen flex flex-col justify-center">
+        <div class="px-32">
+            <div class="font-bold text-3xl">
+                {% trans 'Connexion' %}
+            </div>
+            {% csrf_token %}
+            <div class="mt-10">
+                <label class="block mb-3">
+                    <span
+                        class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                        Email
+                    </span>
+                    <input type="email" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400
+                        focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm
+                        focus:ring-1" :class="{'border-red-500': errors.email.length}" @focus="errors.email=[]"
+                        placeholder="you@example.fr" v-model="loginForm.email" />
+                    <div v-if="errors.email.length">
+                        <span class="text-red-500 text-xs italic" v-for="error in errors.email" :key="error">
+                            [[ error ]]</span>
+                    </div>
+                </label>
+                <label class="block">
+                    <span
+                        class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                        Mot de passe
+                    </span>
+                    <input type="password" name="password" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400
+                        focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm
+                        focus:ring-1" :class="{'border-red-500': errors.password.length}" @focus="errors.password=[]"
+                        placeholder="**********" v-model="loginForm.password" />
+                    <div v-if="errors.password.length">
+                        <span class="text-red-500 text-xs italic" v-for="error in errors.password" :key="error">
+                            [[ error ]]</span>
+                    </div>
+                </label>
+            </div>
+            <div class="mt-10 flex flex-col items-center">
+
+                <button class="w-1/2 mb-5 text-white bg-secondary focus:ring-4 focus:ring-purple-300 font-medium rounded-lg
+                    text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700
+                    dark:focus:ring-purple-900" @click="handleSubmitLoginForm">{% trans 'Connexion' %}</button>
+                <p>Pas encore de compte ? <a href="{% url 'authentication:sign_up' %}" class="cursor-pointer text-blue-300">{% trans 'Inscription' %}</a></p>
+            </div>
 
 
-    {% include './components/footer.html' %}
+        </div>
+    </div>
+</div>
+
+
+{% include './components/footer.html' %}
 
 {% endblock %}
 
-
-
-
 {% block vueJs %}
 <script>
-    
+    const app = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                loginForm: {
+                    email: "",
+                    password: "",
+                },
+                errors: {
+                    email: '',
+                    password: ''
+                },
+            }
+        },
+        methods: {
+            async handleSubmitLoginForm() {
+                this.errors = {
+                    email: [],
+                    password: [],
+                }
+
+                if (!this.loginForm.email) {
+                    this.errors.email = 'Veuillez renseigner votre email';
+                }
+
+                if (!this.loginForm.password) {
+                    this.errors.password = 'Veuillez renseigner votre mot de passe';
+                }
+
+                if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) return
+
+                const response = await fetch('/auth/sign-in/', {
+                    method: 'POST',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    },
+                    body: JSON.stringify({
+                        ...this.loginForm,
+                    }),
+                })
+
+                if (response.status === 200) {
+                    window.location.href = '/auth/private-test/'
+                }
+
+                if (response.status === 401) {
+                    this.errors.email = 'Email ou mot de passe incorrect';
+                    return
+                }
+
+                const data = await response.json()
+                this.errors = Object.entries(data).reduce((acc, [key, val]) => {
+                    return {
+                        ...acc,
+                        [key]: val
+                    }
+                }, this.errors)
+            }
+        },
+        watch: {}
+    }).mount('#app')
 </script>
+
 {% endblock %}

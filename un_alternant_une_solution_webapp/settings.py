@@ -35,7 +35,6 @@ SECRET_KEY = 'django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,13 +46,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_sass',
     'authentication',
-    'app',
     'job',
+    'app',
+    'rest_framework'
 ]
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 1  # 1 day
+
+LOGIN_URL = 'auth/sign_in/'
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -69,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -99,20 +104,23 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'un_alternant_une_solution_webapp.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+url = env('DATABASE_URL')
+DATABASE_HOST = ((url.split('/')[2]).split(':')[1]).split('@')[1]
+DATABASE_NAME = url.split('/')[3]
+DATABASE_PASSWORD = ((url.split('/')[2]).split(':')[1]).split('@')[0]
+DATABASE_PORT = 5432
+DATABASE_USER = (url.split('/')[2]).split(':')[0]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
+        'NAME': url.split('/')[3],
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
     }
 }
 
@@ -181,3 +189,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
+
+
+USE_I18N = True
+LANGUAGE_CODE = 'fr'
+LANGUAGES = [
+    ('fr', 'Français'),
+    ('en', 'English'),
+    ('cn', 'China')
+]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'app'),
+    os.path.join(BASE_DIR, 'job'),
+    os.path.join(BASE_DIR, 'authentifcation'),
+]
