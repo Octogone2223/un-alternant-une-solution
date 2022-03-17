@@ -5,8 +5,8 @@ from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from authentication.models import Company, Student, User
-from .forms import CompanySignUpSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSerializer
+from authentication.models import Company, Student, User, School
+from .forms import CompanySignUpSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSignUpSerializer
 from rest_framework import serializers
 
 # Create your views here.
@@ -42,15 +42,31 @@ def sign_up(request):
                 return render(request, 'sign_up.html', {'errors': UserSignUpSerializer(data=bodyJson).errors + CompanySerializer(data=bodyJson).errors})
 
         elif bodyJson['accountType'] == '2':
-            if UserSignUpSerializer(data=bodyJson).is_valid() and SchoolSerializer(data=bodyJson).is_valid():
-                user = UserSignUpSerializer(data=bodyJson)
-                school = SchoolSerializer(data=bodyJson)
-                school.user = user.save()
-                user.save()
-                login(request, user)
-                return redirect('sign_in')
-            else:
-                return render(request, 'sign_up.html', {'errors': UserSignUpSerializer(data=bodyJson).errors + SchoolSerializer(data=bodyJson).errors})
+            userSerializer = UserSignUpSerializer(data=bodyJson)
+            schoolSerializer = SchoolSignUpSerializer(data=bodyJson)
+
+            try:
+                userSerializer.__check_email__(bodyJson)
+                is_valide_user = userSerializer.is_valid()
+                is_valide_school = schoolSerializer.is_valid()
+                if is_valide_user and is_valide_school:
+                    user = User.objects.create_user(
+                        **userSerializer.validated_data
+                    )
+                    school = School.objects.create(
+                        **schoolSerializer.validated_data)
+
+                    school.users.add(user)
+
+                    return HttpResponse({'status': 'success'})
+                else:
+                    all_errors = dict(userSerializer.errors |
+                                      schoolSerializer.errors)
+                    print(all_errors)
+                    return HttpResponseBadRequest(json.dumps(all_errors))
+
+            except serializers.ValidationError as e:
+                return HttpResponseBadRequest(json.dumps(e.detail))
 
         elif bodyJson['accountType'] == '3':
             userSerializer = UserSignUpSerializer(data=bodyJson)

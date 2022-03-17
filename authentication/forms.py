@@ -43,7 +43,11 @@ class CompanySignUpSerializer(serializers.Serializer):
     zip_code = serializers.CharField()
 
 
-class SchoolSerializer(serializers.ModelSerializer):
+class SchoolSignUpSerializer(serializers.Serializer):
     class Meta:
         model = School
-        fields = ('name', 'city', 'street', 'zip_code')
+
+    name = serializers.CharField()
+    city = serializers.CharField()
+    street = serializers.CharField()
+    zip_code = serializers.CharField()

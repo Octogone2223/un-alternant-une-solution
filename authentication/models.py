@@ -125,18 +125,7 @@ class School(models.Model):
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
-    userSchools = models.ManyToManyField(User, through='UserSchool')
+    users = models.ManyToManyField(User)
 
     def __str__(self):
         return f'{self.name}'
-
-
-class UserSchool(models.Model):
-    class Meta:
-        db_table = "user_school"
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    school = models.OneToOneField(School, on_delete=models.CASCADE)  # ! check
-
-    def __str__(self):
-        return f'{self.user}'

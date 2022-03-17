@@ -99,7 +99,7 @@
         classObject: {
           'lg:grid-cols-2': this.activeAccount == 3
         },
-        accountType: '1',
+        accountType: '2',
         registerFormStudent: {
           first_name: '',
           last_name: '',
@@ -115,16 +115,16 @@
           },
         },
         registerFormCompany: {
-          name: 'test',
+          name: '',
           first_name: '',
           last_name: '',
-          email: 'test',
-          city: 'test',
-          zip_code: 'test',
-          street: 'test',
-          description: 'test',
-          password: 'test',
-          confirmPassword: 'test',
+          email: '',
+          city: '',
+          zip_code: '',
+          street: '',
+          description: '',
+          password: '',
+          confirmPassword: '',
           errors: {
             name: [],
             first_name: [],
@@ -138,6 +138,30 @@
             confirmPassword: [],
           },
         },
+        registerFormSchool: {
+          name: '',
+          first_name: '',
+          last_name: '',
+          email: '',
+          city: '',
+          zip_code: '',
+          street: '',
+          description: '',
+          password: '',
+          confirmPassword: '',
+          errors: {
+            name: [],
+            first_name: [],
+            last_name: [],
+            email: [],
+            city: [],
+            zip_code: [],
+            street: [],
+            description: [],
+            password: [],
+            confirmPassword: [],
+          },
+        }
       }
     },
     methods: {
@@ -146,8 +170,34 @@
           this.handleSubmitRegisterCompany()
         } else if (this.accountType == 2) {
           this.handleSubmitRegisterSchool()
-        } else if (this.accountType == 3) {
+        } else {
           this.handleSubmitRegisterStudent()
+        }
+      },
+
+      async register(form) {
+        const response = await fetch('/auth/sign-up/', {
+          method: 'POST',
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({
+            ...form,
+            accountType: this.accountType
+          }),
+        })
+
+
+        if (response.status === 200) {
+          window.location.href = '/auth/sign-in/'
+        } else {
+          const data = await response.json()
+          form.errors = Object.entries(data).reduce((acc, [key, val]) => {
+            return {
+              ...acc,
+              [key]: val
+            }
+          }, form.errors)
         }
       },
 
@@ -182,29 +232,7 @@
 
         if (Object.entries(this.registerFormStudent.errors).some(([key, val]) => val.length > 0)) return
 
-        const response = await fetch('/auth/sign-up/', {
-          method: 'POST',
-          headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
-          },
-          body: JSON.stringify({
-            ...this.registerFormStudent,
-            accountType: this.accountType
-          }),
-        })
-
-
-        if (response.status === 200) {
-          window.location.href = '/auth/sign-in/'
-        } else {
-          const data = await response.json()
-          this.registerFormStudent.errors = Object.entries(data).reduce((acc, [key, val]) => {
-            return {
-              ...acc,
-              [key]: val
-            }
-          }, this.registerFormStudent.errors)
-        }
+        await this.register(this.registerFormStudent)
       },
 
       async handleSubmitRegisterCompany() {
@@ -259,31 +287,60 @@
 
         if (Object.entries(this.registerFormCompany.errors).some(([key, val]) => val.length > 0)) return
 
-        const response = await fetch('/auth/sign-up/', {
-          method: 'POST',
-          headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
-          },
-          body: JSON.stringify({
-            ...this.registerFormCompany,
-            accountType: this.accountType
-          }),
-        })
+        await this.register(this.registerFormCompany)
+      },
 
-
-        if (response.status === 200) {
-          window.location.href = '/auth/sign-in/'
-        } else {
-          const data = await response.json()
-          this.registerFormCompany.errors = Object.entries(data).reduce((acc, [key, val]) => {
-            return {
-              ...acc,
-              [key]: val
-            }
-          }, this.registerFormCompany.errors)
+      async handleSubmitRegisterSchool() {
+        this.registerFormSchool.errors = {
+          name: [],
+          email: [],
+          first_name: [],
+          last_name: [],
+          city: [],
+          zip_code: [],
+          street: [],
+          password: [],
+          confirmPassword: [],
         }
-      }
+
+        if (!this.registerFormSchool.name) {
+          this.registerFormSchool.errors.name.push('Veuillez entrer un nom d\'entreprise')
+        }
+        if (!this.registerFormSchool.first_name) {
+          this.registerFormSchool.errors.first_name.push('Veuillez entrer le prénom du propriétaire')
+        }
+        if (!this.registerFormSchool.last_name) {
+          this.registerFormSchool.errors.last_name.push('Veuillez entrer le nom du propriétaire')
+        }
+        if (!this.registerFormSchool.city) {
+          this.registerFormSchool.errors.city.push('Veuillez entrer une ville de résidence')
+        }
+        if (!this.registerFormSchool.zip_code) {
+          this.registerFormSchool.errors.zip_code.push('Veuillez entrer un code postal')
+        }
+        if (!this.registerFormSchool.street) {
+          this.registerFormSchool.errors.street.push('Veuillez entrer un numéro et un nom de rue')
+        }
+        if (!this.registerFormSchool.email) {
+          this.registerFormSchool.errors.email.push('Veuillez entrer votre email')
+        }
+        if (!this.registerFormSchool.password) {
+          this.registerFormSchool.errors.password.push('Veuillez entrer votre mot de passe')
+        }
+        if (!this.registerFormSchool.confirmPassword) {
+          this.registerFormSchool.errors.confirmPassword.push('Veuillez confirmer votre mot de passe')
+        }
+        if (this.registerFormSchool.password !== this.registerFormSchool.confirmPassword) {
+          this.registerFormSchool.errors.confirmPassword.push('Les mots de passe ne correspondent pas')
+        }
+
+        if (Object.entries(this.registerFormSchool.errors).some(([key, val]) => val.length > 0)) return
+
+        await this.register(this.registerFormSchool)
+      },
+
     },
+
 
   }).mount('#signup')
 </script>

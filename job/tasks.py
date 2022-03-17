@@ -13,10 +13,14 @@ from job.models import Job, JobCode, JobIdFromPreviousRequest, LastIndexApi
 @celery_app.task
 def get_api_data():
     last_index_api, created = LastIndexApi.objects.get_or_create(
-        pk=1, defaults={'last_index': 0})
+        pk=1, defaults={'last_index': 0, "pk": 1})
 
-    job_codes = JobCode.objects.all().order_by(
-        'code', 'id').distinct('code').filter(pk__gt=last_index_api.last_index)[:9]
+    if created:
+        job_codes = JobCode.objects.all().order_by(
+            'code', 'id').distinct('code').filter(pk__gt=created.last_index)[:9]
+    else:
+        job_codes = JobCode.objects.all().order_by(
+            'code', 'id').distinct('code').filter(pk__gt=last_index_api.last_index)[:9]
 
     if job_codes.count() == 0:
         job_codes = JobCode.objects.all().order_by(
