@@ -31,6 +31,7 @@ services:
       - redis
     environment:
       DATABASE_HOST: "db"
+      DATABASE_URL: postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}
     networks:
       - backend
       

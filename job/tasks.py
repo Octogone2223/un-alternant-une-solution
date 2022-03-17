@@ -139,6 +139,7 @@ def deleteOldJobs(listJobIdFromResponse, jobs_codes_request):
     for old_job in old_jobs:
         for old_job_id in old_job.job_ids:
             if old_job_id not in listJobIdFromResponse:
+                print(f'Delete job {old_job_id}')
                 job = Job.objects.get(api_id=old_job_id)
                 job.delete()
                 old_job.delete()
