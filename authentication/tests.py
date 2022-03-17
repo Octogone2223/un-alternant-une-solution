@@ -24,6 +24,7 @@ class AuthenticationTests(TestCase):
     # Student sign up
     def test_student_signup(self):
         response = self.client.post(
+            "application/json",
             '/auth/sign-up/',
             {
                 'account_type': '3',
