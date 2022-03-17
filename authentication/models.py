@@ -2,7 +2,6 @@ from django.db import models
 from django.core.validators import EmailValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-from job.models import Job
 # Create your models here.
 
 
@@ -81,6 +80,44 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Custom user manager
     objects = UserManager()  # ! check
 
+    def getUserType(self):
+        if (self.isStudent()):
+            return 'Student'
+        elif (self.isCompanyUsers()):
+            return 'CompanyUser'
+        else:
+            return 'SchoolUser'
+
+    def isStudent(student):
+        try:
+            studentFind = Student.objects.get(user=student)
+            if studentFind:
+                return True
+            else:
+                return False
+        except Student.DoesNotExist:
+            return False
+
+    def isCompanyUsers(companyUser):
+        try:
+            companyFindUsers = UserCompany.objects.get(user=companyUser)
+            if companyFindUsers:
+                return True
+            else:
+                return False
+        except UserCompany.DoesNotExist:
+            return False
+
+    def isSchoolUsers(schoolUser):
+        try:
+            schoolFindUsers = UserSchool.objects.get(user=schoolUser)
+            if schoolFindUsers:
+                return True
+            else:
+                return False
+        except UserSchool.DoesNotExist:
+            return False
+
 
 class Company(models.Model):
     class Meta:
@@ -99,7 +136,6 @@ class Company(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
 
 class Student(models.Model):
     class Meta:
