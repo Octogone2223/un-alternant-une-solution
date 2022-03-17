@@ -104,15 +104,20 @@ WSGI_APPLICATION = 'un_alternant_une_solution_webapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+url = env('DATABASE_URL')
+DATABASE_HOST = ((url.split('/')[2]).split(':')[1]).split('@')[1]
+DATABASE_NAME = url.split('/')[3]
+DATABASE_PASSWORD = ((url.split('/')[2]).split(':')[1]).split('@')[0]
+DATABASE_PORT = 5432
+DATABASE_USER = (url.split('/')[2]).split(':')[0]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
+        'NAME': url.split('/')[3],
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
     }
 }
 
