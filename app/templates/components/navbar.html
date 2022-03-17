@@ -19,8 +19,10 @@
       <div class="flex flex-row items-center">
         <div>
 
-          <a href="" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Assistance' %}</a>
+          <a href="{% url 'core:profile' %}" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Assistance' %}
             <i class="fas fa-user-circle hover:text-secondary text-white text-2xl ml-4"></i>
+          </a>
+            
         </div>
 
         <div class="flex pl-10">
@@ -53,7 +55,7 @@
       <a href="" class="text-white text-sm hover:text-primary font-bold">Assistance</a>
     </div>
     <div>
-      <a href="" class="text-white text-sm hover:text-primary font-bold">
+      <a href="{% url 'core:profile' %}" class="text-white text-sm hover:text-primary font-bold">
         <i class="fas fa-user-circle hover:text-primary text-white text-2xl"></i>
       </a>
     </div>
@@ -72,7 +74,7 @@
 
       toggleMenu: function () {
         this.displayMenu = !this.displayMenu
-  }
+  },
 
       alertT: function (lang) {
         
