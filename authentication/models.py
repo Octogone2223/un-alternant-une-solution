@@ -79,46 +79,45 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Custom user manager
     objects = UserManager()  # ! check
-    
-    def getUserType(self) :
+
+    def getUserType(self):
         if (self.isStudent()):
             return 'Student'
         elif (self.isCompanyUsers()):
             return 'CompanyUser'
-        else :
+        else:
             return 'SchoolUser'
-    
+
     def isStudent(student):
-        try :
+        try:
             studentFind = Student.objects.get(user=student)
-            if studentFind :
+            if studentFind:
                 return True
-            else :
+            else:
                 return False
         except Student.DoesNotExist:
             return False
-        
+
     def isCompanyUsers(companyUser):
-        
         try:
             companyFindUsers = UserCompany.objects.get(user=companyUser)
-            if companyFindUsers :
+            if companyFindUsers:
                 return True
-            else :
+            else:
                 return False
         except UserCompany.DoesNotExist:
-                return False
-         
+            return False
+
     def isSchoolUsers(schoolUser):
-        
         try:
             schoolFindUsers = UserSchool.objects.get(user=schoolUser)
-            if schoolFindUsers :
+            if schoolFindUsers:
                 return True
-            else :
+            else:
                 return False
         except UserSchool.DoesNotExist:
-                return False
+            return False
+
 
 class Company(models.Model):
     class Meta:
