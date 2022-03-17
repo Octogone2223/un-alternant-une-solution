@@ -1,0 +1,49 @@
+<div class="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-10 lg:gap-20">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 mt-10 gap-8 w-full">
+      <div class="flex flex-col col-span-2 lg:col-span-1">
+        <label for=""
+          class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Nom:</label>
+        <input type="text"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+          placeholder="John" :class="{'border-red-500': errors.first_name.length}" @focus="errors.first_name=[]"
+          v-model="loginForm.first_name" />
+        <div v-if="errors.first_name.length">
+          <span class="text-red-500 text-xs italic" v-for="error in errors.first_name" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
+      <div class="flex flex-col col-span-2 lg:col-span-1">
+        <label for=""
+          class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Prénom:</label>
+        <input type="text"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+          placeholder="Doe" :class="{'border-red-500': errors.last_name.length}" @focus="errors.last_name=[]"
+          v-model="loginForm.last_name" />
+        <div v-if="errors.last_name.length">
+          <span class="text-red-500 text-xs italic" v-for="error in errors.last_name" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
+      <div class="flex flex-col col-span-2">
+        <label for=""
+          class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Email:</label>
+        <input type="email"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+          placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errors.email.length}" @focus="errors.email=[]"
+          v-model="loginForm.email" />
+        <div v-if="errors.email.length">
+          <span class="text-red-500 text-xs italic" v-for="error in errors.email" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="w-full">
+      <label for="" class="font-bold mb-2 hover ">
+        Description de l'activité:</label>
+      <textarea type="text"
+        class="h-44 mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"></textarea>
+    </div>
+  </div>

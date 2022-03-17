@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
 
-<div class="grid grid-cols-1 md:grid-cols-2">
+<div class="grid grid-cols-1 md:grid-cols-2" id="signin">
     <div style="background-image:url('/static/img/authbackground.png')"
         class="bg-cover bg-no-repeat hidden md:flex h-screen flex-col justify-center">
         <div class="px-28 text-white">
@@ -71,7 +71,7 @@
 
 {% block vueJs %}
 <script>
-    const app = Vue.createApp({
+    const signin = Vue.createApp({
         delimiters: ["[[", "]]"],
         data() {
             return {
@@ -87,6 +87,7 @@
         },
         methods: {
             async handleSubmitLoginForm() {
+
                 this.errors = {
                     email: [],
                     password: [],
@@ -113,7 +114,14 @@
                 })
 
                 if (response.status === 200) {
-                    window.location.href = '/auth/private-test/'
+
+
+                    if (window.location.search.includes('next=')) {
+                        window.location.href = window.location.search.split('next=')[1];
+                    }
+                    else {
+                        window.location.href = '/auth/private-test/'
+                    }
                 }
 
                 if (response.status === 401) {
@@ -131,7 +139,7 @@
             }
         },
         watch: {}
-    }).mount('#app')
+    }).mount('#signin')
 </script>
 
 {% endblock %}
