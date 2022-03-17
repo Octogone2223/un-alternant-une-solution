@@ -36,10 +36,12 @@
       </transition-group>
 
 
+
       <div class="mt-10 flex flex-col items-center w-full" v-if="accountType==3">
         <button @click="handleLoginForm"
           class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-lg hover:bg-primary flex justify-center items-center cursor-pointer">
           {% trans 'Inscription' %}
+
         </button>
         <div class="text-secondary mt-4">
           Déjà un compte ? <a href="/auth/sign-in"
@@ -117,7 +119,7 @@
       }
     },
     methods: {
-      async handleLoginForm() {
+      async handleSubmitLoginForm() {
         this.errors = {
           first_name: [],
           last_name: [],
