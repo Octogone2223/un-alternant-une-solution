@@ -18,7 +18,9 @@ from celery.schedules import crontab
 env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django_sass',
     'authentication',
     'app',
+    'job',
 ]
 
 INTERNAL_IPS = [
@@ -66,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'un_alternant_une_solution_webapp.urls'
@@ -118,11 +122,12 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Paris'
 
 CELERY_BEAT_SCHEDULE = {
-    'hello': {
-        'task': 'un_alternant_une_solution_webapp.celery.get_api_data',
-        'schedule': crontab()  # execute every minute
+    'la_bonne_alternance_api_job': {
+        'task': 'job.tasks.get_api_data',
+        'schedule': crontab(minute='*/1'),
     }
 }
 
@@ -169,6 +174,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
 )
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
