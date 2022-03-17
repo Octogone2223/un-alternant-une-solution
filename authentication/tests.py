@@ -31,7 +31,7 @@ class AuthenticationTests(TestCase):
                 'last_name': 'TESTSTUDENT',
                 'email': 'student@test.com',
                 'password': 'TestStudent',
-                confirmPassword: 'TestStudent'
+                'confirmPassword': 'TestStudent'
             }
         )
         self.assertEqual(response.status_code, 200)
