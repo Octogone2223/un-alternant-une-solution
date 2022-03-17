@@ -1,10 +1,11 @@
+{% load i18n %}
 <section>
   <div class="flex flex-col justify-center items-center px-8">
     <div class="bg-secondary h-[400px] lg:h-96 w-full rounded-2xl px-10 lg:px-20 flex items-center justify-center">
       <div class="grid grid-cols-1 lg:grid-cols-2">
         <div class="flex flex-col">
-          <h1 class="text-white font-bold text-2xl lg:text-3xl">Besoin d'aide ?</h1>
-          <p class="text-gray-400 text-sm lg:text-md mt-10">Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez des difficultés dans vos démarches en ligne ? Pour trouver une réponse ou une solution à votre problème, consultez la foire aux questions du portail de l'alternance.</p>
+          <h1 class="text-white font-bold text-2xl lg:text-3xl">{% trans 'HelpNeed' %}</h1>
+          <p class="text-gray-400 text-sm lg:text-md mt-10">{% trans 'HelpNeedMessage' %}</p>
         </div>
         <div class="flex flex-row justify-end items-end h-full">
           <h2 class="text-white font-bold text-5xl mr-5 mt-10 lg:mt-0">FAQ ?</h2>
