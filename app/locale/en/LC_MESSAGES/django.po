@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2022-03-17 09:13+0100\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"Content-Transfer-Encoding: 8bit"
+
+#: app/templates/components/home/hero.html:7
+msgid "HomeHeroSentences1"
+msgstr "A great mobilization of business networks"
+
+#: app/templates/components/home/hero.html:8
+msgid "HomeHeroSentences2"
+msgstr "for the youth!"
+
+#: app/templates/components/home/hero.html:11
+msgid "IamStudent"
+msgstr "I'm a student"
+
+#: app/templates/components/home/hero.html:12
+msgid "IamCompany"
+msgstr "I'm an employer"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Apprenticeship"
+msgstr "Apprentiship"
+
+msgid "APropos"
+msgstr "About us"
+
+msgid "Courses"
+msgstr "Courses"
+
+msgid "Assistance"
+msgstr "Assistance"
+
+msgid "Connexion"
+msgstr "Login"
+
+msgid "Inscription"
+msgstr "Sign Up"
+
+msgid "Déconnexion"
+msgstr "Logout"
+
+msgid "Section1Title.Section1Atitle.Section1Amessage"
+msgstr ""
+
+msgid "HelpNeed"
+msgstr "Need help?"
+
+msgid "SBTtitle"
+msgstr "In the blink of an eye"
+
+msgid "SBmessage"
+msgstr ""
+"Get a list of training courses and companies near you in the field you are "
+"looking for."
+
+msgid "S1Title"
+msgstr "Your work-study program in a few clicks"
+
+msgid "SAtitle"
+msgstr "The job of your dreams"
+
+msgid "SCtitle"
+msgstr "An easy contact"
+
+msgid "SAmessage"
+msgstr "Enter the job you want to do and the location (City or Zip Code)."
+
+msgid "SCmessage"
+msgstr "Easily contact training centers or companies to apply."
+
+msgid "HelpNeedMessage"
+msgstr ""
+"You did not find the information you were looking for? Are you experiencing "
+"difficulties with your online procedures? To find an answer or a solution to "
+"your problem, consult the frequently asked questions of the work-study "
+"portal."
+
+msgid "SBtitle"
+msgstr "In the blink of an eye"

@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_sass',
     'authentication',
-    'app',
     'job',
+    'app',
 ]
 
 INTERNAL_IPS = [
@@ -69,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -181,3 +182,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
+
+
+USE_I18N = True
+LANGUAGE_CODE = 'fr'
+LANGUAGES = [
+    ('fr', 'Français'),
+    ('en','English'),
+    ('cn', 'China')
+]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'app'),
+    os.path.join(BASE_DIR, 'job'),
+    os.path.join(BASE_DIR, 'authentifcation'),
+]

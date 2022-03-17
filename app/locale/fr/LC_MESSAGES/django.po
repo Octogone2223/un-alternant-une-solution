@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Language: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2022-03-17 09:13+0100\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"Content-Transfer-Encoding: 8bit"
+
+#: app/templates/components/home/hero.html:7
+msgid "HomeHeroSentences1"
+msgstr "Une grande mobilisation des réseaux d'entreprises"
+
+#: app/templates/components/home/hero.html:8
+msgid "HomeHeroSentences2"
+msgstr "en faveur de la jeunesse !"
+
+#: app/templates/components/home/hero.html:11
+msgid "IamStudent"
+msgstr "Je suis étudiant"
+
+#: app/templates/components/home/hero.html:12
+msgid "IamCompany"
+msgstr "Je suis employeur"
+
+msgid "Home"
+msgstr "Accueil"
+
+msgid "Apprenticeship"
+msgstr "Alternances"
+
+msgid "APropos"
+msgstr "À Propos"
+
+msgid "Courses"
+msgstr "Formations"
+
+msgid "Assistance"
+msgstr "Assistance"
+
+msgid "Connexion"
+msgstr "Connexion"
+
+msgid "Inscription"
+msgstr "Inscription"
+
+msgid "Déconnexion"
+msgstr "Déconnexion"
+
+msgid "Section1Title.Section1Atitle.Section1Amessage"
+msgstr ""
+
+msgid "HelpNeed"
+msgstr "Besoin d'aide ?"
+
+msgid "SBTtitle"
+msgstr "En un clin d’œil"
+
+msgid "SBmessage"
+msgstr ""
+"Obtenez la liste des formations et entreprises proches de chez vous dans le "
+"domaine recherché."
+
+msgid "S1Title"
+msgstr "Votre alternance en quelques cliques"
+
+msgid "SAtitle"
+msgstr "Le job de vos rêves"
+
+msgid "SCtitle"
+msgstr "Un contact facile"
+
+msgid "SAmessage"
+msgstr ""
+"Renseignez le métier que vous souhaitez faire et la localisation (Ville ou "
+"Code postal)."
+
+msgid "SCmessage"
+msgstr ""
+"Contactez facilement les centres de formation ou les entreprises pour "
+"postuler."
+
+msgid "HelpNeedMessage"
+msgstr ""
+"Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez "
+"des difficultés dans vos démarches en ligne ? Pour trouver une réponse ou "
+"une solution à votre problème, consultez la foire aux questions du portail "
+"de l'alternance."
+
+msgid "SBtitle"
+msgstr "En un clin d'oeil"
