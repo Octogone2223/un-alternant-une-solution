@@ -194,8 +194,8 @@ AUTH_USER_MODEL = 'authentication.User'
 USE_I18N = True
 LANGUAGE_CODE = 'fr'
 LANGUAGES = [
-    ('fr', 'Français'), 
-    ('en','English'), 
+    ('fr', 'Français'),
+    ('en', 'English'),
     ('cn', 'China')
 ]
 LOCALE_PATHS = [
