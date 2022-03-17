@@ -33,8 +33,6 @@ class UserSignInSerializer(serializers.Serializer):
 
 
 class CompanySignUpSerializer(serializers.Serializer):
-    class Meta:
-        model = Company
 
     name = serializers.CharField()
     description = serializers.CharField()
@@ -42,12 +40,40 @@ class CompanySignUpSerializer(serializers.Serializer):
     street = serializers.CharField()
     zip_code = serializers.CharField()
 
+    email = serializers.EmailField()
+    password = serializers.CharField()
+    last_name = serializers.CharField()
+    first_name = serializers.CharField()
+
+    def __check_email__(self, value):
+        email = value.get('email').lower()
+
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+
+        raise serializers.ValidationError({'email': 'Email already exists'})
+
 
 class SchoolSignUpSerializer(serializers.Serializer):
-    class Meta:
-        model = School
 
     name = serializers.CharField()
     city = serializers.CharField()
     street = serializers.CharField()
     zip_code = serializers.CharField()
+
+    email = serializers.EmailField()
+    password = serializers.CharField()
+    last_name = serializers.CharField()
+    first_name = serializers.CharField()
+
+    def __check_email__(self, value):
+        email = value.get('email').lower()
+
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+
+        raise serializers.ValidationError({'email': 'Email already exists'})

@@ -18,69 +18,84 @@ def sign_up(request):
         bodyJson = json.loads(body)
 
         if bodyJson['accountType'] == '1':
-            userSerializer = UserSignUpSerializer(data=bodyJson)
             companySerializer = CompanySignUpSerializer(data=bodyJson)
             try:
-                userSerializer.__check_email__(bodyJson)
-                if userSerializer.is_valid() and companySerializer.is_valid():
-                    user = User.objects.create_user(
-                        **userSerializer.validated_data
-                    )
+                companySerializer.__check_email__(bodyJson)
+                if companySerializer.is_valid():
+                    user = User.objects.create_user(companySerializer.validated_data['email'],
+                                                    companySerializer.validated_data['password'],
+                                                    )
+
+                    user.last_name = companySerializer.validated_data['last_name']
+                    user.first_name = companySerializer.validated_data['first_name']
+
+                    user.save()
+
                     company = Company.objects.create(
-                        **companySerializer.validated_data)
+                        name=companySerializer.validated_data['name'],
+                        description=companySerializer.validated_data['description'],
+                        city=companySerializer.validated_data['city'],
+                        street=companySerializer.validated_data['street'],
+                        zip_code=companySerializer.validated_data['zip_code'],
+                    )
 
                     company.users.add(user)
 
                     return HttpResponse({'status': 'success'})
                 else:
-                    return HttpResponseBadRequest(json.dumps(userSerializer.errors + companySerializer.errors))
+                    return HttpResponseBadRequest(json.dumps(companySerializer.errors))
 
             except serializers.ValidationError as e:
                 return HttpResponseBadRequest(json.dumps(e.detail))
 
-            else:
-                return render(request, 'sign_up.html', {'errors': UserSignUpSerializer(data=bodyJson).errors + CompanySerializer(data=bodyJson).errors})
-
         elif bodyJson['accountType'] == '2':
-            userSerializer = UserSignUpSerializer(data=bodyJson)
             schoolSerializer = SchoolSignUpSerializer(data=bodyJson)
 
             try:
-                userSerializer.__check_email__(bodyJson)
-                is_valide_user = userSerializer.is_valid()
-                is_valide_school = schoolSerializer.is_valid()
-                if is_valide_user and is_valide_school:
-                    user = User.objects.create_user(
-                        **userSerializer.validated_data
-                    )
+                schoolSerializer.__check_email__(bodyJson)
+                if schoolSerializer.is_valid():
+                    user = User.objects.create_user(schoolSerializer.validated_data['email'],
+                                                    schoolSerializer.validated_data['password'],
+                                                    )
+
+                    user.last_name = schoolSerializer.validated_data['last_name']
+                    user.first_name = schoolSerializer.validated_data['first_name']
+
+                    user.save()
+
                     school = School.objects.create(
-                        **schoolSerializer.validated_data)
+                        name=schoolSerializer.validated_data['name'],
+                        city=schoolSerializer.validated_data['city'],
+                        street=schoolSerializer.validated_data['street'],
+                        zip_code=schoolSerializer.validated_data['zip_code'],
+                    )
 
                     school.users.add(user)
 
                     return HttpResponse({'status': 'success'})
                 else:
-                    all_errors = dict(userSerializer.errors |
-                                      schoolSerializer.errors)
-                    print(all_errors)
-                    return HttpResponseBadRequest(json.dumps(all_errors))
+                    return HttpResponseBadRequest(json.dumps(schoolSerializer.errors))
 
             except serializers.ValidationError as e:
                 return HttpResponseBadRequest(json.dumps(e.detail))
 
         elif bodyJson['accountType'] == '3':
             userSerializer = UserSignUpSerializer(data=bodyJson)
+
             try:
                 userSerializer.__check_email__(bodyJson)
                 if userSerializer.is_valid():
                     user = User.objects.create_user(
                         **userSerializer.validated_data
                     )
+
                     student = Student.objects.create(
                         user=user)
+
                     return HttpResponse({'status': 'success'})
                 else:
                     return HttpResponseBadRequest(json.dumps(userSerializer.errors))
+
             except serializers.ValidationError as e:
                 return HttpResponseBadRequest(json.dumps(e.detail))
 
