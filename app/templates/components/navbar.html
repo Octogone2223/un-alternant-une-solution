@@ -35,6 +35,7 @@
 
       </div>
     </div>
+
   </div>
 
   <div class="lg:hidden bg-secondary h-[400px] shadow-xl flex flex-col items-center justify-center space-y-4"
@@ -74,16 +75,16 @@
 
       toggleMenu: function () {
         this.displayMenu = !this.displayMenu
-  },
+      },
 
       alertT: function (lang) {
-        
+
 
         const details = {
-            language:lang,
-            next:document.getElementById("nextInputFlag").value
+          language: lang,
+          next: document.getElementById("nextInputFlag").value
         };
-    
+
         let formBody = [];
         for (const property in details) {
           const encodedKey = encodeURIComponent(property);
@@ -93,14 +94,14 @@
         formBody = formBody.join("&");
 
         fetch('/i18n/setlang/', {
-          body:formBody,
+          body: formBody,
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
             "X-CSRFToken": document.getElementsByName("csrfmiddlewaretoken")[0].value
           },
         })
-        
+
       },
     },
   }).mount("#app");
