@@ -1,8 +1,11 @@
 {% extends "base.html" %} {% block content %}
+
+{% load i18n %}
+
 <div class="grid grid-cols-1 lg:grid-cols-2">
   <div class="flex flex-col items-start justify-start px-8">
     <div class="my-10 flex flex-col items-center lg:items-start justify-center w-full">
-      <h2 class="text-secondary font-bold text-4xl">Inscription</h2>
+      <h2 class="text-secondary font-bold text-4xl">{% trans 'Inscription' %}</h2>
       {% csrf_token %}
       <div class="mt-10">
         <h2 class="font-bold">Type de compte:</h2>
@@ -79,24 +82,21 @@
       <div class="mt-10 flex justify-center w-full">
         <button @click="handleLoginForm"
           class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:bg-primary flex justify-center items-center cursor-pointer">
-          S'inscrire
+          {% trans 'Inscription' %}
         </button>
       </div>
     </div>
   </div>
   <div class="hidden lg:block">
     <div class="bg-blue-500 h-screen flex flex-col justify-center items-center px-10" style="
-        background-image: url('/static/authbackground.png');
+        background-image: url('/static/img/authbackground.png');
         background-repeat: no-repeat;
         background-size: cover;
       ">
       <div class="">
-        <h2 class="font-bold text-3xl text-white mb-5">Besoin d'aide ?</h2>
+        <h2 class="font-bold text-3xl text-white mb-5"> {% trans 'HelpNeed' %}</h2>
         <p class="text-white">
-          Vous n'avez pas trouvé l'information que vous recherchiez ? Vous
-          rencontrez des difficultés dans vos démarches en ligne ? Pour trouver
-          une réponse ou une solution à votre problème, consultez la foire aux
-          questions du portail de l'alternance.
+          {% trans 'HelpNeedMessage' %}
         </p>
       </div>
     </div>
