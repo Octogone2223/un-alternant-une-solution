@@ -5,9 +5,9 @@ from django.test import Client
 
 class AuthenticationTests(TestCase):
     def test_homepage(self):
-        self.assertFalse(False)
-        # response = self.client.get('/')
-        # self.assertEqual(response.status_code, 200)
+        # self.assertFalse(False)
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
 
     # def test_signup_page(self):
     #     response = self.client.get('/sign-up/')
