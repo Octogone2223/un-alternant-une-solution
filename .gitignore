@@ -132,6 +132,8 @@ dmypy.json
 
 tailwind.config.js
 
+/app/files
+
 authentication/files/picture/**.png
 authentication/files/picture/**.gif
 authentication/files/picture/**.jpg
