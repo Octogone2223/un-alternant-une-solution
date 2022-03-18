@@ -13,6 +13,8 @@ class Migration(migrations.Migration):
         ('auth', '0012_alter_user_first_name_max_length'),
         ('course', '0001_initial'),
         ('job', '0001_initial'),
+        ('auth', '0012_alter_user_first_name_max_length'),
+        ('authentication', '0001_initial'),
     ]
 
     operations = [

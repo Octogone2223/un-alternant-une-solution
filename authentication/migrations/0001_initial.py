@@ -25,6 +25,7 @@ class Migration(migrations.Migration):
                 ('email', models.CharField(max_length=75, unique=True, validators=[django.core.validators.EmailValidator()], verbose_name='Email')),
                 ('first_name', models.CharField(max_length=75, verbose_name='First Name')),
                 ('last_name', models.CharField(max_length=75, verbose_name='Last Name')),
+                ('extension_picture', models.CharField(default='NULL', max_length=20, verbose_name='Picture Extension')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_staff', models.BooleanField(default=False)),

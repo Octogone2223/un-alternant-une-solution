@@ -1,6 +1,6 @@
 from dataclasses import field
 from django.http import HttpResponseBadRequest
-from authentication.models import User
+from authentication.models import Student, User
 from rest_framework import serializers
 
 
@@ -62,6 +62,7 @@ class SchoolSignUpSerializer(serializers.Serializer):
     city = serializers.CharField()
     street = serializers.CharField()
     zip_code = serializers.CharField()
+    description = serializers.CharField()
 
     email = serializers.EmailField()
     password = serializers.CharField()
@@ -77,3 +78,9 @@ class SchoolSignUpSerializer(serializers.Serializer):
             return email
 
         raise serializers.ValidationError({'email': 'Email already exists'})
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ('description', 'birthday', 'cv_path', 'linkedin_url')
