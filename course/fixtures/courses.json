@@ -1,0 +1,475 @@
+[
+  {
+    "model": "course.course",
+    "pk": 1,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 1,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 2,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 2,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 3,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 3,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 4,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 4,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 5,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 5,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 6,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 6,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 7,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 7,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 8,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 8,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 9,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 9,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 10,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 10,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 11,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 11,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 12,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 12,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 13,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 13,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 14,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 14,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 15,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 15,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 16,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 16,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 17,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 17,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 18,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 18,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 19,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 19,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 20,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 20,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 21,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 21,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 22,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 22,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 23,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 23,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 24,
+    "fields": {
+      "name": "MAINTENANCE EN EQUIPEMENT THERMIQUE INDIVIDUEL (MC NIVEAU V)",
+      "description": "MAINTENANCE EN EQUIPEMENT THERMIQUE INDIVIDUEL (MC NIVEAU V)",
+      "school_id": 24,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 25,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 25,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 26,
+    "fields": {
+      "name": "AGENT DE MAINTENANCE D'EQUIPEMENT DE CONFORT CLIMATIQUE (TP)",
+      "description": "AGENT DE MAINTENANCE D'EQUIPEMENT DE CONFORT CLIMATIQUE (TP)",
+      "school_id": 26,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 27,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 27,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 28,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 28,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 29,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 29,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 30,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 30,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 31,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 31,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 32,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 32,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 33,
+    "fields": {
+      "name": "MAINTENANCE EN EQUIPEMENT THERMIQUE INDIVIDUEL (MC NIVEAU V)",
+      "description": "MAINTENANCE EN EQUIPEMENT THERMIQUE INDIVIDUEL (MC NIVEAU V)",
+      "school_id": 33,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 34,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 34,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 35,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 35,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 36,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 36,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 37,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 37,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 38,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 38,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 39,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 39,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 40,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 40,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 41,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 41,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 42,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS SANITAIRES (CAP)",
+      "school_id": 42,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  },
+  {
+    "model": "course.course",
+    "pk": 43,
+    "fields": {
+      "name": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "description": "MONTEUR EN INSTALLATIONS THERMIQUES (CAP)",
+      "school_id": 43,
+      "create_at": "2022-03-18T10:27:50.904Z",
+      "update_at": "2022-03-18T10:27:50.904Z"
+    }
+  }
+]
