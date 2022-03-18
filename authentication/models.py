@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import EmailValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
 # Create your models here.
 
 
@@ -98,26 +97,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         except Student.DoesNotExist:
             return False
 
-    def isCompanyUsers(companyUser):
-        try:
-            companyFindUsers = UserCompany.objects.get(user=companyUser)
-            if companyFindUsers:
-                return True
-            else:
-                return False
-        except UserCompany.DoesNotExist:
-            return False
-
-    def isSchoolUsers(schoolUser):
-        try:
-            schoolFindUsers = UserSchool.objects.get(user=schoolUser)
-            if schoolFindUsers:
-                return True
-            else:
-                return False
-        except UserSchool.DoesNotExist:
-            return False
-
 
 class Company(models.Model):
     class Meta:
@@ -130,9 +109,9 @@ class Company(models.Model):
     street = models.CharField(max_length=75, verbose_name="Street", null=True)
     zip_code = models.CharField(
         max_length=75, verbose_name="Zip Code", null=True)
-    users = models.ManyToManyField(
+    user_companies = models.ManyToManyField(
         User)
-    jobs = models.ManyToManyField(Job)
+    jobs = models.ManyToManyField('job.Job', related_name='company_jobs+')
 
     def __str__(self):
         return f'{self.name}'
