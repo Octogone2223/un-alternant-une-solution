@@ -40,7 +40,7 @@
             {% for job in jobs %}
 
             <!-- Single Job Post -->
-            <div class="cursor-pointer bg-white shadow-md h-80 w-full flex flex-col justify-between gap-4 px-4 py-4
+            <div class="lg:cursor-pointer bg-white shadow-md h-80 w-full flex flex-col justify-between gap-4 px-4 py-4
                 rounded-lg overflow-scroll border-[1px] border-gray-100" data-job-id="{{ job.id }}"
                 @click="getJobDetail">
                 <h2 class="font-bold">{{job.name}}</h2>
@@ -99,15 +99,15 @@
                 </div>
                 <div class="space-y-4">
                     <h3 class="font-bold text-lg">Description</h3>
-                    <p>{{jobs.0.description}}</p>
+                    <p>{{jobs.0.description|slice:'0:700'}}</p>
                 </div>
 
                 <div class="w-full flex flex-row justify-center">
-                    <button class="btn bg-secondary hover:bg-primary w-48 border-none">Postuler</button>
+                    <a class="btn bg-secondary hover:bg-primary w-48 border-none" href="{{jobs.0.id}}">Postuler</a>
                 </div>
             </div>
 
-            <div class="flex flex-col justify-between h-full" v-else>
+            <div class=" flex flex-col justify-between h-full" v-else>
                 <div class="space-y-5">
                     <h2 class="text-2xl font-bold">[[ job.name ]]</h2>
                     <p>[[ job.company__name ]]</p>
@@ -132,12 +132,18 @@
                 </div>
                 <div class="space-y-4">
                     <h3 class="font-bold text-lg">Description</h3>
-                    <p>[[ job.description ]]</p>
+                    <p>[[ job.description.substring(0, 700) ]] ...</p>
                 </div>
 
+                {% verbatim %}
+
                 <div class="w-full flex flex-row justify-center">
-                    <button class="btn bg-secondary hover:bg-primary w-48 border-none">Postuler</button>
+                    <button class="btn bg-secondary hover:bg-primary w-48 border-none"
+                        @click="redirectToDetail(job.id)">Postuler</button>
                 </div>
+
+                {% endverbatim %}
+
             </div>
         </div>
     </div>
@@ -166,21 +172,29 @@
                 }
             }
         },
+
         created() {
             const uri = window.location.search.substring(1);
             const params = new URLSearchParams(uri);
-            this.search.profession = params.get('profession');
-            this.search.location = params.get('location');
-            this.search.contract_type = params.get('contract_type');
+            this.search.profession = params.get('profession') ? params.get('profession') : '';
+            this.search.location = params.get('location') ? params.get('location') : '';
+            this.search.contract_type = params.get('contract_type') ? params.get('contract_type') : '';
         },
+
         methods: {
+            redirectToDetail(jobId) {
+                window.location.href = `/jobs/${jobId}`;
+            },
+
             async getJobDetail(e) {
                 const jobId = e.currentTarget.dataset.jobId
-                if (window.innerWidth < 1024) {
+                const isButtonTarget = e.target.classList.contains('btn')
+
+                if (window.innerWidth < 1024 && isButtonTarget) {
                     location.href = `/jobs/${jobId}`
                 }
 
-                const response = await fetch(`/jobs/${jobId}`, {
+                const response = await fetch(`/jobs/preview/${jobId}`, {
                     method: 'GET',
                     headers: {
                         "X-CSRFToken": getCookie("csrftoken"),

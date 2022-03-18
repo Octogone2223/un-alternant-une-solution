@@ -5,9 +5,9 @@
 
 <div class="flex flex-col justify-between h-full container px-8 lg:px-16 mb-20">
   <div class="mt-20 text-center space-y-5">
-    <h1 class="font-bold text-2xl">Développeur JAVA/J2EE H/F - POEI</h1>
+    <h1 class="font-bold text-2xl">{{job.name}}</h1>
     <div class="space-y-2">
-      <a href="" class="font-bold underline hover:text-primary">SNCF GROUPE</a>
+      <a href="" class="font-bold underline hover:text-primary">{{job.company.name}}</a>
     </div>
   </div>
 
@@ -27,11 +27,34 @@
       <tbody>
         <!-- row 1 -->
         <tr>
-          <td>11 rue de la paix
-            44200 Nantes</td>
-          <td>35 000 / an</td>
-          <td>CDI | 8h - 12h | 13h - 17h</td>
-          <td>1er Avril 2020</td>
+          <td>
+            {% if job.company.city %}
+            {{job.company.city}}
+            {% else %}
+            44000 Nantes
+            {% endif %}
+          </td>
+          <td>
+            {% if job.wage %}
+            {{job.wage}}
+            {% else %}
+            -
+            {% endif %}
+          </td>
+          <td>
+            {% if job.schedule %}
+            {{job.schedule}}
+            {% else %}
+            -
+            {% endif %}
+          </td>
+          <td>
+            {% if job.start_date %}
+            {{job.start_date}}
+            {% else %}
+            -
+            {% endif %}
+          </td>
         </tr>
 
       </tbody>
@@ -40,24 +63,9 @@
 
 
   <div class="mt-20 space-y-5">
-    <h2 class="font-bold text-xl">Description</h2>
+    <h2 class="font-bold text-xl">{{job.name}}</h2>
     <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos odit, voluptatem rem impedit, laudantium
-      distinctio, asperiores exercitationem accusamus sapiente repudiandae enim dolor nulla laborum inventore labore?
-      Tempore ea qui culpa.
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos odit, voluptatem rem impedit, laudantium
-      distinctio, asperiores exercitationem accusamus sapiente repudiandae enim dolor nulla laborum inventore labore?
-      Tempore ea qui culpa.
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos odit, voluptatem rem impedit, laudantium
-      distinctio, asperiores exercitationem accusamus sapiente repudiandae enim dolor nulla laborum inventore labore?
-      Tempore ea qui culpa.
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos odit, voluptatem rem impedit, laudantium
-      distinctio, asperiores exercitationem accusamus sapiente repudiandae enim dolor nulla laborum inventore labore?
-      Tempore ea qui culpa.
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos odit, voluptatem rem impedit, laudantium
-      distinctio, asperiores exercitationem accusamus sapiente repudiandae enim dolor nulla laborum inventore labore?
-      Tempore ea qui culpa.
-
+      {{job.description}}
     </p>
   </div>
 

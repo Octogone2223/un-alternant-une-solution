@@ -23,12 +23,17 @@ def list_jobs(request):
     if contact_type:
         filters['contract_type__icontains'] = contact_type
 
-    jobs = Job.objects.filter(**filters)
+    jobs = Job.objects.filter(**filters)[:20]
     return render(request, 'list_jobs.html', {'jobs': jobs})
 
 
-def job_detail(request, job_id):
-    job = list(Job.objects.filter(id=job_id).values('name', 'description',
+def preview_job(request, job_id):
+    job = list(Job.objects.filter(id=job_id).values('id', 'name', 'description',
                'wage', 'contract_type', 'start_date', 'schedule', 'company__name', 'company__city', 'company__street', 'company__zip_code'))[0]
-    # job = list(Job.objects.filter(id=job_id).values())[0]
-    return render(request, 'job_details.html', {'job': 1})
+
+    return JsonResponse({'job': job})
+
+
+def job_detail(request, job_id):
+    job = Job.objects.get(id=job_id)
+    return render(request, 'job_details.html', {'job': job})
