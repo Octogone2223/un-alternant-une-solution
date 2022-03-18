@@ -64,6 +64,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=75, verbose_name="First Name")
     last_name = models.CharField(max_length=75, verbose_name="Last Name")
 
+    extension_picture = models.CharField(
+        max_length=20, default='NULL', verbose_name="Picture Extension")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -162,7 +165,7 @@ class Student(models.Model):
     description = models.TextField(verbose_name="Description", null=True)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self} {self.user.last_name}'
 
 
 class School(models.Model):

@@ -41,4 +41,10 @@ class CompanySerializer(serializers.ModelSerializer):
 class SchoolSerializer(serializers.ModelSerializer):
     class Meta:
         model = School
-        fields = ('name', 'city', 'street', 'zip_code')
+        fields = ('description', 'name', 'city', 'street', 'zip_code')
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ('description', 'birthday', 'cv_path', 'linkedin_url')
