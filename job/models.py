@@ -61,9 +61,7 @@ class JobStatus(models.Model):
 
 
 class LastIndexApi(models.Model):
-
     last_index = models.IntegerField()
-
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
