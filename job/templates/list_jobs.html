@@ -3,49 +3,108 @@
 
 {% block content %}
 
-<div class="w-full p-8 " id="jobsList">
-    <div class="flex justify-center">
-        <div class="my-8 w-3/4 flex rounded-l-full rounded-r-full border-solid border-2 p-2">
-            <div class="flex basis-1/4 items-center border-r-2 px-4">
-                <i class="fas fa-search mx-2 text-primary"></i>
-                <input type="text">
-            </div>
-            <div class="flex basis-1/4 items-center border-r-2 px-4">
-                <i class="fas fa-search mx-2 text-primary"></i>
-                <input type="text">
-            </div>
-            <div class="flex basis-1/4 items-center px-4">
-                <i class="fas fa-search mx-2 text-primary"></i>
-                <input type="text">
-            </div>
-            <button class="rounded-full bg-primary text-white p-4 w-full">Rechercher</button>
+<div class="w-full p-8 container" id="jobsList">
+    <div
+        class="flex flex-col lg:flex-row justify-center border-[1px] items-center border-gray-200 h-fit p-5 lg:p-0 lg:h-24 rounded-md lg:rounded-full w-full mt-20 space-x-5 space-y-5 lg:space-y-0">
+
+        <div class="flex flex-row items-center space-x-5 h-full">
+            <i class="fas fa-search text-primary"></i>
+            <input type="text" placeholder="Métier recherché" class="border-none py-2 px-2 outline-none" />
         </div>
+        <div class="flex flex-row items-center space-x-5 h-full">
+            <i class="fas fa-map-marker-alt text-primary"></i>
+            <input type="text" placeholder="Lieu de travail" class="border-none py-2 px-2 outline-none" />
+        </div>
+        <div class="flex flex-row items-center space-x-5 h-full">
+            <i class="fas fa-graduation-cap text-primary"></i>
+            <input type="text" placeholder="Niveau d’étude" class="border-none py-2 px-2 outline-none" />
+        </div>
+        <button class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary">Rechercher</button>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-20">
-        <div class="">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-20">
+        <div class="h-screen overflow-scroll space-y-5 w-full lg:col-span-2">
             <!-- Single Job Post -->
             <div
-                class="bg-white shadow-lg h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll">
+                class="bg-white shadow-md h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100">
                 <h2 class="font-bold">Développeur JAVA/J2EE H/F - POEI</h2>
 
                 <p class="uppercase">Talent RH</p>
 
                 <p class="uppercase">44000</p>
 
-                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi maxime veniam in illum dolore
-                    atque ipsa nemo consequatur, hic sunt, odio incidunt nulla. Voluptatum laborum hic facilis debitis
+                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi maxime veniam in
+                    illum dolore
+                    atque ipsa nemo consequatur, hic sunt, odio incidunt nulla. Voluptatum laborum hic facilis
+                    debitis
                     optio quod?</p>
 
-                <button class="block lg:hidden bg-secondary">Postuler</button>
-
-                <div class="self-baseline">
+                <div class="flex flex-row justify-between items-center">
                     <p>Il y'a 2 jours.</p>
+                    <button class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary">Postuler</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hidden lg:block lg:col-span-3 h-screen bg-white border-[2px] border-secondary rounded-lg p-10">
+            <div class="flex flex-col justify-between h-full">
+                <div class="space-y-5">
+                    <h2 class="text-2xl font-bold">Développeur JAVA/J2EE H/F - POEI</h2>
+                    <p>TALENTS RH</p>
+                    <p>44000 Nantes</p>
+                </div>
+
+                <div class="flex flex-row flex-wrap justify-between">
+                    <div class="flex flex-row items-center space-x-4">
+                        <i class="fas fa-euro-sign"></i>
+                        <span>35 000 / an</span>
+                    </div>
+                    <div class="flex flex-row items-center space-x-4">
+                        <i class="fas fa-file-signature"></i>
+                        <span>CDI | 8h - 12h | 13h - 17h</span>
+                    </div>
+                    <div class="flex flex-row items-center space-x-4">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>1er Avril 2020</span>
+                    </div>
+
+                </div>
+                <div class="space-y-4">
+                    <h3 class="font-bold text-lg">Description</h3>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quis earum, iste
+                        dolores illum
+                        magni ipsum iure? Quos necessitatibus sint ea nulla fuga, repellat qui debitis, aliquid
+                        repudiandae, nostrum beatae. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Pariatur,
+                        quos. Temporibus blanditiis quae at obcaecati suscipit voluptatem hic rerum veniam
+                        delectus
+                        molestias, natus odio ea tenetur nulla dolorem non est? Lorem ipsum dolor sit amet,
+                        consectetur
+                        adipisicing elit. Provident laborum sequi labore porro fugiat? Earum accusantium tempore
+                        ad
+                        optio illo ex maiores, enim debitis placeat veritatis est numquam, laboriosam officiis.
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quis earum, iste
+                        dolores
+                        illum
+                        magni ipsum iure? Quos necessitatibus sint ea nulla fuga, repellat qui debitis, aliquid
+                        repudiandae, nostrum beatae. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Pariatur,
+                        quos. Temporibus blanditiis quae at obcaecati suscipit voluptatem hic rerum veniam
+                        delectus
+                        molestias, natus odio ea tenetur nulla dolorem non est? Lorem ipsum dolor sit amet,
+                        consectetur
+                        adipisicing elit. Provident laborum sequi labore porro fugiat? Earum accusantium tempore
+                        ad
+                        optio illo ex maiores, enim debitis placeat veritatis est numquam, laboriosam officiis.
+                    </p>
+                </div>
+
+                <div class="w-full flex flex-row justify-center">
+                    <button class="btn bg-secondary hover:bg-primary w-48 border-none">Postuler</button>
                 </div>
             </div>
         </div>
-
-        <div class="hidden lg:block lg:col-span-2 h-screen bg-white border-[2px] border-secondary rounded-lg"></div>
     </div>
 </div>
 
