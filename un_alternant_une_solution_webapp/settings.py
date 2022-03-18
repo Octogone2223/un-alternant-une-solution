@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_sass',
     'authentication',
     'job',
+    'course',
     'app',
     'rest_framework'
 ]

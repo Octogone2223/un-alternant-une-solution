@@ -99,8 +99,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Company(models.Model):
-    class Meta:
-        db_table = "company"
 
     name = models.CharField(max_length=75, verbose_name="Company Name")
     description = models.TextField(
@@ -118,8 +116,6 @@ class Company(models.Model):
 
 
 class Student(models.Model):
-    class Meta:
-        db_table = "student"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -134,8 +130,6 @@ class Student(models.Model):
 
 
 class School(models.Model):
-    class Meta:
-        db_table = "school"
 
     name = models.CharField(max_length=75, verbose_name="School Name")
     description = models.TextField(
@@ -144,6 +138,9 @@ class School(models.Model):
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
     users = models.ManyToManyField(User)
+
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.name}'

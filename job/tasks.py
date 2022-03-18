@@ -53,6 +53,7 @@ def get_api_data():
         if company is not None:
             createJob(result, company)
 
+    print(listJobIdFromResponse)
     jobs_codes_request = list(map(lambda x: x.code, job_codes))
 
     deleteOldJobs(listJobIdFromResponse, jobs_codes_request)
@@ -126,6 +127,7 @@ def createJob(request, company):
                 'contract_type': contract_type,
                 'start_date': start_date,
                 'schedule': schedule,
+                'company': company,
             }
         )
         company.jobs.add(job)

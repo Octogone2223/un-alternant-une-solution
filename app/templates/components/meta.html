@@ -1,34 +1,40 @@
 <!DOCTYPE html>
+
 <html lang="en" data-theme="light">
-  
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% load static %}
 
-    <link rel="stylesheet" href="{% static 'styles/css/app.css' %}" />
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
 
-    {# HOT RELOAD SCRIPT #}
-    <script src="https://livejs.com/live.js" defer></script>
+  <link rel="stylesheet" href="{% static 'styles/css/app.css' %}" />
 
-    {# FONT AWESOME SCRIPT #}
-    <script src="https://gistcdn.githack.com/Lilian-MMI/f23496a8c50ca94d62ec20d0d3591851/raw/52867fe3589247dd300846262e0a71866326cfd6/fontawesome.min.js"></script>
+  {# HOT RELOAD SCRIPT #}
+  <script src="https://livejs.com/live.js" defer></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/2.9.0/full.min.css" integrity="sha512-cRY3HtkOja2mHLEvA0tgwuaVysmMN2PijT7mRN3Lj4WfqCDdnDKAoSPk250WAGBGbLmMaBqZT2qCZNA2Pngk5A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  {# FONT AWESOME SCRIPT #}
+  <script
+    src="https://gistcdn.githack.com/Lilian-MMI/f23496a8c50ca94d62ec20d0d3591851/raw/52867fe3589247dd300846262e0a71866326cfd6/fontawesome.min.js">
+  </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#00AFB9",
-              secondary: "#243A48",
-            },
-            container: {
-              center: true,
-            },
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/2.9.0/full.min.css"
+    integrity="sha512-cRY3HtkOja2mHLEvA0tgwuaVysmMN2PijT7mRN3Lj4WfqCDdnDKAoSPk250WAGBGbLmMaBqZT2qCZNA2Pngk5A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00AFB9",
+            secondary: "#243A48",
+          },
+          container: {
+            center: true,
+          },
         },
       },
     };

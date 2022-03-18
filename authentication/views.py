@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from authentication.models import Company, Student, User, School
-from .forms import CompanySignUpSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSignUpSerializer
+from .serializers import CompanySignUpSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSignUpSerializer
 from rest_framework import serializers
 
 # Create your views here.

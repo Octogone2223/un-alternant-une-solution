@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div>
+    CONTENT [[ title ]]
+</div>
+
+
+{% include './components/footer.html' %}
+
+{% endblock %}
+
+{% block vueJs %}
+<script>
+    const app = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                title: 'Hello Vue!',
+            }
+        },
+    }).mount('#app')
+</script>
+
+{% endblock %}
