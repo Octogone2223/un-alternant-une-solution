@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import Client
 from selenium.webdriver.firefox.webdriver import WebDriver
 # Create your tests here.
