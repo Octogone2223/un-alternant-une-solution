@@ -85,8 +85,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def getUserType(self):
         if (self.isStudent()):
             return 'Student'
-        elif (self.isCompanyUsers()):
-            return 'CompanyUser'
+        # elif (self.isCompanyUsers()):
+        #    return 'CompanyUser'
         else:
             return 'SchoolUser'
 

@@ -11,7 +11,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from authentication.models import Company, Student, User, School
-from .serializers import CompanySignUpSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSignUpSerializer,StudentSerializer
+from .serializers import CompanySignUpSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSignUpSerializer, StudentSerializer
 from rest_framework import serializers
 
 # Create your views here.
@@ -158,9 +158,9 @@ def user(request):
 
         try:
 
-            if userSerializer.is_valid() and CompanySerializer(data=bodyJson["dataSend"]).is_valid():
+            if userSerializer.is_valid() and CompanySignUpSerializer(data=bodyJson["dataSend"]).is_valid():
                 pass
-            elif userSerializer.is_valid() and SchoolSerializer(data=bodyJson["dataSend"]).is_valid():
+            elif userSerializer.is_valid() and SchoolSignUpSerializer(data=bodyJson["dataSend"]).is_valid():
                 pass
             else:
                 idUser = bodyJson["userSend"]['id']
@@ -200,10 +200,10 @@ def user(request):
     if userType == 'Student':
         data = list(Student.objects.filter(user=request.user).values())[0]
     elif userType == 'Company':
-        data = list(UserCompany.objects.filter(
+        data = list(Company.objects.filter(
             user=request.user).company.values())[0]
     else:
-        data = list(UserCompany.objects.filter(
+        data = list(School.objects.filter(
             user=request.user).school.values())[0]
     return JsonResponse({'data': data, 'user': userJSON, 'userType': userType})
 
@@ -229,8 +229,9 @@ def photo(request, id):
         bodyJson = json.loads(body)
 
         user = User.objects.get(id=id)
-        os.remove(
-            f'{settings.BASE_DIR}/authentication/files/picture/{id}.{user.extension_picture}')
+        if os.path.exists(f'{settings.BASE_DIR}/authentication/files/picture/{id}.{user.extension_picture}'):
+            os.remove(
+                f'{settings.BASE_DIR}/authentication/files/picture/{id}.{user.extension_picture}')
 
         pathCv = f'authentication/files/picture/{id}.{bodyJson["extensionFile"]}'
         text_file = open(f'{settings.BASE_DIR}/{pathCv}', "wb")
