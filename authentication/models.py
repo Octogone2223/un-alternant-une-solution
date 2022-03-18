@@ -131,13 +131,15 @@ class Student(models.Model):
 
 class School(models.Model):
 
-    name = models.CharField(max_length=75, verbose_name="School Name")
+    name = models.CharField(max_length=150, verbose_name="School Name")
     description = models.TextField(
         verbose_name="School Description", null=True)
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
     users = models.ManyToManyField(User)
+    courses = models.ManyToManyField(
+        'course.Course', related_name='school_courses+')
 
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
