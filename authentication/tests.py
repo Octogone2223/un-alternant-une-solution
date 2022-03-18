@@ -24,14 +24,7 @@ class AuthenticationTests(TestCase):
 
     def test_student_signup(self):
         print("before")
-        python_dict = {
-                'account_type': '3',
-                'first_name': 'TestStudent',
-                'last_name': 'TESTSTUDENT',
-                'email': 'student@test.com',
-                'password': 'TestStudent',
-                'confirmPassword': 'TestStudent'
-            }
+        python_dict = {'account_type': '3', 'first_name': 'TestStudent', 'last_name': 'TESTSTUDENT', 'email': 'student@test.com', 'password': 'TestStudent', 'confirmPassword': 'TestStudent'}
         response = self.client.post(
             '/auth/sign-up/',
             json.dumps(python_dict),
