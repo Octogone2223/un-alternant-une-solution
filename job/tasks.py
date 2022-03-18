@@ -53,6 +53,7 @@ def get_api_data():
         if company is not None:
             createJob(result, company)
 
+    print(listJobIdFromResponse)
     jobs_codes_request = list(map(lambda x: x.code, job_codes))
 
     deleteOldJobs(listJobIdFromResponse, jobs_codes_request)
