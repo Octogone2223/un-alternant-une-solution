@@ -170,6 +170,8 @@ class School(models.Model):
         db_table = "school"
 
     name = models.CharField(max_length=75, verbose_name="School Name")
+    description = models.TextField(
+        verbose_name="School Description", null=True)
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
