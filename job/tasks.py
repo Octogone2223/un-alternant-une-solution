@@ -127,6 +127,7 @@ def createJob(request, company):
                 'contract_type': contract_type,
                 'start_date': start_date,
                 'schedule': schedule,
+                'company': company,
             }
         )
         company.jobs.add(job)

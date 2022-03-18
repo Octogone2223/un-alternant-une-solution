@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div id="about flex ">
+    <div class="max-w-screen-lg mx-auto my-16 px-8">
+        <h1 class="text-3xl text-secondary font-bold text-center mb-16">
+            Qui sommes-nous ?
+        </h1>
+        <p>
+            Dans le cadre du module de développement Full Stack à Ynov, qui intervient en 2022 pour les étudiants en
+            Mastère filière informatique, nous devons répondre à un appel à projets. Ce projet se doit d’être utile et
+            innovant.
+        </p>
+
+        <p class="mt-4">
+            Il s’agira de créer une plateforme web qui permet d’accéder facilement aux différentes offres d'alternance
+            présentes sur le marché français.
+        </p>
+
+        <p class="mt-4">
+            Cette plateforme web doit permettre aux entreprises de publier leurs offres d'alternance, de les consulter,
+            de les modifier, de les supprimer, de consulter les candidatures reçues, de les accepter ou de les refuser.
+        </p>
+
+        <p class="mt-4">
+            Les étudiants, quant à eux, doivent pouvoir se positionner sur une offre d'alternance publiée par une
+            entreprise et ainsi suivre l'évolution de leurs candidatures depuis leur espace personnel. Ils pourront
+            aussi modifier leurs profils notamment indiquer leur école, mettre un curriculum vitae, mettre leurs réseaux
+            sociaux.
+        </p>
+
+        <p class="mt-4">
+            Enfin les écoles doivent pouvoir mettre en avant leurs formations et proposer une alternance à un étudiant
+        </p>
+
+        <p class="mt-4">
+
+            Les étudiants, les écoles ainsi que les entreprises doivent pouvoir modifier leurs informations
+            personnelles, ainsi que leurs informations de contact.
+        </p>
+    </div>
+    <div class="mb-24">
+        <div class="w-4/6 mx-auto my-16 px-4">
+            <h1 class="text-3xl text-secondary font-bold text-center mb-16">
+                Notre équipe
+            </h1>
+        </div>
+        <div class="flex justify-center flex-wrap w-full">
+            <div class="avatar mx-16 flex flex-col mt-6 w-full sm:w-1/4 lg:w-fit">
+                <div class="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                        src="https://media-exp1.licdn.com/dms/image/C4D03AQGe5DlEcJMiVw/profile-displayphoto-shrink_200_200/0/1632319742113?e=2147483647&v=beta&t=6pLIVpOHR369bBxCGwMNOGtg1Km4ItVmhD6mhqraEF0" />
+                </div>
+                <span class="mx-auto font-bold mt-3">KOTTO Yann</span>
+            </div>
+            <div class="avatar mx-16 flex flex-col mt-6 w-full sm:w-1/4 lg:w-fit">
+                <div class="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img src="https://www.babelio.com/users/AVT_Tom-Leveque_487.jpg" />
+                </div>
+                <span class="mx-auto font-bold mt-3">LEVEQUE Tom</span>
+            </div>
+            <div class="avatar mx-16 flex flex-col mt-6 w-full sm:w-1/4 lg:w-fit">
+                <div class="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                        src="https://media-exp1.licdn.com/dms/image/C4D03AQGULMZx8XdctQ/profile-displayphoto-shrink_200_200/0/1605795324670?e=1652918400&v=beta&t=zA_FYQcBO_OSZSE2nEIOe5_hMJhPRFPzIUNjEfwOaDk" />
+                </div>
+                <span class="mx-auto font-bold mt-3">OUVRARD Lilian</span>
+            </div>
+            <div class="avatar mx-16 flex flex-col mt-6 w-full sm:w-1/4 lg:w-fit">
+                <div class="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                        src="https://media-exp1.licdn.com/dms/image/C5603AQElMrZBBPxg7g/profile-displayphoto-shrink_200_200/0/1561275134418?e=2147483647&v=beta&t=EPJ_Y7FtWfyVOV1_iBIx0MSVhMRfZzRQz6Q1Qx7vSCU" />
+                </div>
+                <span class="mx-auto font-bold mt-3">KAYM Kassai</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include './components/footer.html' %}
+
+{% endblock %}
+
+{% block vueJs %}
+<script>
+    const appAbout = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                title: 'Hello ABOUT PAGE!',
+            }
+        },
+    }).mount('#about')
+</script>
+
+{% endblock %}
