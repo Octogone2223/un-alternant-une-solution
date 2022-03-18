@@ -6,10 +6,10 @@
         <img class="w-48 md:w-36" alt="Marketplace logo" src="../../static/assets/logo.png" />
       </a>
       <div class="hidden lg:block">
-        <a href="" class="text-white text-sm hover:text-secondary font-bold">{% trans 'Home' %}</a>
-        <a href="" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Apprenticeship' %}</a>
-        <a href="" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'APropos' %}</a>
-        <a href="" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Courses' %}</a>
+        <a href="/" class="text-white text-sm hover:text-secondary font-bold">{% trans 'Home' %}</a>
+        <a href="/jobs" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Apprenticeship' %}</a>
+        <a href="/about" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'APropos' %}</a>
+        <a href="/courses" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Courses' %}</a>
       </div>
     </div>
     <div class="block lg:hidden cursor-pointer" v-on:click="toggleMenu()">
@@ -19,10 +19,11 @@
       <div class="flex flex-row items-center">
         <div>
 
-          <a href="{% url 'core:profile' %}" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Assistance' %}
+          <a href="{% url 'core:profile' %}"
+            class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Assistance' %}
             <i class="fas fa-user-circle hover:text-secondary text-white text-2xl ml-4"></i>
           </a>
-            
+
         </div>
 
         <div class="flex pl-10">
@@ -69,7 +70,9 @@
   const app = Vue.createApp({
     delimiters: ["[[", "]]"],
     data() {
-      return { displayMenu: false }
+      return {
+        displayMenu: false
+      }
     },
     methods: {
 
