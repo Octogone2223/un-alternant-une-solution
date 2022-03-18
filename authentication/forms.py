@@ -32,13 +32,48 @@ class UserSignInSerializer(serializers.Serializer):
     password = serializers.CharField()
 
 
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = ('description', 'name', 'city', 'street', 'zip_code')
+class CompanySignUpSerializer(serializers.Serializer):
+
+    name = serializers.CharField()
+    description = serializers.CharField()
+    city = serializers.CharField()
+    street = serializers.CharField()
+    zip_code = serializers.CharField()
+
+    email = serializers.EmailField()
+    password = serializers.CharField()
+    last_name = serializers.CharField()
+    first_name = serializers.CharField()
+
+    def __check_email__(self, value):
+        email = value.get('email').lower()
+
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+
+        raise serializers.ValidationError({'email': 'Email already exists'})
 
 
-class SchoolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = School
-        fields = ('name', 'city', 'street', 'zip_code')
+class SchoolSignUpSerializer(serializers.Serializer):
+
+    name = serializers.CharField()
+    city = serializers.CharField()
+    street = serializers.CharField()
+    zip_code = serializers.CharField()
+
+    email = serializers.EmailField()
+    password = serializers.CharField()
+    last_name = serializers.CharField()
+    first_name = serializers.CharField()
+
+    def __check_email__(self, value):
+        email = value.get('email').lower()
+
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+
+        raise serializers.ValidationError({'email': 'Email already exists'})

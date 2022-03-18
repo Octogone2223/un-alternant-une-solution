@@ -5,36 +5,93 @@
       <label for=""
         class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Nom
         de l'entreprise:</label>
-      <input type="text"
+      <input type="text" v-model="registerFormCompany.name"
+        :class="{'border-red-500': registerFormCompany.errors.name.length}" @focus="registerFormCompany.errors.name=[]"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+      <div v-if="registerFormCompany.errors.name.length">
+        <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.name" :key="error">
+          [[ error ]]</span>
+      </div>
     </div>
     <div class="flex flex-col col-span-2">
       <label for=""
         class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Email:</label>
-      <input type="email"
+      <input type="email" v-model="registerFormCompany.email"
+        :class="{'border-red-500': registerFormCompany.errors.email.length}"
+        @focus="registerFormCompany.errors.email=[]"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+      <div v-if="registerFormCompany.errors.email.length">
+        <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.email" :key="error">
+          [[ error ]]</span>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <label for=""
+          class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Nom
+          :</label>
+        <input type="text" v-model="registerFormCompany.last_name"
+          :class="{'border-red-500': registerFormCompany.errors.last_name.length}"
+          @focus="registerFormCompany.errors.last_name=[]"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+        <div v-if="registerFormCompany.errors.last_name.length">
+          <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.last_name" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label for=""
+          class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Prénom
+          :</label>
+        <input type="text" v-model="registerFormCompany.first_name"
+          :class="{'border-red-500': registerFormCompany.errors.first_name.length}"
+          @focus="registerFormCompany.errors.first_name=[]"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+        <div v-if="registerFormCompany.errors.first_name.length">
+          <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.first_name" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
     </div>
     <div class="grid grid-cols-2 gap-4">
       <div class="flex flex-col">
         <label for=""
           class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Ville:</label>
-        <input type="text"
+        <input type="text" v-model="registerFormCompany.city"
+          :class="{'border-red-500': registerFormCompany.errors.city.length}"
+          @focus="registerFormCompany.errors.city=[]"
           class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+        <div v-if="registerFormCompany.errors.city.length">
+          <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.city" :key="error">
+            [[ error ]]</span>
+        </div>
       </div>
       <div class="flex flex-col">
         <label for=""
           class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Code
           Postal:</label>
-        <input type="text"
+        <input type="text" v-model="registerFormCompany.zip_code"
+          :class="{'border-red-500': registerFormCompany.errors.zip_code.length}"
+          @focus="registerFormCompany.errors.zip_code=[]"
           class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+        <div v-if="registerFormCompany.errors.zip_code.length">
+          <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.zip_code" :key="error">
+            [[ error ]]</span>
+        </div>
       </div>
     </div>
     <div class="flex flex-col col-span-2">
       <label for=""
         class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">
         Rue et numéro:</label>
-      <input type="text"
-        class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+      <input type="text" v-model="registerFormCompany.street" class=" mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+        :class="{'border-red-500': registerFormCompany.errors.street.length}"
+        @focus="registerFormCompany.errors.street=[]" />
+      <div v-if="registerFormCompany.errors.street.length">
+        <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.street" :key="error">
+          [[ error ]]</span>
+      </div>
     </div>
   </div>
   <!--  -->
@@ -43,22 +100,41 @@
     <div class="flex flex-col col-span-2">
       <label for="" class="font-bold mb-2 hover ">
         Description de l'activité:</label>
-      <textarea type="text"
+      <textarea type="text" v-model="registerFormCompany.description"
+        :class="{'border-red-500': registerFormCompany.errors.description.length}"
+        @focus="registerFormCompany.errors.description=[]"
         class="h-36 mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"></textarea>
+      <div v-if="registerFormCompany.errors.description.length">
+        <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.description" :key="error">
+          [[ error ]]</span>
+      </div>
     </div>
     <div class="flex flex-col col-span-1">
       <label for=""
         class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">
         Mot de passe:</label>
-      <input type="password"
+      <input type="password" v-model="registerFormCompany.password"
+        :class="{'border-red-500': registerFormCompany.errors.password.length}"
+        @focus="registerFormCompany.errors.password=[]"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+      <div v-if="registerFormCompany.errors.password.length">
+        <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.password" :key="error">
+          [[ error ]]</span>
+      </div>
     </div>
     <div class="flex flex-col col-span-1">
       <label for=""
         class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">
         Confirmation mot de passe:</label>
-      <input type="password"
+      <input type="password" v-model="registerFormCompany.confirmPassword"
+        :class="{'border-red-500': registerFormCompany.errors.confirmPassword.length}"
+        @focus="registerFormCompany.errors.confirmPassword=[]"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
+      <div v-if="registerFormCompany.errors.confirmPassword.length">
+        <span class="text-red-500 text-xs italic" v-for="error in registerFormCompany.errors.confirmPassword"
+          :key="error">
+          [[ error ]]</span>
+      </div>
     </div>
   </div>
 
