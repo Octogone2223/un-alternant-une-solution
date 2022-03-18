@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div>
+    {% for course in courses %}
+    <div style="border: 1px solid black; margin: 1rem; padding:1rem">
+        {{course}}
+        <br>
+        <b>{{course.school}}</b>
+        <br>
+        Métiers associés :
+        {% for job in course.job_codes.all %}
+        {{job.name}}
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+    CONTENT [[ title ]]
+</div>
+
+
+{% include './components/footer.html' %}
+
+{% endblock %}
+
+{% block vueJs %}
+<script>
+    const app = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                title: 'Hello Vue!',
+            }
+        },
+    }).mount('#app')
+</script>
+
+{% endblock %}

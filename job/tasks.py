@@ -13,7 +13,7 @@ from job.models import Job, JobCode, JobIdFromPreviousRequest, LastIndexApi
 @celery_app.task
 def get_api_data():
     last_index_api, created = LastIndexApi.objects.get_or_create(
-        pk=1, defaults={'last_index': 0})
+        pk=1, defaults={'last_index': 0, "pk": 1})
 
     job_codes = JobCode.objects.all().order_by(
         'code', 'id').distinct('code').filter(pk__gt=last_index_api.last_index)[:9]
@@ -53,6 +53,7 @@ def get_api_data():
         if company is not None:
             createJob(result, company)
 
+    print(listJobIdFromResponse)
     jobs_codes_request = list(map(lambda x: x.code, job_codes))
 
     deleteOldJobs(listJobIdFromResponse, jobs_codes_request)
@@ -126,6 +127,7 @@ def createJob(request, company):
                 'contract_type': contract_type,
                 'start_date': start_date,
                 'schedule': schedule,
+                'company': company,
             }
         )
         company.jobs.add(job)

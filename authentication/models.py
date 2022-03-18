@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import EmailValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
 # Create your models here.
 
 
@@ -101,30 +100,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         except Student.DoesNotExist:
             return False
 
-    def isCompanyUsers(companyUser):
-        try:
-            companyFindUsers = UserCompany.objects.get(user=companyUser)
-            if companyFindUsers:
-                return True
-            else:
-                return False
-        except UserCompany.DoesNotExist:
-            return False
-
-    def isSchoolUsers(schoolUser):
-        try:
-            schoolFindUsers = UserSchool.objects.get(user=schoolUser)
-            if schoolFindUsers:
-                return True
-            else:
-                return False
-        except UserSchool.DoesNotExist:
-            return False
-
 
 class Company(models.Model):
-    class Meta:
-        db_table = "company"
 
     name = models.CharField(max_length=75, verbose_name="Company Name")
     description = models.TextField(
@@ -134,27 +111,14 @@ class Company(models.Model):
     zip_code = models.CharField(
         max_length=75, verbose_name="Zip Code", null=True)
     user_companies = models.ManyToManyField(
-        User, through='UserCompany')  # ! check
+        User)
     jobs = models.ManyToManyField('job.Job', related_name='company_jobs+')
 
     def __str__(self):
         return f'{self.name}'
 
 
-class UserCompany(models.Model):
-    class Meta:
-        db_table = "user_company"
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    company = models.OneToOneField(Company, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user}'
-
-
 class Student(models.Model):
-    class Meta:
-        db_table = "student"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -169,27 +133,19 @@ class Student(models.Model):
 
 
 class School(models.Model):
-    class Meta:
-        db_table = "school"
 
-    name = models.CharField(max_length=75, verbose_name="School Name")
+    name = models.CharField(max_length=150, verbose_name="School Name")
     description = models.TextField(
         verbose_name="School Description", null=True)
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
-    userSchools = models.ManyToManyField(User, through='UserSchool')
+    users = models.ManyToManyField(User)
+    courses = models.ManyToManyField(
+        'course.Course', related_name='school_courses+')
+
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.name}'
-
-
-class UserSchool(models.Model):
-    class Meta:
-        db_table = "user_school"
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    school = models.OneToOneField(School, on_delete=models.CASCADE)  # ! check
-
-    def __str__(self):
-        return f'{self.user}'
