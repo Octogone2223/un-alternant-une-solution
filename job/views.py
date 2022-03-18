@@ -30,4 +30,5 @@ def list_jobs(request):
 def job_detail(request, job_id):
     job = list(Job.objects.filter(id=job_id).values('name', 'description',
                'wage', 'contract_type', 'start_date', 'schedule', 'company__name', 'company__city', 'company__street', 'company__zip_code'))[0]
-    return JsonResponse({'job': job})
+    # job = list(Job.objects.filter(id=job_id).values())[0]
+    return render(request, 'job_details.html', {'job': 1})
