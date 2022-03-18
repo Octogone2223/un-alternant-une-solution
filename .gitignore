@@ -131,3 +131,12 @@ dmypy.json
 .DS_Store
 
 tailwind.config.js
+
+/app/files
+
+authentication/files/picture/**.png
+authentication/files/picture/**.gif
+authentication/files/picture/**.jpg
+authentication/files/picture/**.svg
+authentication/files/picture/**.webp
+authentication/files/cv/**.pdf

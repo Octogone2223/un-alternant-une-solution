@@ -81,13 +81,22 @@ class JobIdFromPreviousRequest(models.Model):
 
 class JobDating(models.Model):
 
+    class Status(models.TextChoices):
+        OPEN = 'OP', _('Open')
+        CLOSED = 'CL', _('Closed')
+        CANCELED = 'CA', _('Canceled')
+
     student = models.ForeignKey(
         'authentication.Student', on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     motivation_letter_path = models.CharField(
         max_length=255, verbose_name="Job Name")
     cv_path = models.CharField(max_length=255, verbose_name="Job Name")
-    status = models.ForeignKey(JobStatus, on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=2,
+        choices=Status.choices,
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
