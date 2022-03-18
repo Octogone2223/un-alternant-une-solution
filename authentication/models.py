@@ -137,6 +137,7 @@ class Company(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+
 class Student(models.Model):
     class Meta:
         db_table = "student"

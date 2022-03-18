@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ 39-rédaction-des-tests-unitaires ]
   pull_request:
-    branches: [ develop ]
+    branches: [ 39-rédaction-des-tests-unitaires ]
 
 env:
   DATABASE_PASSWORD: 3fc5ed1833891f062798111a97d4a4396b670c16a2ea614a6b8d4093ce442f27
