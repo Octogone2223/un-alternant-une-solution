@@ -131,3 +131,5 @@ dmypy.json
 .DS_Store
 
 tailwind.config.js
+
+/app/files

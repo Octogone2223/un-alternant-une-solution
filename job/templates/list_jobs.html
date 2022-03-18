@@ -135,14 +135,10 @@
                     <p>[[ job.description.substring(0, 700) ]] ...</p>
                 </div>
 
-                {% verbatim %}
-
                 <div class="w-full flex flex-row justify-center">
                     <button class="btn bg-secondary hover:bg-primary w-48 border-none"
                         @click="redirectToDetail(job.id)">Postuler</button>
                 </div>
-
-                {% endverbatim %}
 
             </div>
         </div>
@@ -163,7 +159,6 @@
         delimiters: ["[[", "]]"],
         data() {
             return {
-                title: 'Hello Vue!',
                 job: null,
                 search: {
                     profession: '',

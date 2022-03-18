@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="flex flex-col justify-between h-full container px-8 lg:px-16 mb-20">
+<div class="flex flex-col justify-between h-full container px-8 lg:px-16 mb-20" id="jobDetails">
   <div class="mt-20 text-center space-y-5">
     <h1 class="font-bold text-2xl">{{job.name}}</h1>
     <div class="space-y-2">
@@ -68,35 +68,91 @@
       {{job.description}}
     </p>
   </div>
+  {% if not has_already_applied %}
 
   <div class="self-center mt-20 w-96 space-y-5">
     <div class="flex flex-col">
       <label for=""
         class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">CV:</label>
-      <input type="file" accept="application/pdf"
-        class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-primary block w-full rounded-md sm:text-sm focus:ring-1" />
+      <input type="file" accept="application/pdf" v-on:change="uploadFile($event, 'cv')" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
+      focus:border-primary focus:ring-primary block w-full rounded-md sm:text-sm focus:ring-1" />
     </div>
 
     <div class="flex flex-col">
       <label for=""
         class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Lettre
         de motivation:</label>
-      <input type="file" accept="application/pdf"
+      <input type="file" accept="application/pdf" v-on:change="uploadFile($event, 'letter')"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-primary block w-full rounded-md sm:text-sm focus:ring-1" />
     </div>
     <div class="flex flex-col">
       <label for="" class="font-bold mb-2 hover block text-sm text-slate-700">Renseignement:</label>
-      <textarea placeholder="Si vous avez des informations supplémentaires à renseigner ...."
+      <textarea placeholder="Si vous avez des informations supplémentaires à renseigner ...." v-model="description"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary focus:ring-primary block w-full rounded-md sm:text-sm focus:ring-1"></textarea>
     </div>
 
     <div>
-      <button class="btn bg-secondary rounded-md border-none btn-block hover:bg-primary">Postuler</button>
+      <button class="btn bg-secondary rounded-md border-none btn-block hover:bg-primary"
+        @click="handleSubmit">Postuler</button>
     </div>
   </div>
-
+  {% else %}
+  <div class="self-center mt-20 w-96 space-y-5">
+    <i>Vous avez déjà postulez pour cette alternance</i>
+  </div>
+  {% endif %}
 </div>
 
 
 {% include './components/footer.html' %}
+
+{% endblock %}
+
+{% block vueJs %}
+<script>
+  const appJobDetails = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        cvFile: null,
+        motiviationLetterFile: null,
+        description: "",
+      }
+    },
+
+    methods: {
+      uploadFile(e, type) {
+        if (type === 'cv') {
+          this.cvFile = e.target.files[0]
+        } else {
+          this.motivationLetterFile = e.target.files[0]
+        }
+        console.log(e.target.files)
+      },
+
+      async handleSubmit() {
+        const jobId = window.location.pathname.split("/")[2];
+        const formData = new FormData();
+        formData.append('cv', this.cvFile);
+        formData.append('motivation_letter', this.motivationLetterFile);
+        formData.append('description', this.description);
+
+        const response = await fetch(`/jobs/${jobId}/`, {
+          method: 'POST',
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "content_type": 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+          },
+          body: formData
+        });
+
+        if (response.ok) {
+          location.href = `/jobs/`
+        }
+      }
+    },
+
+  }).mount('#jobDetails')
+</script>
+
 {% endblock %}
