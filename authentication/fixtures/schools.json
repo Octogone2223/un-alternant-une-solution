@@ -1,0 +1,518 @@
+[
+  {
+    "model": "authentication.school",
+    "pk": 1,
+    "fields": {
+      "name": "ASSOCIATION O.R.T.",
+      "city": "PARIS 4",
+      "street": "4 RUE DES ROSIERS",
+      "zip_code": "75004",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 2,
+    "fields": {
+      "name": "ASSOCIATION O.R.T.",
+      "city": "PARIS 4",
+      "street": "4 RUE DES ROSIERS",
+      "zip_code": "75004",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 3,
+    "fields": {
+      "name": "ECOLE SUPERIEURE DES METIERS DE LA VILLE DE DEMAIN-CCI PARIS ILE-DE-FRANCE EDUCATION",
+      "city": "PARIS 8",
+      "street": "27 AV DE FRIEDLAND",
+      "zip_code": "75008",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 4,
+    "fields": {
+      "name": "SKILL AND YOU",
+      "city": "MONTROUGE",
+      "street": "85 RUE GABRIEL PERI, 85-87",
+      "zip_code": "92120",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 5,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL HECTOR GUIMARD",
+      "city": "PARIS 19",
+      "street": "12 BD D INDOCHINE, CS 40049",
+      "zip_code": "75019",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 6,
+    "fields": {
+      "name": "ASS PARIS ACADEMIE ENTREPRISES",
+      "city": "PARIS 19",
+      "street": "12 BD D INDOCHINE, CS 40049",
+      "zip_code": "75019",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 7,
+    "fields": {
+      "name": "ASS OUVRIERE COMPAGNON DEVOIR TOUR FRANC",
+      "city": "PARIS 4",
+      "street": "1 PL ST GERVAIS",
+      "zip_code": "75004",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 8,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL JEAN MONNET",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 9,
+    "fields": {
+      "name": "CFA COUVERTURE PLOMBERIE",
+      "city": "CHILLY-MAZARIN",
+      "street": "28 RTE DE LONGJUMEAU",
+      "zip_code": "91380",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 10,
+    "fields": {
+      "name": "ECO-CAMPUS DU BATIMENT-GRAND PARIS",
+      "city": "ALFORTVILLE",
+      "street": "PL SAN BENEDETTO DEL TRONTO",
+      "zip_code": "94140",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 11,
+    "fields": {
+      "name": "ECO-CAMPUS DU BATIMENT-GRAND PARIS",
+      "city": "ALFORTVILLE",
+      "street": "PL SAN BENEDETTO DEL TRONTO",
+      "zip_code": "94140",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 12,
+    "fields": {
+      "name": "CFA COUVERTURE PLOMBERIE",
+      "city": "ALFORTVILLE",
+      "street": "PL SAN BENEDETTO DEL TRONTO",
+      "zip_code": "94140",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 13,
+    "fields": {
+      "name": "CHAMBRE DE METIERS ET DE L'ARTISANAT DE REGION ILE-DE-FRANCE",
+      "city": "BOBIGNY",
+      "street": "91 RUE EDOUARD RENARD, 91-129",
+      "zip_code": "93000",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 14,
+    "fields": {
+      "name": "CHAMBRE DE METIERS ET DE L'ARTISANAT DE REGION ILE-DE-FRANCE",
+      "city": "BOBIGNY",
+      "street": "91 RUE EDOUARD RENARD, 91-129",
+      "zip_code": "93000",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 15,
+    "fields": {
+      "name": "CHAMBRE DE METIERS ET DE L'ARTISANAT DE REGION ILE-DE-FRANCE",
+      "city": "SAINT-MAUR-DES-FOSSES",
+      "street": "25 AV RASPAIL",
+      "zip_code": "94100",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 16,
+    "fields": {
+      "name": "CHAMBRE DE METIERS ET DE L'ARTISANAT DE REGION ILE-DE-FRANCE",
+      "city": "SAINT-MAUR-DES-FOSSES",
+      "street": "25 AV RASPAIL",
+      "zip_code": "94100",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 17,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "SAINT-DENIS",
+      "street": "21 RUE PRAIRIAL",
+      "zip_code": "93200",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 18,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "SAINT-DENIS",
+      "street": "21 RUE PRAIRIAL",
+      "zip_code": "93200",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 19,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL LOUIS BLERIOT",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 20,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL GUSTAVE EIFFEL",
+      "city": "CHILLY-MAZARIN",
+      "street": "28 RTE DE LONGJUMEAU",
+      "zip_code": "91380",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 21,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "RUEIL-MALMAISON",
+      "street": "35 RUE MARQUIS DE CORIOLIS",
+      "zip_code": "92500",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 22,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "RUEIL-MALMAISON",
+      "street": "35 RUE MARQUIS DE CORIOLIS",
+      "zip_code": "92500",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 23,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "NOISY-LE-GRAND",
+      "street": "1 RUE DU BALLON, N 001 AU 003",
+      "zip_code": "93160",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 24,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "NOISY-LE-GRAND",
+      "street": "1 RUE DU BALLON, N 001 AU 003",
+      "zip_code": "93160",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 25,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "NOISY-LE-GRAND",
+      "street": "1 RUE DU BALLON, N 001 AU 003",
+      "zip_code": "93160",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 26,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "NOISY-LE-GRAND",
+      "street": "1 RUE DU BALLON, N 001 AU 003",
+      "zip_code": "93160",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 27,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "ERMONT",
+      "street": "18 RUE FERDINAND BUISSON",
+      "zip_code": "95120",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 28,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "ERMONT",
+      "street": "18 RUE FERDINAND BUISSON",
+      "zip_code": "95120",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 29,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL FERDINAND BUISSON",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 30,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL FERDINAND BUISSON",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 31,
+    "fields": {
+      "name": "TRAJECTOIRE FORMATION",
+      "city": "GUYANCOURT",
+      "street": "PL FRANCOIS RABELAIS, CFA LYCEE HOTELIER",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 32,
+    "fields": {
+      "name": "TRAJECTOIRE FORMATION",
+      "city": "GUYANCOURT",
+      "street": "PL FRANCOIS RABELAIS, CFA LYCEE HOTELIER",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 33,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL JEAN MOULIN",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 34,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL PIERRE MENDES-FRANCE",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 35,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL PIERRE MENDES-FRANCE",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 36,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL LE CORBUSIER",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 37,
+    "fields": {
+      "name": "LYCEE PROFESSIONNEL LE CORBUSIER",
+      "city": "GUYANCOURT",
+      "street": "19 AV DU CENTRE",
+      "zip_code": "78280",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 38,
+    "fields": {
+      "name": "FRATERNITE ST JEAN JEUNES",
+      "city": "SAINT-GRATIEN",
+      "street": "12 AV DE CATINAT",
+      "zip_code": "95210",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 39,
+    "fields": {
+      "name": "FRATERNITE ST JEAN JEUNES",
+      "city": "SAINT-GRATIEN",
+      "street": "12 AV DE CATINAT",
+      "zip_code": "95210",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 40,
+    "fields": {
+      "name": "FEDERATION COMPAGNONNIQUE REGIONALE D' ILE DE FRANCE",
+      "city": "SAINT-THIBAULT-DES-VIGNES",
+      "street": "2 RTE DE GUERMANTES",
+      "zip_code": "77400",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 41,
+    "fields": {
+      "name": "FEDERATION COMPAGNONNIQUE REGIONALE D' ILE DE FRANCE",
+      "city": "SAINT-THIBAULT-DES-VIGNES",
+      "street": "2 RTE DE GUERMANTES",
+      "zip_code": "77400",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 42,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "BRETIGNY-SUR-ORGE",
+      "street": "5 RUE DESSERTE INDUSTRIELLE",
+      "zip_code": "91220",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  },
+  {
+    "model": "authentication.school",
+    "pk": 43,
+    "fields": {
+      "name": "BTP CFA ILE DE FRANCE",
+      "city": "BRETIGNY-SUR-ORGE",
+      "street": "5 RUE DESSERTE INDUSTRIELLE",
+      "zip_code": "91220",
+      "create_at": "2022-03-18T09:53:02.320Z",
+      "update_at": "2022-03-18T09:53:02.320Z"
+    }
+  }
+]
