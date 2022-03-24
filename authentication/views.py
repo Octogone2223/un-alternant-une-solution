@@ -159,7 +159,7 @@ def user(request):
 
         try:
 
-            if userType == "CompanyUser" and userSerializer.is_valid() and CompanySerializer(data=bodyJson["dataSend"]).is_valid():
+            if userType == "Company" and userSerializer.is_valid() and CompanySerializer(data=bodyJson["dataSend"]).is_valid():
 
                 idUser = bodyJson["userSend"]['id']
                 companySerializer = CompanySerializer(
@@ -177,7 +177,7 @@ def user(request):
                 except serializers.ValidationError as e:
                     return HttpResponseBadRequest(json.dumps(e.detail))
 
-            elif userType == "SchoolUser" and userSerializer.is_valid() and SchoolSerializer(data=bodyJson["dataSend"]).is_valid():
+            elif userType == "School" and userSerializer.is_valid() and SchoolSerializer(data=bodyJson["dataSend"]).is_valid():
 
                 idUser = bodyJson["userSend"]['id']
                 schoolSerializer = SchoolSerializer(
@@ -278,6 +278,62 @@ def photo(request, id):
     user = User.objects.get(id=id)
     try:
         pathImg = f'authentication/files/picture/{id}.{user.extension_picture}'
+        return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
+    except IOError:
+        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+
+
+def school_photo(request, id):
+    if request.method == 'PUT':
+
+        body = request.body.decode('utf-8')
+        bodyJson = json.loads(body)
+
+        school = School.objects.get(id=id)
+        if os.path.exists(f'{settings.BASE_DIR}/authentication/files/picture/school/{id}.{school.extension_picture}'):
+            os.remove(
+                f'{settings.BASE_DIR}/authentication/files/picture/school/{id}.{school.extension_picture}')
+
+        pathCv = f'authentication/files/picture/school/{id}.{bodyJson["extensionFile"]}'
+        text_file = open(f'{settings.BASE_DIR}/{pathCv}', "wb")
+        text_file.write(base64.b64decode(bodyJson["fileEntity"]))
+        text_file.close()
+
+        School.objects.filter(id=id).update(
+            extension_picture=bodyJson["extensionFile"])
+        return JsonResponse({'status': 'success'})
+
+    school = School.objects.get(id=id)
+    try:
+        pathImg = f'authentication/files/picture/school/{id}.{school.extension_picture}'
+        return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
+    except IOError:
+        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+
+
+def company_photo(request, id):
+    if request.method == 'PUT':
+
+        body = request.body.decode('utf-8')
+        bodyJson = json.loads(body)
+
+        company = Company.objects.get(id=id)
+        if os.path.exists(f'{settings.BASE_DIR}/authentication/files/picture/company/{id}.{company.extension_picture}'):
+            os.remove(
+                f'{settings.BASE_DIR}/authentication/files/picture/company/{id}.{company.extension_picture}')
+
+        pathCv = f'authentication/files/picture/company/{id}.{bodyJson["extensionFile"]}'
+        text_file = open(f'{settings.BASE_DIR}/{pathCv}', "wb")
+        text_file.write(base64.b64decode(bodyJson["fileEntity"]))
+        text_file.close()
+
+        Company.objects.filter(id=id).update(
+            extension_picture=bodyJson["extensionFile"])
+        return JsonResponse({'status': 'success'})
+
+    company = Company.objects.get(id=id)
+    try:
+        pathImg = f'authentication/files/picture/company/{id}.{company.extension_picture}'
         return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
     except IOError:
         return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)

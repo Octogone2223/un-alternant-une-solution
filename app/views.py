@@ -23,7 +23,7 @@ def profile(request):
 
     if userType == 'Student':
         data = list(Student.objects.filter(user=request.user).values())[0]
-    elif userType == 'CompanyUser':
+    elif userType == 'Company':
         data = list(Company.objects.filter(
             user_companies=request.user).values())[0]
         pass
