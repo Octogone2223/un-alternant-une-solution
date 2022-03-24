@@ -23,14 +23,15 @@
           </div>
         </div>
       </div>
+
       <transition-group mode="out-in">
-        <Transition name="fade">
+        <Transition name="fade" key="1">
           {% include './components/student_signup.html'%}
         </Transition>
-        <Transition name="fade">
+        <Transition name="fade" key="2">
           {% include './components/company_signup.html'%}
         </Transition>
-        <Transition name="fade">
+        <Transition name="fade" key="3">
           {% include './components/school_signup.html'%}
         </Transition>
       </transition-group>
@@ -101,7 +102,8 @@
         classObject: {
           'lg:grid-cols-2': this.activeAccount == 3
         },
-        accountType: '2',
+        accountType: new URL(location.href).searchParams.get('type') ? new URL(location.href).searchParams.get(
+          'type') : 3,
         registerFormStudent: {
           first_name: '',
           last_name: '',
@@ -176,7 +178,7 @@
           this.handleSubmitRegisterStudent()
         }
       },
-      
+
       async register(form) {
         const response = await fetch('/auth/sign-up/', {
           method: 'POST',

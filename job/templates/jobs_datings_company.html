@@ -78,6 +78,10 @@
                         "X-CSRFToken": getCookie("csrftoken"),
                     }
                 })
+
+                if (response.status === 200) {
+                    location.reload();
+                }
             }
         },
 

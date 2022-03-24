@@ -55,8 +55,10 @@
 
                 <button class="w-1/2 mb-5 text-white bg-secondary focus:ring-4 focus:ring-purple-300 font-medium rounded-lg
                     text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700
-                    dark:focus:ring-purple-900" id="btn_signin" @click="handleSubmitLoginForm">{% trans 'Connexion' %}</button>
-                <p>Pas encore de compte ? <a href="{% url 'authentication:sign_up' %}" class="cursor-pointer text-blue-300">{% trans 'Inscription' %}</a></p>
+                    dark:focus:ring-purple-900" id="btn_signin"
+                    @click="handleSubmitLoginForm">{% trans 'Connexion' %}</button>
+                <p>Pas encore de compte ? <a @click="redirectTo"
+                        class="cursor-pointer text-blue-300">{% trans 'Inscription' %}</a></p>
             </div>
 
 
@@ -86,6 +88,10 @@
             }
         },
         methods: {
+            redirectTo() {
+                const type = new URL(location.href).searchParams.get('type');
+                location.href = '/auth/sign-up?type=' + type;
+            },
             async handleSubmitLoginForm() {
 
                 this.errors = {
@@ -118,8 +124,7 @@
 
                     if (window.location.search.includes('next=')) {
                         window.location.href = window.location.search.split('next=')[1];
-                    }
-                    else {
+                    } else {
                         window.location.href = '/auth/private-test/'
                     }
                 }
