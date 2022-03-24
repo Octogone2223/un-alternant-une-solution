@@ -6,8 +6,8 @@ import json
 from multiprocessing import AuthenticationError
 import os
 from django.conf import settings
-from django.http import FileResponse, HttpRequest, HttpResponse, HttpResponseBadRequest, JsonResponse
-from django.shortcuts import render, redirect
+from django.http import FileResponse, Http404, HttpRequest, HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from authentication.models import Company, Student, User, School
@@ -44,7 +44,7 @@ def sign_up(request):
                         zip_code=companySerializer.validated_data['zip_code'],
                     )
 
-                    company.user_companies.add(user)
+                    company.users.add(user)
 
                     company.save()
 
@@ -132,14 +132,12 @@ def sign_in(request):
     return render(request, 'sign_in.html')
 
 
-@login_required(login_url='sign_in')
+@login_required
 def private(request):
     return render(request, 'private.html')
 
-#
 
-
-@login_required(login_url='sign_in')  # ! check
+@login_required(login_url='/')
 def sign_out(request):
     logout(request)
     return redirect('sign_in')
@@ -197,15 +195,13 @@ def user(request):
 
             else:
                 idUser = bodyJson["userSend"]['id']
-
+                cv_path = bodyJson["dataSend"]['cv_path']
                 if (bodyJson["dataSend"]['cv_file']):
-                    pathCv = f'authentication/files/cv/public_{idUser}.pdf'
+                    pathCv = f'authentication/files/cv/public_{idUser}.{cv_path}'
                     text_file = open(f'{settings.BASE_DIR}/{pathCv}', "wb")
                     text_file.write(base64.b64decode(
                         bodyJson["dataSend"]['cv_file']))
                     text_file.close()
-
-                    bodyJson["dataSend"]['cv_path'] = f'cv/public_{idUser}.pdf'
 
                 bodyJson["dataSend"].pop("cv_file")
                 studentSerializer = StudentSerializer(
@@ -241,15 +237,41 @@ def user(request):
     return JsonResponse({'data': data, 'user': userJSON, 'userType': userType})
 
 
+@login_required(login_url='sign_in')
+def updatePassword(request):
+    if request.method == 'PATCH':
+
+        body = request.body.decode('utf-8')
+        bodyJson = json.loads(body)
+
+        try:
+            user = User.objects.get(pk=bodyJson["userSend"]["id"])
+
+            if(user.check_password(bodyJson["userSend"]["passwordActual"])):
+                user.set_password(bodyJson["userSend"]["newPassword"])
+                user.save()
+                return JsonResponse({'status': 'success'})
+            else:
+                return JsonResponse({'status': 'none', 'errors': {'current': ['Le mot de passe actuel ne correspond pas']}})
+
+        except User.DoesNotExist:
+            raise Http404("Given query not found....")
+
+
 # TODO: Faire le fameux DjangoGuardian (GET pour tous le monde et POST pour les connectés)
 # @login_required(login_url='sign_in')
 def cvPublic(request, id):
 
     try:
-        pathCv = f'authentication/files/cv/public_{id}.pdf'
-        return FileResponse(open(f'{settings.BASE_DIR}/{pathCv}', "rb"))
-    except IOError:
+        user = Student.objects.get(user=id)
+        try:
+            pathCv = f'authentication/files/cv/public_{id}.{user.cv_path}'
+            return FileResponse(open(f'{settings.BASE_DIR}/{pathCv}', "rb"))
+        except IOError:
+            return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    except Student.DoesNotExist:
         return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+
 
 # TODO: Faire le fameux DjangoGuardian (GET pour tous le monde et POST pour les connectés)
 
@@ -275,12 +297,15 @@ def photo(request, id):
             extension_picture=bodyJson["extensionFile"])
         return JsonResponse({'status': 'success'})
 
-    user = User.objects.get(id=id)
     try:
-        pathImg = f'authentication/files/picture/{id}.{user.extension_picture}'
-        return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
-    except IOError:
-        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+        user = User.objects.get(id=id)
+        try:
+            pathImg = f'authentication/files/picture/{id}.{user.extension_picture}'
+            return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
+        except IOError:
+            return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
+    except User.DoesNotExist:
+        return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
 
 
 def school_photo(request, id):
@@ -303,12 +328,15 @@ def school_photo(request, id):
             extension_picture=bodyJson["extensionFile"])
         return JsonResponse({'status': 'success'})
 
-    school = School.objects.get(id=id)
     try:
-        pathImg = f'authentication/files/picture/school/{id}.{school.extension_picture}'
-        return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
-    except IOError:
-        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+        school = School.objects.get(id=id)
+        try:
+            pathImg = f'authentication/files/picture/school/{id}.{school.extension_picture}'
+            return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
+        except IOError:
+            return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    except School.DoesNotExist:
+        return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
 
 
 def company_photo(request, id):
@@ -330,10 +358,12 @@ def company_photo(request, id):
         Company.objects.filter(id=id).update(
             extension_picture=bodyJson["extensionFile"])
         return JsonResponse({'status': 'success'})
-
-    company = Company.objects.get(id=id)
     try:
-        pathImg = f'authentication/files/picture/company/{id}.{company.extension_picture}'
-        return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
-    except IOError:
-        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+        company = Company.objects.get(id=id)
+        try:
+            pathImg = f'authentication/files/picture/company/{id}.{company.extension_picture}'
+            return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
+        except IOError:
+            return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    except Company.DoesNotExist:
+        return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
