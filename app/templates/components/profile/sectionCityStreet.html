@@ -53,12 +53,19 @@
             [[ error ]]</span>
         </div>
       </div>
-      <div class="invisible flex flex-col col-span-2">
-        <label for="ss"
-          class="font-bold mb-2 hover  block text-sm text-slate-700">Nom de votre Entité:</label>
-        <input type="text"
-          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" />
-          
+      
+      <div class="flex items-center flex-col alig">
+        <label for="name"
+          class="font-bold mb-2 hover  block text-sm text-slate-700">Photo de votre Entité:</label>
+        <div v-on:click="updatePhotoEntity()" class="avatar flex items-end justify-end cursor-pointer ">
+          <input type="file" accept="image/*" id="fileEntity" class="hidden"></input>
+          <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img id="pictureEntity" src="/auth/{{userType|lower}}/{{data.id}}/photo" onerror='this.onerror=false;this.src="/static/img/avatar.png"'></img>
+          </div>
+          <div class="w-[30px] absolute">
+            <img src="/static/img/camera.svg"></img>
+          </div>
+        </div>
       </div>
   
     </div>

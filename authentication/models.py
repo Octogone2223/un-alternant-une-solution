@@ -85,10 +85,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def getUserType(self):
         if (self.isStudent()):
             return 'Student'
-        elif (self.isCompanyUser()):
-            return 'CompanyUser'
+        elif (self.isCompany()):
+            return 'Company'
         else:
-            return 'SchoolUser'
+            return 'School'
 
     def isStudent(student):
         try:
@@ -100,7 +100,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         except Student.DoesNotExist:
             return False
 
-    def isCompanyUser(user):
+    def isCompany(user):
         try:
             companyFind = list(Company.objects.filter(
                 user_companies=user).values())
@@ -122,6 +122,9 @@ class Company(models.Model):
     street = models.CharField(max_length=75, verbose_name="Street", null=True)
     zip_code = models.CharField(
         max_length=75, verbose_name="Zip Code", null=True)
+
+    extension_picture = models.CharField(
+        max_length=20, default='NULL', verbose_name="Picture Extension")
     user_companies = models.ManyToManyField(
         User)
     jobs = models.ManyToManyField('job.Job', related_name='company_jobs+')
@@ -152,6 +155,9 @@ class School(models.Model):
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
+
+    extension_picture = models.CharField(
+        max_length=20, default='NULL', verbose_name="Picture Extension")
     users = models.ManyToManyField(User)
     courses = models.ManyToManyField(
         'course.Course', related_name='school_courses+')
