@@ -14,6 +14,8 @@ import os
 from authentication.models import User
 from django.shortcuts import render, redirect, reverse
 from django.db.models import Prefetch
+from django.http import FileResponse
+from django.conf import settings
 
 
 def list_jobs(request):
@@ -75,14 +77,10 @@ def job_detail(request, job_id):
         except:
             return HttpResponse(status=400)
 
-    if(not hasattr(request.user, 'student')):
-        not_user = True
+    has_already_applied = JobDating.objects.filter(
+        job_id=job_id, student=request.user.student).exists()
 
-    else:
-        has_already_applied = JobDating.objects.filter(
-            job_id=job_id, student=request.user.student).exists()
-
-    if request.method == 'POST' and not has_already_applied and not_user:
+    if request.method == 'POST' and not has_already_applied:
         cv = request.FILES.get('cv', None)
         motivation_letter = request.FILES.get('motivation_letter', None)
 
@@ -104,9 +102,6 @@ def job_detail(request, job_id):
         return HttpResponse(status=201)
 
     job = Job.objects.get(id=job_id)
-
-    if not_user:
-        return render(request, 'job_details.html', {'job': job, 'not_user': not_user, 'has_already_applied': True})
 
     return render(request, 'job_details.html', {'job': job, 'has_already_applied': has_already_applied})
 
@@ -134,6 +129,24 @@ def jobs_datings(request):
 
 @ login_required
 def jobs_datings_detail(request, job_dating_id):
+    if request.method == 'PATCH':
+        body = request.body.decode('utf-8')
+        bodyJson = json.loads(body)
+
+        try:
+            job_dating = JobDating.objects.get(
+                id=job_dating_id, job__company__users=request.user)
+            if bodyJson['status'] == 'ACCEPTED':
+                job_dating.status = 'AC'
+            elif bodyJson['status'] == 'REJECTED':
+                job_dating.status = 'RE'
+
+            job_dating.save()
+            return HttpResponse(status=200)
+
+        except JobDating.DoesNotExist:
+            return HttpResponse(status=400)
+
     if request.method == 'DELETE':
         job_dating = JobDating.objects.get(id=job_dating_id)
         job_dating.delete()
@@ -142,3 +155,33 @@ def jobs_datings_detail(request, job_dating_id):
         handle_delete_file(job_dating.motivation_letter_path)
 
         return HttpResponse(status=204)
+
+
+@ login_required
+def job_inspect(request, job_id):
+    try:
+        job = Job.objects.get(id=job_id, company__users__pk=request.user.id)
+        job_datings = job.job_datings.all()
+        return render(request, 'job_inspect.html', {'job': job, 'job_datings': job_datings})
+    except Job.DoesNotExist:
+        return redirect('/')
+
+
+@ login_required
+def job_dating_inspect_cv(request, job_dating_id):
+    try:
+        job_dating = JobDating.objects.get(
+            id=job_dating_id, job__company__users=request.user)
+        return FileResponse(open(f'{settings.BASE_DIR}/{job_dating.cv_path}', "rb"))
+    except JobDating.DoesNotExist:
+        return redirect('/')
+
+
+@ login_required
+def job_dating_inspect_letter(request, job_dating_id):
+    try:
+        job_dating = JobDating.objects.get(
+            id=job_dating_id, job__company__users=request.user)
+        return FileResponse(open(f'{settings.BASE_DIR}/{job_dating.motivation_letter_path}', "rb"))
+    except JobDating.DoesNotExist:
+        return redirect('/')
