@@ -4,41 +4,316 @@
 
 {% block content %}
 
-<div data-theme="rtrt" class="flex flex-col w-full mt-10 px-10" id="profile">
 
-  <div class="flex flex-col lg:flex-row w-full justify-between items-center">
+<div class="" id="profile">
 
-    <div class="text-black text-3xl font-bold">Modifier son profil</div>
-    
-    <div class="flex items-end justify-end">
-      <div class="w-[116px] relative">
-        <img src="/static/img/avatar.png"></img>
+  <div class="flex flex-col w-full mt-10 px-10">
+
+    <div class="flex flex-col lg:flex-row w-full justify-between items-center">
+
+      <div class="text-black text-3xl font-bold">Modifier son profil</div>
+
+      <div v-on:click="updatePhoto()" class="avatar flex items-end justify-end cursor-pointer ">
+        <input type="file" accept="image/*" id="filePhoto" class="hidden"></input>
+        <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+          <img id="pictureUser" src="/auth/user/{{request.user.id}}/photo" onerror='this.onerror=false;this.src="/static/img/avatar.png"'></img>
+        </div>
+        <div class="w-[30px] absolute">
+          <img src="/static/img/camera.svg"></img>
+        </div>
       </div>
-      <div class="w-[30px] absolute">
-        <img src="/static/img/camera.svg"></img>
-      </div>
+
     </div>
+
+    {% include './components/profile/sectionNameDescription.html' %}
+
+    <div v-if="userType === 'Company' || userType === 'School'">
+
+      {% include './components/profile/sectionCityStreet.html' %}
+
+    </div>
+    <div v-if="userType === 'Student'">
+      {% include './components/profile/sectionStudent.html' %}
+    </div>
+
+    <button v-on:click="handleProfile()"
+      class="btn bg-secondary border-secondary hover:bg-primary hover:border-primary w-40 self-end">{% trans 'Valider' %}</button>
 
   </div>
 
-  {% include './components/profile/sectionNameDescription.html' %}
-  {% if typeUser == 'SchoolUser' or typeUser == 'CompanyUser'  %} 
+  <div class="mt-20">
+    {% include './components/footer.html' %}
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block vueJs %}
+<script>
+  const profile = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        userType: "{{userType}}",
+        id:"{{user.id}}",
+        idD:"{{data.id}}",
+        filePhoto:null,
+        fileEntity:null,
+        profileForm: {
+          first_name: "{{user.first_name}}",
+          last_name: "{{user.last_name}}",
+          email: "{{user.email}}",
+          name: "{{data.name}}",
+          city: "{{data.city}}",
+          street: "{{data.street}}",
+          zip_code: "{{data.zip_code}}",
+          course: "{{data.course}}",
+          cv_path: "{{data.cv_path}}",
+          birthday: "{{data.birthday|date:'Y-m-d'}}",
+          linkedin_url: "{{data.linkedin_url}}",
+        },
+        errors: {
+          first_name: [],
+          last_name: [],
+          email: [],
+          description: [],
+          name: [],
+          city: [],
+          street: [],
+          zip_code: [],
+          course: [],
+          cv_path: [],
+          birthday: [],
+          linkedin_url: [],
+        },
+      }
+    },
+    methods: {
+      
+      async updatePhoto() {
+        this.filePhoto.click()
+      },
+      async updatePhotoEntity() {
+        this.fileEntity.click()
+      },
+
+      async readFile(file){
+        let promise = new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.addEventListener("load", function () {
+            const base64String = reader.result
+                .replace('data:', '')
+                .replace(/^.+,/, '');
+                
+            resolve(base64String);
+          }, false);
+          reader.readAsDataURL(file);
+
+        });
+        return await promise;
+      },
+      resetError() {
+        this.errors = {
+          first_name: [],
+          last_name: [],
+          email: [],
+          description: [],
+          name: [],
+          city: [],
+          street: [],
+          zip_code: [],
+          course: [],
+          cv_path: [],
+          birthday: [],
+          linkedin_url: []
+        }
+      },
+      async validForm() {
+        return new Promise((resolve,reject) => {
+
+          this.resetError();
+
+          if (!this.profileForm.first_name) {
+            this.errors.first_name.push('Veuillez entrer votre nom')
+          }
+          if (!this.profileForm.last_name) {
+            this.errors.last_name.push('Veuillez entrer votre prénom')
+          }
+          if (!this.profileForm.email) {
+            this.errors.email.push('Veuillez entrer votre email')
+          }
   
-    {% include './components/profile/sectionCityStreet.html' %}
   
-  {% else %} 
-    {% include './components/profile/sectionStudent.html' %} 
-  {% endif %}
+          if (this.userType === "Student") {
+            if (!this.profileForm.birthday) {
+              this.errors.birthday.push('Veuillez entrer une date de naissance')
+            }
+            if (!this.profileForm.linkedin_url || (!this.profileForm.linkedin_url.includes("http") && !this.profileForm.linkedin_url.includes("https"))) {
+              this.errors.linkedin_url.push('Veuillez un lien Linkedin valide')
+            }
+          }
+          else {
+            if (!this.profileForm.city) {
+              this.errors.city.push('Veuillez entrer une ville')
+            }
+            if (!this.profileForm.zip_code) {
+              this.errors.street.push('Veuillez entrer une adresse')
+            }
+            if (!this.profileForm.zip_code) {
+              this.errors.street.push('Veuillez entrer un code postal')
+            }
+            if (!this.profileForm.name) {
+              this.errors.name.push("Veuillez entrer un nom d'entité valide")
+            }
+          }
 
-  <button class="btn bg-primary border-primary w-40 self-end">{% trans 'Valider' %}</button>
+          if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) {
+            resolve(false);
+          }
+          else {
+            resolve(true);
+          }
 
-</div>
+        });
 
-</div>
+      },
+      async handleProfile() {
+        if (await this.validForm()) {
+          let userSend = {
+            first_name: this.profileForm.first_name,
+            last_name: this.profileForm.last_name,
+            email: this.profileForm.email,
+            id:this.id
+          }
+          let dataSend = {}
+  
+          if (this.userType === "Student") {
+  
+            let file = document.getElementById("fileCv").files[0];
+            cv_file = null;
+            if (file) {
+              cv_file = await this.readFile(file);
+            }
+            dataSend = {
+              description: document.getElementById('description').value,
+              //course: this.profileForm.course,
+              cv_file: cv_file,
+              cv_path: this.profileForm.cv_path,
+              birthday: this.profileForm.birthday,
+              linkedin_url: this.profileForm.linkedin_url,
+              id:this.idD
+            }
+          }
+          else {
+            dataSend = {
+              name:this.profileForm.name,
+              description: document.getElementById('description').value,
+              city: this.profileForm.city,
+              street: this.profileForm.street,
+              zip_code: this.profileForm.zip_code,
+              id:this.idD
+            }
+          }
+          
+          fetch('/auth/user/',
+            {
+              method: 'POST',
+              headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+              },
+              body: JSON.stringify({
+                userSend : {...userSend},
+                dataSend : {...dataSend},
+                userType : this.userType
+              }),
+            })
+            .then((response) => {
+              return response.json()
+            })
+            .then((json) => {
+              if (json.status === 'success') {
+                Toastify({
+                  text: "Votre profil a été mis à jour",
+                  duration: 3000
+                  }).showToast();
+              }
+            })
+        }
+        
+
+        /*
+        */
+
+      },
+    },
+    mounted() {
+
+      this.filePhoto = document.getElementById("filePhoto");
+
+      this.filePhoto.onchange = async () => {
+        console.log(this.filePhoto.files[0])
+        fetch(`/auth/user/${this.id}/photo`,
+          {
+            method: 'PUT',
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({
+              userSend: {id: this.id},
+              filePhoto: await this.readFile(this.filePhoto.files[0]),
+              extensionFile: this.filePhoto.files[0].type.split('/')[1].split('+')[0]
+            }),
+          })
+          .then((response) => {
+            return response.json()
+          })
+          .then((json) => {
+            console.log(json);
+            if (json.status === 'success') {
+              Toastify({
+                text: "Votre photo a été mis à jour",
+                duration: 3000
+                }).showToast();
+                document.getElementById("pictureUser").src = "/auth/user/{{request.user.id}}/photo?"+ new Date().getTime();
+            }
+          })
+      }
 
 
-<div class="mt-20">
-  {% include './components/footer.html' %}
-</div>
+      this.fileEntity = document.getElementById("fileEntity");
+
+      this.fileEntity.onchange = async () => {
+        
+        fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`,
+          {
+            method: 'PUT',
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({
+              entitySend: {id: this.idD},
+              fileEntity: await this.readFile(this.fileEntity.files[0]),
+              extensionFile: this.fileEntity.files[0].type.split('/')[1].split('+')[0]
+            }),
+          })
+          .then((response) => {
+            return response.json()
+          })
+          .then((json) => {
+            console.log(json);
+            if (json.status === 'success') {
+              Toastify({
+                text: "Votre photo a été mis à jour",
+                duration: 3000
+                }).showToast();
+                document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?"+ new Date().getTime();
+            }
+          })
+      }
+    },
+    watch: {}
+  }).mount('#profile')
+</script>
 
 {% endblock %}

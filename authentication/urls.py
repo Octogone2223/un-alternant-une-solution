@@ -13,4 +13,9 @@ urlpatterns = [
     path('sign-in/', views.sign_in, name='sign_in'),
     path('sign-out/', views.sign_out, name='sign_out'),
     path('private-test/', views.private, name='private'),
+    path('user/', views.user, name='user'),
+    path('user/cvPublic/<int:id>', views.cvPublic, name="cvPublic"),
+    path('user/<int:id>/photo', views.photo, name="photo"),
+    path('company/<int:id>/photo', views.company_photo, name="entity"),
+    path('school/<int:id>/photo', views.school_photo, name="entity")
 ]

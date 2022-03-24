@@ -63,6 +63,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=75, verbose_name="First Name")
     last_name = models.CharField(max_length=75, verbose_name="Last Name")
 
+    extension_picture = models.CharField(
+        max_length=20, default='NULL', verbose_name="Picture Extension")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -82,10 +85,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def getUserType(self):
         if (self.isStudent()):
             return 'Student'
-        elif (self.isCompanyUsers()):
-            return 'CompanyUser'
+        elif (self.isCompany()):
+            return 'Company'
         else:
-            return 'SchoolUser'
+            return 'School'
 
     def isStudent(student):
         try:
@@ -95,6 +98,18 @@ class User(AbstractBaseUser, PermissionsMixin):
             else:
                 return False
         except Student.DoesNotExist:
+            return False
+
+    def isCompany(user):
+        try:
+            companyFind = list(Company.objects.filter(
+                user_companies=user).values())
+            if len(companyFind):
+                return True
+            else:
+                return False
+        except Company.DoesNotExist:
+            print("dd")
             return False
 
 
@@ -107,6 +122,8 @@ class Company(models.Model):
     street = models.CharField(max_length=75, verbose_name="Street", null=True)
     zip_code = models.CharField(
         max_length=75, verbose_name="Zip Code", null=True)
+    extension_picture = models.CharField(
+        max_length=20, default='NULL', verbose_name="Picture Extension")
     users = models.ManyToManyField(
         User)
     jobs = models.ManyToManyField('job.Job', related_name='company_jobs+')
@@ -126,7 +143,7 @@ class Student(models.Model):
     description = models.TextField(verbose_name="Description", null=True)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self} {self.user.last_name}'
 
 
 class School(models.Model):
@@ -137,6 +154,9 @@ class School(models.Model):
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
+
+    extension_picture = models.CharField(
+        max_length=20, default='NULL', verbose_name="Picture Extension")
     users = models.ManyToManyField(User)
     courses = models.ManyToManyField(
         'course.Course', related_name='school_courses+')
