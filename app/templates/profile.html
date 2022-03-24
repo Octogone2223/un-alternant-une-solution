@@ -217,6 +217,10 @@
               linkedin_url: this.profileForm.linkedin_url,
               id:this.idD
             }
+
+            if (file) {
+              dataSend.cv_path = file.type.split('/')[1].split('+')[0]
+            }
           }
           else {
             dataSend = {
