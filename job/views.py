@@ -62,7 +62,8 @@ def create_job(request):
             job.save()
 
             return JsonResponse({'status': 'success'})
-        except:
+        except Exception as e:
+            print(e)
             return HttpResponseBadRequest({'status': 'failed'})
 
     userJSON = list(User.objects.filter(id=request.user.id).values())[0]
