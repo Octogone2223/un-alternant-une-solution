@@ -71,6 +71,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
+    # ! is necessary to import the UserManager class like create_user method
+    objects = UserManager()
+
+    is_staff = models.BooleanField(default=False)  # ! is necessary
+    is_active = models.BooleanField(default=True)  # ! is necessary
+
     def getUserType(self):
         if (self.isStudent()):
             return 'Student'
