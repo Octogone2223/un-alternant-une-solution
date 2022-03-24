@@ -295,13 +295,16 @@ def photo(request, id):
         User.objects.filter(id=id).update(
             extension_picture=bodyJson["extensionFile"])
         return JsonResponse({'status': 'success'})
-
-    user = User.objects.get(id=id)
-    try:
-        pathImg = f'authentication/files/picture/{id}.{user.extension_picture}'
-        return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
-    except IOError:
-        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    
+    try :
+        user = User.objects.get(id=id)
+        try:
+            pathImg = f'authentication/files/picture/{id}.{user.extension_picture}'
+            return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
+        except IOError:
+            return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
+    except User.DoesNotExist:
+         return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
 
 
 def school_photo(request, id):
@@ -324,12 +327,15 @@ def school_photo(request, id):
             extension_picture=bodyJson["extensionFile"])
         return JsonResponse({'status': 'success'})
 
-    school = School.objects.get(id=id)
-    try:
-        pathImg = f'authentication/files/picture/school/{id}.{school.extension_picture}'
-        return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
-    except IOError:
-        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    try : 
+        school = School.objects.get(id=id)
+        try:
+            pathImg = f'authentication/files/picture/school/{id}.{school.extension_picture}'
+            return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
+        except IOError:
+            return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    except School.DoesNotExist:
+         return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
 
 
 def company_photo(request, id):
@@ -351,10 +357,12 @@ def company_photo(request, id):
         Company.objects.filter(id=id).update(
             extension_picture=bodyJson["extensionFile"])
         return JsonResponse({'status': 'success'})
-
-    company = Company.objects.get(id=id)
     try:
-        pathImg = f'authentication/files/picture/company/{id}.{company.extension_picture}'
-        return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
-    except IOError:
-        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+        company = Company.objects.get(id=id)
+        try:
+            pathImg = f'authentication/files/picture/company/{id}.{company.extension_picture}'
+            return FileResponse(open(f'{settings.BASE_DIR}/{pathImg}', "rb"))
+        except IOError:
+            return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    except Company.DoesNotExist:
+         return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
