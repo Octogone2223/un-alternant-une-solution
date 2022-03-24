@@ -1,13 +1,16 @@
 from django.test import TestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import Client
-from selenium.webdriver.firefox.webdriver import WebDriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium import webdriver
+import json
+from selenium.webdriver.chrome.options import Options
 # Create your tests here.
 
 
 class AuthenticationTests(TestCase):
+
     def test_homepage(self):
-        # self.assertFalse(False)
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
 
@@ -19,30 +22,22 @@ class AuthenticationTests(TestCase):
         response = self.client.get('/auth/sign-in/')
         self.assertEqual(response.status_code, 200)
 
-    # def test_homepage(self):
-    #     response = self.client.get('/')
-    #     self.assertEqual(response.status_code, 200)
-
     def test_student_signup(self):
-        print("before")
-        python_dict = {'account_type': '3', 'first_name': 'TestStudent', 'last_name': 'TESTSTUDENT', 'email': 'student@test.com', 'password': 'TestStudent', 'confirmPassword': 'TestStudent'}
+        python_dict = json.dumps({'accountType': 3, 'first_name': 'TestStudent', 'last_name': 'TESTSTUDENT', 'email': 'student@test.com', 'password': 'TestStudent', 'confirmPassword': 'TestStudent'})
         response = self.client.post(
             '/auth/sign-up/',
-            json.dumps(python_dict),
-            content_type="application/json"
+            python_dict,
+            "application/json"
         )
-        print("after")
-        self.assertFalse(False)
-        # self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
 
 class MySeleniumTests(StaticLiveServerTestCase):
-    fixtures = ['user-data.json']
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver()
+        cls.selenium = webdriver.Chrome(ChromeDriverManager().install())
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -50,18 +45,47 @@ class MySeleniumTests(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    def test_gotologin(self):
+    def test_homepage(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
-        username_input = self.selenium.find_element_by_name("username")
-        username_input.send_keys('myuser')
-        password_input = self.selenium.find_element_by_name("password")
-        password_input.send_keys('secret')
-        self.selenium.find_element_by_xpath('//input[@value="Log in"]').click()
+        assert '1alternant1solution' in self.selenium.title
+        elem = self.selenium.find_element_by_xpath('//a[contains(text(),"Je suis étudiant")]')
+        assert(elem is not None)
 
-    def test_login(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/auth/signin'))
-        username_input = self.selenium.find_element_by_name("email")
-        username_input.send_keys('myuser')
+    def test_signup_signin_student(self):
+        # Access to Sign up page
+        self.selenium.get('%s%s' % (self.live_server_url, '/auth/sign-up'))
+
+        # Select Student button radio
+        self.selenium.find_element_by_xpath("//input[@value=3]").click()
+
+        # Fill the form's field
+        firstname_input = self.selenium.find_element_by_name("first_name")
+        firstname_input.send_keys('TestStudent')
+        lastname_input = self.selenium.find_element_by_name("last_name")
+        lastname_input.send_keys('TESTSTUDENT')
+        mail_input = self.selenium.find_element_by_name("email")
+        mail_input.send_keys('student@test.com')
         password_input = self.selenium.find_element_by_name("password")
-        password_input.send_keys('secret')
+        password_input.send_keys('TestStudent')
+        confirmpassword_input = self.selenium.find_element_by_name("confirmPassword")
+        confirmpassword_input.send_keys('TestStudent')
+
+        # Click on signup button
+        self.selenium.find_element_by_id('btn_signup').click()
+
+        # Check if we're on Sign-in page
+        elem = self.selenium.find_element_by_id('signin')
+        assert(elem is not None)
+
+        # Fill the form's field
+        username_input = self.selenium.find_element_by_name("email")
+        username_input.send_keys('student@test.com')
+        password_input = self.selenium.find_element_by_name("password")
+        password_input.send_keys('TestStudent')
+
+        # Click on signin button
         self.selenium.find_element_by_id('btn_signin').click()
+
+        # Check if we're on private page
+        elem = self.selenium.find_element_by_xpath('//*[contains(text(),"je suis bien")]')
+        assert(elem is not None)
