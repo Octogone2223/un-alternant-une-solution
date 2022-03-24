@@ -240,23 +240,24 @@ def user(request):
             user=request.user).school.values())[0]
     return JsonResponse({'data': data, 'user': userJSON, 'userType': userType})
 
+
 @login_required(login_url='sign_in')
 def updatePassword(request):
     if request.method == 'PATCH':
-        
+
         body = request.body.decode('utf-8')
         bodyJson = json.loads(body)
 
         try:
             user = User.objects.get(pk=bodyJson["userSend"]["id"])
-            
-            if(user.check_password(bodyJson["userSend"]["passwordActual"])) :
+
+            if(user.check_password(bodyJson["userSend"]["passwordActual"])):
                 user.set_password(bodyJson["userSend"]["newPassword"])
                 user.save()
                 return JsonResponse({'status': 'success'})
-            else :
-                return JsonResponse({'status': 'none', 'errors':{'current' : ['Le mot de passe actuel ne correspond pas']}})
-                        
+            else:
+                return JsonResponse({'status': 'none', 'errors': {'current': ['Le mot de passe actuel ne correspond pas']}})
+
         except User.DoesNotExist:
             raise Http404("Given query not found....")
 
