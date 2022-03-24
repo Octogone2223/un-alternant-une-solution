@@ -14,6 +14,30 @@ def about(request):
     return render(request, 'about.html')
 
 
+def student_detail(request, student_id):
+    student = list(Student.objects.filter(
+        id=student_id).values('id', 'user_id', 'birthday', 'linkedin_url', 'cv_path', 'description'))[0]
+
+    user_info = list(User.objects.filter(
+        id=student['user_id']).values('id', 'first_name', 'last_name', 'email', 'extension_picture'))[0]
+
+    return render(request, 'student_detail.html', {'student': student, 'user_info': user_info})
+
+
+def company_detail(request, company_id):
+    company = list(Company.objects.filter(id=company_id).values(
+        'id', 'name', 'description', 'city', 'street', 'zip_code'))[0]
+
+    return render(request, 'company_detail.html', {'company': company})
+
+
+def school_detail(request, school_id):
+    school = list(School.objects.filter(id=school_id).values(
+        'id', 'name', 'description', 'city', 'street', 'zip_code'))[0]
+
+    return render(request, 'school_detail.html', {'school': school})
+
+
 @login_required(login_url='authentication:sign_in')
 def profile(request):
 

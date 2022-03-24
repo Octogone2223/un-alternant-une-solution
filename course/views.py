@@ -6,4 +6,8 @@ from .models import Course
 
 def list_courses(request):
     courses = Course.objects.all()
-    return render(request, 'courses.html', {'courses': courses})
+    return render(request, 'list_courses.html', {'courses': courses})
+
+
+def course_detail(request, course_id):
+    return render(request, 'course_detail.html')
