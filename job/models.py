@@ -79,9 +79,9 @@ class JobIdFromPreviousRequest(models.Model):
 class JobDating(models.Model):
 
     class Status(models.TextChoices):
-        OPEN = 'OP', _('Open')
-        CLOSED = 'CL', _('Closed')
-        CANCELED = 'CA', _('Canceled')
+        ACCEPTED = 'AC', _('ACCEPTED')
+        REJECTED = 'RE', _('REJECTED')
+        PENDING = 'PE', _('PENDING')
 
     student = models.ForeignKey(
         'authentication.Student', on_delete=models.CASCADE)

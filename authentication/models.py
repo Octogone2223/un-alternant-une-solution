@@ -136,6 +136,8 @@ class Student(models.Model):
     cv_path = models.CharField(
         max_length=255, verbose_name="CV Path", null=True)
     description = models.TextField(verbose_name="Description", null=True)
+    course = models.ForeignKey(
+        'course.Course', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
