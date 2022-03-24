@@ -1,13 +1,16 @@
 import datetime
+from distutils.log import error
+from django.forms import ValidationError
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from .models import Job, JobDating, JobStatus
-from authentication.models import Company
+from authentication.models import Company, User
 from django.http.response import HttpResponse, JsonResponse
 from django.core import serializers
 import json
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
-from .serializers import JobDatingSerializer
+from .serializers import JobCreationSerializer, JobDatingSerializer
 from django.core.files.base import ContentFile
 from django.contrib.auth.decorators import login_required
 
@@ -32,6 +35,38 @@ def list_jobs(request):
 
     jobs = Job.objects.filter(**filters)[:20]
     return render(request, 'list_jobs.html', {'jobs': jobs})
+
+
+@login_required(login_url='authentication:sign_in')
+def create_job(request):
+    if request.method == 'POST':
+        body = request.body.decode('utf-8')
+        bodyJSON = json.loads(body)
+        try:
+            job = Job.objects.create(
+                name=bodyJSON['name'],
+                description=bodyJSON['description'],
+                wage=bodyJSON['wage'],
+                contract_type=bodyJSON['contract_type'],
+                start_date=bodyJSON['start_date'],
+                schedule=bodyJSON['schedule'],
+                company_id=bodyJSON['company_id']
+            )
+
+            job.save()
+
+            return JsonResponse({'status': 'success'})
+        except:
+            return HttpResponseBadRequest({'status': 'failed'})
+
+    userJSON = list(User.objects.filter(id=request.user.id).values())[0]
+    userType = request.user.getUserType()
+    if userType == 'Company':
+        company = list(Company.objects.filter(
+            user_companies=request.user).values())[0]
+        return render(request, 'create_job.html', {'user': userJSON, 'userType': userType, 'company': company})
+    else:
+        return redirect('/profile')
 
 
 def preview_job(request, job_id):
