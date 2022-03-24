@@ -13,13 +13,19 @@
 
       <div class="text-black text-3xl font-bold">Modifier son profil</div>
 
-      <div v-on:click="updatePhoto()" class="avatar flex items-end justify-end cursor-pointer ">
-        <input type="file" accept="image/*" id="filePhoto" class="hidden"></input>
-        <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-          <img id="pictureUser" src="/auth/user/{{request.user.id}}/photo" onerror='this.onerror=false;this.src="/static/img/avatar.png"'></img>
+      <div class='flex flex-col lg:flex-row items-center space-x-10'>
+        <div v-if="userType === 'Company'">
+          <a href="/jobs/create-job" class=" btn bg-primary border-none hover:bg-secondary">Créer une offre</a>
         </div>
-        <div class="w-[30px] absolute">
-          <img src="/static/img/camera.svg"></img>
+        <div v-on:click="updatePhoto()" class="avatar flex items-end justify-end cursor-pointer ">
+          <input type="file" accept="image/*" id="filePhoto" class="hidden"></input>
+          <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img id="pictureUser" src="/auth/user/{{request.user.id}}/photo"
+              onerror='this.onerror=false;this.src="/static/img/avatar.png"'></img>
+          </div>
+          <div class="w-[30px] absolute">
+            <img src="/static/img/camera.svg"></img>
+          </div>
         </div>
       </div>
 
@@ -37,7 +43,9 @@
     </div>
 
     <button v-on:click="handleProfile()"
-      class="btn bg-secondary border-secondary hover:bg-primary hover:border-primary w-40 self-end">{% trans 'Valider' %}</button>
+      class="btn bg-secondary border-secondary hover:bg-primary hover:border-primary w-40 self-end">
+      {% trans 'Valider'%}
+    </button>
 
   </div>
 
@@ -60,10 +68,10 @@
     data() {
       return {
         userType: "{{userType}}",
-        id:"{{user.id}}",
-        idD:"{{data.id}}",
-        filePhoto:null,
-        fileEntity:null,
+        id: "{{user.id}}",
+        idD: "{{data.id}}",
+        filePhoto: null,
+        fileEntity: null,
         profileForm: {
           first_name: "{{user.first_name}}",
           last_name: "{{user.last_name}}",
@@ -103,7 +111,7 @@
       }
     },
     methods: {
-      
+
       async updatePhoto() {
         this.filePhoto.click()
       },
@@ -111,14 +119,14 @@
         this.fileEntity.click()
       },
 
-      async readFile(file){
+      async readFile(file) {
         let promise = new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.addEventListener("load", function () {
             const base64String = reader.result
-                .replace('data:', '')
-                .replace(/^.+,/, '');
-                
+              .replace('data:', '')
+              .replace(/^.+,/, '');
+
             resolve(base64String);
           }, false);
           reader.readAsDataURL(file);
@@ -143,7 +151,7 @@
         }
       },
       async validForm() {
-        return new Promise((resolve,reject) => {
+        return new Promise((resolve, reject) => {
 
           this.resetError();
 
@@ -156,8 +164,8 @@
           if (!this.profileForm.email) {
             this.errors.email.push('Veuillez entrer votre email')
           }
-  
-  
+
+
           if (this.userType === "Student") {
             if (!this.profileForm.birthday) {
               this.errors.birthday.push('Veuillez entrer une date de naissance')
@@ -197,12 +205,12 @@
             first_name: this.profileForm.first_name,
             last_name: this.profileForm.last_name,
             email: this.profileForm.email,
-            id:this.id
+            id: this.id
           }
           let dataSend = {}
-  
+
           if (this.userType === "Student") {
-  
+
             let file = document.getElementById("fileCv").files[0];
             cv_file = null;
             if (file) {
@@ -215,7 +223,7 @@
               cv_path: this.profileForm.cv_path,
               birthday: this.profileForm.birthday,
               linkedin_url: this.profileForm.linkedin_url,
-              id:this.idD
+              id: this.idD
             }
 
             if (file) {
@@ -224,15 +232,15 @@
           }
           else {
             dataSend = {
-              name:this.profileForm.name,
+              name: this.profileForm.name,
               description: document.getElementById('description').value,
               city: this.profileForm.city,
               street: this.profileForm.street,
               zip_code: this.profileForm.zip_code,
-              id:this.idD
+              id: this.idD
             }
           }
-          
+
           fetch('/auth/user/',
             {
               method: 'POST',
@@ -240,9 +248,9 @@
                 "X-CSRFToken": getCookie("csrftoken"),
               },
               body: JSON.stringify({
-                userSend : {...userSend},
-                dataSend : {...dataSend},
-                userType : this.userType
+                userSend: { ...userSend },
+                dataSend: { ...dataSend },
+                userType: this.userType
               }),
             })
             .then((response) => {
@@ -253,11 +261,11 @@
                 Toastify({
                   text: "Votre profil a été mis à jour",
                   duration: 3000
-                  }).showToast();
+                }).showToast();
               }
             })
         }
-        
+
 
         /*
         */
@@ -348,7 +356,7 @@
               "X-CSRFToken": getCookie("csrftoken"),
             },
             body: JSON.stringify({
-              userSend: {id: this.id},
+              userSend: { id: this.id },
               filePhoto: await this.readFile(this.filePhoto.files[0]),
               extensionFile: this.filePhoto.files[0].type.split('/')[1].split('+')[0]
             }),
@@ -362,8 +370,8 @@
               Toastify({
                 text: "Votre photo a été mis à jour",
                 duration: 3000
-                }).showToast();
-                document.getElementById("pictureUser").src = "/auth/user/{{request.user.id}}/photo?"+ new Date().getTime();
+              }).showToast();
+              document.getElementById("pictureUser").src = "/auth/user/{{request.user.id}}/photo?" + new Date().getTime();
             }
           })
       }
@@ -372,7 +380,7 @@
       this.fileEntity = document.getElementById("fileEntity");
 
       this.fileEntity.onchange = async () => {
-        
+
         fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`,
           {
             method: 'PUT',
@@ -380,7 +388,7 @@
               "X-CSRFToken": getCookie("csrftoken"),
             },
             body: JSON.stringify({
-              entitySend: {id: this.idD},
+              entitySend: { id: this.idD },
               fileEntity: await this.readFile(this.fileEntity.files[0]),
               extensionFile: this.fileEntity.files[0].type.split('/')[1].split('+')[0]
             }),
@@ -394,8 +402,8 @@
               Toastify({
                 text: "Votre photo a été mis à jour",
                 duration: 3000
-                }).showToast();
-                document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?"+ new Date().getTime();
+              }).showToast();
+              document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" + new Date().getTime();
             }
           })
       }
