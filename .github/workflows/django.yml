@@ -52,6 +52,8 @@ jobs:
         run: pycodestyle --statistics --ignore=E501 .
       - name: Run Migrations # run migrations to create table in side car db container
         run: python manage.py migrate
+      - name: Collect Staticfiles 
+        run: python manage.py collectstatic
       - name: Run Tests
         run: |
           python manage.py test
