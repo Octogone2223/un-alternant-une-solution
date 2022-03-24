@@ -11,7 +11,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from authentication.models import Company, Student, User, School
-from .serializers import CompanySignUpSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSignUpSerializer, StudentSerializer
+from .serializers import CompanySerializer, CompanySignUpSerializer, SchoolSerializer, UserSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSignUpSerializer, StudentSerializer
 from rest_framework import serializers
 
 # Create your views here.
@@ -44,7 +44,9 @@ def sign_up(request):
                         zip_code=companySerializer.validated_data['zip_code'],
                     )
 
-                    company.users.add(user)
+                    company.user_companies.add(user)
+
+                    company.save()
 
                     return HttpResponse({'status': 'success'})
                 else:
@@ -150,18 +152,49 @@ def user(request):
         body = request.body.decode('utf-8')
         bodyJson = json.loads(body)
 
-        # if UserSignUpSerializer(data=bodyJson).is_valid() and SchoolSerializer(data=bodyJson).is_valid():
+        userType = bodyJson["userType"]
+        userSerializer = UserSerializer(data=bodyJson["userSend"])
 
-        userSerializer = UserSignUpSerializer(data=bodyJson["userSend"])
-
-        bodyJson["updated_at"] = datetime.datetime.now()
+        bodyJson["userSend"]["updated_at"] = datetime.datetime.now()
 
         try:
 
-            if userSerializer.is_valid() and CompanySignUpSerializer(data=bodyJson["dataSend"]).is_valid():
-                pass
-            elif userSerializer.is_valid() and SchoolSignUpSerializer(data=bodyJson["dataSend"]).is_valid():
-                pass
+            if userType == "CompanyUser" and userSerializer.is_valid() and CompanySerializer(data=bodyJson["dataSend"]).is_valid():
+
+                idUser = bodyJson["userSend"]['id']
+                companySerializer = CompanySerializer(
+                    data=bodyJson["dataSend"])
+
+                try:
+                    if (companySerializer.is_valid()):
+                        User.objects.filter(id=idUser).update(
+                            **bodyJson["userSend"])
+                        Company.objects.filter(id=bodyJson["dataSend"]['id']).update(
+                            **bodyJson["dataSend"])
+                        return JsonResponse({'status': 'success'})
+                    else:
+                        return HttpResponseBadRequest(json.dumps(companySerializer.errors))
+                except serializers.ValidationError as e:
+                    return HttpResponseBadRequest(json.dumps(e.detail))
+
+            elif userType == "SchoolUser" and userSerializer.is_valid() and SchoolSerializer(data=bodyJson["dataSend"]).is_valid():
+
+                idUser = bodyJson["userSend"]['id']
+                schoolSerializer = SchoolSerializer(
+                    data=bodyJson["dataSend"])
+                print(schoolSerializer.is_valid())
+                try:
+                    if (schoolSerializer.is_valid()):
+                        User.objects.filter(id=idUser).update(
+                            **bodyJson["userSend"])
+                        School.objects.filter(id=bodyJson["dataSend"]['id']).update(
+                            **bodyJson["dataSend"])
+                        return JsonResponse({'status': 'success'})
+                    else:
+                        return HttpResponseBadRequest(json.dumps(schoolSerializer.errors))
+                except serializers.ValidationError as e:
+                    return HttpResponseBadRequest(json.dumps(e.detail))
+
             else:
                 idUser = bodyJson["userSend"]['id']
 

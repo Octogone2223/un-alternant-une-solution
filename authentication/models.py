@@ -85,8 +85,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def getUserType(self):
         if (self.isStudent()):
             return 'Student'
-        # elif (self.isCompanyUsers()):
-        #    return 'CompanyUser'
+        elif (self.isCompanyUser()):
+            return 'CompanyUser'
         else:
             return 'SchoolUser'
 
@@ -98,6 +98,18 @@ class User(AbstractBaseUser, PermissionsMixin):
             else:
                 return False
         except Student.DoesNotExist:
+            return False
+
+    def isCompanyUser(user):
+        try:
+            companyFind = list(Company.objects.filter(
+                user_companies=user).values())
+            if len(companyFind):
+                return True
+            else:
+                return False
+        except Company.DoesNotExist:
+            print("dd")
             return False
 
 

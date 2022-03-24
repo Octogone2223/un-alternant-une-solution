@@ -27,7 +27,7 @@
 
     {% include './components/profile/sectionNameDescription.html' %}
 
-    <div v-if="userType === 'Company' || userType === 'School'">
+    <div v-if="userType === 'CompanyUser' || userType === 'SchoolUser'">
 
       {% include './components/profile/sectionCityStreet.html' %}
 
@@ -52,7 +52,7 @@
 {% block vueJs %}
 <script>
   const profile = Vue.createApp({
-
+    delimiters: ["[[", "]]"],
     data() {
       return {
         userType: "{{userType}}",
@@ -63,6 +63,7 @@
           first_name: "{{user.first_name}}",
           last_name: "{{user.last_name}}",
           email: "{{user.email}}",
+          name: "{{data.name}}",
           city: "{{data.city}}",
           street: "{{data.street}}",
           zip_code: "{{data.zip_code}}",
@@ -76,6 +77,7 @@
           last_name: [],
           email: [],
           description: [],
+          name: [],
           city: [],
           street: [],
           zip_code: [],
@@ -107,57 +109,137 @@
         });
         return await promise;
       },
-
-      async handleProfile() {
-
-        let userSend = {
-          first_name: this.profileForm.first_name,
-          last_name: this.profileForm.last_name,
-          email: this.profileForm.email,
-          id:this.id
+      resetError() {
+        this.errors = {
+          first_name: [],
+          last_name: [],
+          email: [],
+          description: [],
+          name: [],
+          city: [],
+          street: [],
+          zip_code: [],
+          course: [],
+          cv_path: [],
+          birthday: [],
+          linkedin_url: []
         }
-        let dataSend = {}
+      },
+      async validForm() {
+        return new Promise((resolve,reject) => {
 
-        if (this.userType === "Student") {
+          this.resetError();
 
-          let file = document.getElementById("fileCv").files[0];
-          cv_file = null;
-          if (file) {
-            cv_file = await this.readFile(file);
+          if (!this.profileForm.first_name) {
+            this.errors.first_name.push('Veuillez entrer votre nom')
           }
-          dataSend = {
-            description: document.getElementById('description').value,
-            //course: this.profileForm.course,
-            cv_file: cv_file,
-            cv_path: this.profileForm.cv_path,
-            birthday: this.profileForm.birthday,
-            linkedin_url: this.profileForm.linkedin_url,
-            id:this.idD
+          if (!this.profileForm.last_name) {
+            this.errors.last_name.push('Veuillez entrer votre prénom')
           }
+          if (!this.profileForm.email) {
+            this.errors.email.push('Veuillez entrer votre email')
+          }
+  
+  
+          if (this.userType === "Student") {
+            if (!this.profileForm.birthday) {
+              this.errors.birthday.push('Veuillez entrer une date de naissance')
+            }
+            if (!this.profileForm.linkedin_url || (!this.profileForm.linkedin_url.includes("http") && !this.profileForm.linkedin_url.includes("https"))) {
+              this.errors.linkedin_url.push('Veuillez un lien Linkedin valide')
+            }
+          }
+          else {
+            if (!this.profileForm.city) {
+              this.errors.city.push('Veuillez entrer une ville')
+            }
+            if (!this.profileForm.zip_code) {
+              this.errors.street.push('Veuillez entrer une adresse')
+            }
+            if (!this.profileForm.zip_code) {
+              this.errors.street.push('Veuillez entrer un code postal')
+            }
+            if (!this.profileForm.name) {
+              this.errors.name.push("Veuillez entrer un nom d'entité valide")
+            }
+          }
+
+          if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) {
+            resolve(false);
+          }
+          else {
+            resolve(true);
+          }
+
+        });
+
+      },
+      async handleProfile() {
+        if (await this.validForm()) {
+          let userSend = {
+            first_name: this.profileForm.first_name,
+            last_name: this.profileForm.last_name,
+            email: this.profileForm.email,
+            id:this.id
+          }
+          let dataSend = {}
+  
+          if (this.userType === "Student") {
+  
+            let file = document.getElementById("fileCv").files[0];
+            cv_file = null;
+            if (file) {
+              cv_file = await this.readFile(file);
+            }
+            dataSend = {
+              description: document.getElementById('description').value,
+              //course: this.profileForm.course,
+              cv_file: cv_file,
+              cv_path: this.profileForm.cv_path,
+              birthday: this.profileForm.birthday,
+              linkedin_url: this.profileForm.linkedin_url,
+              id:this.idD
+            }
+          }
+          else {
+            dataSend = {
+              name:this.profileForm.name,
+              description: document.getElementById('description').value,
+              city: this.profileForm.city,
+              street: this.profileForm.street,
+              zip_code: this.profileForm.zip_code,
+              id:this.idD
+            }
+          }
+          
+          fetch('/auth/user/',
+            {
+              method: 'POST',
+              headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+              },
+              body: JSON.stringify({
+                userSend : {...userSend},
+                dataSend : {...dataSend},
+                userType : this.userType
+              }),
+            })
+            .then((response) => {
+              return response.json()
+            })
+            .then((json) => {
+              if (json.status === 'success') {
+                Toastify({
+                  text: "Votre profil a été mis à jour",
+                  duration: 3000
+                  }).showToast();
+              }
+            })
         }
         
-        fetch('/auth/user/',
-          {
-            method: 'POST',
-            headers: {
-              "X-CSRFToken": getCookie("csrftoken"),
-            },
-            body: JSON.stringify({
-              userSend : {...userSend},
-              dataSend : {...dataSend}
-            }),
-          })
-          .then((response) => {
-            return response.json()
-          })
-          .then((json) => {
-            if (json.status === 'success') {
-              Toastify({
-                text: "Votre profil a été mis à jour",
-                duration: 3000
-                }).showToast();
-            }
-          })
+
+        /*
+        */
 
       },
     },
