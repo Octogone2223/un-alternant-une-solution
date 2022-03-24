@@ -5,6 +5,8 @@ from http.client import UNAUTHORIZED
 import json
 from multiprocessing import AuthenticationError
 import os
+import secrets
+import string
 from django.conf import settings
 from django.http import FileResponse, Http404, HttpRequest, HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
@@ -13,8 +15,11 @@ from django.contrib.auth.decorators import login_required
 from authentication.models import Company, Student, User, School
 from .serializers import CompanySerializer, CompanySignUpSerializer, SchoolSerializer, UserSerializer, UserSignInSerializer, UserSignUpSerializer, SchoolSignUpSerializer, StudentSerializer
 from rest_framework import serializers
+from mailjet_rest import Client
 
 # Create your views here.
+api_key = '1291d676337d606bd0888a8ae018f72f'
+api_secret = 'c216714c0f3ed0af7d3b915b86df7cb9'
 
 
 def sign_up(request):
@@ -367,3 +372,50 @@ def company_photo(request, id):
             return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
     except Company.DoesNotExist:
         return FileResponse(open(f'{settings.BASE_DIR}/static/img/avatar.png', "rb"))
+
+
+def forgotPassword(request):
+
+    if request.method == 'POST':
+
+        body = request.body.decode('utf-8')
+        bodyJson = json.loads(body)
+
+        try:
+            user = User.objects.get(email=bodyJson["email"])
+
+            alphabet = string.ascii_letters + string.digits
+            password = ''.join(secrets.choice(alphabet) for i in range(10))
+            user.set_password(password)
+            user.save()
+
+            mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+            data = {
+                'Messages': [
+                    {
+                        "From": {
+                            "Email": "tegak41827@moonran.com",
+                            "Name": "John"
+                        },
+                        "To": [
+                            {
+                                "Email": user.email,
+                                "Name": f"{user.first_name} {user.last_name}"
+                            }
+                        ],
+                        "Subject": "1Alternant1Solution - Nouveau Mot de Passe",
+                        "TextPart": f"Bonjour {user.first_name} {user.last_name},1Alternant1Solution est une plateforme de mise en relation entre étudiants et entreprises. Nous croyons que c’est avec les jeunes que l’avenir se construit, alors merci d'être dans notre communauté ! Voici le nouveau mot de passe : {password} Cordialement, Tom Leveque",
+                        "HTMLPart": f'<p data-pm-slice="1 1 []">Bonjour {user.first_name} {user.last_name},</p><p data-pm-slice="1 1 []">1Alternant1Solution est une plateforme de mise en relation entre &eacute;tudiants et entreprises. Nous croyons que c&rsquo;est avec les jeunes que l&rsquo;avenir se construit, alors merci d\'&ecirc;tre dans notre communaut&eacute; !</p><p data-pm-slice="1 1 []">Voici le nouveau mot de passe : {password}</p><p data-pm-slice="1 1 []">Cordialement,</p><p data-pm-slice="1 1 []">Tom Leveque</p>',
+                        "CustomID": "MotDePasseOublie"
+                    }
+                ]
+            }
+            result = mailjet.send.create(data=data)
+            print(result.json())
+            if (str(result.status_code) == '200'):
+                return JsonResponse({'status': 'success'})
+            else:
+                return JsonResponse({'status': 'none', 'message': "Il y a eu un problème lors de l'envoie du mail"})
+
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'none', 'message': "Aucun utilisateur trouvé"})

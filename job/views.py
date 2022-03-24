@@ -72,7 +72,7 @@ def job_detail(request, job_id):
             Job.objects.get(
                 company=company, id=job_id).delete()
             return HttpResponse(status=200)
-        except:
+        except Job.DoesNotExist:
             return HttpResponse(status=400)
 
     if(not hasattr(request.user, 'student')):
