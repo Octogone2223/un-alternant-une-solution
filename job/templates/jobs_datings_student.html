@@ -3,9 +3,9 @@
 
 {% block content %}
 
-<div class="flex justify-center my-12" id="jobDatings">
+<div class="flex justify-center my-12" id="jobDatings" style="min-height: 75vh">
     <div class="w-full max-w-screen-lg flex-clumn">
-        <h1 class="font-bold text-4xl mb-4">Liste de vos candidatures</h1>
+        <h1 class="font-bold text-4xl mb-12">Liste de vos candidatures</h1>
         {% csrf_token %}
         <div class="overflow-x-auto">
             <table class="table w-full">
@@ -15,6 +15,7 @@
                         <th>Poste</th>
                         <th>Entreprise</th>
                         <th>Date de début</th>
+                        <th>Statut</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -30,6 +31,15 @@
                         <th>{{ job_dating.job.name|slice:'0:30' }}...</th>
                         <td>{{ job_dating.job.company.name }}</td>
                         <td>{{ job_dating.job.start_date }}</td>
+                        <td>
+                            {% if job_dating.status == 'AC' %}
+                            <span class="text-success">Acceptée</span>
+                            {% elif job_dating.status == 'RE' %}
+                            <span class="text-error">Refusée</span>
+                            {% else %}
+                            <span class="text-warning">En attente</span>
+                            {% endif %}
+                        </td>
                         <td>
                             <a href="/jobs/{{job_dating.job.id}}">
                                 <i class="fas fa-eye mx-3 cursor-pointer"></i>
@@ -49,6 +59,7 @@
                                 </div>
                             </div>
                         </td>
+
                     </tr>
                     {% endfor %}
 
