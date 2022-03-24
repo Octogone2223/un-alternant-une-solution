@@ -16,7 +16,7 @@ def about(request):
 
 def student_detail(request, student_id):
     student = list(Student.objects.filter(
-        id=student_id).values('id', 'user_id', 'birthday', 'linkedin_url', 'cv_path', 'description'))[0]
+        id=student_id).values('id', 'user_id', 'birthday', 'linkedin_url', 'cv_path', 'description', 'linkedin_url'))[0]
 
     user_info = list(User.objects.filter(
         id=student['user_id']).values('id', 'first_name', 'last_name', 'email', 'extension_picture'))[0]
