@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="flex justify-center my-12" id="jobDatings">
+    <div class="w-full max-w-screen-lg flex-clumn">
+        <h1 class="font-bold text-4xl mb-4">Liste de vos candidatures</h1>
+        {% csrf_token %}
+        <div class="overflow-x-auto">
+            <table class="table w-full">
+                <!-- head -->
+                <thead>
+                    <tr>
+                        <th>Poste</th>
+                        <th>Entreprise</th>
+                        <th>Date de début</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if not job_datings %}
+                    <tr>
+                        <td colspan="4">Vous n'avez pas de candidatures</td>
+                    </tr>
+                    {% else %}
+
+                    {% for job_dating in job_datings %}
+                    <tr class="hover">
+                        <th>{{ job_dating.job.name|slice:'0:30' }}...</th>
+                        <td>{{ job_dating.job.company.name }}</td>
+                        <td>{{ job_dating.job.start_date }}</td>
+                        <td>
+                            <a href="/jobs/{{job_dating.job.id}}">
+                                <i class="fas fa-eye mx-3 cursor-pointer"></i>
+                            </a>
+                            <label class="fas fa-trash-alt mx-3 cursor-pointer " for="my-modal"></label>
+
+                            <input type="checkbox" id="my-modal" class="modal-toggle">
+                            <div class="modal">
+                                <div class="modal-box">
+                                    <h3 class="font-bold text-lg">Une confirmation est nécessaire</h3>
+                                    <p class="my-3">Voulez-vous vraiment supprimer cette candidature ?</p>
+                                    <div class="modal-action">
+                                        <label for="my-modal" class="btn">Non !</label>
+                                        <button class="btn btn-outline btn-error" data-job-dating-id="{{job_dating.id}}"
+                                            @click="handleDeleteJob">Supprimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% include './components/footer.html' %}
+
+{% endblock %}
+
+{% block vueJs %}
+<script>
+    const appJobDatings = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        methods: {
+            async handleDeleteJob(event) {
+                const jobDatingId = event.target.dataset.jobDatingId;
+                const url = `${jobDatingId}`;
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    }
+                })
+            }
+        },
+
+    }).mount('#jobDatings')
+</script>
+
+{% endblock %}
