@@ -197,15 +197,15 @@ def user(request):
 
             else:
                 idUser = bodyJson["userSend"]['id']
-
+                cv_path = bodyJson["dataSend"]['cv_path']
                 if (bodyJson["dataSend"]['cv_file']):
-                    pathCv = f'authentication/files/cv/public_{idUser}.pdf'
+                    pathCv = f'authentication/files/cv/public_{idUser}.{cv_path}'
                     text_file = open(f'{settings.BASE_DIR}/{pathCv}', "wb")
                     text_file.write(base64.b64decode(
                         bodyJson["dataSend"]['cv_file']))
                     text_file.close()
 
-                    bodyJson["dataSend"]['cv_path'] = f'cv/public_{idUser}.pdf'
+                    #bodyJson["dataSend"]['cv_path'] = f'cv/public_{idUser}.{cv_path}'
 
                 bodyJson["dataSend"].pop("cv_file")
                 studentSerializer = StudentSerializer(
@@ -266,11 +266,17 @@ def updatePassword(request):
 # @login_required(login_url='sign_in')
 def cvPublic(request, id):
 
-    try:
-        pathCv = f'authentication/files/cv/public_{id}.pdf'
-        return FileResponse(open(f'{settings.BASE_DIR}/{pathCv}', "rb"))
-    except IOError:
-        return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    try :
+        user = Student.objects.get(user=id)
+        try:
+            pathCv = f'authentication/files/cv/public_{id}.{user.cv_path}'
+            return FileResponse(open(f'{settings.BASE_DIR}/{pathCv}', "rb"))
+        except IOError:
+            return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    except Student.DoesNotExist:
+            return HttpResponse({'notExist': 'failure'}, status=UNAUTHORIZED)
+    
+    
 
 # TODO: Faire le fameux DjangoGuardian (GET pour tous le monde et POST pour les connectés)
 
