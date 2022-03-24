@@ -7,13 +7,7 @@ on:
     branches: [ develop ]
 
 env:
-  DATABASE_PASSWORD: 3fc5ed1833891f062798111a97d4a4396b670c16a2ea614a6b8d4093ce442f27
-  DATABASE_NAME: d6ciu6qsd262o4
-  DATABASE_USER: hojkcrjpjxpkth
-  DATABASE_HOST: ec2-176-34-105-15.eu-west-1.compute.amazonaws.com
-  DATABASE_PORT: 5432
   DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
-  PORT: 5000
 
 jobs:
   health-check-job: 
@@ -58,6 +52,8 @@ jobs:
         run: pycodestyle --statistics --ignore=E501 .
       - name: Run Migrations # run migrations to create table in side car db container
         run: python manage.py migrate
-      - name: Run Tests
+      - name: Collect Staticfiles 
+        run: python manage.py collectstatic --noinput
+      - name: Run Authentication Tests
         run: |
-          python manage.py test
+          python manage.py test authentication.tests.AuthenticationTests
