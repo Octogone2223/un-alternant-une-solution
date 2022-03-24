@@ -54,6 +54,6 @@ jobs:
         run: python manage.py migrate
       - name: Collect Staticfiles 
         run: python manage.py collectstatic --noinput
-      - name: Run Tests
+      - name: Run Authentication Tests
         run: |
-          python manage.py test
+          python manage.py test authentication.tests.AuthenticationTests
