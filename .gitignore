@@ -132,7 +132,9 @@ dmypy.json
 
 tailwind.config.js
 
-/app/files
+/app/files/motivation_letter/**.pdf
+/app/files/cv/**.pdf
+/app/files/cv/**.mp4
 
 authentication/files/picture/**.png
 authentication/files/picture/**.gif
