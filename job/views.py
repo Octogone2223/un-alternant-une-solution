@@ -70,7 +70,7 @@ def create_job(request):
     userType = request.user.getUserType()
     if userType == 'Company':
         company = list(Company.objects.filter(
-            user_companies=request.user).values())[0]
+            users=request.user).values())[0]
         return render(request, 'create_job.html', {'user': userJSON, 'userType': userType, 'company': company})
     else:
         return redirect('/profile')

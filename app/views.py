@@ -49,7 +49,7 @@ def profile(request):
         data = list(Student.objects.filter(user=request.user).values())[0]
     elif userType == 'Company':
         data = list(Company.objects.filter(
-            user_companies=request.user).values())[0]
+            users=request.user).values())[0]
         pass
     else:
         data = list(School.objects.filter(users=request.user).values())[0]

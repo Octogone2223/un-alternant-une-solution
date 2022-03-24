@@ -45,7 +45,7 @@
                 @click="getJobDetail">
                 <h2 class="font-bold">{{job.name}}</h2>
 
-                <p class="uppercase">{{job.company}}</p>
+                <a href="/company/{{job.company_id}}" class="uppercase text-primary underline">{{job.company}}</a>
 
                 <p class="uppercase">
                     {% if job.company.city %}
@@ -70,7 +70,8 @@
             <div class="flex flex-col justify-between h-full" v-if="!job">
                 <div class="space-y-5">
                     <h2 class="text-2xl font-bold">{{jobs.0.name}}</h2>
-                    <p>{{jobs.0.company}}</p>
+                    <a href="/company/{{jobs.0.company_id}}"
+                        class="uppercase text-primary underline">{{jobs.0.company}}</a>
                     <p>
                         {% if jobs.0.company.city %}
                         {{jobs.0.company.city}}
