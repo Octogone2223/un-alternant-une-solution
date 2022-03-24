@@ -45,7 +45,7 @@ def sign_up(request):
                     )
 
                     company.user_companies.add(user)
-                    
+
                     company.save()
 
                     return HttpResponse({'status': 'success'})
@@ -158,13 +158,13 @@ def user(request):
         bodyJson["userSend"]["updated_at"] = datetime.datetime.now()
 
         try:
-            
-            if userType=="CompanyUser" and userSerializer.is_valid() and CompanySerializer(data=bodyJson["dataSend"]).is_valid():
-                
+
+            if userType == "CompanyUser" and userSerializer.is_valid() and CompanySerializer(data=bodyJson["dataSend"]).is_valid():
+
                 idUser = bodyJson["userSend"]['id']
                 companySerializer = CompanySerializer(
                     data=bodyJson["dataSend"])
-                
+
                 try:
                     if (companySerializer.is_valid()):
                         User.objects.filter(id=idUser).update(
@@ -176,9 +176,9 @@ def user(request):
                         return HttpResponseBadRequest(json.dumps(companySerializer.errors))
                 except serializers.ValidationError as e:
                     return HttpResponseBadRequest(json.dumps(e.detail))
-                
-            elif userType=="SchoolUser" and userSerializer.is_valid() and SchoolSerializer(data=bodyJson["dataSend"]).is_valid():
-                
+
+            elif userType == "SchoolUser" and userSerializer.is_valid() and SchoolSerializer(data=bodyJson["dataSend"]).is_valid():
+
                 idUser = bodyJson["userSend"]['id']
                 schoolSerializer = SchoolSerializer(
                     data=bodyJson["dataSend"])
@@ -194,7 +194,7 @@ def user(request):
                         return HttpResponseBadRequest(json.dumps(schoolSerializer.errors))
                 except serializers.ValidationError as e:
                     return HttpResponseBadRequest(json.dumps(e.detail))
-                
+
             else:
                 idUser = bodyJson["userSend"]['id']
 

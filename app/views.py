@@ -24,7 +24,8 @@ def profile(request):
     if userType == 'Student':
         data = list(Student.objects.filter(user=request.user).values())[0]
     elif userType == 'CompanyUser':
-        data = list(Company.objects.filter(user_companies=request.user).values())[0]
+        data = list(Company.objects.filter(
+            user_companies=request.user).values())[0]
         pass
     else:
         data = list(School.objects.filter(users=request.user).values())[0]

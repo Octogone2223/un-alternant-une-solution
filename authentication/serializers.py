@@ -23,11 +23,12 @@ class UserSignUpSerializer(serializers.Serializer):
 
         raise serializers.ValidationError({'email': 'Email already exists'})
 
+
 class UserSerializer(serializers.Serializer):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name')
-        
+
 
 class UserSignInSerializer(serializers.Serializer):
     class Meta:
@@ -64,13 +65,12 @@ class CompanySignUpSerializer(serializers.Serializer):
 class CompanySerializer(serializers.Serializer):
     class Meta:
         model = Company
-    
+
     name = serializers.CharField()
     city = serializers.CharField()
     street = serializers.CharField()
     zip_code = serializers.CharField()
     description = serializers.CharField()
-        
 
 
 class SchoolSignUpSerializer(serializers.Serializer):
@@ -98,11 +98,10 @@ class SchoolSignUpSerializer(serializers.Serializer):
 
 
 class SchoolSerializer(serializers.Serializer):
-    
+
     class Meta:
         model = School
-    
-    
+
     name = serializers.CharField()
     city = serializers.CharField()
     street = serializers.CharField()

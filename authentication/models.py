@@ -103,7 +103,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def isCompanyUser(user):
         try:
             companyFind = list(Company.objects.filter(
-                user_companies=user).values())                           
+                user_companies=user).values())
             if len(companyFind):
                 return True
             else:
