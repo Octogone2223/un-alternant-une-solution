@@ -27,17 +27,14 @@ class Job(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
+    job_datings = models.ManyToManyField(
+        'job.JobDating', related_name='job_datings+')
+
     company = models.ForeignKey(
         'authentication.company', on_delete=models.CASCADE, related_name='job_company+')
 
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-    def __str__(self):
-        return self.name
 
     def __str__(self):
         return self.name
@@ -82,9 +79,9 @@ class JobIdFromPreviousRequest(models.Model):
 class JobDating(models.Model):
 
     class Status(models.TextChoices):
-        OPEN = 'OP', _('Open')
-        CLOSED = 'CL', _('Closed')
-        CANCELED = 'CA', _('Canceled')
+        ACCEPTED = 'AC', _('ACCEPTED')
+        REJECTED = 'RE', _('REJECTED')
+        PENDING = 'PE', _('PENDING')
 
     student = models.ForeignKey(
         'authentication.Student', on_delete=models.CASCADE)
@@ -101,4 +98,4 @@ class JobDating(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.student.firstname | self.job.name}'
+        return f'{self.job.name}'
