@@ -107,7 +107,7 @@ class Company(models.Model):
     street = models.CharField(max_length=75, verbose_name="Street", null=True)
     zip_code = models.CharField(
         max_length=75, verbose_name="Zip Code", null=True)
-    user_companies = models.ManyToManyField(
+    users = models.ManyToManyField(
         User)
     jobs = models.ManyToManyField('job.Job', related_name='company_jobs+')
 

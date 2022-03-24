@@ -27,6 +27,9 @@ class Job(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
+    job_datings = models.ManyToManyField(
+        'job.JobDating', related_name='job_datings+')
+
     company = models.ForeignKey(
         'authentication.company', on_delete=models.CASCADE, related_name='job_company+')
 
@@ -101,4 +104,4 @@ class JobDating(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.student.firstname | self.job.name}'
+        return f'{self.job.name}'

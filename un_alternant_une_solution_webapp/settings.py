@@ -58,7 +58,7 @@ INTERNAL_IPS = [
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 1  # 1 day
 
-LOGIN_URL = 'auth/sign_in/'
+LOGIN_URL = '/auth/sign-in/'
 
 ALLOWED_HOSTS = [
     "localhost",

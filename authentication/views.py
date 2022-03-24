@@ -125,14 +125,12 @@ def sign_in(request):
     return render(request, 'sign_in.html')
 
 
-@login_required(login_url='sign_in')
+@login_required
 def private(request):
     return render(request, 'private.html')
 
-#
 
-
-@login_required(login_url='sign_in')  # ! check
+@login_required(login_url='/')
 def sign_out(request):
     logout(request)
-    return redirect('sign_in')
+    return redirect(reverse('app:home'))

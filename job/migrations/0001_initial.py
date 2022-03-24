@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Job',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField()),
                 ('wage', models.FloatField(null=True)),
@@ -27,13 +28,15 @@ class Migration(migrations.Migration):
                 ('api_id', models.CharField(max_length=255, null=True)),
                 ('create_at', models.DateTimeField(auto_now_add=True)),
                 ('update_at', models.DateTimeField(auto_now=True)),
-                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='job_company+', to='authentication.company')),
+                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='job_company+', to='authentication.company')),
             ],
         ),
         migrations.CreateModel(
             name='JobCode',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('code', models.CharField(max_length=10)),
             ],
@@ -41,16 +44,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='JobIdFromPreviousRequest',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('job_codes', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=255), size=None)),
-                ('job_ids', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=255), size=None)),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('job_codes', django.contrib.postgres.fields.ArrayField(
+                    base_field=models.CharField(max_length=255), size=None)),
+                ('job_ids', django.contrib.postgres.fields.ArrayField(
+                    base_field=models.CharField(max_length=255), size=None)),
                 ('create_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
             name='LastIndexApi',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('last_index', models.IntegerField()),
                 ('update_at', models.DateTimeField(auto_now=True)),
             ],
@@ -58,22 +65,30 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='JobStatus',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('OP', 'Open'), ('CL', 'Closed'), ('CA', 'Canceled')], max_length=2)),
-                ('job', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='job.job')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('status', models.CharField(choices=[
+                 ('OP', 'Open'), ('CL', 'Closed'), ('CA', 'Canceled')], max_length=2)),
+                ('job', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='job.job')),
             ],
         ),
         migrations.CreateModel(
             name='JobDating',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('motivation_letter_path', models.CharField(max_length=255, verbose_name='Job Name')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('motivation_letter_path', models.CharField(
+                    max_length=255, verbose_name='Job Name')),
                 ('cv_path', models.CharField(max_length=255, verbose_name='Job Name')),
-                ('status', models.CharField(choices=[('OP', 'Open'), ('CL', 'Closed'), ('CA', 'Canceled')], max_length=2)),
+                ('status', models.CharField(choices=[
+                 ('OP', 'Open'), ('CL', 'Closed'), ('CA', 'Canceled')], max_length=2)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('job', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='job.job')),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='authentication.student')),
+                ('job', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='job.job')),
+                ('student', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='authentication.student')),
             ],
         ),
     ]
