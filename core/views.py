@@ -22,6 +22,14 @@ def cgu(request):
     return render(request, 'CGU.html')
 
 
+def legal(request):
+    return render(request, 'legal.html')
+
+
+def policies(request):
+    return render(request, 'policies.html')
+
+
 def student_detail(request, student_id):
     student = list(Student.objects.filter(
         id=student_id).values('id', 'user_id', 'birthday', 'linkedin_url', 'cv_path', 'description', 'linkedin_url'))[0]
