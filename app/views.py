@@ -3,13 +3,15 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from authentication.models import Company, School, Student, User
+from webpush import send_group_notification
 from job.models import Job
 # Create your views here.
 
 
 def home(request):
+    webpush = {"group": "alternant"}
     latest_jobs = Job.objects.all().order_by('-create_at')[:3]
-    return render(request, 'home.html', {'jobs': latest_jobs})
+    return render(request, 'home.html', {"webpush": webpush, 'jobs': latest_jobs})
 
 
 def about(request):

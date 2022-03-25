@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'job',
     'course',
     'app',
-    'rest_framework'
+    'rest_framework',
+    'webpush'
 ]
 
 INTERNAL_IPS = [
@@ -202,5 +203,11 @@ LANGUAGES = [
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'app'),
     os.path.join(BASE_DIR, 'job'),
-    os.path.join(BASE_DIR, 'authentifcation'),
+    os.path.join(BASE_DIR, 'authentication')
 ]
+
+WEBPUSH_SETTINGS = {
+    "VAPID_PUBLIC_KEY": "BL-yp3qqe3izbS-nHx6tbaUtk42WusvV-VDRp_ARe3kMjtnmtyrjneHG8hZIIjQQHCXhf10wwFyWjj78lm6XPrE",
+    "VAPID_PRIVATE_KEY": "loe-ul0KZcQTJ_DJfJix_SB05EZbaHDXbjv4xkIdJoA",
+    "VAPID_ADMIN_EMAIL": "tom.leveque@ynov.com"
+}
