@@ -83,7 +83,7 @@
           city: "{{data.city}}",
           street: "{{data.street}}",
           zip_code: "{{data.zip_code}}",
-          course: "{{data.course}}",
+          course: "{{data.course__name}}",
           cv_path: "{{data.cv_path}}",
           birthday: "{{data.birthday|date:'Y-m-d'}}",
           linkedin_url: "{{data.linkedin_url}}",
@@ -173,11 +173,11 @@
             if (!this.profileForm.birthday) {
               this.errors.birthday.push('Veuillez entrer une date de naissance')
             }
-            if (!this.profileForm.linkedin_url || (!this.profileForm.linkedin_url.includes("http") && !this.profileForm.linkedin_url.includes("https"))) {
+            if (!this.profileForm.linkedin_url || (!this.profileForm.linkedin_url.includes("http") && !this
+                .profileForm.linkedin_url.includes("https"))) {
               this.errors.linkedin_url.push('Veuillez un lien Linkedin valide')
             }
-          }
-          else {
+          } else {
             if (!this.profileForm.city) {
               this.errors.city.push('Veuillez entrer une ville')
             }
@@ -194,8 +194,7 @@
 
           if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) {
             resolve(false);
-          }
-          else {
+          } else {
             resolve(true);
           }
 
@@ -232,8 +231,7 @@
             if (file) {
               dataSend.cv_path = file.type.split('/')[1].split('+')[0]
             }
-          }
-          else {
+          } else {
             dataSend = {
               name: this.profileForm.name,
               description: document.getElementById('description').value,
@@ -244,15 +242,18 @@
             }
           }
 
-          fetch('/auth/user/',
-            {
+          fetch('/auth/user/', {
               method: 'POST',
               headers: {
                 "X-CSRFToken": getCookie("csrftoken"),
               },
               body: JSON.stringify({
-                userSend: { ...userSend },
-                dataSend: { ...dataSend },
+                userSend: {
+                  ...userSend
+                },
+                dataSend: {
+                  ...dataSend
+                },
                 userType: this.userType
               }),
             })
@@ -271,7 +272,7 @@
 
 
         /*
-        */
+         */
 
       },
 
@@ -291,15 +292,13 @@
           }
           if (!this.passwordForm.new) {
             this.errorsPassword.new.push('Veuillez entrer votre nouveau mot de passe')
-          }
-          else if (this.passwordForm.new !== this.passwordForm.confirm) {
+          } else if (this.passwordForm.new !== this.passwordForm.confirm) {
             this.errorsPassword.new.push('Votre nouveau mot de passe ne correspond pas')
           }
 
           if (Object.entries(this.errorsPassword).some(([key, val]) => val.length > 0)) {
             resolve(false);
-          }
-          else {
+          } else {
             resolve(true);
           }
 
@@ -314,15 +313,17 @@
             newPassword: this.passwordForm.new,
             id: this.id
           }
-
-          fetch('/auth/user/password',
-            {
+          
+          fetch('/auth/user/password', {
               method: 'PATCH',
               headers: {
                 "X-CSRFToken": getCookie("csrftoken"),
               },
               body: JSON.stringify({
-                userSend: { ...userSend }
+
+                userSend: {
+                  ...userSend
+                }
               }),
             })
             .then((response) => {
@@ -334,8 +335,7 @@
                   text: "Votre mot de passe a été mis à jour",
                   duration: 3000
                 }).showToast();
-              }
-              else {
+              } else {
                 if (json.errors.current[0]) {
                   this.errorsPassword.current.push(json.errors.current[0]);
                 }
@@ -351,15 +351,15 @@
       this.filePhoto = document.getElementById("filePhoto");
 
       this.filePhoto.onchange = async () => {
-        console.log(this.filePhoto.files[0])
-        fetch(`/auth/user/${this.id}/photo`,
-          {
+        fetch(`/auth/user/${this.id}/photo`, {
             method: 'PUT',
             headers: {
               "X-CSRFToken": getCookie("csrftoken"),
             },
             body: JSON.stringify({
-              userSend: { id: this.id },
+              userSend: {
+                id: this.id
+              },
               filePhoto: await this.readFile(this.filePhoto.files[0]),
               extensionFile: this.filePhoto.files[0].type.split('/')[1].split('+')[0]
             }),
@@ -374,7 +374,8 @@
                 text: "Votre photo a été mis à jour",
                 duration: 3000
               }).showToast();
-              document.getElementById("pictureUser").src = "/auth/user/{{request.user.id}}/photo?" + new Date().getTime();
+              document.getElementById("pictureUser").src = "/auth/user/{{request.user.id}}/photo?" +
+                new Date().getTime();
             }
           })
       }
@@ -384,14 +385,15 @@
 
       this.fileEntity.onchange = async () => {
 
-        fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`,
-          {
+        fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`, {
             method: 'PUT',
             headers: {
               "X-CSRFToken": getCookie("csrftoken"),
             },
             body: JSON.stringify({
-              entitySend: { id: this.idD },
+              entitySend: {
+                id: this.idD
+              },
               fileEntity: await this.readFile(this.fileEntity.files[0]),
               extensionFile: this.fileEntity.files[0].type.split('/')[1].split('+')[0]
             }),
@@ -406,7 +408,8 @@
                 text: "Votre photo a été mis à jour",
                 duration: 3000
               }).showToast();
-              document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" + new Date().getTime();
+              document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" +
+                new Date().getTime();
             }
           })
       }
