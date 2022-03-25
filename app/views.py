@@ -11,7 +11,7 @@ from job.models import Job
 def home(request):
     webpush = {"group": "alternant"}
     latest_jobs = Job.objects.all().order_by('-create_at')[:3]
-    return render(request, 'home.html', {"webpush": webpush,'jobs': latest_jobs})
+    return render(request, 'home.html', {"webpush": webpush, 'jobs': latest_jobs})
 
 
 def about(request):
