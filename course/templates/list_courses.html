@@ -8,99 +8,98 @@
         class="flex flex-col lg:flex-row justify-center border-[1px] items-center border-gray-200 h-fit p-5 lg:p-0 lg:h-24 rounded-md lg:rounded-full w-full mt-20 space-x-5 space-y-5 lg:space-y-0">
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-school text-primary"></i>
-            <input type="text" placeholder="École recherché" class="border-none py-2 px-2 outline-none" />
+            <input type="text" v-model="search.name" placeholder="Formation recherchée"
+                class="border-none py-2 px-2 outline-none" />
         </div>
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-map-marker-alt text-primary"></i>
-            <input type="text" placeholder="Lieu" class="border-none py-2 px-2 outline-none" />
+            <input v-model="search.location" type="text" placeholder="Lieu"
+                class="border-none py-2 px-2 outline-none" />
         </div>
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-graduation-cap text-primary"></i>
-            <input type="text" placeholder="Niveau d’étude" class="border-none py-2 px-2 outline-none" />
+            <input type="text" v-model="search.school" placeholder="Ecole" class="border-none py-2 px-2 outline-none" />
         </div>
-        <button class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary">Rechercher</button>
+        <button @click="searchCourses"
+            class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary">Rechercher</button>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-20">
         <div class="h-screen overflow-scroll space-y-5 w-full lg:col-span-2">
             <!-- Single Job Post -->
-            <div
-                class="bg-white shadow-md h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100">
-                <h2 class="font-bold">Master 1 Expert Dev Web</h2>
+            {% for course in courses %}
 
-                <p class="uppercase">Nantes YNOV Campus</p>
+            <div @click="getCourseDetail" data-course-id="{{ course.id }}"
+                class="bg-white shadow-md cursor-pointer h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100">
+                <h2 class="font-bold">{{course.name}}</h2>
 
-                <p class="uppercase">44200</p>
+                <p class="uppercase">{{course.school.name}}</p>
 
-                <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi maxime veniam in
-                    illum dolore
-                    atque ipsa nemo consequatur, hic sunt, odio incidunt nulla. Voluptatum laborum hic facilis
-                    debitis
-                    optio quod?</p>
+                <p class="uppercase">{{course.school.street}}, {{course.school.city}}</p>
+
+                <p style="min-height: 50px;">
+                    {% if not course.description %}
+                    <i>Aucune description</i>
+                    {% else %}
+                    <i>
+                        {{course.description|slice:'0:200'}}
+                    </i>
+                    {% endif %}
+                </p>
 
                 <div class="flex flex-row justify-between items-center">
-                    <p>Il y'a 2 jours.</p>
-                    <button class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary">Postuler</button>
+                    <p>Formation postée le : <i>{{course.create_at|date:"d F, Y" }}</i></p>
+                    <a class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary"
+                        href="{{course.id}}">Rejoindre</a>
                 </div>
             </div>
 
+            {% endfor %}
         </div>
 
         <div class="hidden lg:block lg:col-span-3 h-screen bg-white border-[2px] border-secondary rounded-lg p-10">
-            <div class="flex flex-col justify-between h-full">
+            <div class="flex flex-col justify-between h-full" v-if="!course">
                 <div class="space-y-5">
-                    <h2 class="text-2xl font-bold">Master 1 Expert Dev Web</h2>
-                    <p>Nantes YNOV Campus</p>
-                    <p>44200 Nantes</p>
+                    <h2 class="text-2xl font-bold">{{courses.0.name}}</h2>
+                    <p>{{courses.0.school.name}}</p>
+                    <p>{{courses.0.school.street}}, {{courses.0.school.city}}</p>
                 </div>
 
-                <div class="flex flex-row flex-wrap justify-between">
-                    <div class="flex flex-row items-center space-x-4">
-                        <i class="fas fa-euro-sign"></i>
-                        <span>35 000 / an</span>
-                    </div>
-                    <div class="flex flex-row items-center space-x-4">
-                        <i class="fas fa-file-signature"></i>
-                        <span>En atlernance</span>
-                    </div>
-                    <div class="flex flex-row items-center space-x-4">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>1er Avril 2020</span>
-                    </div>
-
-                </div>
                 <div class="space-y-4">
                     <h3 class="font-bold text-lg">Description</h3>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quis earum, iste
-                        dolores illum
-                        magni ipsum iure? Quos necessitatibus sint ea nulla fuga, repellat qui debitis, aliquid
-                        repudiandae, nostrum beatae. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Pariatur,
-                        quos. Temporibus blanditiis quae at obcaecati suscipit voluptatem hic rerum veniam
-                        delectus
-                        molestias, natus odio ea tenetur nulla dolorem non est? Lorem ipsum dolor sit amet,
-                        consectetur
-                        adipisicing elit. Provident laborum sequi labore porro fugiat? Earum accusantium tempore
-                        ad
-                        optio illo ex maiores, enim debitis placeat veritatis est numquam, laboriosam officiis.
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis quis earum, iste
-                        dolores
-                        illum
-                        magni ipsum iure? Quos necessitatibus sint ea nulla fuga, repellat qui debitis, aliquid
-                        repudiandae, nostrum beatae. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Pariatur,
-                        quos. Temporibus blanditiis quae at obcaecati suscipit voluptatem hic rerum veniam
-                        delectus
-                        molestias, natus odio ea tenetur nulla dolorem non est? Lorem ipsum dolor sit amet,
-                        consectetur
-                        adipisicing elit. Provident laborum sequi labore porro fugiat? Earum accusantium tempore
-                        ad
-                        optio illo ex maiores, enim debitis placeat veritatis est numquam, laboriosam officiis.
+                    <p>
+                        {% if not courses.0.description %}
+                        <i>Aucune description</i>
+                        {% else %}
+                        <i>
+                            {{courses.0.description|slice:'0:700'}}
+                        </i>
+                        {% endif %}
                     </p>
                 </div>
 
                 <div class="w-full flex flex-row justify-center">
-                    <button class="btn bg-secondary hover:bg-primary w-48 border-none">Voir l'école</button>
+                    <a class="btn bg-secondary hover:bg-primary w-48 border-none" href="{{courses.0.id}}">Voir
+                        l'école</a>
+                </div>
+            </div>
+            <div class="flex flex-col justify-between h-full" v-else>
+                <div class="space-y-5">
+                    <h2 class="text-2xl font-bold">[[ course.name ]]</h2>
+                    <p>[[ course.school__name ]]</p>
+                    <p>[[ course.school__street ]], [[ course.school_city ]]</p>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-bold text-lg">Description</h3>
+                    <p>
+                        [[ course.description ]]
+                    </p>
+                </div>
+
+                <div class="w-full flex flex-row justify-center">
+                    <button class="btn bg-secondary hover:bg-primary w-48 border-none"
+                        @click="redirectToDetail(course.id)">Voir l'école</button>
                 </div>
             </div>
         </div>
@@ -118,10 +117,59 @@
         delimiters: ["[[", "]]"],
         data() {
             return {
-                title: 'Hello Vue!',
-                job: null,
+                course: null,
+                search: {
+                    name: '',
+                    location: '',
+                    school: '',
+                }
             }
         },
+
+        created() {
+            const uri = window.location.search.substring(1);
+            const params = new URLSearchParams(uri);
+            this.search.name = params.get('name') ? params.get('name') : '';
+            this.search.location = params.get('location') ? params.get('location') : '';
+            this.search.school = params.get('school') ? params.get('school') : '';
+        },
+
+        methods: {
+            redirectToDetail(courseId) {
+                window.location.href = `/courses/${courseId}`;
+            },
+
+            async getCourseDetail(e) {
+                const courseId = e.currentTarget.dataset.courseId
+                const isButtonTarget = e.target.classList.contains('btn')
+
+                if (window.innerWidth < 1024 && isButtonTarget) {
+                    location.href = `/courses/${courseId}`
+                }
+                const response = await
+                fetch(`/courses/preview/${courseId}`, {
+                    method: 'GET',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    },
+                });
+
+                if (response.ok) {
+                    const {
+                        course
+                    } = await response.json()
+
+                    this.course = course
+                }
+            },
+
+            searchCourses() {
+                location.href =
+                    `?name=${this.search.name}&location=${this.search.location}&school=${this.search.school}`
+
+            }
+        },
+
     }).mount('#jobsList')
 </script>
 

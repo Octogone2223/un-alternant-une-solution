@@ -3,17 +3,15 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from authentication.models import Company, School, Student, User
-
 from webpush import send_group_notification
+from job.models import Job
 # Create your views here.
 
 
 def home(request):
-
-    # The group_name should be the name you would define.
     webpush = {"group": "alternant"}
-
-    return render(request, 'home.html', {"webpush": webpush})
+    latest_jobs = Job.objects.all().order_by('-create_at')[:3]
+    return render(request, 'home.html', {"webpush": webpush,'jobs': latest_jobs})
 
 
 def about(request):
@@ -52,7 +50,8 @@ def profile(request):
     data = None
 
     if userType == 'Student':
-        data = list(Student.objects.filter(user=request.user).values())[0]
+        data = list(Student.objects.filter(user=request.user).values(
+            'id', 'user_id', 'birthday', 'linkedin_url', 'cv_path', 'description', 'course__name'))[0]
     elif userType == 'Company':
         data = list(Company.objects.filter(
             users=request.user).values())[0]

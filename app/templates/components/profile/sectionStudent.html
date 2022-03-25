@@ -1,30 +1,24 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-10 lg:gap-20 mt-5">
-    
+
   <div class="w-full">
     <div class="flex flex-col col-span-2">
-      <label for=""
-        class="font-bold mb-2 hover block text-sm text-slate-700">Formation:</label>
-      <select
-        class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-        placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errors.course.length}" @focus="errors.course=[]"
-        v-model="profileForm.course">
-      
-        <option>Machin</option>
-        <option>Bidule</option>
-
-      </select>
+      <label for="" class="font-bold mb-2 hover block text-sm text-slate-700">Formation:</label>
+      <input disabled type="text" :value="profileForm.course" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
+              focus:border-sky-500 disabled:opacity-75 focus:ring-sky-500 block w-full rounded-md sm:text-sm
+              focus:ring-1">
       <div v-if="errors.course.length">
         <span class="text-red-500 text-xs italic" v-for="error in errors.course" :key="error">
           [[ error ]]</span>
       </div>
     </div>
-    <div class="flex flex-col col-span-2">
-      <label for=""
-        class="font-bold mb-2 hover  block text-sm text-slate-700">CV Public: <span v-if="profileForm.cv_path"><a href="{% url 'authentication:cvPublic' request.user.id %}" target="_blank">Accéder à votre cv</a><span></label>
+    <div class="flex flex-col col-span-2 mt-5">
+      <label for="" class="font-bold mb-2 hover  block text-sm text-slate-700">CV Public: <span
+          v-if="profileForm.cv_path"><a href="{% url 'authentication:cvPublic' request.user.id %}"
+            target="_blank">Accéder à votre cv</a><span></label>
       <input type="file" accept="application/pdf,video/*"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-        placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errors.cv_path.length}" id="fileCv" @focus="errors.cv_path=[]"
-        v-model="profileForm.cv_path" />
+        placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errors.cv_path.length}" id="fileCv"
+        @focus="errors.cv_path=[]" v-model="profileForm.cv_path" />
       <div v-if="errors.cv_path.length">
         <span class="text-red-500 text-xs italic" v-for="error in errors.cv_path" :key="error">
           [[ error ]]</span>
@@ -34,10 +28,9 @@
 
 
   <div class="w-full">
-  
+
     <div class="flex flex-col col-span-2">
-      <label for=""
-        class="font-bold mb-2 hover  block text-sm text-slate-700">Date de naissance:</label>
+      <label for="" class="font-bold mb-2 hover  block text-sm text-slate-700 mb-2">Date de naissance:</label>
       <input type="date"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
         placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errors.birthday.length}" @focus="errors.birthday=[]"
@@ -48,12 +41,11 @@
       </div>
     </div>
     <div class="flex flex-col col-span-2">
-      <label for=""
-        class="font-bold mb-2 hover  block text-sm text-slate-700">Linkedin:</label>
+      <label for="" class="font-bold mb-2 hover  block text-sm text-slate-700 mt-4">Linkedin:</label>
       <input type="url"
         class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-        placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errors.linkedin_url.length}" @focus="errors.linkedin_url=[]"
-        v-model="profileForm.linkedin_url" />
+        placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errors.linkedin_url.length}"
+        @focus="errors.linkedin_url=[]" v-model="profileForm.linkedin_url" />
       <div v-if="errors.linkedin_url.length">
         <span class="text-red-500 text-xs italic" v-for="error in errors.linkedin_url" :key="error">
           [[ error ]]</span>
