@@ -3,9 +3,9 @@
 
 {% block content %}
 
-<div class="flex justify-center my-12" id="jobDatings">
+<div class="flex justify-center my-12" id="jobDatings" style="min-height: 75vh">
     <div class="w-full max-w-screen-lg flex-clumn">
-        <h1 class="font-bold text-4xl mb-4">Liste de vos candidatures</h1>
+        <h1 class="font-bold text-4xl mb-12">Liste de vos candidatures</h1>
         {% csrf_token %}
         <div class="overflow-x-auto">
             <table class="table w-full">
@@ -15,7 +15,7 @@
                         <th>Poste</th>
                         <th>Entreprise</th>
                         <th>Date de début</th>
-                        <th>status</th>
+                        <th>Statut</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -59,6 +59,7 @@
                                 </div>
                             </div>
                         </td>
+
                     </tr>
                     {% endfor %}
 

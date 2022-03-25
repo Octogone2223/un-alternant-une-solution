@@ -3,9 +3,9 @@
 
 {% block content %}
 
-<div class="flex justify-center my-12" id="jobDatingsCompany">
+<div class="flex justify-center my-12" id="jobDatingsCompany" style="min-height: 75vh">
     <div class="w-full max-w-screen-lg flex-clumn">
-        <h1 class="font-bold text-4xl mb-4">Liste des offres d’alternances</h1>
+        <h1 class="font-bold text-4xl mb-12">Liste des offres d’alternances</h1>
         {% csrf_token %}
         <div class="overflow-x-auto">
             <table class="table w-full">
@@ -34,11 +34,8 @@
                             <a href="/jobs/{{job.id}}">
                                 <i class="fas fa-eye mx-3 cursor-pointer"></i>
                             </a>
-                            <a href="/jobs/update/{{job.id}}" class="mr-2">
-                                <i class="fa fa-pen cursor-pointer"></i>
-                            </a>
                             <a href="/jobs/{{job.id}}/inspect">
-                                <i class="fas fa-calendar-check"></i>
+                                <i class="fas fa-eye mx-3 cursor-pointer"></i>
                             </a>
                             <label class="fas fa-trash-alt mx-3 cursor-pointer " for="my-modal"></label>
 
@@ -84,6 +81,10 @@
                         "X-CSRFToken": getCookie("csrftoken"),
                     }
                 })
+
+                if (response.status === 200) {
+                    location.reload();
+                }
             }
         },
 
