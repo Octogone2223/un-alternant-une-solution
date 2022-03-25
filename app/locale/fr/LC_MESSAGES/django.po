@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 11:17+0100\n"
+"POT-Creation-Date: 2022-03-25 09:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,18 +96,51 @@ msgstr "Alternances"
 msgid "Courses"
 msgstr "Formations"
 
-#: app/templates/components/navbar.html:21
+#: app/templates/components/navbar.html:23
 msgid "Assistance"
 msgstr "Assistance"
 
-msgid "Connexion"
-msgstr "Connexion"
+#: app/templates/components/navbar.html:121
+#: app/templates/components/navbar.html:127
+msgid "Subscribe to Push Messaging"
+msgstr "Obtenir les WebPush"
 
-msgid "Inscription"
-msgstr "Inscription"
+#: app/templates/components/navbar.html:130
+msgid "Unsubscribe from Push Messaging"
+msgstr "Ne plus obtenir de WebPush"
 
-msgid "Déconnexion"
-msgstr "Déconnexion"
+#: app/templates/components/profile/changePassword.html:5
+msgid "Modifier votre mot de passe"
+msgstr "Modifier votre mot de passe"
 
-msgid "SBTtitle"
-msgstr "En un clin d’œil"
+#: app/templates/components/profile/changePassword.html:13
+msgid "Votre mot de passe actuel"
+msgstr "Votre mot de passe actuel"
+
+#: app/templates/components/profile/changePassword.html:25
+msgid "Nouveau votre mot de passe"
+msgstr "Nouveau votre mot de passe"
+
+#: app/templates/components/profile/changePassword.html:37
+msgid "Confirmation de votre mot de passe"
+msgstr "Confirmation de votre mot de passe"
+
+#: app/templates/components/profile/changePassword.html:45
+msgid "Changer"
+msgstr "Changer"
+
+#: app/templates/profile.html:47
+msgid "Valider"
+msgstr "Valider"
+
+#~ msgid "Connexion"
+#~ msgstr "Connexion"
+
+#~ msgid "Inscription"
+#~ msgstr "Inscription"
+
+#~ msgid "Déconnexion"
+#~ msgstr "Déconnexion"
+
+#~ msgid "SBTtitle"
+#~ msgstr "En un clin d’œil"

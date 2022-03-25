@@ -3,13 +3,18 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from authentication.models import Company, School, Student, User
+
+from webpush import send_group_notification
 # Create your views here.
 
 
 def home(request):
-    return render(request, 'home.html')
+    
+    webpush = {"group": "alternant" } # The group_name should be the name you would define.
 
-
+    
+    return render(request, 'home.html',  {"webpush":webpush})
+    
 def about(request):
     return render(request, 'about.html')
 
