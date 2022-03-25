@@ -76,6 +76,41 @@ def create_job(request):
         return redirect('/profile')
 
 
+@login_required(login_url='authentication:sign_in')
+def update_job(request, job_id):
+
+    if request.method == 'PUT':
+        body = request.body.decode('utf-8')
+        print(body)
+        bodyJSON = json.loads(body)
+        print(bodyJSON)
+        try:
+            job = Job.objects.get(id=job_id)
+
+            job.name = bodyJSON['name']
+            job.description = bodyJSON['description']
+            job.wage = bodyJSON['wage']
+            job.contract_type = bodyJSON['contract_type']
+            job.start_date = bodyJSON['start_date']
+            job.schedule = bodyJSON['schedule']
+            job.company_id = bodyJSON['company_id']
+
+            job.save()
+            return JsonResponse({'status': 'success'})
+        except Job.DoesNotExist:
+            return HttpResponseBadRequest({'status': 'failed'})
+
+    try:
+        company = list(Company.objects.filter(
+            users=request.user).values())[0]
+        job = list(Job.objects.filter(id=job_id, company_id=company['id']).values('id', 'name', 'description',
+                                                                                  'wage', 'contract_type', 'start_date', 'schedule', 'company_id'))[0]
+
+        return render(request, 'update_job.html', {'job': job, 'company': company})
+    except Job.DoesNotExist:
+        return HttpResponseBadRequest()
+
+
 def preview_job(request, job_id):
     job = list(Job.objects.filter(id=job_id).values('id', 'name', 'description',
                'wage', 'contract_type', 'start_date', 'schedule', 'company__name', 'company__city', 'company__street', 'company__zip_code'))[0]

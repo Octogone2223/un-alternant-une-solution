@@ -45,6 +45,9 @@
 
   {# VUEJS #}
   <script src="https://unpkg.com/vue@3"></script>
+  {% load webpush_notifications %}
+
+  {% webpush_header %}
 
   <script>
     const getCookie = (c_name) => {
