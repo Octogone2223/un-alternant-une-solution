@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from authentication.models import Student, User
 from .models import Course
 from django.http.response import HttpResponse, JsonResponse
 
@@ -35,4 +37,9 @@ def preview_course(request, course_id):
 
 
 def course_detail(request, course_id):
-    return render(request, 'course_detail.html')
+    if request.method == 'PATCH':
+        student = Student.objects.get(user=request.user.id)
+        student.course_id = course_id
+
+    course = Course.objects.get(id=course_id)
+    return render(request, 'course_detail.html', {'course': course})

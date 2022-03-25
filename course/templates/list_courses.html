@@ -49,8 +49,8 @@
 
                 <div class="flex flex-row justify-between items-center">
                     <p>Formation postée le : <i>{{course.create_at|date:"d F, Y" }}</i></p>
-                    <button
-                        class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary">Rejoindre</button>
+                    <a class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary"
+                        href="{{course.id}}">Rejoindre</a>
                 </div>
             </div>
 
@@ -79,7 +79,8 @@
                 </div>
 
                 <div class="w-full flex flex-row justify-center">
-                    <button class="btn bg-secondary hover:bg-primary w-48 border-none">Voir l'école</button>
+                    <a class="btn bg-secondary hover:bg-primary w-48 border-none" href="{{courses.0.id}}">Voir
+                        l'école</a>
                 </div>
             </div>
             <div class="flex flex-col justify-between h-full" v-else>
@@ -97,7 +98,8 @@
                 </div>
 
                 <div class="w-full flex flex-row justify-center">
-                    <button class="btn bg-secondary hover:bg-primary w-48 border-none">Voir l'école</button>
+                    <button class="btn bg-secondary hover:bg-primary w-48 border-none"
+                        @click="redirectToDetail(course.id)">Voir l'école</button>
                 </div>
             </div>
         </div>
