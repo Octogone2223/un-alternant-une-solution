@@ -9,12 +9,13 @@ from webpush import send_group_notification
 
 
 def home(request):
-    
-    webpush = {"group": "alternant" } # The group_name should be the name you would define.
 
-    
-    return render(request, 'home.html',  {"webpush":webpush})
-    
+    # The group_name should be the name you would define.
+    webpush = {"group": "alternant"}
+
+    return render(request, 'home.html', {"webpush": webpush})
+
+
 def about(request):
     return render(request, 'about.html')
 
