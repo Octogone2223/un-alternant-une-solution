@@ -52,7 +52,7 @@
                             </a>
                         </td>
                         <td>
-                            {% if job_dating.status == "PE" %}
+                            {% if job_dating.status != "RE" and job_dating.status != "AC" %}
                             <i class="fas fa-check mx-3 cursor-pointer" data @click="updateStatus($event, 'ACCEPTED')"
                                 data-job-dating-id="{{job_dating.id}}"></i>
                             <i class="fas fa-times mx-3 cursor-pointer" @click="updateStatus($event, 'REJECTED')"
