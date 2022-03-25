@@ -45,7 +45,7 @@
                 @click="getJobDetail">
                 <h2 class="font-bold">{{job.name}}</h2>
 
-                <p class="uppercase">{{job.company}}</p>
+                <a href="/company/{{job.company_id}}" class="uppercase text-primary underline">{{job.company}}</a>
 
                 <p class="uppercase">
                     {% if job.company.city %}
@@ -83,7 +83,7 @@
                     {% if jobs.0.wage %}
                     <div class="flex flex-row items-center space-x-4">
                         <i class="fas fa-euro-sign"></i>
-                        <span>35 000 / an</span>
+                        <span>{{jobs.0.wage}}</span>
                     </div>
                     {% endif %}
                     <div class="flex flex-row items-center space-x-4">
@@ -110,7 +110,9 @@
             <div class=" flex flex-col justify-between h-full" v-else>
                 <div class="space-y-5">
                     <h2 class="text-2xl font-bold">[[ job.name ]]</h2>
-                    <p>[[ job.company__name ]]</p>
+                    <p>[[
+                        job.company__name
+                        ]]</p>
                     <p>
                         [[ job.company__city ? job.company__city : '44000 Nantes' ]]
                     </p>

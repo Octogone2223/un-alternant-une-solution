@@ -56,12 +56,34 @@
                 <button class="w-1/2 mb-5 text-white bg-secondary focus:ring-4 focus:ring-purple-300 font-medium rounded-lg
                     text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700
                     dark:focus:ring-purple-900" id="btn_signin" @click="handleSubmitLoginForm">{% trans 'Connexion' %}</button>
+                <p>Mot de passe oublié <a  href="#my-modal-2" class="cursor-pointer text-blue-300">{% trans "J'ai oublié" %}</a></p>
                 <p>Pas encore de compte ? <a href="{% url 'authentication:sign_up' %}" class="cursor-pointer text-blue-300">{% trans 'Inscription' %}</a></p>
             </div>
 
 
         </div>
     </div>
+</div>
+
+<div class="modal" id="my-modal-2">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{% trans "J'ai oublié mon mot de passe" %}</h3>
+    <div class="flex flex-col col-span-2">
+        <label for=""
+          class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Email:</label>
+        <input type="email"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+          placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errorsPassword.email.length}" @focus="errorsPassword.email=[]"
+          v-model="forgotPassword.email" />
+        <div v-if="errorsPassword.email.length">
+          <span class="text-red-500 text-xs italic" v-for="error in errorsPassword.email" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
+    <div class="modal-action">
+     <a v-on:click="IforgotPassword()" class="btn">Yay!</a>
+    </div>
+  </div>
 </div>
 
 
@@ -120,7 +142,7 @@
                         window.location.href = window.location.search.split('next=')[1];
                     }
                     else {
-                        window.location.href = '/auth/private-test/'
+                        window.location.href = '/profile'
                     }
                 }
 
@@ -136,10 +158,73 @@
                         [key]: val
                     }
                 }, this.errors)
-            }
+            },
         },
         watch: {}
     }).mount('#signin')
+
+    const mymodal = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                
+                errorsPassword : {
+                    email: [],
+                },
+                forgotPassword : {
+                    email:"",
+                }
+            }
+        },
+        methods: {
+            
+            async IforgotPassword() {
+                console.log(this.forgotPassword)
+                this.errorsPassword.email = [];
+                if (!this.forgotPassword.email) {
+                    this.errorsPassword.email.push("Votre email est obligatoire")
+                }
+                else if (!this.forgotPassword.email.includes("@")) {
+                    this.errorsPassword.email.push("Ce n'est pas un mail")
+                }
+                else {
+
+                    fetch("/auth/user/forgotPassword",
+                    {
+                        method: 'POST',
+                        headers: {
+                          "X-CSRFToken": getCookie("csrftoken"),
+                        },
+                        body: JSON.stringify({
+                            email:this.forgotPassword.email
+                        }),
+                      })
+                      .then((response) => {
+                        return response.json()
+                      })
+                      .then((json) => {
+                        if (json.status === 'success') {
+                          Toastify({
+                            text: "Un mail a été envoyé avec un nouveau mot de passe",
+                            duration: 3000
+                            }).showToast();
+                            document.location.href = document.location.href.replace("my-modal-2","")
+                        }
+                        else {
+                            Toastify({
+                                text: json.message,
+                                duration: 3000
+                                }).showToast();
+                            this.errorsPassword.email.push(json.message)
+                        }
+                      })
+
+                    
+                }
+            }
+        },
+        watch: {}
+    }).mount('#my-modal-2')
 </script>
 
 {% endblock %}

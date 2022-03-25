@@ -70,7 +70,7 @@ def create_job(request):
     userType = request.user.getUserType()
     if userType == 'Company':
         company = list(Company.objects.filter(
-            user_companies=request.user).values())[0]
+            users=request.user).values())[0]
         return render(request, 'create_job.html', {'user': userJSON, 'userType': userType, 'company': company})
     else:
         return redirect('/profile')
@@ -110,8 +110,7 @@ def job_detail(request, job_id):
             Job.objects.get(
                 company=company, id=job_id).delete()
             return HttpResponse(status=200)
-        except Exception as e:
-            print(e)
+        except Job.DoesNotExist:
             return HttpResponse(status=400)
 
     has_already_applied = JobDating.objects.filter(

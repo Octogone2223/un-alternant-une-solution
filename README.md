@@ -79,5 +79,6 @@ Regarder l'exemple au niveau de `authentication/templates/sign_in.html` et de `a
 
 ### Maquette
 
-https://www.figma.com/file/TsQhezJSfolIuSrQkSEEzp/1Alternant1Solution?node-id=0%3A1
+[Maquette sur Figma](https://www.figma.com/file/TsQhezJSfolIuSrQkSEEzp/1Alternant1Solution?node-id=0%3A1)
+
 
