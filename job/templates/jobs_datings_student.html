@@ -32,9 +32,9 @@
                         <td>{{ job_dating.job.company.name }}</td>
                         <td>{{ job_dating.job.start_date }}</td>
 
-                        {% if job_dating.job.status == 'AC' %}
+                        {% if job_dating.status == 'AC' %}
                         <td class="text-green-500">Accepté</td>
-                        {% elif job_dating.job.status == 'RE' %}
+                        {% elif job_dating.status == 'RE' %}
                         <td class="text-red-500">Refusé</td>
                         {% else %}
                         <td class="text-orange-500">En attente</td>
