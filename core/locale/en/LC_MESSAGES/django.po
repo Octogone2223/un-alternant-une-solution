@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 11:17+0100\n"
+"POT-Creation-Date: 2022-03-25 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,105 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: core/templates/about.html:10
+msgid "Qui sommes-nous ?"
+msgstr "Who are we?"
+
+#: core/templates/about.html:13
+msgid "Qui sommes-nous ?2"
+msgstr ""
+"As part of the Full Stack development module at Ynov, which will take place "
+"in 2022 for students in the Computer Science Master's program, we have to "
+"answer a call for projects. This project must be useful and innovative."
+
+#: core/templates/about.html:17
+msgid "Qui sommes-nous ?3"
+msgstr ""
+"The aim is to create a web platform that provides easy access to the various "
+"work-study offers available on the French market."
+
+#: core/templates/about.html:21
+msgid "Qui sommes-nous ?4"
+msgstr ""
+"This web platform must allow companies to publish their work-study offers, "
+"to consult, modify or delete them, to consult the applications received, to "
+"accept or refuse them."
+
+#: core/templates/about.html:25
+msgid "Qui sommes-nous ?5"
+msgstr ""
+"Students should be able to position themselves on a work-study offer "
+"published by a company and follow the progress of their applications from "
+"their personal space. They will also be able to modify their profiles, in "
+"particular to indicate their school, put in a curriculum vitae, and add "
+"their social networks."
+
+#: core/templates/about.html:29
+msgid "Qui sommes-nous ?6"
+msgstr ""
+"Finally, schools must be able to promote their training and offer a work-"
+"study program to a student"
+
+#: core/templates/about.html:33
+msgid "Qui sommes-nous ?7"
+msgstr ""
+"Students, schools and companies should be able to edit their personal and "
+"contact information."
+
+#: core/templates/about.html:39
+msgid "Notre équipe"
+msgstr "Our team"
+
+#: core/templates/company_detail.html:15
+msgid "Entreprise"
+msgstr "Company"
+
+#: core/templates/company_detail.html:24 core/templates/school_detail.html:24
+#: core/templates/student_detail.html:28
+#, fuzzy
+#| msgid "Inscription"
+msgid "Description"
+msgstr "Sign Up"
+
+#: core/templates/company_detail.html:30 core/templates/school_detail.html:30
+#: core/templates/student_detail.html:33
+msgid "Contacter"
+msgstr "Contact"
+
 #: core/templates/components/footer.html:11
-#: core/templates/components/navbar.html:11
+#: core/templates/components/footer.html:13
+#: core/templates/components/footer.html:21
+#: core/templates/components/footer.html:29
+#: core/templates/components/navbar.html:12
+#: core/templates/components/navbar.html:62
 msgid "APropos"
 msgstr "About us"
 
-#: core/templates/components/home/hero.html:7
+#: core/templates/components/footer.html:14
+#: core/templates/components/footer.html:22
+#: core/templates/components/footer.html:30
+msgid "Mentions légales"
+msgstr "Legal information"
+
+#: core/templates/components/footer.html:15
+#: core/templates/components/footer.html:23
+#: core/templates/components/footer.html:31
+msgid "Politique de confidentialité"
+msgstr "Privacy Policy"
+
+#: core/templates/components/footer.html:19
+msgid "Plan du site"
+msgstr "Site Map"
+
+#: core/templates/components/footer.html:27
+msgid "Newsletter"
+msgstr "Newsletter"
+
+#: core/templates/components/home/hero.html:6
 msgid "HomeHeroSentences1"
 msgstr "A great mobilization of business networks"
 
-#: core/templates/components/home/hero.html:8
+#: core/templates/components/home/hero.html:7
 msgid "HomeHeroSentences2"
 msgstr "for the youth!"
 
@@ -34,7 +123,7 @@ msgstr "for the youth!"
 msgid "IamStudent"
 msgstr "I'm a student"
 
-#: core/templates/components/home/hero.html:12
+#: core/templates/components/home/hero.html:13
 msgid "IamCompany"
 msgstr "I'm an employer"
 
@@ -66,7 +155,7 @@ msgstr "An easy contact"
 
 #: core/templates/components/home/section1.html:25
 msgid "SCmessage"
-msgstr "Easily contact training centers or companies to corely."
+msgstr "Easily contact training centers or companies to apply."
 
 #: core/templates/components/home/section2.html:7
 msgid "HelpNeed"
@@ -80,30 +169,138 @@ msgstr ""
 "your problem, consult the frequently asked questions of the work-study "
 "portal."
 
+#: core/templates/components/home/section3.html:5
+msgid "Nos Récentes Offres"
+msgstr "Our Recent Offers"
+
+#: core/templates/components/home/section3.html:38
+msgid "Postuler"
+msgstr "Apply at"
+
 #: core/templates/components/navbar.html:9
+#: core/templates/components/navbar.html:53
 msgid "Home"
 msgstr "Home"
 
 #: core/templates/components/navbar.html:10
+#: core/templates/components/navbar.html:56
 msgid "Apprenticeship"
 msgstr "Apprentiship"
 
-#: core/templates/components/navbar.html:12
+#: core/templates/components/navbar.html:11
+#: core/templates/components/navbar.html:59
+#: core/templates/components/profile/sectionStudent.html:6
 msgid "Courses"
 msgstr "Courses"
 
-#: core/templates/components/navbar.html:21
+#: core/templates/components/navbar.html:23
 msgid "Assistance"
 msgstr "Assistance"
 
-msgid "Connexion"
-msgstr "Login"
+#: core/templates/components/navbar.html:136
+msgid "Subscribe to Push Messaging"
+msgstr "Get the WebPush"
 
-msgid "Inscription"
-msgstr "Sign Up"
+#: core/templates/components/navbar.html:139
+msgid "Unsubscribe from Push Messaging"
+msgstr "Don't get WebPush anymore"
 
-msgid "Déconnexion"
-msgstr "Logout"
+#: core/templates/components/profile/changePassword.html:5
+msgid "Modifier votre mot de passe"
+msgstr "Password confirmation"
 
-msgid "SBTtitle"
-msgstr "In the blink of an eye"
+#: core/templates/components/profile/changePassword.html:13
+msgid "Votre mot de passe actuel"
+msgstr "Your current password"
+
+#: core/templates/components/profile/changePassword.html:25
+msgid "Nouveau votre mot de passe"
+msgstr "New password"
+
+#: core/templates/components/profile/changePassword.html:37
+msgid "Confirmation de votre mot de passe"
+msgstr "Confirm your password"
+
+#: core/templates/components/profile/changePassword.html:45
+msgid "Changer"
+msgstr "Change"
+
+#: core/templates/components/profile/sectionCityStreet.html:7
+msgid "Ville"
+msgstr "City"
+
+#: core/templates/components/profile/sectionCityStreet.html:19
+msgid "Code Postal"
+msgstr "Zip code"
+
+#: core/templates/components/profile/sectionCityStreet.html:31
+msgid "Rue et numéro"
+msgstr "Street"
+
+#: core/templates/components/profile/sectionCityStreet.html:47
+msgid "Nom de votre Entité"
+msgstr "Entity name"
+
+#: core/templates/components/profile/sectionCityStreet.html:60
+msgid "Photo de votre Entité"
+msgstr "Photo of your Entity"
+
+#: core/templates/components/profile/sectionNameDescription.html:7
+msgid "Nom"
+msgstr "Lastname"
+
+#: core/templates/components/profile/sectionNameDescription.html:19
+msgid "Prénom"
+msgstr "Firstname"
+
+#: core/templates/components/profile/sectionNameDescription.html:31
+msgid "Email"
+msgstr "Email"
+
+#: core/templates/components/profile/sectionNameDescription.html:46
+msgid "Description de l'activité"
+msgstr "Description"
+
+#: core/templates/components/profile/sectionStudent.html:16
+msgid "CV Public"
+msgstr "Public CV"
+
+#: core/templates/components/profile/sectionStudent.html:34
+msgid "Date de naissance"
+msgstr "Birthday"
+
+#: core/templates/components/profile/sectionStudent.html:45
+msgid "Linkedin"
+msgstr "Linkedin"
+
+#: core/templates/profile.html:14
+msgid "Modifier son profil"
+msgstr "Modify your profile"
+
+#: core/templates/profile.html:18
+msgid "Voir mes offres"
+msgstr "See my offers"
+
+#: core/templates/profile.html:21
+msgid "Créer une offre"
+msgstr "Create an offer"
+
+#: core/templates/profile.html:24
+msgid "Voir mes candidatures"
+msgstr "See my applications"
+
+#: core/templates/profile.html:53
+msgid "Valider"
+msgstr "Validate"
+
+#: core/templates/school_detail.html:15
+msgid "École"
+msgstr "School"
+
+#: core/templates/student_detail.html:18
+msgid "Étudiant"
+msgstr "Student"
+
+#: core/templates/student_detail.html:25
+msgid "Télécharger le CV"
+msgstr "Download the CV"

@@ -11,17 +11,17 @@
 
     <div class="flex flex-col lg:flex-row w-full justify-between items-center">
 
-      <div class="text-black text-3xl font-bold">Modifier son profil</div>
+      <div class="text-black text-3xl font-bold">{% trans 'Modifier son profil' %}</div>
 
       <div class='flex flex-col lg:flex-row justify-center items-center lg:space-x-10 my-4 lg:my-0'>
         <div v-if="userType === 'Company'" class="mb-4 lg:mb-0">
-          <a href="/jobs/datings" class=" btn btn-sm bg-primary border-none hover:bg-secondary">Voir mes offres</a>
+          <a href="/jobs/datings" class=" btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Voir mes offres' %}</a>
         </div>
         <div v-if="userType === 'Company'" class="mb-4 lg:mb-0">
-          <a href="/jobs/create-job" class="btn btn-sm bg-primary border-none hover:bg-secondary">Créer une offre</a>
+          <a href="/jobs/create-job" class="btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Créer une offre' %}</a>
         </div>
         <div v-if="userType === 'Student'" class="mb-4 lg:mb-0">
-          <a href="/jobs/datings/" class="btn btn-sm bg-primary border-none hover:bg-secondary">Voir mes candidatures</a>
+          <a href="/jobs/datings/" class="btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Voir mes candidatures' %}</a>
         </div>
         <div v-on:click="updatePhoto()" class="avatar flex items-end justify-end cursor-pointer ">
           <input type="file" accept="image/*" id="filePhoto" class="hidden"></input>

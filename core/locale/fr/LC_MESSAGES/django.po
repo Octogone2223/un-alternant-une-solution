@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-25 09:55+0000\n"
+"POT-Creation-Date: 2022-03-25 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,105 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: core/templates/about.html:10
+msgid "Qui sommes-nous ?"
+msgstr "Qui sommes-nous ?"
+
+#: core/templates/about.html:13
+msgid "Qui sommes-nous ?2"
+msgstr ""
+"Dans le cadre du module de développement Full Stack à Ynov, qui intervient "
+"en 2022 pour les étudiants enMastère filière informatique, nous devons "
+"répondre à un appel à projets. Ce projet se doit d’être utile etinnovant."
+
+#: core/templates/about.html:17
+msgid "Qui sommes-nous ?3"
+msgstr ""
+"Il s’agira de créer une plateforme web qui permet d’accéder facilement aux "
+"différentes offres d'alternanceprésentes sur le marché français."
+
+#: core/templates/about.html:21
+msgid "Qui sommes-nous ?4"
+msgstr ""
+"Cette plateforme web doit permettre aux entreprises de publier leurs offres "
+"d'alternance, de les consulter,de les modifier, de les supprimer, de "
+"consulter les candidatures reçues, de les accepter ou de les refuser."
+
+#: core/templates/about.html:25
+msgid "Qui sommes-nous ?5"
+msgstr ""
+"Les étudiants, quant à eux, doivent pouvoir se positionner sur une offre "
+"d'alternance publiée par uneentreprise et ainsi suivre l'évolution de leurs "
+"candidatures depuis leur espace personnel. Ils pourrontaussi modifier leurs "
+"profils notamment indiquer leur école, mettre un curriculum vitae, mettre "
+"leurs réseauxsociaux."
+
+#: core/templates/about.html:29
+msgid "Qui sommes-nous ?6"
+msgstr ""
+"Enfin les écoles doivent pouvoir mettre en avant leurs formations et "
+"proposer une alternance à un étudiant"
+
+#: core/templates/about.html:33
+msgid "Qui sommes-nous ?7"
+msgstr ""
+"Les étudiants, les écoles ainsi que les entreprises doivent pouvoir modifier "
+"leurs informationspersonnelles, ainsi que leurs informations de contact."
+
+#: core/templates/about.html:39
+msgid "Notre équipe"
+msgstr "Notre équipe"
+
+#: core/templates/company_detail.html:15
+msgid "Entreprise"
+msgstr "Entreprise"
+
+#: core/templates/company_detail.html:24 core/templates/school_detail.html:24
+#: core/templates/student_detail.html:28
+#, fuzzy
+#| msgid "Inscription"
+msgid "Description"
+msgstr "Inscription"
+
+#: core/templates/company_detail.html:30 core/templates/school_detail.html:30
+#: core/templates/student_detail.html:33
+msgid "Contacter"
+msgstr "Contacter"
+
 #: core/templates/components/footer.html:11
-#: core/templates/components/navbar.html:11
+#: core/templates/components/footer.html:13
+#: core/templates/components/footer.html:21
+#: core/templates/components/footer.html:29
+#: core/templates/components/navbar.html:12
+#: core/templates/components/navbar.html:62
 msgid "APropos"
 msgstr "À Propos"
 
-#: core/templates/components/home/hero.html:7
+#: core/templates/components/footer.html:14
+#: core/templates/components/footer.html:22
+#: core/templates/components/footer.html:30
+msgid "Mentions légales"
+msgstr "Mentions légales"
+
+#: core/templates/components/footer.html:15
+#: core/templates/components/footer.html:23
+#: core/templates/components/footer.html:31
+msgid "Politique de confidentialité"
+msgstr "Politique de confidentialité"
+
+#: core/templates/components/footer.html:19
+msgid "Plan du site"
+msgstr "Plan du site"
+
+#: core/templates/components/footer.html:27
+msgid "Newsletter"
+msgstr "Newsletter"
+
+#: core/templates/components/home/hero.html:6
 msgid "HomeHeroSentences1"
 msgstr "Une grande mobilisation des réseaux d'entreprises"
 
-#: core/templates/components/home/hero.html:8
+#: core/templates/components/home/hero.html:7
 msgid "HomeHeroSentences2"
 msgstr "en faveur de la jeunesse !"
 
@@ -34,7 +123,7 @@ msgstr "en faveur de la jeunesse !"
 msgid "IamStudent"
 msgstr "Je suis étudiant"
 
-#: core/templates/components/home/hero.html:12
+#: core/templates/components/home/hero.html:13
 msgid "IamCompany"
 msgstr "Je suis employeur"
 
@@ -84,29 +173,39 @@ msgstr ""
 "une solution à votre problème, consultez la foire aux questions du portail "
 "de l'alternance."
 
+#: core/templates/components/home/section3.html:5
+msgid "Nos Récentes Offres"
+msgstr "Nos Récentes Offres"
+
+#: core/templates/components/home/section3.html:38
+msgid "Postuler"
+msgstr "Postuler"
+
 #: core/templates/components/navbar.html:9
+#: core/templates/components/navbar.html:53
 msgid "Home"
 msgstr "Accueil"
 
 #: core/templates/components/navbar.html:10
+#: core/templates/components/navbar.html:56
 msgid "Apprenticeship"
 msgstr "Alternances"
 
-#: core/templates/components/navbar.html:12
+#: core/templates/components/navbar.html:11
+#: core/templates/components/navbar.html:59
+#: core/templates/components/profile/sectionStudent.html:6
 msgid "Courses"
 msgstr "Formations"
 
-#: core/templates/components/navbar.html:21
 #: core/templates/components/navbar.html:23
 msgid "Assistance"
 msgstr "Assistance"
 
-#: core/templates/components/navbar.html:121
-#: core/templates/components/navbar.html:127
+#: core/templates/components/navbar.html:136
 msgid "Subscribe to Push Messaging"
 msgstr "Obtenir les WebPush"
 
-#: core/templates/components/navbar.html:130
+#: core/templates/components/navbar.html:139
 msgid "Unsubscribe from Push Messaging"
 msgstr "Ne plus obtenir de WebPush"
 
@@ -130,18 +229,82 @@ msgstr "Confirmation de votre mot de passe"
 msgid "Changer"
 msgstr "Changer"
 
-#: core/templates/profile.html:47
+#: core/templates/components/profile/sectionCityStreet.html:7
+msgid "Ville"
+msgstr "Ville"
+
+#: core/templates/components/profile/sectionCityStreet.html:19
+msgid "Code Postal"
+msgstr "Code Postal"
+
+#: core/templates/components/profile/sectionCityStreet.html:31
+msgid "Rue et numéro"
+msgstr "Rue et numéro"
+
+#: core/templates/components/profile/sectionCityStreet.html:47
+msgid "Nom de votre Entité"
+msgstr "Nom de votre Entité"
+
+#: core/templates/components/profile/sectionCityStreet.html:60
+msgid "Photo de votre Entité"
+msgstr "Photo de votre Entité"
+
+#: core/templates/components/profile/sectionNameDescription.html:7
+msgid "Nom"
+msgstr "Nom"
+
+#: core/templates/components/profile/sectionNameDescription.html:19
+msgid "Prénom"
+msgstr "Prénom"
+
+#: core/templates/components/profile/sectionNameDescription.html:31
+msgid "Email"
+msgstr "Email"
+
+#: core/templates/components/profile/sectionNameDescription.html:46
+msgid "Description de l'activité"
+msgstr "Description de l'activité"
+
+#: core/templates/components/profile/sectionStudent.html:16
+msgid "CV Public"
+msgstr "CV Public"
+
+#: core/templates/components/profile/sectionStudent.html:34
+msgid "Date de naissance"
+msgstr "Date de naissance"
+
+#: core/templates/components/profile/sectionStudent.html:45
+msgid "Linkedin"
+msgstr "Linkedin"
+
+#: core/templates/profile.html:14
+msgid "Modifier son profil"
+msgstr "Modifier son profil"
+
+#: core/templates/profile.html:18
+msgid "Voir mes offres"
+msgstr "Voir mes offres"
+
+#: core/templates/profile.html:21
+msgid "Créer une offre"
+msgstr "Créer une offre"
+
+#: core/templates/profile.html:24
+msgid "Voir mes candidatures"
+msgstr "Voir mes candidatures"
+
+#: core/templates/profile.html:53
 msgid "Valider"
 msgstr "Valider"
 
-#~ msgid "Connexion"
-#~ msgstr "Connexion"
+#: core/templates/school_detail.html:15
+msgid "École"
+msgstr "École"
 
-#~ msgid "Inscription"
-#~ msgstr "Inscription"
+#: core/templates/student_detail.html:18
+msgid "Étudiant"
+msgstr "Étudiant"
 
-#~ msgid "Déconnexion"
-#~ msgstr "Déconnexion"
-
-#~ msgid "SBTtitle"
-#~ msgstr "En un clin d’œil"
+#: core/templates/student_detail.html:25
+msgid "Télécharger le CV"
+msgstr "Télécharger le CV"

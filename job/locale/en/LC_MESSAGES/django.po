@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 11:17+0100\n"
+"POT-Creation-Date: 2022-03-25 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: job/models.py:47
+#: job/models.py:46
 msgid "Open"
 msgstr "Open"
 
-#: job/models.py:48
+#: job/models.py:47
 msgid "Closed"
 msgstr "Closed"
 
-#: job/models.py:49
+#: job/models.py:48
 msgid "Canceled"
 msgstr "Canceled"
+
+#: job/models.py:82
+msgid "ACCEPTED"
+msgstr ""
+
+#: job/models.py:83
+msgid "REJECTED"
+msgstr ""
+
+#: job/models.py:84
+msgid "PENDING"
+msgstr ""
