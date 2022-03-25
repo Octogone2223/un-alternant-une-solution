@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from authentication.models import Student, School, User
 from .models import Course
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.

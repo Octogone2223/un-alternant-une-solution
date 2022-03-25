@@ -1,9 +1,7 @@
 import base64
-import codecs
 import datetime
 from http.client import UNAUTHORIZED
 import json
-from multiprocessing import AuthenticationError
 import os
 import secrets
 import string
@@ -11,12 +9,11 @@ from django.conf import settings
 from django.http import (
     FileResponse,
     Http404,
-    HttpRequest,
     HttpResponse,
     HttpResponseBadRequest,
     JsonResponse,
 )
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from authentication.models import Company, Student, User, School

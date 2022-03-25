@@ -1,22 +1,14 @@
 import datetime
-from distutils.log import error
-from django.forms import ValidationError
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from .models import Job, JobDating, JobStatus
 from authentication.models import Company, User
 from django.http.response import HttpResponse, JsonResponse
-from django.core import serializers
 import json
-from rest_framework.parsers import MultiPartParser
-from rest_framework.response import Response
-from .serializers import JobCreationSerializer, JobDatingSerializer
-from django.core.files.base import ContentFile
 from django.contrib.auth.decorators import login_required
 import os
 from authentication.models import User
-from django.shortcuts import render, redirect, reverse
-from django.db.models import Prefetch
+from django.shortcuts import redirect, render
 from django.http import FileResponse
 from django.conf import settings
 from webpush import send_user_notification

@@ -1,10 +1,8 @@
 from django.test import TestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import Client
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 import json
-from selenium.webdriver.chrome.options import Options
 
 # Create your tests here.
 

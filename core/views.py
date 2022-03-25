@@ -1,9 +1,7 @@
-from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from authentication.models import Company, School, Student, User
-from webpush import send_group_notification
 from job.models import Job
 
 # Create your views here.
@@ -96,7 +94,6 @@ def profile(request):
         )[0]
     elif userType == "Company":
         data = list(Company.objects.filter(users=request.user).values())[0]
-        pass
     else:
         data = list(School.objects.filter(users=request.user).values())[0]
     return render(

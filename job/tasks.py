@@ -1,7 +1,5 @@
 from __future__ import absolute_import
-from ctypes import Array
 import datetime
-from time import time
 import requests
 from authentication.models import Company
 import json

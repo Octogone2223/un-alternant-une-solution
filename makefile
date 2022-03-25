@@ -18,3 +18,7 @@ loaddataprod:
 blackall:
 	@echo "Black code..."
 	python -m black ./
+
+removeimport:
+	@echo "Autokflake..."
+	autoflake --in-place --remove-unused-variables --remove-all-unused-imports --recursive .

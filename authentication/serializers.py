@@ -1,5 +1,3 @@
-from dataclasses import field
-from django.http import HttpResponseBadRequest
 from authentication.models import Company, School, Student, User
 from rest_framework import serializers
 
