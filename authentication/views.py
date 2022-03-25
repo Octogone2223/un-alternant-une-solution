@@ -142,13 +142,13 @@ def private(request):
     return render(request, 'private.html')
 
 
-@login_required(login_url='/')
+@login_required
 def sign_out(request):
     logout(request)
-    return redirect('sign_in')
+    return redirect('/')
 
 
-@login_required(login_url='sign_in')
+@login_required
 def user(request):
     if request.method == 'POST':
 
@@ -242,7 +242,7 @@ def user(request):
     return JsonResponse({'data': data, 'user': userJSON, 'userType': userType})
 
 
-@login_required(login_url='sign_in')
+@login_required
 def updatePassword(request):
     if request.method == 'PATCH':
 

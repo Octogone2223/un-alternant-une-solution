@@ -44,7 +44,7 @@ def list_jobs(request):
     return render(request, 'list_jobs.html', {'jobs': jobs})
 
 
-@login_required(login_url='authentication:sign_in')
+@login_required
 def create_job(request):
     if request.method == 'POST':
         body = request.body.decode('utf-8')
@@ -77,7 +77,7 @@ def create_job(request):
         return redirect('/profile')
 
 
-@login_required(login_url='authentication:sign_in')
+@login_required
 def update_job(request, job_id):
 
     if request.method == 'PUT':
@@ -149,8 +149,14 @@ def job_detail(request, job_id):
         except Job.DoesNotExist:
             return HttpResponse(status=400)
 
-    has_already_applied = JobDating.objects.filter(
-        job_id=job_id, student=request.user.student).exists()
+    has_already_applied = False
+    is_user = True
+
+    if request.user.getUserType() != 'Student':
+        is_user = False
+    else:
+        has_already_applied = JobDating.objects.filter(
+            job_id=job_id, student=request.user.student).exists()
 
     if request.method == 'POST' and not has_already_applied:
         cv = request.FILES.get('cv', None)
@@ -175,7 +181,7 @@ def job_detail(request, job_id):
 
     job = Job.objects.get(id=job_id)
 
-    return render(request, 'job_details.html', {'job': job, 'has_already_applied': has_already_applied})
+    return render(request, 'job_details.html', {'job': job, 'has_already_applied': has_already_applied, "is_user": is_user})
 
 
 @ login_required

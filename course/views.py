@@ -39,7 +39,10 @@ def preview_course(request, course_id):
 
 @login_required
 def course_detail(request, course_id):
-    student = Student.objects.get(user=request.user)
+    student = None
+
+    if request.user.getUserType == 'student':
+        student = Student.objects.get(user=request.user)
 
     if request.method == 'PATCH':
         student.course_id = course_id
@@ -48,7 +51,7 @@ def course_detail(request, course_id):
 
     has_already_enrolled = False
 
-    if student.course_id:
+    if student and student.course_id:
         has_already_enrolled = True
 
     course = Course.objects.get(id=course_id)

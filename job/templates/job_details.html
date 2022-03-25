@@ -68,7 +68,7 @@
       {{job.description}}
     </p>
   </div>
-  {% if not has_already_applied %}
+  {% if not has_already_applied and is_user %}
   <div class="self-center mt-20 w-96 space-y-5">
     <div class="flex flex-col">
       <label for=""
@@ -95,6 +95,10 @@
         @click="handleSubmit">Postuler</button>
     </div>
   </div>
+</div>
+{% elif not is_user %}
+<div class="self-center mt-20 w-96 space-y-5">
+  <i>Vous ne pouvez pas postuler à une offre d'alternance.</i>
 </div>
 {% else %}
 <div class="self-center mt-20 w-96 space-y-5">

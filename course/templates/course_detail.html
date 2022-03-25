@@ -42,13 +42,19 @@
             {{course.description}}
         </p>
     </div>
-    {% if not has_already_enrolled %}
+    {% if not has_already_enrolled and student %}
     <div class="self-center mt-20 w-96 space-y-5">
         <div>
             <button class="btn bg-secondary rounded-md border-none btn-block hover:bg-primary"
                 @click="handleSubmit">Rejoindre</button>
         </div>
     </div>
+    {% elif not student %}
+
+    <div class="self-center mt-20 w-96 space-y-5">
+        <p class="text-sm">Vous ne pouvez pas rejoindre une formation. </p>
+    </div>
+
     {% else %}
 
     <div class="self-center mt-20 w-96 space-y-5">
