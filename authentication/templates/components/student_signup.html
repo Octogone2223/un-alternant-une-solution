@@ -1,7 +1,8 @@
+{% load i18n %}
 <div class="grid grid-cols-1 lg:grid-cols-2 mt-10 gap-8 w-full" v-if="accountType==3">
   <div class="flex flex-col col-span-2 lg:col-span-1">
     <label for=""
-      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Nom:</label>
+      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">{% trans "Nom" %}:</label>
     <input type="text" name="last_name"
       class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
       placeholder="John" :class="{'border-red-500': registerFormStudent.errors.first_name.length}"
@@ -13,7 +14,7 @@
   </div>
   <div class="flex flex-col col-span-2 lg:col-span-1">
     <label for=""
-      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Prénom:</label>
+      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">{% trans "Prénom" %}:</label>
     <input type="text" name="first_name"
       class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
       placeholder="Doe" :class="{'border-red-500': registerFormStudent.errors.last_name.length}"
@@ -25,7 +26,7 @@
   </div>
   <div class="flex flex-col col-span-2">
     <label for=""
-      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Email:</label>
+      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">{% trans "Email" %}:</label>
     <input type="email" name="email"
       class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
       placeholder="johndoe@xxxx.xx" :class="{'border-red-500': registerFormStudent.errors.email.length}"
@@ -37,8 +38,7 @@
   </div>
   <div class="flex flex-col col-span-2">
     <label for=""
-      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Mot
-      de passe:</label>
+      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">{% trans "Mot de passe" %}:</label>
     <input type="password"
       class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" name="password"
       placeholder="•••••••••" :class="{'border-red-500': registerFormStudent.errors.password.length}"
@@ -50,8 +50,7 @@
   </div>
   <div class="flex flex-col col-span-2">
     <label for=""
-      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Confirmation
-      mot de passe:</label>
+      class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">{% trans "Confirmation mot de passe" %}:</label>
     <input type="password" name="confirmPassword"
       class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
       placeholder="•••••••••" :class="{'border-red-500':

@@ -1,6 +1,8 @@
+{% load i18n %}
+
 <section>
   <div class="flex flex-col justify-center items-center">
-    <h1 class="font-bold text-secondary text-xl lg:text-2xl">Nos Récentes Offres</h1>
+    <h1 class="font-bold text-secondary text-xl lg:text-2xl">{% trans 'Nos Récentes Offres' %}</h1>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-20">
       {% for job in jobs %}
@@ -33,7 +35,7 @@
           </div>
           <div class="text-center my-4">
             <a class="bg-secondary text-white px-8 py-2 rounded-full hover:bg-primary hover:text-white font-bold"
-              href="/jobs/{{job.id}}">Postuler</a>
+              href="/jobs/{{job.id}}">{% trans 'Postuler' %}</a>
           </div>
         </div>
       </div>

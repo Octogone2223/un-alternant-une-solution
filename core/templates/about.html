@@ -1,50 +1,42 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 
 {% block content %}
 
 <div id="about flex ">
     <div class="max-w-screen-lg mx-auto my-16 px-8">
         <h1 class="text-3xl text-secondary font-bold text-center mb-16">
-            Qui sommes-nous ?
+            {% trans 'Qui sommes-nous ?' %}
         </h1>
         <p>
-            Dans le cadre du module de développement Full Stack à Ynov, qui intervient en 2022 pour les étudiants en
-            Mastère filière informatique, nous devons répondre à un appel à projets. Ce projet se doit d’être utile et
-            innovant.
+            {% trans 'Qui sommes-nous ?2' %}
         </p>
 
         <p class="mt-4">
-            Il s’agira de créer une plateforme web qui permet d’accéder facilement aux différentes offres d'alternance
-            présentes sur le marché français.
+            {% trans 'Qui sommes-nous ?3' %}
         </p>
 
         <p class="mt-4">
-            Cette plateforme web doit permettre aux entreprises de publier leurs offres d'alternance, de les consulter,
-            de les modifier, de les supprimer, de consulter les candidatures reçues, de les accepter ou de les refuser.
+            {% trans 'Qui sommes-nous ?4' %}
         </p>
 
         <p class="mt-4">
-            Les étudiants, quant à eux, doivent pouvoir se positionner sur une offre d'alternance publiée par une
-            entreprise et ainsi suivre l'évolution de leurs candidatures depuis leur espace personnel. Ils pourront
-            aussi modifier leurs profils notamment indiquer leur école, mettre un curriculum vitae, mettre leurs réseaux
-            sociaux.
+            {% trans 'Qui sommes-nous ?5' %}
         </p>
 
         <p class="mt-4">
-            Enfin les écoles doivent pouvoir mettre en avant leurs formations et proposer une alternance à un étudiant
+            {% trans 'Qui sommes-nous ?6' %}
         </p>
 
         <p class="mt-4">
-
-            Les étudiants, les écoles ainsi que les entreprises doivent pouvoir modifier leurs informations
-            personnelles, ainsi que leurs informations de contact.
+            {% trans 'Qui sommes-nous ?7' %}
         </p>
     </div>
     <div class="mb-24">
         <div class="w-4/6 mx-auto my-16 px-4">
             <h1 class="text-3xl text-secondary font-bold text-center mb-16">
-                Notre équipe
+                {% trans 'Notre équipe' %}
             </h1>
         </div>
         <div class="flex justify-center flex-wrap w-full">
