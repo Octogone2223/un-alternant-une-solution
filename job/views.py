@@ -206,7 +206,7 @@ def jobs_datings_detail(request, job_dating_id):
         bodyJson = json.loads(body)
 
         try:
-            payload = {"head": "", "body": "","url": "/jobs/datings"}
+            payload = {"head": "", "body": "", "url": "/jobs/datings"}
             job_dating = JobDating.objects.get(
                 id=job_dating_id, job__company__users=request.user)
             if bodyJson['status'] == 'ACCEPTED':
@@ -218,8 +218,8 @@ def jobs_datings_detail(request, job_dating_id):
                 payload['head'] = "Candidature Rejeté !"
                 payload['body'] = f"Votre candidature pour '${job_dating.job.name}' a été rejeté 😖!"
 
-
-            send_user_notification(user=job_dating.student.user, payload=payload, ttl=1000)
+            send_user_notification(
+                user=job_dating.student.user, payload=payload, ttl=1000)
 
             job_dating.save()
             return HttpResponse(status=200)
