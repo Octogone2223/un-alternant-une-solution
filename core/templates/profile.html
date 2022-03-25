@@ -21,7 +21,8 @@
           <a href="/jobs/create-job" class="btn btn-sm bg-primary border-none hover:bg-secondary">Créer une offre</a>
         </div>
         <div v-if="userType === 'Student'" class="mb-4 lg:mb-0">
-          <a href="/jobs/datings/" class="btn btn-sm bg-primary border-none hover:bg-secondary">Voir mes candidatures</a>
+          <a href="/jobs/datings/" class="btn btn-sm bg-primary border-none hover:bg-secondary">Voir mes
+            candidatures</a>
         </div>
         <div v-on:click="updatePhoto()" class="avatar flex items-end justify-end cursor-pointer ">
           <input type="file" accept="image/*" id="filePhoto" class="hidden"></input>
@@ -316,7 +317,7 @@
             newPassword: this.passwordForm.new,
             id: this.id
           }
-          
+
           fetch('/auth/user/password', {
               method: 'PATCH',
               headers: {
@@ -371,7 +372,6 @@
             return response.json()
           })
           .then((json) => {
-            console.log(json);
             if (json.status === 'success') {
               Toastify({
                 text: "Votre photo a été mis à jour",
@@ -405,7 +405,6 @@
             return response.json()
           })
           .then((json) => {
-            console.log(json);
             if (json.status === 'success') {
               Toastify({
                 text: "Votre photo a été mis à jour",

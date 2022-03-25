@@ -14,3 +14,7 @@ loaddataprod:
 	python	manage.py loaddata .\course\fixtures\courses.json
 	python	manage.py loaddata .\course\fixtures\refCourseJobCodes.json
 	python	manage.py loaddata .\course\fixtures\refSchoolCourses.json
+
+blackall:
+	@echo "Black code..."
+	python -m black ./

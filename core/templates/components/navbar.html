@@ -19,8 +19,7 @@
       <div class="flex flex-row items-center">
         <div>
 
-          <a href="{% url 'core:profile' %}"
-            class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Assistance' %}
+          <a href="{% url 'core:profile' %}" class="text-white text-sm hover:text-secondary font-bold ml-4">
             <i class="fas fa-user-circle hover:text-secondary text-white text-2xl ml-4"></i>
           </a>
 
@@ -29,17 +28,18 @@
 
         <div class="flex pl-10">
 
-          <button id="button-push-accept" class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer">FFF</button>
-        {% load webpush_notifications %}
+          <button id="button-push-accept"
+            class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer">FFF</button>
+          {% load webpush_notifications %}
 
-        {% webpush_button with_class="hidden text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer" %}
+          {% webpush_button with_class="hidden text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer" %}
         </div>
         <div class="flex pl-10">
           {% csrf_token %}
           <input name="next" id='nextInputFlag' type="hidden" value="{{ redirect_to }}">
-          <div class="flag pr-2 cursor-pointer" v-on:click="alertT('fr')">🇫🇷</div>
-          <div class="flag pr-2 cursor-pointer" v-on:click="alertT('en')">🇬🇧</div>
-          <div class="flag cursor-pointer" v-on:click="alertT('cn')">🇨🇳</div>
+          <div class="flag pr-2 cursor-pointer" v-on:click="changeLang('fr')">🇫🇷</div>
+          <div class="flag pr-2 cursor-pointer" v-on:click="changeLang('en')">🇬🇧</div>
+          <div class="flag cursor-pointer" v-on:click="changeLang('cn')">🇨🇳</div>
         </div>
 
       </div>
@@ -88,8 +88,7 @@
         this.displayMenu = !this.displayMenu
       },
 
-      alertT: function (lang) {
-
+      changeLang: async function (lang) {
 
         const details = {
           language: lang,
@@ -104,7 +103,7 @@
         }
         formBody = formBody.join("&");
 
-        fetch('/i18n/setlang/', {
+        await fetch('/i18n/setlang/', {
           body: formBody,
           method: 'POST',
           headers: {
@@ -113,13 +112,13 @@
           },
         })
 
+        window.location.reload()
       },
       setButtonText() {
         let button_push_accept = document.getElementById("button-push-accept");
         if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
           button_push_accept.innerHTML = `{% trans 'Subscribe to Push Messaging' %}`;
-        }
-        else {
+        } else {
           button_push_accept.innerHTML = `{% trans 'Unsubscribe from Push Messaging' %}`;
         }
       },
@@ -135,12 +134,11 @@
 
         //localStorage.setItem("popupNotif",true)
         if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
-          localStorage.setItem("popupNotif",'true')
+          localStorage.setItem("popupNotif", 'true')
+        } else {
+          localStorage.setItem("popupNotif", 'false')
         }
-        else {
-          localStorage.setItem("popupNotif",'false')
-        }
-        
+
         this.setButtonText()
       };
     },

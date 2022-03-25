@@ -14,20 +14,20 @@ class UserSignUpSerializer(serializers.Serializer):
     first_name = serializers.CharField()
 
     def __check_email__(self, value):
-        email = value.get('email').lower()
+        email = value.get("email").lower()
 
         try:
             match = User.objects.get(email=email)
         except User.DoesNotExist:
             return email
 
-        raise serializers.ValidationError({'email': 'Email already exists'})
+        raise serializers.ValidationError({"email": "Email already exists"})
 
 
 class UserSerializer(serializers.Serializer):
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name')
+        fields = ("email", "first_name", "last_name")
 
 
 class UserSignInSerializer(serializers.Serializer):
@@ -52,14 +52,14 @@ class CompanySignUpSerializer(serializers.Serializer):
     first_name = serializers.CharField()
 
     def __check_email__(self, value):
-        email = value.get('email').lower()
+        email = value.get("email").lower()
 
         try:
             match = User.objects.get(email=email)
         except User.DoesNotExist:
             return email
 
-        raise serializers.ValidationError({'email': 'Email already exists'})
+        raise serializers.ValidationError({"email": "Email already exists"})
 
 
 class CompanySerializer(serializers.Serializer):
@@ -87,18 +87,17 @@ class SchoolSignUpSerializer(serializers.Serializer):
     first_name = serializers.CharField()
 
     def __check_email__(self, value):
-        email = value.get('email').lower()
+        email = value.get("email").lower()
 
         try:
             match = User.objects.get(email=email)
         except User.DoesNotExist:
             return email
 
-        raise serializers.ValidationError({'email': 'Email already exists'})
+        raise serializers.ValidationError({"email": "Email already exists"})
 
 
 class SchoolSerializer(serializers.Serializer):
-
     class Meta:
         model = School
 
@@ -112,4 +111,4 @@ class SchoolSerializer(serializers.Serializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('description', 'birthday', 'cv_path', 'linkedin_url')
+        fields = ("description", "birthday", "cv_path", "linkedin_url")

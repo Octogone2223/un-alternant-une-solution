@@ -7,19 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('job', '__first__'),
-        ('authentication', '0001_initial'),
+        ("job", "__first__"),
+        ("authentication", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='company',
-            name='jobs',
-            field=models.ManyToManyField(related_name='company_jobs+', to='job.job'),
+            model_name="company",
+            name="jobs",
+            field=models.ManyToManyField(related_name="company_jobs+", to="job.job"),
         ),
         migrations.AddField(
-            model_name='company',
-            name='users',
+            model_name="company",
+            name="users",
             field=models.ManyToManyField(to=settings.AUTH_USER_MODEL),
         ),
     ]

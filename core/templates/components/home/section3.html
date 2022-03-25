@@ -6,7 +6,7 @@
       {% for job in jobs %}
 
       <!-- Single JobPostCard -->
-      <div class="bg-white shadow-lg w-80 h-[430px] rounded-xl overflow-hidden">
+      <div class="bg-white shadow-lg w-80 rounded-xl overflow-hidden">
         {% if job.company.extension_picture != "NULL" %}
         <img src="/auth/company/{{job.company.id}}/phot" class="h-48 w-full object-cover" alt="">
         {% else %}
@@ -31,7 +31,7 @@
               {{job.description|slice:'0:100'}}...
             </p>
           </div>
-          <div class="text-center mt-4">
+          <div class="text-center my-4">
             <a class="bg-secondary text-white px-8 py-2 rounded-full hover:bg-primary hover:text-white font-bold"
               href="/jobs/{{job.id}}">Postuler</a>
           </div>

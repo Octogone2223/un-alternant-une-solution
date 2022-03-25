@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0005_alter_user_managers'),
+        ("authentication", "0005_alter_user_managers"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='is_active',
+            model_name="user",
+            name="is_active",
             field=models.BooleanField(default=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='is_staff',
+            model_name="user",
+            name="is_staff",
             field=models.BooleanField(default=False),
         ),
     ]
