@@ -11,17 +11,17 @@ def list_courses(request):
     location = request.GET.get('location', None)
     if location:
         if location.isnumeric():
-            filters['company__zip_code'] = location
+            filters['school__zip_code'] = location
         else:
-            filters['company__city'] = location
+            filters['school__city'] = location
 
-    profession = request.GET.get('profession', None)
-    if profession:
-        filters['name__icontains'] = profession
+    name = request.GET.get('name', None)
+    if name:
+        filters['name__icontains'] = name
 
-    contact_type = request.GET.get('contact_type', None)
-    if contact_type:
-        filters['contract_type__icontains'] = contact_type
+    school = request.GET.get('school', None)
+    if school:
+        filters['school__name__icontains'] = school
 
     courses = Course.objects.filter(**filters)[:20]
     return render(request, 'list_courses.html', {'courses': courses})

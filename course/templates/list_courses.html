@@ -8,17 +8,20 @@
         class="flex flex-col lg:flex-row justify-center border-[1px] items-center border-gray-200 h-fit p-5 lg:p-0 lg:h-24 rounded-md lg:rounded-full w-full mt-20 space-x-5 space-y-5 lg:space-y-0">
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-school text-primary"></i>
-            <input type="text" placeholder="École recherché" class="border-none py-2 px-2 outline-none" />
+            <input type="text" v-model="search.name" placeholder="Formation recherchée"
+                class="border-none py-2 px-2 outline-none" />
         </div>
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-map-marker-alt text-primary"></i>
-            <input type="text" placeholder="Lieu" class="border-none py-2 px-2 outline-none" />
+            <input v-model="search.location" type="text" placeholder="Lieu"
+                class="border-none py-2 px-2 outline-none" />
         </div>
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-graduation-cap text-primary"></i>
-            <input type="text" placeholder="Niveau d’étude" class="border-none py-2 px-2 outline-none" />
+            <input type="text" v-model="search.school" placeholder="Ecole" class="border-none py-2 px-2 outline-none" />
         </div>
-        <button class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary">Rechercher</button>
+        <button @click="searchCourses"
+            class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary">Rechercher</button>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-20">
@@ -27,7 +30,7 @@
             {% for course in courses %}
 
             <div @click="getCourseDetail" data-course-id="{{ course.id }}"
-                class="bg-white shadow-md h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100">
+                class="bg-white shadow-md cursor-pointer h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100">
                 <h2 class="font-bold">{{course.name}}</h2>
 
                 <p class="uppercase">{{course.school.name}}</p>
@@ -114,9 +117,9 @@
             return {
                 course: null,
                 search: {
-                    profession: '',
+                    name: '',
                     location: '',
-                    contract_type: '',
+                    school: '',
                 }
             }
         },
@@ -124,9 +127,9 @@
         created() {
             const uri = window.location.search.substring(1);
             const params = new URLSearchParams(uri);
-            this.search.profession = params.get('profession') ? params.get('profession') : '';
+            this.search.name = params.get('name') ? params.get('name') : '';
             this.search.location = params.get('location') ? params.get('location') : '';
-            this.search.contract_type = params.get('contract_type') ? params.get('contract_type') : '';
+            this.search.school = params.get('school') ? params.get('school') : '';
         },
 
         methods: {
@@ -158,9 +161,9 @@
                 }
             },
 
-            searchCourse() {
+            searchCourses() {
                 location.href =
-                    `?profession=${this.search.profession}&location=${this.search.location}&contract_type=${this.search.contract_type}`
+                    `?name=${this.search.name}&location=${this.search.location}&school=${this.search.school}`
 
             }
         },
