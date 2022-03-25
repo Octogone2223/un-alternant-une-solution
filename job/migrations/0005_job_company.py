@@ -7,16 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0004_school_courses_school_users'),
-        ('job', '0004_job_job_datings'),
+        ("authentication", "0004_school_courses_school_users"),
+        ("job", "0004_job_job_datings"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='job',
-            name='company',
-            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE,
-                                    related_name='job_company+', to='authentication.company'),
+            model_name="job",
+            name="company",
+            field=models.ForeignKey(
+                default=0,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="job_company+",
+                to="authentication.company",
+            ),
             preserve_default=False,
         ),
     ]

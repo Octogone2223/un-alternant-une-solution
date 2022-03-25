@@ -8,15 +8,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0002_company_jobs_company_users'),
+        ("authentication", "0002_company_jobs_company_users"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='student',
-            name='user',
+            model_name="student",
+            name="user",
             field=models.OneToOneField(
-                default=0, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+                default=0,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
         ),
     ]

@@ -183,7 +183,6 @@
         methods: {
 
             async IforgotPassword() {
-                console.log(this.forgotPassword)
                 this.errorsPassword.email = [];
                 if (!this.forgotPassword.email) {
                     this.errorsPassword.email.push("Votre email est obligatoire")

@@ -164,8 +164,7 @@
 
           if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) {
             resolve(false);
-          }
-          else {
+          } else {
             resolve(true);
           }
         })
@@ -193,7 +192,6 @@
           }).then((res) => {
             return res.json()
           }).then(json => {
-            console.log(json)
             if (json.status === 'success') {
               Toastify({
                 text: "Votre offre a bien été modifiée",
