@@ -3,6 +3,7 @@ from django.shortcuts import render
 from authentication.models import Student, User
 from .models import Course
 from django.http.response import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -36,10 +37,19 @@ def preview_course(request, course_id):
     return JsonResponse({'course': course})
 
 
+@login_required
 def course_detail(request, course_id):
+    student = Student.objects.get(user=request.user)
+
     if request.method == 'PATCH':
-        student = Student.objects.get(user=request.user.id)
         student.course_id = course_id
+        student.save()
+        return JsonResponse({'status': 'success'})
+
+    has_already_enrolled = False
+
+    if student.course_id:
+        has_already_enrolled = True
 
     course = Course.objects.get(id=course_id)
-    return render(request, 'course_detail.html', {'course': course})
+    return render(request, 'course_detail.html', {'course': course, 'has_already_enrolled': has_already_enrolled, 'student': student})

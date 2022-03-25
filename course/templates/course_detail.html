@@ -42,19 +42,24 @@
             {{course.description}}
         </p>
     </div>
-    {% if not has_already_applied %}
+    {% if not has_already_enrolled %}
     <div class="self-center mt-20 w-96 space-y-5">
         <div>
             <button class="btn bg-secondary rounded-md border-none btn-block hover:bg-primary"
                 @click="handleSubmit">Rejoindre</button>
         </div>
     </div>
+    {% else %}
+
+    <div class="self-center mt-20 w-96 space-y-5">
+        <p class="text-sm">Vous êtes déjà dans la formation: <br> {{student.course.name}}</p>
+        <div>
+            <button class="btn bg-secondary rounded-md border-none btn-block hover:bg-primary"
+                @click="handleSubmit">Changer de formation</button>
+        </div>
+    </div>
+    {% endif %}
 </div>
-{% else %}
-<div class="self-center mt-20 w-96 space-y-5">
-    <i>Vous êtes déjà rejoint cette formation</i>
-</div>
-{% endif %}
 </div>
 
 
@@ -76,7 +81,6 @@
                     headers: {
                         "X-CSRFToken": getCookie("csrftoken"),
                     },
-                    body: formData
                 });
 
                 if (response.ok) {

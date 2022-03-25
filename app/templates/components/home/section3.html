@@ -3,57 +3,43 @@
     <h1 class="font-bold text-secondary text-xl lg:text-2xl">Nos Récentes Offres</h1>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-20">
+      {% for job in jobs %}
+
       <!-- Single JobPostCard -->
       <div class="bg-white shadow-lg w-80 h-[430px] rounded-xl overflow-hidden">
-        <img src="https://images.pexels.com/photos/927451/pexels-photo-927451.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="h-48 w-full object-cover" alt="">
+        {% if job.company.extension_picture != "NULL" %}
+        <img src="/auth/company/{{job.company.id}}/phot" class="h-48 w-full object-cover" alt="">
+        {% else %}
+        <img
+          src="https://images.pexels.com/photos/927451/pexels-photo-927451.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          class="h-48 w-full object-cover" alt="">
+        {% endif %}
         <div class="px-4 mt-4">
-          <h3 class="font-bold text-secondary">Développeur JAVA/J2EE H/F - POEI</h3>
+          <h3 class="font-bold text-secondary">{{job.name}}</h3>
           <div class="flex flex-row justify-between mt-4">
-            <p class="uppercase">Talent RH</p>
-            <p class="uppercase">44000 - Nantes</p>
+            <p class="uppercase">{{job.company.name}}</p>
+            <p class="uppercase">
+              {% if job.company.city %}
+              {{job.company.city}}
+              {% else %}
+              44000 Nantes
+              {% endif %}
+            </p>
           </div>
           <div class="mt-4">
-            <p class="text-sm">Vos missions consisteront majoritairement à réaliser un travail d'intégration web et seront...</p>
+            <p class="text-sm">
+              {{job.description|slice:'0:100'}}...
+            </p>
           </div>
           <div class="text-center mt-4">
-            <button class="bg-secondary text-white px-8 py-2 rounded-full hover:bg-primary hover:text-white font-bold">Postuler</button>
+            <a class="bg-secondary text-white px-8 py-2 rounded-full hover:bg-primary hover:text-white font-bold"
+              href="/jobs/{{job.id}}">Postuler</a>
           </div>
         </div>
       </div>
-      <!-- Single JobPostCard -->
-      <div class="bg-white shadow-lg w-80 h-[430px] rounded-xl overflow-hidden">
-        <img src="https://images.pexels.com/photos/927451/pexels-photo-927451.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="h-48 w-full object-cover" alt="">
-        <div class="px-4 mt-4">
-          <h3 class="font-bold text-secondary">Développeur JAVA/J2EE H/F - POEI</h3>
-          <div class="flex flex-row justify-between mt-4">
-            <p class="uppercase">Talent RH</p>
-            <p class="uppercase">44000 - Nantes</p>
-          </div>
-          <div class="mt-4">
-            <p class="text-sm">Vos missions consisteront majoritairement à réaliser un travail d'intégration web et seront...</p>
-          </div>
-          <div class="text-center mt-4">
-            <button class="bg-secondary text-white px-8 py-2 rounded-full hover:bg-primary hover:text-white font-bold">Postuler</button>
-          </div>
-        </div>
-      </div>
-      <!-- Single JobPostCard -->
-      <div class="bg-white shadow-lg w-80 h-[430px] rounded-xl overflow-hidden">
-        <img src="https://images.pexels.com/photos/927451/pexels-photo-927451.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="h-48 w-full object-cover" alt="">
-        <div class="px-4 mt-4">
-          <h3 class="font-bold text-secondary">Développeur JAVA/J2EE H/F - POEI</h3>
-          <div class="flex flex-row justify-between mt-4">
-            <p class="uppercase">Talent RH</p>
-            <p class="uppercase">44000 - Nantes</p>
-          </div>
-          <div class="mt-4">
-            <p class="text-sm">Vos missions consisteront majoritairement à réaliser un travail d'intégration web et seront...</p>
-          </div>
-          <div class="text-center mt-4">
-            <button class="bg-secondary text-white px-8 py-2 rounded-full hover:bg-primary hover:text-white font-bold">Postuler</button>
-          </div>
-        </div>
-      </div>
+
+      {% endfor %}
+
     </div>
   </div>
 </section>
