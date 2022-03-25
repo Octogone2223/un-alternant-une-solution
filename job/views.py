@@ -19,6 +19,7 @@ from django.shortcuts import render, redirect, reverse
 from django.db.models import Prefetch
 from django.http import FileResponse
 from django.conf import settings
+from webpush import send_user_notification
 
 
 def list_jobs(request):
@@ -205,12 +206,20 @@ def jobs_datings_detail(request, job_dating_id):
         bodyJson = json.loads(body)
 
         try:
+            payload = {"head": "", "body": "","url": "/jobs/datings"}
             job_dating = JobDating.objects.get(
                 id=job_dating_id, job__company__users=request.user)
             if bodyJson['status'] == 'ACCEPTED':
                 job_dating.status = 'AC'
+                payload['head'] = "Candidature Accepté !"
+                payload['body'] = f"Votre candidature pour '${job_dating.job.name}' a été accepté 😁!"
             elif bodyJson['status'] == 'REJECTED':
                 job_dating.status = 'RE'
+                payload['head'] = "Candidature Rejeté !"
+                payload['body'] = f"Votre candidature pour '${job_dating.job.name}' a été rejeté 😖!"
+
+
+            send_user_notification(user=job_dating.student.user, payload=payload, ttl=1000)
 
             job_dating.save()
             return HttpResponse(status=200)
