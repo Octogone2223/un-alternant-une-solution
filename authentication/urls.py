@@ -2,7 +2,7 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path
 from . import views
-from app import views as app_views
+from core import views as app_views
 
 
 app_name = 'authentication'

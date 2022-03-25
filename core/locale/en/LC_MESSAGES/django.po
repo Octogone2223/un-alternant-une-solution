@@ -17,62 +17,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/templates/components/footer.html:11
-#: app/templates/components/navbar.html:11
+#: core/templates/components/footer.html:11
+#: core/templates/components/navbar.html:11
 msgid "APropos"
 msgstr "About us"
 
-#: app/templates/components/home/hero.html:7
+#: core/templates/components/home/hero.html:7
 msgid "HomeHeroSentences1"
 msgstr "A great mobilization of business networks"
 
-#: app/templates/components/home/hero.html:8
+#: core/templates/components/home/hero.html:8
 msgid "HomeHeroSentences2"
 msgstr "for the youth!"
 
-#: app/templates/components/home/hero.html:11
+#: core/templates/components/home/hero.html:11
 msgid "IamStudent"
 msgstr "I'm a student"
 
-#: app/templates/components/home/hero.html:12
+#: core/templates/components/home/hero.html:12
 msgid "IamCompany"
 msgstr "I'm an employer"
 
-#: app/templates/components/home/section1.html:4
+#: core/templates/components/home/section1.html:4
 msgid "S1Title"
 msgstr "Your work-study program in a few clicks"
 
-#: app/templates/components/home/section1.html:9
+#: core/templates/components/home/section1.html:9
 msgid "SAtitle"
 msgstr "The job of your dreams"
 
-#: app/templates/components/home/section1.html:11
+#: core/templates/components/home/section1.html:11
 msgid "SAmessage"
 msgstr "Enter the job you want to do and the location (City or Zip Code)."
 
-#: app/templates/components/home/section1.html:16
+#: core/templates/components/home/section1.html:16
 msgid "SBtitle"
 msgstr "In the blink of an eye"
 
-#: app/templates/components/home/section1.html:18
+#: core/templates/components/home/section1.html:18
 msgid "SBmessage"
 msgstr ""
 "Get a list of training courses and companies near you in the field you are "
 "looking for."
 
-#: app/templates/components/home/section1.html:23
+#: core/templates/components/home/section1.html:23
 msgid "SCtitle"
 msgstr "An easy contact"
 
-#: app/templates/components/home/section1.html:25
+#: core/templates/components/home/section1.html:25
 msgid "SCmessage"
-msgstr "Easily contact training centers or companies to apply."
+msgstr "Easily contact training centers or companies to corely."
 
-#: app/templates/components/home/section2.html:7
+#: core/templates/components/home/section2.html:7
 msgid "HelpNeed"
 msgstr "Need help?"
 
-#: app/templates/components/home/section2.html:8
+#: core/templates/components/home/section2.html:8
 msgid "HelpNeedMessage"
 msgstr ""
 "You did not find the information you were looking for? Are you experiencing "
@@ -80,19 +80,19 @@ msgstr ""
 "your problem, consult the frequently asked questions of the work-study "
 "portal."
 
-#: app/templates/components/navbar.html:9
+#: core/templates/components/navbar.html:9
 msgid "Home"
 msgstr "Home"
 
-#: app/templates/components/navbar.html:10
+#: core/templates/components/navbar.html:10
 msgid "Apprenticeship"
 msgstr "Apprentiship"
 
-#: app/templates/components/navbar.html:12
+#: core/templates/components/navbar.html:12
 msgid "Courses"
 msgstr "Courses"
 
-#: app/templates/components/navbar.html:21
+#: core/templates/components/navbar.html:21
 msgid "Assistance"
 msgstr "Assistance"
 

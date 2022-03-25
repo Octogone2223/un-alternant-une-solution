@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'authentication',
     'job',
     'course',
-    'app',
+    'core',
     'rest_framework'
 ]
 

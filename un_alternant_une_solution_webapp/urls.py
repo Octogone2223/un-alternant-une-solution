@@ -22,5 +22,5 @@ urlpatterns = [
     path("jobs/", include('job.urls')),
     path('courses/', include('course.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
-    path("", include('app.urls'))
+    path("", include('core.urls'))
 ]

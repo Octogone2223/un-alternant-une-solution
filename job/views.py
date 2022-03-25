@@ -87,11 +87,11 @@ def handle_uploaded_file(f, type):
     file_name_with_timeseconds = f.name + \
         str(datetime.datetime.now().timestamp()) + '.pdf'
 
-    with open(f'app/files/{type}/{file_name_with_timeseconds}', 'wb+') as destination:
+    with open(f'core/files/{type}/{file_name_with_timeseconds}', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
-    return f'app/files/{type}/{file_name_with_timeseconds}'
+    return f'core/files/{type}/{file_name_with_timeseconds}'
 
 
 def handle_delete_file(file_path):

@@ -17,78 +17,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: app/templates/components/footer.html:11
-#: app/templates/components/navbar.html:11
+#: core/templates/components/footer.html:11
+#: core/templates/components/navbar.html:11
 msgid "APropos"
 msgstr "关于我们"
 
-#: app/templates/components/home/hero.html:7
+#: core/templates/components/home/hero.html:7
 msgid "HomeHeroSentences1"
 msgstr "大力动员商业网络"
 
-#: app/templates/components/home/hero.html:8
+#: core/templates/components/home/hero.html:8
 msgid "HomeHeroSentences2"
 msgstr "为青年服务!"
 
-#: app/templates/components/home/hero.html:11
+#: core/templates/components/home/hero.html:11
 msgid "IamStudent"
 msgstr "我是一名学生"
 
-#: app/templates/components/home/hero.html:12
+#: core/templates/components/home/hero.html:12
 msgid "IamCompany"
 msgstr "我是一名雇主"
 
-#: app/templates/components/home/section1.html:4
+#: core/templates/components/home/section1.html:4
 msgid "S1Title"
 msgstr "你的工作经验只需点击几下"
 
-#: app/templates/components/home/section1.html:9
+#: core/templates/components/home/section1.html:9
 msgid "SAtitle"
 msgstr "你的梦想工作"
 
-#: app/templates/components/home/section1.html:11
+#: core/templates/components/home/section1.html:11
 msgid "SAmessage"
 msgstr "输入你想从事的职业和地点（城市或邮政编码）。"
 
-#: app/templates/components/home/section1.html:16
+#: core/templates/components/home/section1.html:16
 msgid "SBtitle"
 msgstr "在一眨眼的时间里"
 
-#: app/templates/components/home/section1.html:18
+#: core/templates/components/home/section1.html:18
 msgid "SBmessage"
 msgstr "获取你附近的培训课程和公司名单，这些都是你所寻找的领域。"
 
-#: app/templates/components/home/section1.html:23
+#: core/templates/components/home/section1.html:23
 msgid "SCtitle"
 msgstr "轻松接触"
 
-#: app/templates/components/home/section1.html:25
+#: core/templates/components/home/section1.html:25
 msgid "SCmessage"
 msgstr "轻松地联系培训中心或公司来申请。"
 
-#: app/templates/components/home/section2.html:7
+#: core/templates/components/home/section2.html:7
 msgid "HelpNeed"
 msgstr "需要帮助吗？"
 
-#: app/templates/components/home/section2.html:8
+#: core/templates/components/home/section2.html:8
 msgid "HelpNeedMessage"
 msgstr ""
 "没有找到你要找的信息？你的在线程序是否遇到了困难？要找到答案或解决你的问题，"
 "请查阅工作联系培训门户网站的常见问题。"
 
-#: app/templates/components/navbar.html:9
+#: core/templates/components/navbar.html:9
 msgid "Home"
 msgstr "首页"
 
-#: app/templates/components/navbar.html:10
+#: core/templates/components/navbar.html:10
 msgid "Apprenticeship"
 msgstr "替代方案"
 
-#: app/templates/components/navbar.html:12
+#: core/templates/components/navbar.html:12
 msgid "Courses"
 msgstr "培训"
 
-#: app/templates/components/navbar.html:21
+#: core/templates/components/navbar.html:21
 msgid "Assistance"
 msgstr "支持"
 
