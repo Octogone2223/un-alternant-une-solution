@@ -114,23 +114,35 @@
         })
 
       },
+      setButtonText() {
+        let button_push_accept = document.getElementById("button-push-accept");
+        if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
+          button_push_accept.innerHTML = `{% trans 'Subscribe to Push Messaging' %}`;
+        }
+        else {
+          button_push_accept.innerHTML = `{% trans 'Unsubscribe from Push Messaging' %}`;
+        }
+      },
     },
     mounted() {
       let webpush_subscribe_button = document.getElementById("webpush-subscribe-button");
       let button_push_accept = document.getElementById("button-push-accept");
-      button_push_accept.innerHTML = "{% trans 'Subscribe to Push Messaging' %}";
+
+      this.setButtonText()
 
       button_push_accept.onclick = () => {
         webpush_subscribe_button.click();
-        console.log("erer" , webpush_subscribe_button.innerHTML)
-        if (webpush_subscribe_button.innerHTML === "Subscribe to Push Messaging") {
-          button_push_accept.innerHTML = "{% trans 'Subscribe to Push Messaging' %}";
+
+        //localStorage.setItem("popupNotif",true)
+        if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
+          localStorage.setItem("popupNotif",'true')
         }
         else {
-          button_push_accept.innerHTML = "{% trans 'Unsubscribe from Push Messaging' %}";
+          localStorage.setItem("popupNotif",'false')
         }
-      }
-      
+        
+        this.setButtonText()
+      };
     },
   }).mount("#app");
 </script>
