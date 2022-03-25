@@ -18,11 +18,13 @@ from celery.schedules import crontab
 env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -32,11 +34,6 @@ SECRET_KEY = 'django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = [
-    'un-alternant-une-solution.herokuapp.com'
-]
-
 
 # Application definition
 
@@ -49,15 +46,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_sass',
     'authentication',
-    'app',
-    'tailwind',
-    'theme'
+    'job',
+    'course',
+    'core',
+    'rest_framework'
 ]
-
-TAILWIND_APP_NAME = 'theme'
 
 INTERNAL_IPS = [
     "127.0.0.1",
+]
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 1  # 1 day
+
+LOGIN_URL = '/auth/sign-in/'
+
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "un-alternant-une-solution.herokuapp.com"
 ]
 
 MIDDLEWARE = [
@@ -68,6 +74,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'un_alternant_une_solution_webapp.urls'
@@ -97,20 +105,23 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'un_alternant_une_solution_webapp.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+url = env('DATABASE_URL')
+DATABASE_HOST = ((url.split('/')[2]).split(':')[1]).split('@')[1]
+DATABASE_NAME = url.split('/')[3]
+DATABASE_PASSWORD = ((url.split('/')[2]).split(':')[1]).split('@')[0]
+DATABASE_PORT = 5432
+DATABASE_USER = (url.split('/')[2]).split(':')[0]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
+        'NAME': url.split('/')[3],
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
     }
 }
 
@@ -120,11 +131,12 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Paris'
 
 CELERY_BEAT_SCHEDULE = {
-    'hello': {
-        'task': 'un_alternant_une_solution_webapp.celery.get_api_data',
-        'schedule': crontab()  # execute every minute
+    'la_bonne_alternance_api_job': {
+        'task': 'job.tasks.get_api_data',
+        'schedule': crontab(minute='*/1'),
     }
 }
 
@@ -164,14 +176,31 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 STATIC_URL = 'static/'
+# STATIC_ROOT = '/static/'
+
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
 )
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
+
+
+USE_I18N = True
+LANGUAGE_CODE = 'fr'
+LANGUAGES = [
+    ('fr', 'Français'),
+    ('en', 'English'),
+    ('cn', 'China')
+]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'app'),
+    os.path.join(BASE_DIR, 'job'),
+    os.path.join(BASE_DIR, 'authentifcation'),
+]

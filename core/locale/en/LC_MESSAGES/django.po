@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-17 11:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/templates/components/footer.html:11
+#: core/templates/components/navbar.html:11
+msgid "APropos"
+msgstr "About us"
+
+#: core/templates/components/home/hero.html:7
+msgid "HomeHeroSentences1"
+msgstr "A great mobilization of business networks"
+
+#: core/templates/components/home/hero.html:8
+msgid "HomeHeroSentences2"
+msgstr "for the youth!"
+
+#: core/templates/components/home/hero.html:11
+msgid "IamStudent"
+msgstr "I'm a student"
+
+#: core/templates/components/home/hero.html:12
+msgid "IamCompany"
+msgstr "I'm an employer"
+
+#: core/templates/components/home/section1.html:4
+msgid "S1Title"
+msgstr "Your work-study program in a few clicks"
+
+#: core/templates/components/home/section1.html:9
+msgid "SAtitle"
+msgstr "The job of your dreams"
+
+#: core/templates/components/home/section1.html:11
+msgid "SAmessage"
+msgstr "Enter the job you want to do and the location (City or Zip Code)."
+
+#: core/templates/components/home/section1.html:16
+msgid "SBtitle"
+msgstr "In the blink of an eye"
+
+#: core/templates/components/home/section1.html:18
+msgid "SBmessage"
+msgstr ""
+"Get a list of training courses and companies near you in the field you are "
+"looking for."
+
+#: core/templates/components/home/section1.html:23
+msgid "SCtitle"
+msgstr "An easy contact"
+
+#: core/templates/components/home/section1.html:25
+msgid "SCmessage"
+msgstr "Easily contact training centers or companies to corely."
+
+#: core/templates/components/home/section2.html:7
+msgid "HelpNeed"
+msgstr "Need help?"
+
+#: core/templates/components/home/section2.html:8
+msgid "HelpNeedMessage"
+msgstr ""
+"You did not find the information you were looking for? Are you experiencing "
+"difficulties with your online procedures? To find an answer or a solution to "
+"your problem, consult the frequently asked questions of the work-study "
+"portal."
+
+#: core/templates/components/navbar.html:9
+msgid "Home"
+msgstr "Home"
+
+#: core/templates/components/navbar.html:10
+msgid "Apprenticeship"
+msgstr "Apprentiship"
+
+#: core/templates/components/navbar.html:12
+msgid "Courses"
+msgstr "Courses"
+
+#: core/templates/components/navbar.html:21
+msgid "Assistance"
+msgstr "Assistance"
+
+msgid "Connexion"
+msgstr "Login"
+
+msgid "Inscription"
+msgstr "Sign Up"
+
+msgid "Déconnexion"
+msgstr "Logout"
+
+msgid "SBTtitle"
+msgstr "In the blink of an eye"

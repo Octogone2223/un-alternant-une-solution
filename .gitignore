@@ -53,8 +53,8 @@ coverage.xml
 .pytest_cache/
 
 # Translations
-*.mo
-*.pot
+#*.mo
+#*.pot
 
 # Django stuff:
 *.log
@@ -128,3 +128,28 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.DS_Store
+
+tailwind.config.js
+
+/core/files/motivation_letter/**.pdf
+/core/files/cv/**.pdf
+/core/files/cv/**.mp4
+
+authentication/files/picture/**.png
+authentication/files/picture/**.gif
+authentication/files/picture/**.jpg
+authentication/files/picture/**.svg
+authentication/files/picture/**.webp
+authentication/files/picture/company/**.png
+authentication/files/picture/company/**.gif
+authentication/files/picture/company/**.jpg
+authentication/files/picture/company/**.svg
+authentication/files/picture/company/**.webp
+authentication/files/picture/school/**.png
+authentication/files/picture/school/**.gif
+authentication/files/picture/school/**.jpg
+authentication/files/picture/school/**.svg
+authentication/files/picture/school/**.webp
+authentication/files/cv/**.pdf
+authentication/files/cv/**.mp4

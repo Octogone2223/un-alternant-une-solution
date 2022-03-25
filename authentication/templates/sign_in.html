@@ -1,26 +1,230 @@
 {% extends "base.html" %}
 
-
+{% load i18n %}
 {% block content %}
 
-<div>
-    {% for item in '1234' %}
-    <p>[[ message ]]</p>
-    {% endfor %}
-</div>
-{% endblock %}
+<div class="grid grid-cols-1 md:grid-cols-2" id="signin">
+    <div style="background-image:url('/static/img/authbackground.png')"
+        class="bg-cover bg-no-repeat hidden md:flex h-screen flex-col justify-center">
+        <div class="px-28 text-white">
+            <div class="font-bold text-3xl mb-7">
+                {% trans 'HelpNeed' %}
+            </div>
+            <div>
+                {% trans 'HelpNeedMessage' %}
+            </div>
+        </div>
+    </div>
+    <div class="h-screen flex flex-col justify-center">
+        <div class="px-32">
+            <div class="font-bold text-3xl">
+                {% trans 'Connexion' %}
+            </div>
+            {% csrf_token %}
+            <div class="mt-10">
+                <label class="block mb-3">
+                    <span
+                        class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                        Email
+                    </span>
+                    <input type="email" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400
+                        focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm
+                        focus:ring-1" :class="{'border-red-500': errors.email.length}" @focus="errors.email=[]"
+                        placeholder="you@example.fr" v-model="loginForm.email" />
+                    <div v-if="errors.email.length">
+                        <span class="text-red-500 text-xs italic" v-for="error in errors.email" :key="error">
+                            [[ error ]]</span>
+                    </div>
+                </label>
+                <label class="block">
+                    <span
+                        class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                        Mot de passe
+                    </span>
+                    <input type="password" name="password" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400
+                        focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm
+                        focus:ring-1" :class="{'border-red-500': errors.password.length}" @focus="errors.password=[]"
+                        placeholder="**********" v-model="loginForm.password" />
+                    <div v-if="errors.password.length">
+                        <span class="text-red-500 text-xs italic" v-for="error in errors.password" :key="error">
+                            [[ error ]]</span>
+                    </div>
+                </label>
+            </div>
+            <div class="mt-10 flex flex-col items-center">
 
+                <button class="w-1/2 mb-5 text-white bg-secondary focus:ring-4 focus:ring-purple-300 font-medium rounded-lg
+                    text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700
+                    dark:focus:ring-purple-900" id="btn_signin" @click="handleSubmitLoginForm">{% trans 'Connexion' %}</button>
+                <p>Mot de passe oublié <a  href="#my-modal-2" class="cursor-pointer text-blue-300">{% trans "J'ai oublié" %}</a></p>
+                <p>Pas encore de compte ? <a href="{% url 'authentication:sign_up' %}" class="cursor-pointer text-blue-300">{% trans 'Inscription' %}</a></p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="my-modal-2">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{% trans "J'ai oublié mon mot de passe" %}</h3>
+    <div class="flex flex-col col-span-2">
+        <label for=""
+          class="font-bold mb-2 hover after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm text-slate-700">Email:</label>
+        <input type="email"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+          placeholder="johndoe@xxxx.xx" :class="{'border-red-500': errorsPassword.email.length}" @focus="errorsPassword.email=[]"
+          v-model="forgotPassword.email" />
+        <div v-if="errorsPassword.email.length">
+          <span class="text-red-500 text-xs italic" v-for="error in errorsPassword.email" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
+    <div class="modal-action">
+     <a v-on:click="IforgotPassword()" class="btn">Yay!</a>
+    </div>
+  </div>
+</div>
+
+
+{% include './components/footer.html' %}
+
+{% endblock %}
 
 {% block vueJs %}
 <script>
-    const app = Vue.createApp({
+    const signin = Vue.createApp({
         delimiters: ["[[", "]]"],
         data() {
             return {
-                message: 'Hello Vue!',
-                title: 'OUIIII'
+                loginForm: {
+                    email: "",
+                    password: "",
+                },
+                errors: {
+                    email: '',
+                    password: ''
+                },
             }
-        }
-    }).mount('#app')
+        },
+        methods: {
+            async handleSubmitLoginForm() {
+
+                this.errors = {
+                    email: [],
+                    password: [],
+                }
+
+                if (!this.loginForm.email) {
+                    this.errors.email = 'Veuillez renseigner votre email';
+                }
+
+                if (!this.loginForm.password) {
+                    this.errors.password = 'Veuillez renseigner votre mot de passe';
+                }
+
+                if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) return
+
+                const response = await fetch('/auth/sign-in/', {
+                    method: 'POST',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    },
+                    body: JSON.stringify({
+                        ...this.loginForm,
+                    }),
+                })
+
+                if (response.status === 200) {
+
+
+                    if (window.location.search.includes('next=')) {
+                        window.location.href = window.location.search.split('next=')[1];
+                    }
+                    else {
+                        window.location.href = '/profile'
+                    }
+                }
+
+                if (response.status === 401) {
+                    this.errors.email = 'Email ou mot de passe incorrect';
+                    return
+                }
+
+                const data = await response.json()
+                this.errors = Object.entries(data).reduce((acc, [key, val]) => {
+                    return {
+                        ...acc,
+                        [key]: val
+                    }
+                }, this.errors)
+            },
+        },
+        watch: {}
+    }).mount('#signin')
+
+    const mymodal = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                
+                errorsPassword : {
+                    email: [],
+                },
+                forgotPassword : {
+                    email:"",
+                }
+            }
+        },
+        methods: {
+            
+            async IforgotPassword() {
+                console.log(this.forgotPassword)
+                this.errorsPassword.email = [];
+                if (!this.forgotPassword.email) {
+                    this.errorsPassword.email.push("Votre email est obligatoire")
+                }
+                else if (!this.forgotPassword.email.includes("@")) {
+                    this.errorsPassword.email.push("Ce n'est pas un mail")
+                }
+                else {
+
+                    fetch("/auth/user/forgotPassword",
+                    {
+                        method: 'POST',
+                        headers: {
+                          "X-CSRFToken": getCookie("csrftoken"),
+                        },
+                        body: JSON.stringify({
+                            email:this.forgotPassword.email
+                        }),
+                      })
+                      .then((response) => {
+                        return response.json()
+                      })
+                      .then((json) => {
+                        if (json.status === 'success') {
+                          Toastify({
+                            text: "Un mail a été envoyé avec un nouveau mot de passe",
+                            duration: 3000
+                            }).showToast();
+                            document.location.href = document.location.href.replace("my-modal-2","")
+                        }
+                        else {
+                            Toastify({
+                                text: json.message,
+                                duration: 3000
+                                }).showToast();
+                            this.errorsPassword.email.push(json.message)
+                        }
+                      })
+
+                    
+                }
+            }
+        },
+        watch: {}
+    }).mount('#my-modal-2')
 </script>
+
 {% endblock %}

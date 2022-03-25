@@ -1,19 +1,369 @@
-<html lang="en">
+{% extends "base.html" %} {% block content %}
+{% load i18n %}
+<div class="flex flex-col lg:flex-row" v-bind:class="classObject" id="signup">
+  <div class="flex flex-col items-start justify-start px-8 w-full">
+    <div class="my-10 flex flex-col items-center lg:items-start justify-center w-full">
+      <h2 class="text-secondary font-bold text-4xl">{% trans 'Inscription' %}</h2>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
-</head>
+      {% csrf_token %}
+      <div class="mt-10">
+        <h2 class="font-bold">Type de compte:</h2>
+        <div class="flex flex-row flex-wrap space-x-5">
+          <div class="mt-5 flex flex-row items-center space-x-2">
+            <label for="" class="font-medium">Entreprise</label>
+            <input type="radio" name="account_type" class="" v-model="accountType" value="1" />
+          </div>
+          <div class="mt-5 flex flex-row items-center space-x-2">
+            <label for="" class="font-medium">École</label>
+            <input type="radio" name="account_type" class="" v-model="accountType" value="2" />
+          </div>
+          <div class="mt-5 flex flex-row items-center space-x-2">
+            <label for="" class="font-medium">Étudiant</label>
+            <input type="radio" name="account_type" class="" v-model="accountType" value="3" />
+          </div>
+        </div>
+      </div>
+      <transition-group mode="out-in">
+        <Transition name="fade">
+          {% include './components/student_signup.html'%}
+        </Transition>
+        <Transition name="fade">
+          {% include './components/company_signup.html'%}
+        </Transition>
+        <Transition name="fade">
+          {% include './components/school_signup.html'%}
+        </Transition>
+      </transition-group>
 
-<body>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="email" name="email" required>
-        <input type="password" name="password" required>
-        <button type="submit">S'inscrire</button>
-    </form>
-</body>
 
-</html>
+
+      <div class="mt-10 flex flex-col items-center w-full" v-if="accountType==3">
+        <button @click="handleSubmitRegisterStudent" id="btn_signup"
+          class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-lg hover:bg-primary flex justify-center items-center cursor-pointer">
+          {% trans 'Inscription' %}
+
+        </button>
+        <div class="text-secondary mt-4">
+          Déjà un compte ? <a href="/auth/sign-in"
+            class="font-semibold text-primary cursor-pointer hover:text-secondary">Se connecter</a>
+        </div>
+      </div>
+
+      <div
+        class="mt-10 space-y-10 lg:space-y-0 w-full flex flex-col lg:flex-row justify-center lg:items-center lg:justify-between"
+        v-if="accountType !=3">
+        <div class="lg:w-3/6">
+          <h3 class="text-secondary font-medium text-2xl mb-5 text-center lg:text-left">Besoin d’aide ?</h3>
+          <p>Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez des difficultés dans vos
+            démarches en ligne ? Pour trouver une réponse ou une solution à votre problème, consultez la foire aux
+            questions du portail de l'alternance.</p>
+        </div>
+        <div class="flex flex-col items-center lg:items-end lg:w-fit">
+          <button @click="handleRegister"
+            class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-lg hover:bg-primary flex justify-center items-center cursor-pointer">
+            {% trans 'Inscription' %}
+          </button>
+          <div class="text-secondary mt-4">
+            Déjà un compte ? <a href="/auth/sign-in"
+              class="font-semibold text-primary cursor-pointer hover:text-secondary">Se connecter</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="hidden lg:block" v-if="accountType==3">
+    <div class="h-screen flex flex-col justify-center items-center px-10" style="
+        background-image: url('/static/img/authbackground.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+      ">
+      <div class="">
+        <h2 class="font-bold text-3xl text-white mb-5"> {% trans 'HelpNeed' %}</h2>
+        <p class="text-white">
+          {% trans 'HelpNeedMessage' %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% include './components/footer.html' %} {% endblock %}
+
+{% block vueJs %}
+<script>
+  const app2 = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        classObject: {
+          'lg:grid-cols-2': this.activeAccount == 3
+        },
+        accountType: '2',
+        registerFormStudent: {
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          errors: {
+            first_name: [],
+            last_name: [],
+            email: [],
+            password: [],
+            confirmPassword: [],
+          },
+        },
+        registerFormCompany: {
+          name: '',
+          first_name: '',
+          last_name: '',
+          email: '',
+          city: '',
+          zip_code: '',
+          street: '',
+          description: '',
+          password: '',
+          confirmPassword: '',
+          errors: {
+            name: [],
+            first_name: [],
+            last_name: [],
+            email: [],
+            city: [],
+            zip_code: [],
+            street: [],
+            description: [],
+            password: [],
+            confirmPassword: [],
+          },
+        },
+        registerFormSchool: {
+          name: '',
+          first_name: '',
+          last_name: '',
+          email: '',
+          city: '',
+          zip_code: '',
+          street: '',
+          description: '',
+          password: '',
+          confirmPassword: '',
+          errors: {
+            name: [],
+            first_name: [],
+            last_name: [],
+            email: [],
+            city: [],
+            zip_code: [],
+            street: [],
+            description: [],
+            password: [],
+            confirmPassword: [],
+          },
+        }
+      }
+    },
+    methods: {
+      handleRegister() {
+        if (this.accountType == 1) {
+          this.handleSubmitRegisterCompany()
+        } else if (this.accountType == 2) {
+          this.handleSubmitRegisterSchool()
+        } else {
+          this.handleSubmitRegisterStudent()
+        }
+      },
+      
+      async register(form) {
+        const response = await fetch('/auth/sign-up/', {
+          method: 'POST',
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({
+            ...form,
+            accountType: this.accountType
+          }),
+        })
+
+
+        if (response.status === 200) {
+          window.location.href = '/auth/sign-in/'
+        } else {
+          const data = await response.json()
+          form.errors = Object.entries(data).reduce((acc, [key, val]) => {
+            return {
+              ...acc,
+              [key]: val
+            }
+          }, form.errors)
+        }
+      },
+
+      async handleSubmitRegisterStudent() {
+        this.registerFormStudent.errors = {
+          first_name: [],
+          last_name: [],
+          email: [],
+          password: [],
+          confirmPassword: [],
+        }
+
+
+        if (!this.registerFormStudent.first_name) {
+          this.registerFormStudent.errors.first_name.push('Veuillez entrer votre nom')
+        }
+        if (!this.registerFormStudent.last_name) {
+          this.registerFormStudent.errors.last_name.push('Veuillez entrer votre prénom')
+        }
+        if (!this.registerFormStudent.email) {
+          this.registerFormStudent.errors.email.push('Veuillez entrer votre email')
+        }
+        if (!this.registerFormStudent.password) {
+          this.registerFormStudent.errors.password.push('Veuillez entrer votre mot de passe')
+        }
+        if (!this.registerFormStudent.confirmPassword) {
+          this.registerFormStudent.errors.confirmPassword.push('Veuillez confirmer votre mot de passe')
+        }
+        if (this.registerFormStudent.password !== this.registerFormStudent.confirmPassword) {
+          this.registerFormStudent.errors.confirmPassword.push('Les mots de passe ne correspondent pas')
+        }
+
+        if (Object.entries(this.registerFormStudent.errors).some(([key, val]) => val.length > 0)) return
+
+        await this.register(this.registerFormStudent)
+      },
+
+      async handleSubmitRegisterCompany() {
+        this.registerFormCompany.errors = {
+          name: [],
+          email: [],
+          first_name: [],
+          last_name: [],
+          city: [],
+          zip_code: [],
+          street: [],
+          description: [],
+          password: [],
+          confirmPassword: [],
+        }
+
+        if (!this.registerFormCompany.name) {
+          this.registerFormCompany.errors.name.push('Veuillez entrer un nom d\'entreprise')
+        }
+        if (!this.registerFormCompany.first_name) {
+          this.registerFormCompany.errors.first_name.push('Veuillez entrer le prénom du propriétaire')
+        }
+        if (!this.registerFormCompany.last_name) {
+          this.registerFormCompany.errors.last_name.push('Veuillez entrer le nom du propriétaire')
+        }
+        if (!this.registerFormCompany.city) {
+          this.registerFormCompany.errors.city.push('Veuillez entrer une ville de résidence')
+        }
+        if (!this.registerFormCompany.zip_code) {
+          this.registerFormCompany.errors.zip_code.push('Veuillez entrer un code postal')
+        }
+        if (!this.registerFormCompany.street) {
+          this.registerFormCompany.errors.street.push('Veuillez entrer un numéro et un nom de rue')
+        }
+        if (!this.registerFormCompany.description) {
+          this.registerFormCompany.errors.description.push(
+            'Veuillez renseigner une description de votre activité')
+        }
+        if (!this.registerFormCompany.email) {
+          this.registerFormCompany.errors.email.push('Veuillez entrer votre email')
+        }
+        if (!this.registerFormCompany.password) {
+          this.registerFormCompany.errors.password.push('Veuillez entrer votre mot de passe')
+        }
+        if (!this.registerFormCompany.confirmPassword) {
+          this.registerFormCompany.errors.confirmPassword.push('Veuillez confirmer votre mot de passe')
+        }
+        if (this.registerFormCompany.password !== this.registerFormCompany.confirmPassword) {
+          this.registerFormCompany.errors.confirmPassword.push('Les mots de passe ne correspondent pas')
+        }
+
+
+        if (Object.entries(this.registerFormCompany.errors).some(([key, val]) => val.length > 0)) return
+
+        await this.register(this.registerFormCompany)
+      },
+
+      async handleSubmitRegisterSchool() {
+        this.registerFormSchool.errors = {
+          name: [],
+          email: [],
+          first_name: [],
+          last_name: [],
+          city: [],
+          zip_code: [],
+          description: [],
+          street: [],
+          password: [],
+          confirmPassword: [],
+        }
+
+        if (!this.registerFormSchool.name) {
+          this.registerFormSchool.errors.name.push('Veuillez entrer un nom d\'entreprise')
+        }
+        if (!this.registerFormSchool.first_name) {
+          this.registerFormSchool.errors.first_name.push('Veuillez entrer le prénom du propriétaire')
+        }
+        if (!this.registerFormSchool.last_name) {
+          this.registerFormSchool.errors.last_name.push('Veuillez entrer le nom du propriétaire')
+        }
+        if (!this.registerFormSchool.city) {
+          this.registerFormSchool.errors.city.push('Veuillez entrer une ville de résidence')
+        }
+        if (!this.registerFormSchool.zip_code) {
+          this.registerFormSchool.errors.zip_code.push('Veuillez entrer un code postal')
+        }
+        if (!this.registerFormSchool.street) {
+          this.registerFormSchool.errors.street.push('Veuillez entrer un numéro et un nom de rue')
+        }
+        if (!this.registerFormSchool.description) {
+          this.registerFormSchool.errors.description.push('Veuillez entrer un texte')
+        }
+        if (!this.registerFormSchool.email) {
+          this.registerFormSchool.errors.email.push('Veuillez entrer votre email')
+        }
+        if (!this.registerFormSchool.password) {
+          this.registerFormSchool.errors.password.push('Veuillez entrer votre mot de passe')
+        }
+        if (!this.registerFormSchool.confirmPassword) {
+          this.registerFormSchool.errors.confirmPassword.push('Veuillez confirmer votre mot de passe')
+        }
+        if (this.registerFormSchool.password !== this.registerFormSchool.confirmPassword) {
+          this.registerFormSchool.errors.confirmPassword.push('Les mots de passe ne correspondent pas')
+        }
+
+        if (Object.entries(this.registerFormSchool.errors).some(([key, val]) => val.length > 0)) return
+
+        await this.register(this.registerFormSchool)
+      },
+
+    },
+
+
+  }).mount('#signup')
+</script>
+
+<style>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  .fade-enter-from {
+    transition-delay: .5s;
+  }
+</style>
+{% endblock %}
