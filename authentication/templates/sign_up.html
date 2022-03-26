@@ -100,8 +100,10 @@
         classObject: {
           'lg:grid-cols-2': this.activeAccount == 3
         },
-        accountType: new URL(location.href).searchParams.get('type') ? new URL(location.href).searchParams.get(
-          'type') : 3,
+        accountType: new URL(location.href).searchParams.get('type') && new URL(location.href).searchParams.get(
+            'type') !=
+          'null' ? new URL(location.href).searchParams.get(
+            'type') : 3,
         registerFormStudent: {
           first_name: '',
           last_name: '',

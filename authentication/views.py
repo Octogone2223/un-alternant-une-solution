@@ -43,7 +43,6 @@ def sign_up(request):
         if bodyJson["accountType"] == "1":
             companySerializer = CompanySignUpSerializer(data=bodyJson)
             try:
-                companySerializer.__check_email__(bodyJson)
                 if companySerializer.is_valid():
                     user = User.objects.create_user(
                         companySerializer.validated_data["email"],
@@ -78,7 +77,6 @@ def sign_up(request):
             schoolSerializer = SchoolSignUpSerializer(data=bodyJson)
 
             try:
-                schoolSerializer.__check_email__(bodyJson)
                 if schoolSerializer.is_valid():
                     user = User.objects.create_user(
                         schoolSerializer.validated_data["email"],
@@ -110,7 +108,6 @@ def sign_up(request):
             userSerializer = UserSignUpSerializer(data=bodyJson)
 
             try:
-                userSerializer.__check_email__(bodyJson)
                 if userSerializer.is_valid():
                     user = User.objects.create_user(**userSerializer.validated_data)
 
