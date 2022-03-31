@@ -2,14 +2,12 @@ import base64
 import datetime
 from http.client import BAD_REQUEST, NOT_FOUND, UNAUTHORIZED, OK
 import json
-import os
 import secrets
 import string
 from django.conf import settings
 from django.http import (
     FileResponse,
     Http404,
-    HttpResponse,
     HttpResponseBadRequest,
     JsonResponse,
 )
@@ -336,9 +334,13 @@ def user(request):
                         if cv_path is not None and cv_file is not None:
 
                             student: Student = Student.objects.get(
-                                id=body_json["dataSend"]["id"])
+                                id=body_json["dataSend"]["id"]
+                            )
                             student.cv.save(
-                                f"public_{user_id}.{cv_path}", ContentFile(base64.b64decode(cv_file)), save=True)
+                                f"public_{user_id}.{cv_path}",
+                                ContentFile(base64.b64decode(cv_file)),
+                                save=True,
+                            )
                             student.save()
 
                         # Return an HTTP Status code success
@@ -380,7 +382,7 @@ def user(request):
 
 
 # update the user password (must be logged in)
-@ login_required
+@login_required
 def updatePassword(request):
     if request.method == "PATCH":
 
@@ -452,8 +454,11 @@ def photo(request, id):
 
         # get the user by id from the url parameter
         user: User = User.objects.get(id=id)
-        user.logo.save(f"{id}.{body_json['extensionFile']}", ContentFile(
-            base64.b64decode(body_json["filePhoto"])), save=True)
+        user.logo.save(
+            f"{id}.{body_json['extensionFile']}",
+            ContentFile(base64.b64decode(body_json["filePhoto"])),
+            save=True,
+        )
         user.save()
         # return an HTTP Status code success
         return JsonResponse({"status": "success"}, status=OK)
@@ -493,8 +498,11 @@ def school_photo(request, id):
 
         # get the user by id from the url parameter
         school: School = School.objects.get(id=id)
-        school.logo.save(f"{id}.{body_json['extensionFile']}", ContentFile(
-            base64.b64decode(body_json["fileEntity"])), save=True)
+        school.logo.save(
+            f"{id}.{body_json['extensionFile']}",
+            ContentFile(base64.b64decode(body_json["fileEntity"])),
+            save=True,
+        )
         school.save()
         # return an HTTP Status code success
         return JsonResponse({"status": "success"}, status=OK)
@@ -534,8 +542,11 @@ def company_photo(request, id):
 
         # get the user by id from the url parameter
         company: Company = Company.objects.get(id=id)
-        company.logo.save(f"{id}.{body_json['extensionFile']}", ContentFile(
-            base64.b64decode(body_json["fileEntity"])), save=True)
+        company.logo.save(
+            f"{id}.{body_json['extensionFile']}",
+            ContentFile(base64.b64decode(body_json["fileEntity"])),
+            save=True,
+        )
         company.save()
         # return an HTTP Status code success
         return JsonResponse({"status": "success"}, status=OK)

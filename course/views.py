@@ -3,13 +3,13 @@ import json
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from authentication.models import School, Student
-from course import serializers
 from course.serializers import (
     CreateCourseSerializer,
 )
 from .models import Course
 from django.http.response import JsonResponse
 from django.contrib.auth.decorators import login_required
+from rest_framework import serializers
 
 # Create your views here.
 
@@ -72,7 +72,7 @@ def course_detail(request, course_id):
     student = None
 
     # if user is logged in is a student, get student from database
-    if request.user.getUserType() == "student":
+    if request.user.getUserType() == "Student":
         student = Student.objects.get(user=request.user)
 
     # if method is PATCH, update the course of the student by the id in the url parameter, save it and return a status code success
@@ -111,7 +111,7 @@ def create_course(request):
     if request.method == "POST":
 
         # if user is logged in as a school, raise an Unauthorized error
-        if(request.user.getUserType() != "school"):
+        if request.user.getUserType() != "school":
             return HttpResponse("You are not a school", status=UNAUTHORIZED)
 
         # get the data from the request

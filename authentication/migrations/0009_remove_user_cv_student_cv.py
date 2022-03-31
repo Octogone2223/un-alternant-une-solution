@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0008_company_logo_school_logo_user_cv_user_logo'),
+        ("authentication", "0008_company_logo_school_logo_user_cv_user_logo"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='user',
-            name='cv',
+            model_name="user",
+            name="cv",
         ),
         migrations.AddField(
-            model_name='student',
-            name='cv',
-            field=models.FileField(blank=True, null=True, upload_to='cv'),
+            model_name="student",
+            name="cv",
+            field=models.FileField(blank=True, null=True, upload_to="cv"),
         ),
     ]

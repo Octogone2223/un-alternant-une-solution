@@ -60,8 +60,7 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 1  # 1 day
 
 LOGIN_URL = "/auth/sign-in/"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1",
-                 "un-alternant-une-solution.herokuapp.com"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "un-alternant-une-solution.herokuapp.com"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -185,7 +184,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_FILE_STORAGE = 'authentication.storage.FileSystemOverwriteStorage'
+DEFAULT_FILE_STORAGE = "authentication.storage.FileSystemOverwriteStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -210,15 +209,15 @@ WEBPUSH_SETTINGS = {
 
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
     },
 }

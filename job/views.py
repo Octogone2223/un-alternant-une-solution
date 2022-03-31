@@ -3,7 +3,6 @@ import datetime
 from http.client import BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND, OK, UNAUTHORIZED
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
-
 from rest_framework import serializers
 from job.serializers import JobCreationSerializer
 from .models import Job, JobDating, JobStatus
@@ -69,9 +68,11 @@ def create_job(request):
 
             # if serialization is valid save the job and return the job as http response
             if jobCreationSerializer.is_valid():
-                job:Job = Job.objects.create(
+
+                company = Company.objects.filter(
+                    users__pk=request.user.id).first()
+                job = Job.objects.create(
                     **jobCreationSerializer.validated_data)
-                company:Company = Company.objects.get(id=(list(Company.objects.filter(users=request.user).values())[0]['id']))
                 job.company = company
                 job.save()
 
@@ -168,7 +169,7 @@ def update_job(request, job_id):
 
     # if job does not exist return an error
     except Job.DoesNotExist:
-        return HttpResponseBadRequest('Job does not exist')
+        return HttpResponseBadRequest("Job does not exist")
 
 
 # Used to fetch the details of a specific job (api)
@@ -197,7 +198,7 @@ def preview_job(request, job_id):
 
     # if job does not exist return an error
     except Job.DoesNotExist:
-        return HttpResponseBadRequest('Job does not exist')
+        return HttpResponseBadRequest("Job does not exist")
 
 # Used to handle the deletion of a file
 def handle_delete_file(file_path):
@@ -408,7 +409,7 @@ def job_inspect(request, job_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "company":
+        if request.user.getUserType() != "Company":
             return redirect("/")
 
         # get the job from the database associated to the user company and all the job datings associated to the job
@@ -432,7 +433,7 @@ def job_dating_inspect_cv(request, job_dating_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "company":
+        if request.user.getUserType() != "Company":
             return redirect("/")
 
         # get the job dating from the database associated to the user company
@@ -454,7 +455,7 @@ def job_dating_inspect_letter(request, job_dating_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "company":
+        if request.user.getUserType() != "Company":
             return redirect("/")
 
         # get the job dating from the database associated to the user company

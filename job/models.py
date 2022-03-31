@@ -13,6 +13,7 @@ class JobCode(models.Model):
     def __str__(self):
         return self.name
 
+
 # Creates a Job model
 
 
@@ -31,8 +32,7 @@ class Job(models.Model):
     update_at = models.DateTimeField(auto_now=True)
 
     # RELATIONS
-    job_datings = models.ManyToManyField(
-        "job.JobDating", related_name="job_datings+")
+    job_datings = models.ManyToManyField("job.JobDating", related_name="job_datings+")
     company = models.ForeignKey(
         "authentication.company", on_delete=models.CASCADE, related_name="job_company+"
     )
@@ -108,8 +108,7 @@ class JobDating(models.Model):
     )
 
     # RELATIONS
-    student = models.ForeignKey(
-        "authentication.Student", on_delete=models.CASCADE)
+    student = models.ForeignKey("authentication.Student", on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
