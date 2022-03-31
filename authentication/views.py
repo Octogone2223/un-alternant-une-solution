@@ -248,7 +248,7 @@ def user(request):
                 userType == "Company" and user_serializer.is_valid() and CompanySerializer(
                     data=body_json["dataSend"]).is_valid()
             ):
-                
+
                 # serialize the data company
                 company_serializer = CompanySerializer(
                     data=body_json["dataSend"])
@@ -284,14 +284,12 @@ def user(request):
                 userType == "School" and user_serializer.is_valid(
                 ) and SchoolSerializer(data=body_json["dataSend"]).is_valid()
             ):
-                
 
                 # serialize the data school
                 school_serializer = SchoolSerializer(
                     data=body_json["dataSend"])
 
                 try:
-                    
 
                     # Check if the data is valid
                     if school_serializer.is_valid():
@@ -461,8 +459,9 @@ def photo(request, id):
         body_json = json.loads(body)
 
         # get the user by id from the url parameter
-        user:User = User.objects.get(id=id)
-        user.logo.save(f"{id}.{body_json['extensionFile']}",ContentFile(base64.b64decode(body_json["filePhoto"])), save=True)
+        user: User = User.objects.get(id=id)
+        user.logo.save(f"{id}.{body_json['extensionFile']}", ContentFile(
+            base64.b64decode(body_json["filePhoto"])), save=True)
         user.save()
         # return an HTTP Status code success
         return JsonResponse({"status": "success"}, status=OK)
@@ -501,8 +500,9 @@ def school_photo(request, id):
         body_json = json.loads(body)
 
         # get the user by id from the url parameter
-        school:School = School.objects.get(id=id)
-        school.logo.save(f"{id}.{body_json['extensionFile']}",ContentFile(base64.b64decode(body_json["fileEntity"])), save=True)
+        school: School = School.objects.get(id=id)
+        school.logo.save(f"{id}.{body_json['extensionFile']}", ContentFile(
+            base64.b64decode(body_json["fileEntity"])), save=True)
         school.save()
         # return an HTTP Status code success
         return JsonResponse({"status": "success"}, status=OK)
@@ -541,12 +541,13 @@ def company_photo(request, id):
         body_json = json.loads(body)
 
         # get the user by id from the url parameter
-        company:Company = Company.objects.get(id=id)
-        company.logo.save(f"{id}.{body_json['extensionFile']}",ContentFile(base64.b64decode(body_json["fileEntity"])), save=True)
+        company: Company = Company.objects.get(id=id)
+        company.logo.save(f"{id}.{body_json['extensionFile']}", ContentFile(
+            base64.b64decode(body_json["fileEntity"])), save=True)
         company.save()
         # return an HTTP Status code success
         return JsonResponse({"status": "success"}, status=OK)
-    
+
     try:
 
         # get the company by id from the url parameter
