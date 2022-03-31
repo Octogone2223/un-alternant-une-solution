@@ -26,11 +26,47 @@
         <button class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary"
             @click="searchJobs">{% trans "Rechercher" %}</button>
     </div>
+    <button
+      class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary"
+      @click="searchJobs"
+    >
+      Rechercher
+    </button>
+  </div>
 
+  {% if not jobs %}
+  <div class="flex w-full flex-col">
+    <p class="font-bold mx-auto my-16">Aucune offre ne correspond</p>
+    <img src="/static/img/empty-state.png" alt="" class="mx-auto w-1/4" />
+  </div>
+  {% else %}
+
+  <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-20">
+    <div class="h-screen overflow-scroll space-y-5 w-full lg:col-span-2">
+      {% for job in jobs %}
+
+      <!-- Single Job Post -->
+      <div
+        class="lg:cursor-pointer bg-white shadow-md lg:h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100"
+        data-job-id="{{ job.id }}"
+        @click="getJobDetail"
+      >
+        <h2 class="font-bold">{{job.name}}</h2>
+
+        <a
+          href="/company/{{job.company_id}}"
+          class="uppercase text-primary underline"
+          >{{job.company}}</a
+        >
+
+        <p class="uppercase">
+          {% if job.company.city %} {{job.company.city}} {% else %} 44000 Nantes
+          {% endif %}
     {% if not jobs %}
     <div class="flex w-full flex-col">
         <p class="font-bold mx-auto my-16">
             {% trans "Aucune offre ne correspond" %}
+
         </p>
         <img src="/static/img/empty-state.png" alt="" class="mx-auto w-1/4">
     </div>
@@ -40,11 +76,22 @@
         <div class="h-screen overflow-scroll space-y-5 w-full lg:col-span-2">
             {% for job in jobs %}
 
+        <div class="flex flex-col lg:flex-row">
+          <p>Offre postée le : <i>{{job.create_at|date:"d F, Y" }}</i></p>
+          <button
+            class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary self-center mt-4"
+          >
+            Postuler
+          </button>
+        </div>
+      </div>
+
             <!-- Single Job Post -->
             <div class="lg:cursor-pointer bg-white shadow-md h-80 w-full flex flex-col justify-between gap-4 px-4 py-4
                 rounded-lg overflow-scroll border-[1px] border-gray-100" data-job-id="{{ job.id }}"
                 @click="getJobDetail">
                 <h2 class="font-bold">{{job.name}}</h2>
+
 
                 <a href="/company/{{job.company_id}}" class="uppercase text-primary underline">{{job.company}}</a>
 
