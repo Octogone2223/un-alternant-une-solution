@@ -72,6 +72,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     first_name = models.CharField(max_length=75, verbose_name="First Name")
     last_name = models.CharField(max_length=75, verbose_name="Last Name")
+    logo = models.ImageField(upload_to='logos', blank=True, null=True)
+    cv = models.FileField(upload_to='cv', blank=True, null=True)
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
     )
@@ -128,7 +130,9 @@ class Company(models.Model):
     description = models.TextField(verbose_name="Company Description", null=True)
     city = models.CharField(max_length=75, verbose_name="City", null=True)
     street = models.CharField(max_length=75, verbose_name="Street", null=True)
-    zip_code = models.CharField(max_length=75, verbose_name="Zip Code", null=True)
+    logo = models.ImageField(upload_to='logos_company', blank=True, null=True)
+    zip_code = models.CharField(
+        max_length=75, verbose_name="Zip Code", null=True)
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
     )
@@ -148,6 +152,7 @@ class Student(models.Model):
     cv_path = models.CharField(max_length=255, verbose_name="CV Path", null=True)
     description = models.TextField(verbose_name="Description", null=True)
 
+
     # RELATIONS
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     course = models.ForeignKey("course.Course", on_delete=models.CASCADE, null=True)
@@ -163,6 +168,7 @@ class School(models.Model):
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
+    logo = models.ImageField(upload_to='logos_school', blank=True, null=True)
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
     )
