@@ -92,13 +92,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     # custom method to get the type of the user
     def getUserType(self):
         if self.isStudent():
-            return "Student"
+            return "student"
 
         elif self.isCompany():
-            return "Company"
+            return "company"
 
         else:
-            return "School"
+            return "school"
 
     # custom method to check if the user is a student and if exists
     def isStudent(student):

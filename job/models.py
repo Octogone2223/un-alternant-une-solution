@@ -92,6 +92,13 @@ class JobDating(models.Model):
         REJECTED = "RE", _("REJECTED")
         PENDING = "PE", _("PENDING")
 
+    cv = models.FileField(
+        upload_to='job/files/cv', blank=True, null=True)
+    
+    
+    motivation_letter = models.FileField(
+        upload_to='job/files/motivation_letter', blank=True, null=True)
+    
     motivation_letter_path = models.CharField(
         max_length=255, verbose_name="Job Name")
     cv_path = models.CharField(max_length=255, verbose_name="Job Name")
