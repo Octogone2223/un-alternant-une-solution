@@ -39,10 +39,6 @@ api_secret = "c216714c0f3ed0af7d3b915b86df7cb9"
 # Sign up view
 def sign_up(request):
 
-    # If the user is already connected, he is redirected to the home page
-    if request.user is not None and request.user.is_authenticated:
-        return redirect("/")
-
     # if user submit the form to sign up
     if request.method == "POST":
 
@@ -176,10 +172,6 @@ def sign_up(request):
 
 # Sign in view
 def sign_in(request):
-
-    # If the user is already connected, he is redirected to the home page
-    if request.user is not None and request.user.is_authenticated:
-        return redirect("/")
 
     # If the user submit the form to sign in
     if request.method == "POST":
@@ -322,7 +314,7 @@ def user(request):
                 cv_path = body_json["dataSend"]["cv_path"]
                 # get File Base64 object
                 cv_file = body_json["dataSend"]["cv_file"]
-                # Need to Remove to check Serializer
+
                 body_json["dataSend"].pop("cv_file")
                 studentSerializer = StudentSerializer(
                     data=body_json["dataSend"])
@@ -388,7 +380,7 @@ def user(request):
 
 
 # update the user password (must be logged in)
-@login_required
+@ login_required
 def updatePassword(request):
     if request.method == "PATCH":
 
