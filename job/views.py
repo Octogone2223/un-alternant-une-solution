@@ -134,7 +134,7 @@ def update_job(request, job_id):
                 # get the job from the database and update it with the new data
                 Job.objects.filter(id=job_id).update(
                     **job_update_serializer.validated_data)
-                
+
                 # return an success message
                 return JsonResponse({"status": "success"})
 
@@ -201,6 +201,8 @@ def preview_job(request, job_id):
         return HttpResponseBadRequest("Job does not exist")
 
 # Used to handle the deletion of a file
+
+
 def handle_delete_file(file_path):
     if os.path.exists(file_path):
         os.remove(file_path)
@@ -259,13 +261,15 @@ def job_detail(request, job_id):
             return HttpResponse(status=BAD_REQUEST)
 
         # create a new job dating object (doesn't need to be check by serializer because we set the fields manually)
-        job_dating:JobDating = JobDating.objects.create(
+        job_dating: JobDating = JobDating.objects.create(
             job_id=job_id,
             student=request.user.student,
             status=JobStatus.Status.OPEN,
         )
-        job_dating.cv.save(f"job{job_id}_user{request.user.id}.pdf", cv ,save=True)
-        job_dating.motivation_letter.save(f"job{job_id}_user{request.user.id}.pdf", motivation_letter ,save=True)
+        job_dating.cv.save(
+            f"job{job_id}_user{request.user.id}.pdf", cv, save=True)
+        job_dating.motivation_letter.save(
+            f"job{job_id}_user{request.user.id}.pdf", motivation_letter, save=True)
         job_dating.save()
 
         # get the actual job from the database and add the job dating to the job
