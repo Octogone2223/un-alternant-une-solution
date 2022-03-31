@@ -2,8 +2,7 @@ import datetime
 from http.client import BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND, OK, UNAUTHORIZED
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
-from job import serializers
-
+from rest_framework import serializers
 from job.serializers import JobCreationSerializer
 from .models import Job, JobDating, JobStatus
 from authentication.models import Company, Student, User
@@ -67,9 +66,12 @@ def create_job(request):
 
             # if serialization is valid save the job and return the job as http response
             if jobCreationSerializer.is_valid():
+
+                company = Company.objects.filter(
+                    users__pk=request.user.id).first()
                 job = Job.objects.create(
                     **jobCreationSerializer.validated_data)
-                job.company = request.user.company
+                job.company = company
                 job.save()
 
                 return JsonResponse({"status": "success"})

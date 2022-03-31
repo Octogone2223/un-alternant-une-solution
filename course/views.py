@@ -3,13 +3,13 @@ import json
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from authentication.models import School, Student
-from course import serializers
 from course.serializers import (
     CreateCourseSerializer,
 )
 from .models import Course
 from django.http.response import JsonResponse
 from django.contrib.auth.decorators import login_required
+from rest_framework import serializers
 
 # Create your views here.
 
