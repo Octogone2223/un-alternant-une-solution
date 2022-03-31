@@ -28,8 +28,9 @@ class Job(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-    job_datings = models.ManyToManyField("job.JobDating", related_name="job_datings+")
-
+    # RELATIONS
+    job_datings = models.ManyToManyField(
+        "job.JobDating", related_name="job_datings+")
     company = models.ForeignKey(
         "authentication.company", on_delete=models.CASCADE, related_name="job_company+"
     )
@@ -47,11 +48,13 @@ class JobStatus(models.Model):
         CLOSED = "CL", _("Closed")
         CANCELED = "CA", _("Canceled")
 
-    job = models.ForeignKey("Job", on_delete=models.CASCADE)
     status = models.CharField(
         max_length=2,
         choices=Status.choices,
     )
+
+    # RELATIONS
+    job = models.ForeignKey("Job", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -67,6 +70,7 @@ class LastIndexApi(models.Model):
 
 class JobIdFromPreviousRequest(models.Model):
 
+    # RELATIONS
     job_codes = ArrayField(base_field=models.CharField(max_length=255))
     job_ids = ArrayField(base_field=models.CharField(max_length=255))
 
@@ -82,14 +86,18 @@ class JobDating(models.Model):
         REJECTED = "RE", _("REJECTED")
         PENDING = "PE", _("PENDING")
 
-    student = models.ForeignKey("authentication.Student", on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    motivation_letter_path = models.CharField(max_length=255, verbose_name="Job Name")
+    motivation_letter_path = models.CharField(
+        max_length=255, verbose_name="Job Name")
     cv_path = models.CharField(max_length=255, verbose_name="Job Name")
     status = models.CharField(
         max_length=2,
         choices=Status.choices,
     )
+
+    # RELATIONS
+    student = models.ForeignKey(
+        "authentication.Student", on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

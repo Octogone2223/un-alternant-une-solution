@@ -1,8 +1,9 @@
 from __future__ import absolute_import
 import os
-
 from celery import Celery
 from django.conf import settings
+
+# CELERY SETTINGS
 
 os.environ.setdefault(
     "DJANGO_SETTINGS_MODULE", "un_alternant_une_solution_webapp.settings"

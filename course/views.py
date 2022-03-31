@@ -1,4 +1,4 @@
-from http.client import OK
+from http.client import OK, UNAUTHORIZED
 import json
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
@@ -72,7 +72,7 @@ def course_detail(request, course_id):
     student = None
 
     # if user is logged in is a student, get student from database
-    if request.user.getUserType == "student":
+    if request.user.getUserType() == "student":
         student = Student.objects.get(user=request.user)
 
     # if method is PATCH, update the course of the student by the id in the url parameter, save it and return a status code success
@@ -103,12 +103,16 @@ def course_detail(request, course_id):
     )
 
 
-# create a course (must be logged in)
+# create a course (must be logged in as a school)
 @login_required
 def create_course(request):
 
     # if method is POST, create a new course
     if request.method == "POST":
+
+        # if user is logged in as a school, raise an Unauthorized error
+        if(request.user.getUserType() != "school"):
+            return HttpResponse("You are not a school", status=UNAUTHORIZED)
 
         # get the data from the request
         body = request.body.decode("utf-8")
