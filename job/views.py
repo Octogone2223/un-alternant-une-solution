@@ -45,7 +45,6 @@ def list_jobs(request):
     return render(request, "list_jobs.html", {"jobs": jobs})
 
 
-
 # Used to handle the creation of a new job for a specific user (must be logged in as a company)
 @login_required
 def create_job(request):
@@ -103,7 +102,6 @@ def create_job(request):
     # if user is not logged in as a company redirect to profile page
     else:
         return redirect("/profile")
-
 
 
 # Used to handle the update of a job for a specific user (must be logged in as a company)
@@ -341,7 +339,6 @@ def jobs_datings(request):
         # if company does not exist redirect to home page
         except Company.DoesNotExist:
             return redirect("/")
-
 
 
 # Used to handle job applications (must be logged in)
