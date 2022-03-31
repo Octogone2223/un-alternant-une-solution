@@ -5,13 +5,12 @@ from rest_framework import serializers
 class UserSignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password', 'last_name', 'first_name')
+        fields = ("email", "password", "last_name", "first_name")
 
     def validate_email(self, value):
         value = value.lower()
         if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError(
-                "Cette adresse email est déjà utilisée")
+            raise serializers.ValidationError("Cette adresse email est déjà utilisée")
         return value
 
 
@@ -29,8 +28,17 @@ class UserSignInSerializer(serializers.Serializer):
 class CompanySignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ('name', 'description', 'city', 'street', 'zip_code',
-                  'email', 'password', 'last_name', 'first_name')
+        fields = (
+            "name",
+            "description",
+            "city",
+            "street",
+            "zip_code",
+            "email",
+            "password",
+            "last_name",
+            "first_name",
+        )
 
     email = serializers.EmailField()
     password = serializers.CharField()
@@ -40,22 +48,30 @@ class CompanySignUpSerializer(serializers.ModelSerializer):
     def validate_email(self, value):
         value = value.lower()
         if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError(
-                "Cette adresse email est déjà utilisée")
+            raise serializers.ValidationError("Cette adresse email est déjà utilisée")
         return value
 
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ('name', 'description', 'city', 'street', 'zip_code')
+        fields = ("name", "description", "city", "street", "zip_code")
 
 
 class SchoolSignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = School
-        fields = ('name', 'description', 'city', 'street', 'zip_code',
-                  'email', 'password', 'last_name', 'first_name')
+        fields = (
+            "name",
+            "description",
+            "city",
+            "street",
+            "zip_code",
+            "email",
+            "password",
+            "last_name",
+            "first_name",
+        )
 
     email = serializers.EmailField()
     password = serializers.CharField()
@@ -65,8 +81,7 @@ class SchoolSignUpSerializer(serializers.ModelSerializer):
     def validate_email(self, value):
         value = value.lower()
         if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError(
-                "Cette adresse email est déjà utilisée")
+            raise serializers.ValidationError("Cette adresse email est déjà utilisée")
         return value
 
 

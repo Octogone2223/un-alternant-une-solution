@@ -1,6 +1,6 @@
 import base64
 import datetime
-from http.client import UNAUTHORIZED
+from http.client import BAD_REQUEST, NOT_FOUND, UNAUTHORIZED, OK
 import json
 import os
 import secrets
@@ -35,407 +35,632 @@ api_key = "1291d676337d606bd0888a8ae018f72f"
 api_secret = "c216714c0f3ed0af7d3b915b86df7cb9"
 
 
+# Sign up view
 def sign_up(request):
-    if request.method == "POST":
-        body = request.body.decode("utf-8")
-        bodyJson = json.loads(body)
 
-        if bodyJson["accountType"] == "1":
-            companySerializer = CompanySignUpSerializer(data=bodyJson)
+    # If the user is already connected, he is redirected to the home page
+    if request.user is not None and request.user.is_authenticated:
+        return redirect("/")
+
+    # if user submit the form to sign up
+    if request.method == "POST":
+
+        # Get the body of the request
+        body = request.body.decode("utf-8")
+        body_json = json.loads(body)
+
+        # Check if the user is a company
+        if body_json["accountType"] == "1":
+
+            # Serialize the data company
+            company_serializer = CompanySignUpSerializer(data=body_json)
+
             try:
-                if companySerializer.is_valid():
+
+                # Check if the data is valid
+                if company_serializer.is_valid():
+
+                    # Create user from the data company whith the build in create method from django
                     user = User.objects.create_user(
-                        companySerializer.validated_data["email"],
-                        companySerializer.validated_data["password"],
+                        company_serializer.validated_data["email"],
+                        company_serializer.validated_data["password"],
                     )
 
-                    user.last_name = companySerializer.validated_data["last_name"]
-                    user.first_name = companySerializer.validated_data["first_name"]
-
+                    # Update the user with the data company and save it
+                    user.last_name = company_serializer.validated_data["last_name"]
+                    user.first_name = company_serializer.validated_data["first_name"]
                     user.save()
 
+                    # Create the company from the data company
                     company = Company.objects.create(
-                        name=companySerializer.validated_data["name"],
-                        description=companySerializer.validated_data["description"],
-                        city=companySerializer.validated_data["city"],
-                        street=companySerializer.validated_data["street"],
-                        zip_code=companySerializer.validated_data["zip_code"],
+                        name=company_serializer.validated_data["name"],
+                        description=company_serializer.validated_data["description"],
+                        city=company_serializer.validated_data["city"],
+                        street=company_serializer.validated_data["street"],
+                        zip_code=company_serializer.validated_data["zip_code"],
                     )
 
+                    # Insert the user in the company and save it
                     company.users.add(user)
-
                     company.save()
 
-                    return HttpResponse({"status": "success"})
-                else:
-                    return HttpResponseBadRequest(json.dumps(companySerializer.errors))
+                    # Return an HTTP Status code success
+                    return HttpResponse({"status": "success"}, status=OK)
 
+                # If the data is not valid, return an HTTP Status code bad request with the errors
+                else:
+                    return HttpResponseBadRequest(json.dumps(company_serializer.errors))
+
+            # If the email is already used, return an HTTP Status code bad request with the errors
             except serializers.ValidationError as e:
                 return HttpResponseBadRequest(json.dumps(e.detail))
 
-        elif bodyJson["accountType"] == "2":
-            schoolSerializer = SchoolSignUpSerializer(data=bodyJson)
+        # Check if the user is a company
+        elif body_json["accountType"] == "2":
+
+            # Serialize the data school
+            school_serializer = SchoolSignUpSerializer(data=body_json)
 
             try:
-                if schoolSerializer.is_valid():
+
+                # Check if the data is valid
+                if school_serializer.is_valid():
+
+                    # Create user from the data school whith the build in create method from django
                     user = User.objects.create_user(
-                        schoolSerializer.validated_data["email"],
-                        schoolSerializer.validated_data["password"],
+                        school_serializer.validated_data["email"],
+                        school_serializer.validated_data["password"],
                     )
 
-                    user.last_name = schoolSerializer.validated_data["last_name"]
-                    user.first_name = schoolSerializer.validated_data["first_name"]
-
+                    # Update the user with the data school and save it
+                    user.last_name = school_serializer.validated_data["last_name"]
+                    user.first_name = school_serializer.validated_data["first_name"]
                     user.save()
 
+                    # Create the school from the data school
                     school = School.objects.create(
-                        name=schoolSerializer.validated_data["name"],
-                        city=schoolSerializer.validated_data["city"],
-                        street=schoolSerializer.validated_data["street"],
-                        zip_code=schoolSerializer.validated_data["zip_code"],
+                        name=school_serializer.validated_data["name"],
+                        city=school_serializer.validated_data["city"],
+                        street=school_serializer.validated_data["street"],
+                        zip_code=school_serializer.validated_data["zip_code"],
                     )
 
+                    # Insert the user in the school and save it
                     school.users.add(user)
+                    school.save()
 
-                    return HttpResponse({"status": "success"})
+                    # Return an HTTP Status code success
+                    return HttpResponse({"status": "success"}, status=OK)
+
+                # If the data is not valid, return an HTTP Status code bad request with the errors
                 else:
-                    return HttpResponseBadRequest(json.dumps(schoolSerializer.errors))
+                    return HttpResponseBadRequest(json.dumps(school_serializer.errors))
 
+            # If the email is already used, return an HTTP Status code bad request with the errors
             except serializers.ValidationError as e:
                 return HttpResponseBadRequest(json.dumps(e.detail))
 
-        elif bodyJson["accountType"] == "3":
-            userSerializer = UserSignUpSerializer(data=bodyJson)
+        # Check if the user is a student
+        elif body_json["accountType"] == "3":
+
+            # Serialize the data student
+            user_serializer = UserSignUpSerializer(data=body_json)
 
             try:
-                if userSerializer.is_valid():
+
+                # Check if the data is valid
+                if user_serializer.is_valid():
+
+                    # Create user from the data (destructure the data) whith the build in create method from django
                     user = User.objects.create_user(
-                        **userSerializer.validated_data)
+                        **user_serializer.validated_data)
 
-                    student = Student.objects.create(user=user)
+                    # Create the student from the data student
+                    Student.objects.create(user=user)
 
-                    return HttpResponse({"status": "success"})
+                    # Return an HTTP Status code success
+                    return HttpResponse({"status": "success"}, status=OK)
+
+                # If the data is not valid, return an HTTP Status code bad request with the errors
                 else:
-                    return HttpResponseBadRequest(json.dumps(userSerializer.errors))
+                    return HttpResponseBadRequest(json.dumps(user_serializer.errors))
 
+            # If the email is already used, return an HTTP Status code bad request with the errors
             except serializers.ValidationError as e:
                 return HttpResponseBadRequest(json.dumps(e.detail))
 
+    # If the method is not POST, return the sign up page
     return render(request, "sign_up.html")
 
 
+# Sign in view
 def sign_in(request):
+
+    # If the user is already connected, he is redirected to the home page
+    if request.user is not None and request.user.is_authenticated:
+        return redirect("/")
+
+    # If the user submit the form to sign in
     if request.method == "POST":
+
+        # Get the body of the request
         body = request.body.decode("utf-8")
-        bodyJson = json.loads(body)
+        body_json = json.loads(body)
 
-        userSerializer = UserSignInSerializer(data=bodyJson)
+        # Serialize the user data
+        user_serializer = UserSignInSerializer(data=body_json)
 
-        if userSerializer.is_valid():
-            user = authenticate(**userSerializer.validated_data)
+        # Check if the data is valid
+        if user_serializer.is_valid():
 
+            # Authenticate the user with the build in authenticate method from django
+            user = authenticate(**user_serializer.validated_data)
+
+            # If the user credentials are valid, log the user in and redirect him to the home page
             if user is not None:
                 login(request, user)
                 return HttpResponse({"status": "success"})
 
+            # If the user credentials are not valid, return an HTTP Status code UNAUTHORIZED (NOT RETURN ERRORS !)
             else:
                 return HttpResponse({"status": "failure"}, status=UNAUTHORIZED)
 
+        # If the data form is not valid, return an HTTP Status code bad request with the errors
         else:
-            return HttpResponseBadRequest(json.dumps(userSerializer.errors))
+            return HttpResponseBadRequest(json.dumps(user_serializer.errors))
 
+    # If the method is not POST, return the sign in page
     return render(request, "sign_in.html")
 
 
-@login_required
-def private(request):
-    return render(request, "private.html")
-
-
+# Sign out view (must be logged in)
 @login_required
 def sign_out(request):
+
+    # Log the user out and redirect him to the home page
     logout(request)
     return redirect("/")
 
 
+# profile view (must be logged in)
 @login_required
 def user(request):
+
+    # if the user update his profile
     if request.method == "POST":
 
+        # Get the body of the request
         body = request.body.decode("utf-8")
-        bodyJson = json.loads(body)
+        body_json = json.loads(body)
 
-        userType = bodyJson["userType"]
-        userSerializer = UserSerializer(data=bodyJson["userSend"])
+        # Serialize the user data
+        userType = body_json["userType"]
+        user_serializer = UserSerializer(data=body_json["userSend"])
 
-        bodyJson["userSend"]["updated_at"] = datetime.datetime.now()
+        # Update the body with a new attribute 'update_at' using the current date
+        body_json["userSend"]["updated_at"] = datetime.datetime.now()
+
+        user_id = request.user.id
 
         try:
 
+            # Check if it's a company and the data is valid
             if (
-                userType == "Company" and userSerializer.is_valid() and CompanySerializer(data=bodyJson["dataSend"]).is_valid()
+                userType == "Company" and user_serializer.is_valid() and CompanySerializer(
+                    data=user_serializer["dataSend"]).is_valid()
             ):
 
-                idUser = bodyJson["userSend"]["id"]
-                companySerializer = CompanySerializer(
-                    data=bodyJson["dataSend"])
+                # serialize the data company
+                company_serializer = CompanySerializer(
+                    data=body_json["dataSend"])
 
                 try:
-                    if companySerializer.is_valid():
-                        User.objects.filter(id=idUser).update(
-                            **bodyJson["userSend"])
-                        Company.objects.filter(id=bodyJson["dataSend"]["id"]).update(
-                            **bodyJson["dataSend"]
+
+                    # Check if the data is valid
+                    if company_serializer.is_valid():
+
+                        # Update the user and the company with their serializer
+                        User.objects.filter(id=user_id).update(
+                            **user_serializer.validated_data
                         )
-                        return JsonResponse({"status": "success"})
+                        Company.objects.filter(id=user_id).update(
+                            **company_serializer.validated_data
+                        )
+
+                        # Return an HTTP Status code success
+                        return HttpResponse({"status": "success"}, status=OK)
+
+                    # If the data company is not valid, return an HTTP Status code bad request with the errors
                     else:
                         return HttpResponseBadRequest(
-                            json.dumps(companySerializer.errors)
+                            json.dumps(company_serializer.errors)
                         )
+
+                # if any error is raised by the serializer validator, return an HTTP Status code bad request with the errors
                 except serializers.ValidationError as e:
                     return HttpResponseBadRequest(json.dumps(e.detail))
 
+            # Check if it's a school and the data is valid
             elif (
-                userType == "School" and userSerializer.is_valid() and SchoolSerializer(data=bodyJson["dataSend"]).is_valid()
+                userType == "School" and user_serializer.is_valid(
+                ) and SchoolSerializer(data=body_json["dataSend"]).is_valid()
             ):
 
-                idUser = bodyJson["userSend"]["id"]
-                schoolSerializer = SchoolSerializer(data=bodyJson["dataSend"])
-                print(schoolSerializer.is_valid())
+                # serialize the data school
+                school_serializer = SchoolSerializer(
+                    data=body_json["dataSend"])
+
                 try:
-                    if schoolSerializer.is_valid():
-                        User.objects.filter(id=idUser).update(
-                            **bodyJson["userSend"])
-                        School.objects.filter(id=bodyJson["dataSend"]["id"]).update(
-                            **bodyJson["dataSend"]
+
+                    # Check if the data is valid
+                    if school_serializer.is_valid():
+
+                        # Update the user and the school with their serializer
+                        User.objects.filter(id=user_id).update(
+                            **user_serializer.validated_data
                         )
-                        return JsonResponse({"status": "success"})
+                        School.objects.filter(id=user_id).update(
+                            **school_serializer.validated_data
+                        )
+
+                        # Return an HTTP Status code success
+                        return HttpResponse({"status": "success"}, status=OK)
+
+                    # If the data school is not valid, return an HTTP Status code bad request with the errors
                     else:
                         return HttpResponseBadRequest(
-                            json.dumps(schoolSerializer.errors)
+                            json.dumps(school_serializer.errors)
                         )
+
+                # if any error is raised by the serializer validator, return an HTTP Status code bad request with the errors
                 except serializers.ValidationError as e:
                     return HttpResponseBadRequest(json.dumps(e.detail))
 
+            # Check if it's a student and the data is valid
             else:
-                idUser = bodyJson["userSend"]["id"]
-                cv_path = bodyJson["dataSend"]["cv_path"]
-                if bodyJson["dataSend"]["cv_file"]:
-                    pathCv = f"authentication/files/cv/public_{idUser}.{cv_path}"
-                    text_file = open(f"{settings.BASE_DIR}/{pathCv}", "wb")
-                    text_file.write(base64.b64decode(
-                        bodyJson["dataSend"]["cv_file"]))
+
+                # get the path of the actual profile picture
+                cv_path = user_serializer.validated_data["cv_path"]
+
+                # if the user has already profile picture
+                if cv_path is not None:
+
+                    # get the path of the actual profile picture
+                    server_path_to_cv = (
+                        f"authentication/files/cv/public_{user_id}.{cv_path}"
+                    )
+
+                    # replace the path of the actual profile picture by the new one
+                    text_file = open(
+                        f"{settings.BASE_DIR}/{server_path_to_cv}", "wb")
+                    text_file.write(
+                        base64.b64decode(
+                            user_serializer.validated_data["cv_path"])
+                    )
                     text_file.close()
 
-                bodyJson["dataSend"].pop("cv_file")
+                # after the cv is updated, create a student serializer from the body exluced the cv_path
+                body_json["dataSend"].pop("cv_file")
                 studentSerializer = StudentSerializer(
-                    data=bodyJson["dataSend"])
+                    data=body_json["dataSend"])
+
                 try:
+
+                    # Check if the data is valid
                     if studentSerializer.is_valid():
-                        # Model.objects.filter(id = 223).update(field1 = 2)
-                        User.objects.filter(id=idUser).update(
-                            **bodyJson["userSend"])
-                        Student.objects.filter(id=bodyJson["dataSend"]["id"]).update(
-                            **bodyJson["dataSend"]
+
+                        # Update the user and the student with their serializer
+                        User.objects.filter(id=user_id).update(
+                            **user_serializer.validated_data
                         )
-                        return JsonResponse({"status": "success"})
+                        Student.objects.filter(id=body_json["dataSend"]["id"]).update(
+                            **studentSerializer.validated_data
+                        )
+
+                        # Return an HTTP Status code success
+                        return HttpResponse({"status": "success"}, status=OK)
+
+                    # If the data student is not valid, return an HTTP Status code bad request with the errors
                     else:
                         return HttpResponseBadRequest(
                             json.dumps(studentSerializer.errors)
                         )
+
+                # if any error is raised by the serializer validator, return an HTTP Status code bad request with the errors
                 except serializers.ValidationError as e:
                     return HttpResponseBadRequest(json.dumps(e.detail))
 
+        # if any other error is raised by the serializer validator, return an HTTP Status code bad request with the errors
         except serializers.ValidationError as e:
             return HttpResponseBadRequest(json.dumps(e.detail))
 
-    userJSON = list(User.objects.filter(id=request.user.id).values())[0]
-    userType = request.user.getUserType()
+    # If the method is not POST, get all the user data and return it
+    user_data = list(User.objects.filter(id=request.user.id).values())[0]
+    user_type = request.user.getUserType()
     data = None
 
-    if userType == "Student":
+    if user_type == "Student":
         data = list(Student.objects.filter(user=request.user).values())[0]
-    elif userType == "Company":
+
+    elif user_type == "Company":
         data = list(Company.objects.filter(
             user=request.user).company.values())[0]
+
     else:
         data = list(School.objects.filter(
             user=request.user).school.values())[0]
-    return JsonResponse({"data": data, "user": userJSON, "userType": userType})
+
+    # return a json with the user data and the data of the user
+    return JsonResponse({"data": data, "user": user_data, "userType": user_type})
 
 
+# update the user password (must be logged in)
 @login_required
 def updatePassword(request):
     if request.method == "PATCH":
 
+        # get the body of the request
         body = request.body.decode("utf-8")
-        bodyJson = json.loads(body)
+        body_json = json.loads(body)
 
         try:
-            user = User.objects.get(pk=bodyJson["userSend"]["id"])
 
-            if user.check_password(bodyJson["userSend"]["passwordActual"]):
-                user.set_password(bodyJson["userSend"]["newPassword"])
+            # get the user of the request
+            user = User.objects.get(pk=request.user.id)
+
+            # check if the password is valid with the built-in django function, if valid ...
+            if user.check_password(body_json["userSend"]["passwordActual"]):
+
+                # ... update the password with the new one and return an HTTP Status code success
+                user.set_password(body_json["userSend"]["newPassword"])
                 user.save()
-                return JsonResponse({"status": "success"})
+                return HttpResponse({"status": "success"}, status=OK)
+
+            # if the password is not valid, return an custom error to prevent leak of information
             else:
                 return JsonResponse(
                     {
-                        "status": "none",
+                        "status": "failure",
                         "errors": {
                             "current": ["Le mot de passe actuel ne correspond pas"]
                         },
-                    }
+                    },
                 )
 
+        # if the user is not found, return an HTTP Status code not found
         except User.DoesNotExist:
-            raise Http404("Given query not found....")
+            raise Http404("User not found")
 
 
-# TODO: Faire le fameux DjangoGuardian (GET pour tous le monde et POST pour les connectés)
-# @login_required(login_url='sign_in')
+# get the cv of a user
 def cvPublic(request, id):
-
     try:
+
+        # get the user by id from the url parameter
         user = Student.objects.get(user=id)
+
         try:
-            pathCv = f"authentication/files/cv/public_{id}.{user.cv_path}"
-            return FileResponse(open(f"{settings.BASE_DIR}/{pathCv}", "rb"))
+
+            # get the cv path from the user
+            cv_path = f"authentication/files/cv/public_{id}.{user.cv_path}"
+
+            # return the cv file
+            return FileResponse(open(f"{settings.BASE_DIR}/{cv_path}", "rb"))
+
+        # if the cv is not found, return an HTTP Status code not found
         except IOError:
-            return HttpResponse({"notExist": "failure"}, status=UNAUTHORIZED)
+            return HttpResponse({"notExist": "failure"}, status=NOT_FOUND)
+
+    # if the user is not found, return an HTTP Status code not found
     except Student.DoesNotExist:
-        return HttpResponse({"notExist": "failure"}, status=UNAUTHORIZED)
+        return HttpResponse({"notExist": "failure"}, status=NOT_FOUND)
 
 
-# TODO: Faire le fameux DjangoGuardian (GET pour tous le monde et POST pour les connectés)
-
-
+# profile picture view
 def photo(request, id):
 
+    # if the method is PUT, update the profile picture
     if request.method == "PUT":
 
+        # get the body of the request
         body = request.body.decode("utf-8")
-        bodyJson = json.loads(body)
+        body_json = json.loads(body)
 
+        # get the user by id from the url parameter
         user = User.objects.get(id=id)
+
+        # if the path of the profile picture exists
         if os.path.exists(
             f"{settings.BASE_DIR}/authentication/files/picture/{id}.{user.extension_picture}"
         ):
+
+            # delete the old profile picture
             os.remove(
                 f"{settings.BASE_DIR}/authentication/files/picture/{id}.{user.extension_picture}"
             )
 
-        pathCv = f'authentication/files/picture/{id}.{bodyJson["extensionFile"]}'
-        text_file = open(f"{settings.BASE_DIR}/{pathCv}", "wb")
-        text_file.write(base64.b64decode(bodyJson["filePhoto"]))
+        # save the new profile picture
+        path_cv = f'authentication/files/picture/{id}.{body_json["extensionFile"]}'
+        text_file = open(f"{settings.BASE_DIR}/{path_cv}", "wb")
+        text_file.write(base64.b64decode(body_json["filePhoto"]))
         text_file.close()
 
+        # update the user with the new profile picture
         User.objects.filter(id=id).update(
-            extension_picture=bodyJson["extensionFile"])
-        return JsonResponse({"status": "success"})
+            extension_picture=body_json["extensionFile"])
 
+        # return an HTTP Status code success
+        return HttpResponse({"status": "success"}, status=OK)
+
+    # if the method is GET, get the profile picture
     try:
+
+        # get the user by id from the url parameter
         user = User.objects.get(id=id)
+
         try:
-            pathImg = f"authentication/files/picture/{id}.{user.extension_picture}"
-            return FileResponse(open(f"{settings.BASE_DIR}/{pathImg}", "rb"))
+
+            # get the profile picture path from the user and return it
+            path_img = f"authentication/files/picture/{id}.{user.extension_picture}"
+            return FileResponse(open(f"{settings.BASE_DIR}/{path_img}", "rb"))
+
+        # if the profile picture is not found, return an HTTP Status code not found
         except IOError:
             return FileResponse(
                 open(f"{settings.BASE_DIR}/static/img/avatar.png", "rb")
             )
+
+    # if the user is not found, return an HTTP Status code not found
     except User.DoesNotExist:
-        return FileResponse(open(f"{settings.BASE_DIR}/static/img/avatar.png", "rb"))
+        return Http404("User not found")
 
 
+# get the profile picture of a school
 def school_photo(request, id):
+
+    # if the method is PUT, update the profile picture
     if request.method == "PUT":
 
+        # get the body of the request
         body = request.body.decode("utf-8")
-        bodyJson = json.loads(body)
+        body_json = json.loads(body)
 
+        # get the user by id from the url parameter
         school = School.objects.get(id=id)
+
+        # if the path of the profile picture exists
         if os.path.exists(
             f"{settings.BASE_DIR}/authentication/files/picture/school/{id}.{school.extension_picture}"
         ):
+
+            # delete the old profile picture
             os.remove(
                 f"{settings.BASE_DIR}/authentication/files/picture/school/{id}.{school.extension_picture}"
             )
 
-        pathCv = f'authentication/files/picture/school/{id}.{bodyJson["extensionFile"]}'
-        text_file = open(f"{settings.BASE_DIR}/{pathCv}", "wb")
-        text_file.write(base64.b64decode(bodyJson["fileEntity"]))
+        # save the new profile picture
+        path_cv = (
+            f'authentication/files/picture/school/{id}.{body_json["extensionFile"]}'
+        )
+        text_file = open(f"{settings.BASE_DIR}/{path_cv}", "wb")
+        text_file.write(base64.b64decode(body_json["fileEntity"]))
         text_file.close()
 
+        # update the school with the new profile picture
         School.objects.filter(id=id).update(
-            extension_picture=bodyJson["extensionFile"])
-        return JsonResponse({"status": "success"})
+            extension_picture=body_json["extensionFile"]
+        )
+
+        # return an HTTP Status code success
+        return HttpResponse({"status": "success"}, status=OK)
 
     try:
+
+        # get the school by id from the url parameter
         school = School.objects.get(id=id)
+
         try:
-            pathImg = (
+
+            # get the profile picture path from the school and return it
+            path_img = (
                 f"authentication/files/picture/school/{id}.{school.extension_picture}"
             )
-            return FileResponse(open(f"{settings.BASE_DIR}/{pathImg}", "rb"))
+            return FileResponse(open(f"{settings.BASE_DIR}/{path_img}", "rb"))
+
+        # if the profile picture is not found, return an HTTP Status code not found
         except IOError:
-            return HttpResponse({"notExist": "failure"}, status=UNAUTHORIZED)
+            return HttpResponse({"notExist": "failure"}, status=NOT_FOUND)
+
+    # if the school is not found, return an HTTP Status code not found
     except School.DoesNotExist:
-        return FileResponse(open(f"{settings.BASE_DIR}/static/img/avatar.png", "rb"))
+        return Http404("School not found")
+
+
+# get the profile picture of a company
 
 
 def company_photo(request, id):
+
+    # if the method is PUT, update the profile picture
     if request.method == "PUT":
 
+        # get the body of the request
         body = request.body.decode("utf-8")
-        bodyJson = json.loads(body)
+        body_json = json.loads(body)
 
+        # get the company by id from the url parameter
         company = Company.objects.get(id=id)
+
+        # if the path of the profile picture exists
         if os.path.exists(
             f"{settings.BASE_DIR}/authentication/files/picture/company/{id}.{company.extension_picture}"
         ):
+
+            # delete the old profile picture
             os.remove(
                 f"{settings.BASE_DIR}/authentication/files/picture/company/{id}.{company.extension_picture}"
             )
 
-        pathCv = (
-            f'authentication/files/picture/company/{id}.{bodyJson["extensionFile"]}'
+        # save the new profile picture
+        path_cv = (
+            f'authentication/files/picture/company/{id}.{body_json["extensionFile"]}'
         )
-        text_file = open(f"{settings.BASE_DIR}/{pathCv}", "wb")
-        text_file.write(base64.b64decode(bodyJson["fileEntity"]))
+        text_file = open(f"{settings.BASE_DIR}/{path_cv}", "wb")
+        text_file.write(base64.b64decode(body_json["fileEntity"]))
         text_file.close()
 
+        # update the company with the new profile picture
         Company.objects.filter(id=id).update(
-            extension_picture=bodyJson["extensionFile"]
+            extension_picture=body_json["extensionFile"]
         )
+
+        # return an HTTP Status code success
         return JsonResponse({"status": "success"})
+
     try:
+
+        # get the company by id from the url parameter
         company = Company.objects.get(id=id)
+
         try:
-            pathImg = (
+
+            # get the profile picture path from the company and return it
+            path_img = (
                 f"authentication/files/picture/company/{id}.{company.extension_picture}"
             )
-            return FileResponse(open(f"{settings.BASE_DIR}/{pathImg}", "rb"))
+            return FileResponse(open(f"{settings.BASE_DIR}/{path_img}", "rb"))
+
+        # if the profile picture is not found, return an HTTP Status code not found
         except IOError:
-            return HttpResponse({"notExist": "failure"}, status=UNAUTHORIZED)
+            return HttpResponse({"notExist": "failure"}, status=NOT_FOUND)
+
+    # if the company is not found, return an HTTP Status code not found
     except Company.DoesNotExist:
-        return FileResponse(open(f"{settings.BASE_DIR}/static/img/avatar.png", "rb"))
+        return Http404("Company not found")
 
 
+# forgot password view
 def forgotPassword(request):
 
+    # if the method is POST, send an email to the user with a link to reset his password
     if request.method == "POST":
 
+        # get the body of the request
         body = request.body.decode("utf-8")
-        bodyJson = json.loads(body)
+        body_json = json.loads(body)
 
         try:
-            user = User.objects.get(email=bodyJson["email"])
 
+            # get the user by email from the body
+            user = User.objects.get(email=body_json["email"])
+
+            # generate a temporary password and save it
             alphabet = string.ascii_letters + string.digits
             password = "".join(secrets.choice(alphabet) for i in range(10))
             user.set_password(password)
             user.save()
 
+            # send an email to the user with his temporary password
             mailjet = Client(auth=(api_key, api_secret), version="v3.1")
             data = {
                 "Messages": [
@@ -455,18 +680,24 @@ def forgotPassword(request):
                 ]
             }
             result = mailjet.send.create(data=data)
-            print(result.json())
+
+            # return an HTTP Status code success if the email is sent
             if str(result.status_code) == "200":
-                return JsonResponse({"status": "success"})
+                return HttpResponse({"status": "success"}, status=OK)
+
+            # if the email is not sent, return an HTTP Status code bad request
             else:
-                return JsonResponse(
+                return HttpResponse(
                     {
-                        "status": "none",
+                        "status": "failure",
                         "message": "Il y a eu un problème lors de l'envoie du mail",
-                    }
+                    },
+                    status=BAD_REQUEST,
                 )
 
+        # if the user is not found, return an HTTP Status code not found
         except User.DoesNotExist:
-            return JsonResponse(
-                {"status": "none", "message": "Aucun utilisateur trouvé"}
+            return HttpResponse(
+                {"status": "failure", "message": "Aucun utilisateur trouvé"},
+                status=NOT_FOUND,
             )

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-25 15:30+0000\n"
+"POT-Creation-Date: 2022-03-31 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,11 +193,7 @@ msgstr "Apprentiship"
 msgid "Courses"
 msgstr "Courses"
 
-#: core/templates/components/navbar.html:23
-msgid "Assistance"
-msgstr "Assistance"
-
-#: core/templates/components/navbar.html:136
+#: core/templates/components/navbar.html:137
 msgid "Subscribe to Push Messaging"
 msgstr "Get the WebPush"
 
@@ -289,11 +285,11 @@ msgstr "See my offers"
 msgid "Créer une offre"
 msgstr "Create an offer"
 
-#: core/templates/profile.html:24
+#: core/templates/profile.html:32
 msgid "Voir mes candidatures"
 msgstr "See my applications"
 
-#: core/templates/profile.html:53
+#: core/templates/profile.html:61
 msgid "Valider"
 msgstr "Validate"
 
@@ -308,3 +304,6 @@ msgstr "Student"
 #: core/templates/student_detail.html:25
 msgid "Télécharger le CV"
 msgstr "Download the CV"
+
+#~ msgid "Assistance"
+#~ msgstr "Assistance"
