@@ -64,8 +64,7 @@ def student_detail(request, student_id):
 
         # return the student and the user to the student_detail page
         return render(
-            request, "student_detail.html", {
-                "student": student, "user_info": user_info}
+            request, "student_detail.html", {"student": student, "user_info": user_info}
         )
 
     # if the student does not exist, return a 404 error
@@ -144,6 +143,7 @@ def profile(request):
 
     # return the user data to the profile page
     return render(
-        request, "profile.html", {"data": data,
-                                  "user": user_data, "userType": user_type}
+        request,
+        "profile.html",
+        {"data": data, "user": user_data, "userType": user_type},
     )
