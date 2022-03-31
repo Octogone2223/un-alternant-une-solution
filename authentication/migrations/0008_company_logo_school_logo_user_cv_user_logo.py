@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0007_student_course'),
+        ("authentication", "0007_student_course"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='company',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='logos_company'),
+            model_name="company",
+            name="logo",
+            field=models.ImageField(blank=True, null=True, upload_to="logos_company"),
         ),
         migrations.AddField(
-            model_name='school',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='logos_school'),
+            model_name="school",
+            name="logo",
+            field=models.ImageField(blank=True, null=True, upload_to="logos_school"),
         ),
         migrations.AddField(
-            model_name='user',
-            name='cv',
-            field=models.FileField(blank=True, null=True, upload_to='cv'),
+            model_name="user",
+            name="cv",
+            field=models.FileField(blank=True, null=True, upload_to="cv"),
         ),
         migrations.AddField(
-            model_name='user',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='logos'),
+            model_name="user",
+            name="logo",
+            field=models.ImageField(blank=True, null=True, upload_to="logos"),
         ),
     ]

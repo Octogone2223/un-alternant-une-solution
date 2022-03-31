@@ -6,28 +6,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0009_remove_user_cv_student_cv'),
+        ("authentication", "0009_remove_user_cv_student_cv"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='company',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='authentication/files/picture/company'),
+            model_name="company",
+            name="logo",
+            field=models.ImageField(
+                blank=True, null=True, upload_to="authentication/files/picture/company"
+            ),
         ),
         migrations.AlterField(
-            model_name='school',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='authentication/files/picture/school'),
+            model_name="school",
+            name="logo",
+            field=models.ImageField(
+                blank=True, null=True, upload_to="authentication/files/picture/school"
+            ),
         ),
         migrations.AlterField(
-            model_name='student',
-            name='cv',
-            field=models.FileField(blank=True, null=True, upload_to='authentication/files/cv'),
+            model_name="student",
+            name="cv",
+            field=models.FileField(
+                blank=True, null=True, upload_to="authentication/files/cv"
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='authentication/files/picture'),
+            model_name="user",
+            name="logo",
+            field=models.ImageField(
+                blank=True, null=True, upload_to="authentication/files/picture"
+            ),
         ),
     ]

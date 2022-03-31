@@ -111,7 +111,7 @@ def create_course(request):
     if request.method == "POST":
 
         # if user is logged in as a school, raise an Unauthorized error
-        if(request.user.getUserType() != "school"):
+        if request.user.getUserType() != "school":
             return HttpResponse("You are not a school", status=UNAUTHORIZED)
 
         # get the data from the request

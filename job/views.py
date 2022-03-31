@@ -53,7 +53,7 @@ def create_job(request):
     if request.method == "POST":
 
         # if not logged in as a company raise unauthorized
-        if(request.user.getUserType() != "Company"):
+        if request.user.getUserType() != "Company":
             return HttpResponse("You are not a school", status=UNAUTHORIZED)
 
         # get the body of the request
@@ -112,7 +112,7 @@ def update_job(request, job_id):
     if request.method == "PUT":
 
         # if not logged in as a company raise unauthorized
-        if(request.user.getUserType() != "Company"):
+        if request.user.getUserType() != "Company":
             return HttpResponse("You are not a school", status=UNAUTHORIZED)
 
         # get the body of the request
@@ -129,7 +129,8 @@ def update_job(request, job_id):
 
                 # get the job from the database and update it with the new data
                 job = Job.objects.get(id=job_id).update(
-                    **job_update_serializer.validated_data)
+                    **job_update_serializer.validated_data
+                )
                 job.save()
 
                 # return an success message
@@ -166,7 +167,7 @@ def update_job(request, job_id):
 
     # if job does not exist return an error
     except Job.DoesNotExist:
-        return HttpResponseBadRequest('Job does not exist')
+        return HttpResponseBadRequest("Job does not exist")
 
 
 # Used to fetch the details of a specific job (api)
@@ -195,7 +196,7 @@ def preview_job(request, job_id):
 
     # if job does not exist return an error
     except Job.DoesNotExist:
-        return HttpResponseBadRequest('Job does not exist')
+        return HttpResponseBadRequest("Job does not exist")
 
 
 # method to handle the upload of a file (cv and motivation letter)
