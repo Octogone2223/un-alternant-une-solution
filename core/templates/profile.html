@@ -341,6 +341,7 @@
               return response.json()
             })
             .then((json) => {
+              console.log(json);
               if (json.status === 'success') {
                 Toastify({
                   text: "Votre mot de passe a été mis à jour",
