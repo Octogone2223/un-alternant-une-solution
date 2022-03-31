@@ -393,35 +393,36 @@
 
 
       this.fileEntity = document.getElementById("fileEntity");
-
-      this.fileEntity.onchange = async () => {
-
-        fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`, {
-          method: 'PUT',
-          headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
-          },
-          body: JSON.stringify({
-            entitySend: {
-              id: this.idD
+      if (this.fileEntity) {
+        this.fileEntity.onchange = async () => {
+  
+          fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`, {
+            method: 'PUT',
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
             },
-            fileEntity: await this.readFile(this.fileEntity.files[0]),
-            extensionFile: this.fileEntity.files[0].type.split('/')[1].split('+')[0]
-          }),
-        })
-          .then((response) => {
-            return response.json()
+            body: JSON.stringify({
+              entitySend: {
+                id: this.idD
+              },
+              fileEntity: await this.readFile(this.fileEntity.files[0]),
+              extensionFile: this.fileEntity.files[0].type.split('/')[1].split('+')[0]
+            }),
           })
-          .then((json) => {
-            if (json.status === 'success') {
-              Toastify({
-                text: "Votre photo a été mis à jour",
-                duration: 3000
-              }).showToast();
-              document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" +
-                new Date().getTime();
-            }
-          })
+            .then((response) => {
+              return response.json()
+            })
+            .then((json) => {
+              if (json.status === 'success') {
+                Toastify({
+                  text: "Votre photo a été mis à jour",
+                  duration: 3000
+                }).showToast();
+                document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" +
+                  new Date().getTime();
+              }
+            })
+        }
       }
     },
     watch: {}
