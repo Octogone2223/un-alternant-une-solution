@@ -36,7 +36,10 @@
                                 <i class="fas fa-eye mx-3 cursor-pointer"></i>
                             </a>
                             <a href="/jobs/{{job.id}}/inspect">
-                                <i class="fas fa-eye mx-3 cursor-pointer"></i>
+                                <i class="fas fa-table mx-3 cursor-pointer"></i>
+                            </a>
+                            <a href="/jobs/update/{{job.id}}">
+                                <i class="fas fa-pencil mx-3 cursor-pointer"></i>
                             </a>
                             <label class="fas fa-trash-alt mx-3 cursor-pointer " for="my-modal"></label>
 
@@ -44,7 +47,8 @@
                             <div class="modal">
                                 <div class="modal-box">
                                     <h3 class="font-bold text-lg">{% trans "Une confirmation est nécessaire" %}</h3>
-                                    <p class="my-3">{% trans "Voulez-vous vraiment supprimer cette offre d'alternance ?" %}</p>
+                                    <p class="my-3">
+                                        {% trans "Voulez-vous vraiment supprimer cette offre d'alternance ?" %}</p>
                                     <div class="modal-action">
                                         <label for="my-modal" class="btn">{% trans "Non !" %}</label>
                                         <button class="btn btn-outline btn-error" data-job-id="{{job.id}}"

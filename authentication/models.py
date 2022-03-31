@@ -72,6 +72,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     first_name = models.CharField(max_length=75, verbose_name="First Name")
     last_name = models.CharField(max_length=75, verbose_name="Last Name")
+    logo = models.ImageField(
+        upload_to="authentication/files/picture", blank=True, null=True
+    )
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
     )
@@ -90,13 +93,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     # custom method to get the type of the user
     def getUserType(self):
         if self.isStudent():
-            return "Student"
+            return "student"
 
         elif self.isCompany():
-            return "Company"
+            return "company"
 
         else:
-            return "School"
+            return "school"
 
     # custom method to check if the user is a student and if exists
     def isStudent(student):
@@ -128,6 +131,9 @@ class Company(models.Model):
     description = models.TextField(verbose_name="Company Description", null=True)
     city = models.CharField(max_length=75, verbose_name="City", null=True)
     street = models.CharField(max_length=75, verbose_name="Street", null=True)
+    logo = models.ImageField(
+        upload_to="authentication/files/picture/company", blank=True, null=True
+    )
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code", null=True)
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
@@ -147,6 +153,7 @@ class Student(models.Model):
     linkedin_url = models.URLField(verbose_name="LinkedIn URL", null=True)
     cv_path = models.CharField(max_length=255, verbose_name="CV Path", null=True)
     description = models.TextField(verbose_name="Description", null=True)
+    cv = models.FileField(upload_to="authentication/files/cv", blank=True, null=True)
 
     # RELATIONS
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -163,6 +170,9 @@ class School(models.Model):
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
+    logo = models.ImageField(
+        upload_to="authentication/files/picture/school", blank=True, null=True
+    )
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
     )

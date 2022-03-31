@@ -2,20 +2,19 @@ import base64
 import datetime
 from http.client import BAD_REQUEST, NOT_FOUND, UNAUTHORIZED, OK
 import json
-import os
 import secrets
 import string
 from django.conf import settings
 from django.http import (
     FileResponse,
     Http404,
-    HttpResponse,
     HttpResponseBadRequest,
     JsonResponse,
 )
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
 from authentication.models import Company, Student, User, School
 from .serializers import (
     CompanySerializer,
@@ -37,10 +36,6 @@ api_secret = "c216714c0f3ed0af7d3b915b86df7cb9"
 
 # Sign up view
 def sign_up(request):
-
-    # If the user is already connected, he is redirected to the home page
-    if request.user is not None and request.user.is_authenticated:
-        return redirect("/")
 
     # if user submit the form to sign up
     if request.method == "POST":
@@ -85,7 +80,7 @@ def sign_up(request):
                     company.save()
 
                     # Return an HTTP Status code success
-                    return HttpResponse({"status": "success"}, status=OK)
+                    return JsonResponse({"status": "success"}, status=OK)
 
                 # If the data is not valid, return an HTTP Status code bad request with the errors
                 else:
@@ -130,7 +125,7 @@ def sign_up(request):
                     school.save()
 
                     # Return an HTTP Status code success
-                    return HttpResponse({"status": "success"}, status=OK)
+                    return JsonResponse({"status": "success"}, status=OK)
 
                 # If the data is not valid, return an HTTP Status code bad request with the errors
                 else:
@@ -159,7 +154,7 @@ def sign_up(request):
                     Student.objects.create(user=user)
 
                     # Return an HTTP Status code success
-                    return HttpResponse({"status": "success"}, status=OK)
+                    return JsonResponse({"status": "success"}, status=OK)
 
                 # If the data is not valid, return an HTTP Status code bad request with the errors
                 else:
@@ -175,10 +170,6 @@ def sign_up(request):
 
 # Sign in view
 def sign_in(request):
-
-    # If the user is already connected, he is redirected to the home page
-    if request.user is not None and request.user.is_authenticated:
-        return redirect("/")
 
     # If the user submit the form to sign in
     if request.method == "POST":
@@ -199,11 +190,11 @@ def sign_in(request):
             # If the user credentials are valid, log the user in and redirect him to the home page
             if user is not None:
                 login(request, user)
-                return HttpResponse({"status": "success"})
+                return JsonResponse({"status": "success"})
 
             # If the user credentials are not valid, return an HTTP Status code UNAUTHORIZED (NOT RETURN ERRORS !)
             else:
-                return HttpResponse({"status": "failure"}, status=UNAUTHORIZED)
+                return JsonResponse({"status": "failure"}, status=UNAUTHORIZED)
 
         # If the data form is not valid, return an HTTP Status code bad request with the errors
         else:
@@ -232,7 +223,6 @@ def user(request):
         # Get the body of the request
         body = request.body.decode("utf-8")
         body_json = json.loads(body)
-
         # Serialize the user data
         userType = body_json["userType"]
         user_serializer = UserSerializer(data=body_json["userSend"])
@@ -243,11 +233,10 @@ def user(request):
         user_id = request.user.id
 
         try:
-
             # Check if it's a company and the data is valid
             if (
-                userType == "Company" and user_serializer.is_valid() and CompanySerializer(
-                    data=user_serializer["dataSend"]).is_valid()
+                userType == "company" and user_serializer.is_valid() and CompanySerializer(
+                    data=body_json["dataSend"]).is_valid()
             ):
 
                 # serialize the data company
@@ -263,12 +252,12 @@ def user(request):
                         User.objects.filter(id=user_id).update(
                             **user_serializer.validated_data
                         )
-                        Company.objects.filter(id=user_id).update(
+                        Company.objects.filter(id=body_json["dataSend"]["id"]).update(
                             **company_serializer.validated_data
                         )
 
                         # Return an HTTP Status code success
-                        return HttpResponse({"status": "success"}, status=OK)
+                        return JsonResponse({"status": "success"}, status=OK)
 
                     # If the data company is not valid, return an HTTP Status code bad request with the errors
                     else:
@@ -282,7 +271,7 @@ def user(request):
 
             # Check if it's a school and the data is valid
             elif (
-                userType == "School" and user_serializer.is_valid(
+                userType == "school" and user_serializer.is_valid(
                 ) and SchoolSerializer(data=body_json["dataSend"]).is_valid()
             ):
 
@@ -299,12 +288,12 @@ def user(request):
                         User.objects.filter(id=user_id).update(
                             **user_serializer.validated_data
                         )
-                        School.objects.filter(id=user_id).update(
+                        School.objects.filter(id=body_json["dataSend"]["id"]).update(
                             **school_serializer.validated_data
                         )
 
                         # Return an HTTP Status code success
-                        return HttpResponse({"status": "success"}, status=OK)
+                        return JsonResponse({"status": "success"}, status=OK)
 
                     # If the data school is not valid, return an HTTP Status code bad request with the errors
                     else:
@@ -317,29 +306,13 @@ def user(request):
                     return HttpResponseBadRequest(json.dumps(e.detail))
 
             # Check if it's a student and the data is valid
-            else:
+            elif user_serializer.is_valid():
 
                 # get the path of the actual profile picture
-                cv_path = user_serializer.validated_data["cv_path"]
+                cv_path = body_json["dataSend"]["cv_path"]
+                # get File Base64 object
+                cv_file = body_json["dataSend"]["cv_file"]
 
-                # if the user has already profile picture
-                if cv_path is not None:
-
-                    # get the path of the actual profile picture
-                    server_path_to_cv = (
-                        f"authentication/files/cv/public_{user_id}.{cv_path}"
-                    )
-
-                    # replace the path of the actual profile picture by the new one
-                    text_file = open(
-                        f"{settings.BASE_DIR}/{server_path_to_cv}", "wb")
-                    text_file.write(
-                        base64.b64decode(
-                            user_serializer.validated_data["cv_path"])
-                    )
-                    text_file.close()
-
-                # after the cv is updated, create a student serializer from the body exluced the cv_path
                 body_json["dataSend"].pop("cv_file")
                 studentSerializer = StudentSerializer(
                     data=body_json["dataSend"])
@@ -357,8 +330,21 @@ def user(request):
                             **studentSerializer.validated_data
                         )
 
+                        # If the user has a profile picture, update it
+                        if cv_path is not None and cv_file is not None:
+
+                            student: Student = Student.objects.get(
+                                id=body_json["dataSend"]["id"]
+                            )
+                            student.cv.save(
+                                f"public_{user_id}.{cv_path}",
+                                ContentFile(base64.b64decode(cv_file)),
+                                save=True,
+                            )
+                            student.save()
+
                         # Return an HTTP Status code success
-                        return HttpResponse({"status": "success"}, status=OK)
+                        return JsonResponse({"status": "success"}, status=OK)
 
                     # If the data student is not valid, return an HTTP Status code bad request with the errors
                     else:
@@ -369,7 +355,8 @@ def user(request):
                 # if any error is raised by the serializer validator, return an HTTP Status code bad request with the errors
                 except serializers.ValidationError as e:
                     return HttpResponseBadRequest(json.dumps(e.detail))
-
+            else:
+                raise Http404("N'existe Pas")
         # if any other error is raised by the serializer validator, return an HTTP Status code bad request with the errors
         except serializers.ValidationError as e:
             return HttpResponseBadRequest(json.dumps(e.detail))
@@ -379,10 +366,10 @@ def user(request):
     user_type = request.user.getUserType()
     data = None
 
-    if user_type == "Student":
+    if user_type == "student":
         data = list(Student.objects.filter(user=request.user).values())[0]
 
-    elif user_type == "Company":
+    elif user_type == "company":
         data = list(Company.objects.filter(
             user=request.user).company.values())[0]
 
@@ -414,7 +401,7 @@ def updatePassword(request):
                 # ... update the password with the new one and return an HTTP Status code success
                 user.set_password(body_json["userSend"]["newPassword"])
                 user.save()
-                return HttpResponse({"status": "success"}, status=OK)
+                return JsonResponse({"status": "success"}, status=OK)
 
             # if the password is not valid, return an custom error to prevent leak of information
             else:
@@ -429,7 +416,7 @@ def updatePassword(request):
 
         # if the user is not found, return an HTTP Status code not found
         except User.DoesNotExist:
-            raise Http404("User not found")
+            raise Http404("Student not found")
 
 
 # get the cv of a user
@@ -449,11 +436,11 @@ def cvPublic(request, id):
 
         # if the cv is not found, return an HTTP Status code not found
         except IOError:
-            return HttpResponse({"notExist": "failure"}, status=NOT_FOUND)
+            return JsonResponse({"notExist": "failure"}, status=NOT_FOUND)
 
     # if the user is not found, return an HTTP Status code not found
     except Student.DoesNotExist:
-        return HttpResponse({"notExist": "failure"}, status=NOT_FOUND)
+        return JsonResponse({"notExist": "failure"}, status=NOT_FOUND)
 
 
 # profile picture view
@@ -461,36 +448,20 @@ def photo(request, id):
 
     # if the method is PUT, update the profile picture
     if request.method == "PUT":
-
         # get the body of the request
         body = request.body.decode("utf-8")
         body_json = json.loads(body)
 
         # get the user by id from the url parameter
-        user = User.objects.get(id=id)
-
-        # if the path of the profile picture exists
-        if os.path.exists(
-            f"{settings.BASE_DIR}/authentication/files/picture/{id}.{user.extension_picture}"
-        ):
-
-            # delete the old profile picture
-            os.remove(
-                f"{settings.BASE_DIR}/authentication/files/picture/{id}.{user.extension_picture}"
-            )
-
-        # save the new profile picture
-        path_cv = f'authentication/files/picture/{id}.{body_json["extensionFile"]}'
-        text_file = open(f"{settings.BASE_DIR}/{path_cv}", "wb")
-        text_file.write(base64.b64decode(body_json["filePhoto"]))
-        text_file.close()
-
-        # update the user with the new profile picture
-        User.objects.filter(id=id).update(
-            extension_picture=body_json["extensionFile"])
-
+        user: User = User.objects.get(id=id)
+        user.logo.save(
+            f"{id}.{body_json['extensionFile']}",
+            ContentFile(base64.b64decode(body_json["filePhoto"])),
+            save=True,
+        )
+        user.save()
         # return an HTTP Status code success
-        return HttpResponse({"status": "success"}, status=OK)
+        return JsonResponse({"status": "success"}, status=OK)
 
     # if the method is GET, get the profile picture
     try:
@@ -501,7 +472,7 @@ def photo(request, id):
         try:
 
             # get the profile picture path from the user and return it
-            path_img = f"authentication/files/picture/{id}.{user.extension_picture}"
+            path_img = user.logo.url
             return FileResponse(open(f"{settings.BASE_DIR}/{path_img}", "rb"))
 
         # if the profile picture is not found, return an HTTP Status code not found
@@ -512,7 +483,7 @@ def photo(request, id):
 
     # if the user is not found, return an HTTP Status code not found
     except User.DoesNotExist:
-        return Http404("User not found")
+        raise Http404("User not found")
 
 
 # get the profile picture of a school
@@ -526,33 +497,15 @@ def school_photo(request, id):
         body_json = json.loads(body)
 
         # get the user by id from the url parameter
-        school = School.objects.get(id=id)
-
-        # if the path of the profile picture exists
-        if os.path.exists(
-            f"{settings.BASE_DIR}/authentication/files/picture/school/{id}.{school.extension_picture}"
-        ):
-
-            # delete the old profile picture
-            os.remove(
-                f"{settings.BASE_DIR}/authentication/files/picture/school/{id}.{school.extension_picture}"
-            )
-
-        # save the new profile picture
-        path_cv = (
-            f'authentication/files/picture/school/{id}.{body_json["extensionFile"]}'
+        school: School = School.objects.get(id=id)
+        school.logo.save(
+            f"{id}.{body_json['extensionFile']}",
+            ContentFile(base64.b64decode(body_json["fileEntity"])),
+            save=True,
         )
-        text_file = open(f"{settings.BASE_DIR}/{path_cv}", "wb")
-        text_file.write(base64.b64decode(body_json["fileEntity"]))
-        text_file.close()
-
-        # update the school with the new profile picture
-        School.objects.filter(id=id).update(
-            extension_picture=body_json["extensionFile"]
-        )
-
+        school.save()
         # return an HTTP Status code success
-        return HttpResponse({"status": "success"}, status=OK)
+        return JsonResponse({"status": "success"}, status=OK)
 
     try:
 
@@ -560,20 +513,19 @@ def school_photo(request, id):
         school = School.objects.get(id=id)
 
         try:
-
             # get the profile picture path from the school and return it
-            path_img = (
-                f"authentication/files/picture/school/{id}.{school.extension_picture}"
-            )
+            path_img = school.logo.url
             return FileResponse(open(f"{settings.BASE_DIR}/{path_img}", "rb"))
 
         # if the profile picture is not found, return an HTTP Status code not found
         except IOError:
-            return HttpResponse({"notExist": "failure"}, status=NOT_FOUND)
+            return FileResponse(
+                open(f"{settings.BASE_DIR}/static/img/avatar.png", "rb")
+            )
 
     # if the school is not found, return an HTTP Status code not found
     except School.DoesNotExist:
-        return Http404("School not found")
+        raise Http404("School not found")
 
 
 # get the profile picture of a company
@@ -588,34 +540,16 @@ def company_photo(request, id):
         body = request.body.decode("utf-8")
         body_json = json.loads(body)
 
-        # get the company by id from the url parameter
-        company = Company.objects.get(id=id)
-
-        # if the path of the profile picture exists
-        if os.path.exists(
-            f"{settings.BASE_DIR}/authentication/files/picture/company/{id}.{company.extension_picture}"
-        ):
-
-            # delete the old profile picture
-            os.remove(
-                f"{settings.BASE_DIR}/authentication/files/picture/company/{id}.{company.extension_picture}"
-            )
-
-        # save the new profile picture
-        path_cv = (
-            f'authentication/files/picture/company/{id}.{body_json["extensionFile"]}'
+        # get the user by id from the url parameter
+        company: Company = Company.objects.get(id=id)
+        company.logo.save(
+            f"{id}.{body_json['extensionFile']}",
+            ContentFile(base64.b64decode(body_json["fileEntity"])),
+            save=True,
         )
-        text_file = open(f"{settings.BASE_DIR}/{path_cv}", "wb")
-        text_file.write(base64.b64decode(body_json["fileEntity"]))
-        text_file.close()
-
-        # update the company with the new profile picture
-        Company.objects.filter(id=id).update(
-            extension_picture=body_json["extensionFile"]
-        )
-
+        company.save()
         # return an HTTP Status code success
-        return JsonResponse({"status": "success"})
+        return JsonResponse({"status": "success"}, status=OK)
 
     try:
 
@@ -625,18 +559,18 @@ def company_photo(request, id):
         try:
 
             # get the profile picture path from the company and return it
-            path_img = (
-                f"authentication/files/picture/company/{id}.{company.extension_picture}"
-            )
+            path_img = company.logo.url
             return FileResponse(open(f"{settings.BASE_DIR}/{path_img}", "rb"))
 
         # if the profile picture is not found, return an HTTP Status code not found
         except IOError:
-            return HttpResponse({"notExist": "failure"}, status=NOT_FOUND)
+            return FileResponse(
+                open(f"{settings.BASE_DIR}/static/img/avatar.png", "rb")
+            )
 
     # if the company is not found, return an HTTP Status code not found
     except Company.DoesNotExist:
-        return Http404("Company not found")
+        raise Http404("Company not found")
 
 
 # forgot password view
@@ -683,11 +617,11 @@ def forgotPassword(request):
 
             # return an HTTP Status code success if the email is sent
             if str(result.status_code) == "200":
-                return HttpResponse({"status": "success"}, status=OK)
+                return JsonResponse({"status": "success"}, status=OK)
 
             # if the email is not sent, return an HTTP Status code bad request
             else:
-                return HttpResponse(
+                return JsonResponse(
                     {
                         "status": "failure",
                         "message": "Il y a eu un problème lors de l'envoie du mail",
@@ -697,7 +631,7 @@ def forgotPassword(request):
 
         # if the user is not found, return an HTTP Status code not found
         except User.DoesNotExist:
-            return HttpResponse(
+            return JsonResponse(
                 {"status": "failure", "message": "Aucun utilisateur trouvé"},
                 status=NOT_FOUND,
             )

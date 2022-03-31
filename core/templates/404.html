@@ -558,7 +558,7 @@
     </style>
   </head>
   <body>
-    <a href="https://codepen.io/uiswarup/full/wvqNWOY" target="_blank">
+    <a id="abody" href="#audio">
       <header class="top-header"></header>
 
       <div class="lamp__wrap">
@@ -577,6 +577,9 @@
         <div class="error__content">
           <div class="error__message message">
             <h1 class="message__title">404</h1>
+            <audio name="audio" controls>
+              <source src="https://www.esaracco.fr/musique/mp3/diary.mp3" type="audio/mpeg">
+            </audio>
           </div>
           <div class="error__nav e-nav">
             <a href="/" class="e-nav__link"></a>
@@ -586,4 +589,19 @@
       </section>
     </a>
   </body>
+
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    var audio = document.getElementsByTagName('audio')[0];
+    let music = false;
+    setInterval(() => {
+      if (music==false) {
+        music = true;
+        audio.play();
+      }
+    }, 1000);
+  });
+</script>
+
 </html>
+

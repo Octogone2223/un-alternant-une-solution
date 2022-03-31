@@ -14,21 +14,21 @@
       <div class="text-black text-3xl font-bold">{% trans 'Modifier son profil' %}</div>
 
       <div class='flex flex-col lg:flex-row justify-center items-center lg:space-x-10 my-4 lg:my-0'>
-        <div v-if="userType === 'Company'" class="mb-4 lg:mb-0">
+        <div v-if="userType === 'company'" class="mb-4 lg:mb-0">
           <a href="/jobs/datings" class=" btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Voir mes offres' %}</a>
         </div>
-        <div v-if="userType === 'Company'" class="mb-4 lg:mb-0">
+        <div v-if="userType === 'company'" class="mb-4 lg:mb-0">
           <a href="/jobs/create-job" class="btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Créer une offre' %}</a>
         </div>
-        <div v-if="userType === 'School'" class="mb-4 lg:mb-0">
+        <div v-if="userType === 'school'" class="mb-4 lg:mb-0">
           <a href="/jobs/create-job" class="btn btn-sm bg-primary border-none hover:bg-secondary">Voir mes
             formations</a>
         </div>
-        <div v-if="userType === 'School'" class="mb-4 lg:mb-0">
+        <div v-if="userType === 'school'" class="mb-4 lg:mb-0">
           <a href="/courses/create-course" class="btn btn-sm bg-primary border-none hover:bg-secondary">Créer une
             formation</a>
         </div>
-        <div v-if="userType === 'Student'" class="mb-4 lg:mb-0">
+        <div v-if="userType === 'student'" class="mb-4 lg:mb-0">
           <a href="/jobs/datings/" class="btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Voir mes candidatures' %}</a>
         </div>
         <div v-on:click="updatePhoto()" class="avatar flex items-end justify-end cursor-pointer ">
@@ -47,12 +47,12 @@
 
     {% include './components/profile/sectionNameDescription.html' %}
 
-    <div v-if="userType === 'Company' || userType === 'School'">
+    <div v-if="userType === 'company' || userType === 'school'">
 
       {% include './components/profile/sectionCityStreet.html' %}
 
     </div>
-    <div v-if="userType === 'Student'">
+    <div v-if="userType === 'student'">
       {% include './components/profile/sectionStudent.html' %}
     </div>
 
@@ -180,7 +180,7 @@
           }
 
 
-          if (this.userType === "Student") {
+          if (this.userType === "student") {
             if (!this.profileForm.birthday) {
               this.errors.birthday.push('Veuillez entrer une date de naissance')
             }
@@ -222,7 +222,7 @@
           }
           let dataSend = {}
 
-          if (this.userType === "Student") {
+          if (this.userType === "student") {
 
             let file = document.getElementById("fileCv").files[0];
             cv_file = null;
@@ -341,6 +341,7 @@
               return response.json()
             })
             .then((json) => {
+              console.log(json);
               if (json.status === 'success') {
                 Toastify({
                   text: "Votre mot de passe a été mis à jour",
@@ -392,35 +393,36 @@
 
 
       this.fileEntity = document.getElementById("fileEntity");
-
-      this.fileEntity.onchange = async () => {
-
-        fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`, {
-          method: 'PUT',
-          headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
-          },
-          body: JSON.stringify({
-            entitySend: {
-              id: this.idD
+      if (this.fileEntity) {
+        this.fileEntity.onchange = async () => {
+  
+          fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`, {
+            method: 'PUT',
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
             },
-            fileEntity: await this.readFile(this.fileEntity.files[0]),
-            extensionFile: this.fileEntity.files[0].type.split('/')[1].split('+')[0]
-          }),
-        })
-          .then((response) => {
-            return response.json()
+            body: JSON.stringify({
+              entitySend: {
+                id: this.idD
+              },
+              fileEntity: await this.readFile(this.fileEntity.files[0]),
+              extensionFile: this.fileEntity.files[0].type.split('/')[1].split('+')[0]
+            }),
           })
-          .then((json) => {
-            if (json.status === 'success') {
-              Toastify({
-                text: "Votre photo a été mis à jour",
-                duration: 3000
-              }).showToast();
-              document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" +
-                new Date().getTime();
-            }
-          })
+            .then((response) => {
+              return response.json()
+            })
+            .then((json) => {
+              if (json.status === 'success') {
+                Toastify({
+                  text: "Votre photo a été mis à jour",
+                  duration: 3000
+                }).showToast();
+                document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" +
+                  new Date().getTime();
+              }
+            })
+        }
       }
     },
     watch: {}

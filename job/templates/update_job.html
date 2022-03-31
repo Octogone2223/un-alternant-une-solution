@@ -199,6 +199,7 @@
           }).then((res) => {
             return res.json()
           }).then(json => {
+            console.log(json)
             if (json.status === 'success') {
               Toastify({
                 text: "Votre offre a bien été modifiée",
