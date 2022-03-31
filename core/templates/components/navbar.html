@@ -17,11 +17,15 @@
     </div>
     <div class="hidden lg:block">
       <div class="flex flex-row items-center">
-        <div>
+        <div class="dropdown dropdown-hover dropdown-end">
 
           <a href="{% url 'core:profile' %}" class="text-white text-sm hover:text-secondary font-bold ml-4">
             <i class="fas fa-user-circle hover:text-secondary text-white text-2xl ml-4"></i>
           </a>
+          
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-secondary  text-white rounded-box w-52">
+            <li><a href="{% url 'authentication:sign_out' %}">{% trans 'Déconnexion' %}</a></li>
+          </ul>
 
         </div>
 
