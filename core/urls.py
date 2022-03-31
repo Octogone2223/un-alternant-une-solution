@@ -17,12 +17,9 @@ urlpatterns = [
     # policy page
     path("policies", views.policies, name="policies"),
     # student details
-    path("student/<int:student_id>",
-         views.student_detail, name="student_detail"),
+    path("student/<int:student_id>", views.student_detail, name="student_detail"),
     # company details
-    path("company/<int:company_id>",
-         views.company_detail, name="company_detail"),
+    path("company/<int:company_id>", views.company_detail, name="company_detail"),
     # school details
-    path("school/<int:school_id>",
-         views.school_detail, name="school_detail"),
+    path("school/<int:school_id>", views.school_detail, name="school_detail"),
 ]

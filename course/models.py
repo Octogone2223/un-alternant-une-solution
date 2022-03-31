@@ -9,8 +9,7 @@ class Course(models.Model):
     description = models.TextField()
 
     # RELATIONS
-    job_codes = models.ManyToManyField(
-        "job.jobCode", related_name="course_job_codes+")
+    job_codes = models.ManyToManyField("job.jobCode", related_name="course_job_codes+")
     school = models.ForeignKey(
         "authentication.school", on_delete=models.CASCADE, related_name="course_school+"
     )

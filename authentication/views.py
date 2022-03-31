@@ -246,8 +246,8 @@ def user(request):
 
             # Check if it's a company and the data is valid
             if (
-                userType == "Company" and user_serializer.is_valid(
-                ) and CompanySerializer(data=user_serializer["dataSend"]).is_valid()
+                userType == "Company" and user_serializer.is_valid() and CompanySerializer(
+                    data=user_serializer["dataSend"]).is_valid()
             ):
 
                 # serialize the data company
@@ -261,7 +261,8 @@ def user(request):
 
                         # Update the user and the company with their serializer
                         User.objects.filter(id=user_id).update(
-                            **user_serializer.validated_data)
+                            **user_serializer.validated_data
+                        )
                         Company.objects.filter(id=user_id).update(
                             **company_serializer.validated_data
                         )
@@ -296,7 +297,8 @@ def user(request):
 
                         # Update the user and the school with their serializer
                         User.objects.filter(id=user_id).update(
-                            **user_serializer.validated_data)
+                            **user_serializer.validated_data
+                        )
                         School.objects.filter(id=user_id).update(
                             **school_serializer.validated_data
                         )
@@ -324,13 +326,17 @@ def user(request):
                 if cv_path is not None:
 
                     # get the path of the actual profile picture
-                    server_path_to_cv = f"authentication/files/cv/public_{user_id}.{cv_path}"
+                    server_path_to_cv = (
+                        f"authentication/files/cv/public_{user_id}.{cv_path}"
+                    )
 
                     # replace the path of the actual profile picture by the new one
                     text_file = open(
                         f"{settings.BASE_DIR}/{server_path_to_cv}", "wb")
-                    text_file.write(base64.b64decode(
-                        user_serializer.validated_data["cv_path"]))
+                    text_file.write(
+                        base64.b64decode(
+                            user_serializer.validated_data["cv_path"])
+                    )
                     text_file.close()
 
                 # after the cv is updated, create a student serializer from the body exluced the cv_path
@@ -345,7 +351,8 @@ def user(request):
 
                         # Update the user and the student with their serializer
                         User.objects.filter(id=user_id).update(
-                            **user_serializer.validated_data)
+                            **user_serializer.validated_data
+                        )
                         Student.objects.filter(id=body_json["dataSend"]["id"]).update(
                             **studentSerializer.validated_data
                         )
@@ -532,14 +539,17 @@ def school_photo(request, id):
             )
 
         # save the new profile picture
-        path_cv = f'authentication/files/picture/school/{id}.{body_json["extensionFile"]}'
+        path_cv = (
+            f'authentication/files/picture/school/{id}.{body_json["extensionFile"]}'
+        )
         text_file = open(f"{settings.BASE_DIR}/{path_cv}", "wb")
         text_file.write(base64.b64decode(body_json["fileEntity"]))
         text_file.close()
 
         # update the school with the new profile picture
         School.objects.filter(id=id).update(
-            extension_picture=body_json["extensionFile"])
+            extension_picture=body_json["extensionFile"]
+        )
 
         # return an HTTP Status code success
         return HttpResponse({"status": "success"}, status=OK)
@@ -564,6 +574,7 @@ def school_photo(request, id):
     # if the school is not found, return an HTTP Status code not found
     except School.DoesNotExist:
         return Http404("School not found")
+
 
 # get the profile picture of a company
 
@@ -680,11 +691,13 @@ def forgotPassword(request):
                     {
                         "status": "failure",
                         "message": "Il y a eu un problème lors de l'envoie du mail",
-                    }, status=BAD_REQUEST
+                    },
+                    status=BAD_REQUEST,
                 )
 
         # if the user is not found, return an HTTP Status code not found
         except User.DoesNotExist:
             return HttpResponse(
-                {"status": "failure", "message": "Aucun utilisateur trouvé"}, status=NOT_FOUND
+                {"status": "failure", "message": "Aucun utilisateur trouvé"},
+                status=NOT_FOUND,
             )

@@ -2,9 +2,11 @@ from http.client import OK
 import json
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
-from authentication.models import Student, School, User
+from authentication.models import School, Student
 from course import serializers
-from course.serializers import CreateCourseSerialier, CreateCourseSerializer, createCourseSerialier
+from course.serializers import (
+    CreateCourseSerializer,
+)
 from .models import Course
 from django.http.response import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -90,7 +92,15 @@ def course_detail(request, course_id):
     course = Course.objects.get(id=course_id)
 
     # return the course detail page with the course and the has_already_enrolled boolean, and the student
-    return render(request, 'course_detail.html', {'course': course, 'has_already_enrolled': has_already_enrolled, 'student': student})
+    return render(
+        request,
+        "course_detail.html",
+        {
+            "course": course,
+            "has_already_enrolled": has_already_enrolled,
+            "student": student,
+        },
+    )
 
 
 # create a course (must be logged in)
@@ -98,10 +108,10 @@ def course_detail(request, course_id):
 def create_course(request):
 
     # if method is POST, create a new course
-    if request.method == 'POST':
+    if request.method == "POST":
 
         # get the data from the request
-        body = request.body.decode('utf-8')
+        body = request.body.decode("utf-8")
         body_json = json.loads(body)
 
         try:
@@ -126,13 +136,12 @@ def create_course(request):
     user_type = request.user.getUserType()
 
     # if the user is a school, return the create course page, else set school to None and return the create course page
-    if user_type == 'School':
+    if user_type == "School":
 
         # get the school from the database
-        school = list(School.objects.filter(
-            users=request.user).values())[0]
+        school = list(School.objects.filter(users=request.user).values())[0]
 
     else:
         school = None
 
-    return render(request, 'create_course.html', {'school': school})
+    return render(request, "create_course.html", {"school": school})
