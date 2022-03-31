@@ -62,13 +62,13 @@ Le cours a été dispensé par [Antoine NGUYEN](https://github.com/tonioo).
     - 1 image python chargée d'exécuter notre tâche [celery](https://docs.celeryproject.org/)
     - 1 seconde python chargée d'éxcuter notre script celery avec [celery beat](https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html) à interval de temps régulier (1min)
 
-5. Lancer une migration la base de données
+4. Lancer une migration la base de données
 
   ```sh
     python manager.py migrate
   ```
   
-6. Récupération des données initiales
+5. Récupération des données initiales
 
   Si vous n'avez pas la dépendance Make d'installer, il vous faudrat lancer les fixtures unes à unes.
   
@@ -88,7 +88,7 @@ Le cours a été dispensé par [Antoine NGUYEN](https://github.com/tonioo).
   
   L'opération peut durée une petit moment.
  
-7. Lancer l'application
+6. Lancer l'application
 
   L'application est prête à être lancer localement ! Il vous suffit d'exécuter la commande :
   
