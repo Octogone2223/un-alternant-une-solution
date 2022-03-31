@@ -52,7 +52,7 @@
 
       <!-- Single Job Post -->
       <div
-        class="lg:cursor-pointer bg-white shadow-md h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100"
+        class="lg:cursor-pointer bg-white shadow-md lg:h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100"
         data-job-id="{{ job.id }}"
         @click="getJobDetail"
       >
@@ -71,10 +71,10 @@
 
         <p class="">{{job.description|slice:'0:150'}}...</p>
 
-        <div class="flex flex-row justify-between items-center">
+        <div class="flex flex-col lg:flex-row">
           <p>Offre postée le : <i>{{job.create_at|date:"d F, Y" }}</i></p>
           <button
-            class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary"
+            class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary self-center mt-4"
           >
             Postuler
           </button>
