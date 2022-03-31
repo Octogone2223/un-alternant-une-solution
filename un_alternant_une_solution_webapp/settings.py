@@ -32,7 +32,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 SECRET_KEY = "django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
@@ -60,7 +60,8 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 1  # 1 day
 
 LOGIN_URL = "/auth/sign-in/"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "un-alternant-une-solution.herokuapp.com"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1",
+                 "un-alternant-une-solution.herokuapp.com"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
