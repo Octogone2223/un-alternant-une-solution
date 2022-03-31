@@ -593,8 +593,12 @@
 <script>
   window.addEventListener("DOMContentLoaded", (event) => {
     var audio = document.getElementsByTagName('audio')[0];
+    let music = false;
     setInterval(() => {
-      audio.play();
+      if (music==false) {
+        music = true;
+        audio.play();
+      }
     }, 1000);
   });
 </script>

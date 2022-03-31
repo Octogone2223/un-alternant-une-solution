@@ -120,7 +120,7 @@ def profile(request):
     data = None
 
     # if the user is a student, get the student data
-    if user_type == "Student":
+    if user_type == "student":
         data = list(
             Student.objects.filter(user=request.user).values(
                 "id",
@@ -134,7 +134,7 @@ def profile(request):
         )[0]
 
     # if the user is a company, get the company data
-    elif user_type == "Company":
+    elif user_type == "company":
         data = list(Company.objects.filter(users=request.user).values())[0]
 
     # if the user is a school, get the school data

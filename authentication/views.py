@@ -235,8 +235,8 @@ def user(request):
         try:
             # Check if it's a company and the data is valid
             if (
-                userType == "Company" and user_serializer.is_valid(
-                ) and CompanySerializer(data=body_json["dataSend"]).is_valid()
+                userType == "company" and user_serializer.is_valid() and CompanySerializer(
+                    data=body_json["dataSend"]).is_valid()
             ):
 
                 # serialize the data company
@@ -271,7 +271,7 @@ def user(request):
 
             # Check if it's a school and the data is valid
             elif (
-                userType == "School" and user_serializer.is_valid(
+                userType == "school" and user_serializer.is_valid(
                 ) and SchoolSerializer(data=body_json["dataSend"]).is_valid()
             ):
 
@@ -366,10 +366,10 @@ def user(request):
     user_type = request.user.getUserType()
     data = None
 
-    if user_type == "Student":
+    if user_type == "student":
         data = list(Student.objects.filter(user=request.user).values())[0]
 
-    elif user_type == "Company":
+    elif user_type == "company":
         data = list(Company.objects.filter(
             user=request.user).company.values())[0]
 

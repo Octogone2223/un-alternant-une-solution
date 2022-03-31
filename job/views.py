@@ -1,3 +1,4 @@
+import base64
 import datetime
 from http.client import BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND, OK, UNAUTHORIZED
 from django.http import HttpResponseBadRequest
@@ -9,6 +10,7 @@ from authentication.models import Company, Student, User
 from django.http.response import HttpResponse, JsonResponse
 import json
 from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
 import os
 from authentication.models import User
 from django.shortcuts import redirect, render
@@ -52,8 +54,8 @@ def create_job(request):
     if request.method == "POST":
 
         # if not logged in as a company raise unauthorized
-        if request.user.getUserType() != "Company":
-            return HttpResponse("You are not a school", status=UNAUTHORIZED)
+        if(request.user.getUserType() != "company"):
+            return HttpResponse("You are not a company", status=UNAUTHORIZED)
 
         # get the body of the request
         body = request.body.decode("utf-8")
@@ -89,7 +91,7 @@ def create_job(request):
     user_type = request.user.getUserType()
 
     # if user is logged in as a company
-    if user_type == "Company":
+    if user_type == "company":
 
         # get the company
         company = list(Company.objects.filter(users=request.user).values())[0]
@@ -114,8 +116,8 @@ def update_job(request, job_id):
     if request.method == "PUT":
 
         # if not logged in as a company raise unauthorized
-        if request.user.getUserType() != "Company":
-            return HttpResponse("You are not a school", status=UNAUTHORIZED)
+        if(request.user.getUserType() != "company"):
+            return HttpResponse("You are not a company", status=UNAUTHORIZED)
 
         # get the body of the request
         body = request.body.decode("utf-8")
@@ -130,10 +132,8 @@ def update_job(request, job_id):
             if job_update_serializer.is_valid():
 
                 # get the job from the database and update it with the new data
-                job = Job.objects.get(id=job_id).update(
-                    **job_update_serializer.validated_data
-                )
-                job.save()
+                Job.objects.filter(id=job_id).update(
+                    **job_update_serializer.validated_data)
 
                 # return an success message
                 return JsonResponse({"status": "success"})
@@ -200,25 +200,9 @@ def preview_job(request, job_id):
     except Job.DoesNotExist:
         return HttpResponseBadRequest("Job does not exist")
 
-
-# method to handle the upload of a file (cv and motivation letter)
-def handle_uploaded_file(f, type):
-
-    # generate a unique filename for the file with the current time
-    file_name_with_timeseconds = (
-        f.name + str(datetime.datetime.now().timestamp()) + ".pdf"
-    )
-
-    # save the file at the uploads folder (type)
-    with open(f"core/files/{type}/{file_name_with_timeseconds}", "wb+") as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-
-    # return the path of the file
-    return f"core/files/{type}/{file_name_with_timeseconds}"
-
-
 # Used to handle the deletion of a file
+
+
 def handle_delete_file(file_path):
     if os.path.exists(file_path):
         os.remove(file_path)
@@ -254,7 +238,7 @@ def job_detail(request, job_id):
     is_user = True
 
     # if it is not a student set is_user to false
-    if request.user.getUserType() != "Student":
+    if request.user.getUserType() != "student":
         is_user = False
 
     # if the user is logged in as a student
@@ -276,21 +260,16 @@ def job_detail(request, job_id):
         if not cv or not motivation_letter:
             return HttpResponse(status=BAD_REQUEST)
 
-        # call the handle_uploaded_file method to save the files
-        cv_path = handle_uploaded_file(cv, "cv")
-        motivation_letter_path = handle_uploaded_file(
-            motivation_letter, "motivation_letter"
-        )
-
         # create a new job dating object (doesn't need to be check by serializer because we set the fields manually)
-        job_dating = JobDating.objects.create(
-            cv_path=cv_path,
-            motivation_letter_path=motivation_letter_path,
+        job_dating: JobDating = JobDating.objects.create(
             job_id=job_id,
             student=request.user.student,
             status=JobStatus.Status.OPEN,
         )
-
+        job_dating.cv.save(
+            f"job{job_id}_user{request.user.id}.pdf", cv, save=True)
+        job_dating.motivation_letter.save(
+            f"job{job_id}_user{request.user.id}.pdf", motivation_letter, save=True)
         job_dating.save()
 
         # get the actual job from the database and add the job dating to the job
@@ -467,7 +446,7 @@ def job_dating_inspect_cv(request, job_dating_id):
         )
 
         # return the cv of the job dating
-        return FileResponse(open(f"{settings.BASE_DIR}/{job_dating.cv_path}", "rb"))
+        return FileResponse(open(f"{settings.BASE_DIR}/{job_dating.cv.url}", "rb"))
 
     # if job dating does not exist redirect to home page
     except JobDating.DoesNotExist:
@@ -490,7 +469,7 @@ def job_dating_inspect_letter(request, job_dating_id):
 
         # return the motivation letter of the job dating
         return FileResponse(
-            open(f"{settings.BASE_DIR}/{job_dating.motivation_letter_path}", "rb")
+            open(f"{settings.BASE_DIR}/{job_dating.motivation_letter.url}", "rb")
         )
 
     # if job dating does not exist redirect to home page
