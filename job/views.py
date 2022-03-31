@@ -413,7 +413,7 @@ def job_inspect(request, job_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "Company":
+        if request.user.getUserType() != "company":
             return redirect("/")
 
         # get the job from the database associated to the user company and all the job datings associated to the job
