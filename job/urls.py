@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+# Url mappings related to job resource
 urlpatterns = [
     # list of jobs
     path("", views.list_jobs, name="list_jobs"),

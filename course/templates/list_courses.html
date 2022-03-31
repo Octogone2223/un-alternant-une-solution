@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 
 {% block content %}
 
@@ -8,20 +9,20 @@
         class="flex flex-col lg:flex-row justify-center border-[1px] items-center border-gray-200 h-fit p-5 lg:p-0 lg:h-24 rounded-md lg:rounded-full w-full mt-20 space-x-5 space-y-5 lg:space-y-0">
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-school text-primary"></i>
-            <input type="text" v-model="search.name" placeholder="Formation recherchée"
+            <input type="text" v-model="search.name" placeholder="{% trans "Formation recherchée" %}"
                 class="border-none py-2 px-2 outline-none" />
         </div>
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-map-marker-alt text-primary"></i>
-            <input v-model="search.location" type="text" placeholder="Lieu"
+            <input v-model="search.location" type="text" placeholder="{% trans "Lieu" %}"
                 class="border-none py-2 px-2 outline-none" />
         </div>
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-graduation-cap text-primary"></i>
-            <input type="text" v-model="search.school" placeholder="Ecole" class="border-none py-2 px-2 outline-none" />
+            <input type="text" v-model="search.school" placeholder="{% trans "Ecole" %}" class="border-none py-2 px-2 outline-none" />
         </div>
         <button @click="searchCourses"
-            class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary">Rechercher</button>
+            class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary">{% trans "Rechercher" %}</button>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-20">
@@ -39,7 +40,7 @@
 
                 <p style="min-height: 50px;">
                     {% if not course.description %}
-                    <i>Aucune description</i>
+                    <i>{% trans "Aucune description" %}</i>
                     {% else %}
                     <i>
                         {{course.description|slice:'0:200'}}
@@ -48,9 +49,9 @@
                 </p>
 
                 <div class="flex flex-row justify-between items-center">
-                    <p>Formation postée le : <i>{{course.create_at|date:"d F, Y" }}</i></p>
+                    <p>{% trans "Formation postée le" %} :<i>{{course.create_at|date:"d F, Y" }}</i></p>
                     <a class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary"
-                        href="{{course.id}}">Rejoindre</a>
+                        href="{{course.id}}">{% trans "Rejoindre" %}</a>
                 </div>
             </div>
 
@@ -66,10 +67,10 @@
                 </div>
 
                 <div class="space-y-4">
-                    <h3 class="font-bold text-lg">Description</h3>
+                    <h3 class="font-bold text-lg">{% trans "Description" %}</h3>
                     <p>
                         {% if not courses.0.description %}
-                        <i>Aucune description</i>
+                        <i>{% trans "Aucune description" %}</i>
                         {% else %}
                         <i>
                             {{courses.0.description|slice:'0:700'}}
@@ -79,8 +80,7 @@
                 </div>
 
                 <div class="w-full flex flex-row justify-center">
-                    <a class="btn bg-secondary hover:bg-primary w-48 border-none" href="{{courses.0.id}}">Voir
-                        l'école</a>
+                    <a class="btn bg-secondary hover:bg-primary w-48 border-none" href="{{courses.0.id}}">{% trans "Voir l'école" %}</a>
                 </div>
             </div>
             <div class="flex flex-col justify-between h-full" v-else>
@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="space-y-4">
-                    <h3 class="font-bold text-lg">Description</h3>
+                    <h3 class="font-bold text-lg">{% trans "Description" %}</h3>
                     <p>
                         [[ course.description ]]
                     </p>
@@ -99,7 +99,7 @@
 
                 <div class="w-full flex flex-row justify-center">
                     <button class="btn bg-secondary hover:bg-primary w-48 border-none"
-                        @click="redirectToDetail(course.id)">Voir l'école</button>
+                        @click="redirectToDetail(course.id)">{% trans "Voir l'école" %}</button>
                 </div>
             </div>
         </div>
@@ -135,10 +135,13 @@
         },
 
         methods: {
+
+            //This function is used to redirect the course detail
             redirectToDetail(courseId) {
                 window.location.href = `/courses/${courseId}`;
             },
 
+            //This function is used to get the course detail.
             async getCourseDetail(e) {
                 const courseId = e.currentTarget.dataset.courseId
                 const isButtonTarget = e.target.classList.contains('btn')
@@ -163,6 +166,7 @@
                 }
             },
 
+            //This function is used to get the list of courses by the search parameters.
             searchCourses() {
                 location.href =
                     `?name=${this.search.name}&location=${this.search.location}&school=${this.search.school}`

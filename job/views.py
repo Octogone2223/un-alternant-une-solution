@@ -18,7 +18,7 @@ from django.conf import settings
 from webpush import send_user_notification
 
 
-# list of jobs
+# Used to handle the fetch of all saved jobs
 def list_jobs(request):
     filters = {}
 
@@ -45,7 +45,8 @@ def list_jobs(request):
     return render(request, "list_jobs.html", {"jobs": jobs})
 
 
-# create job (must be logged in as a company)
+
+# Used to handle the creation of a new job for a specific user (must be logged in as a company)
 @login_required
 def create_job(request):
 
@@ -104,7 +105,8 @@ def create_job(request):
         return redirect("/profile")
 
 
-# update job view (must be logged in as a company)
+
+# Used to handle the update of a job for a specific user (must be logged in as a company)
 @login_required
 def update_job(request, job_id):
 
@@ -169,7 +171,7 @@ def update_job(request, job_id):
         return HttpResponseBadRequest('Job does not exist')
 
 
-# preview job view (api)
+# Used to fetch the details of a specific job (api)
 def preview_job(request, job_id):
 
     try:
@@ -215,13 +217,13 @@ def handle_uploaded_file(f, type):
     return f"core/files/{type}/{file_name_with_timeseconds}"
 
 
-# method to delete a file from a path
+# Used to handle the deletion of a file
 def handle_delete_file(file_path):
     if os.path.exists(file_path):
         os.remove(file_path)
 
 
-# job detail view (must be logged)
+# job detail view (must be logged in)
 @login_required
 def job_detail(request, job_id):
 
@@ -308,7 +310,7 @@ def job_detail(request, job_id):
     )
 
 
-# jobs datings view (must be logged in)
+# Used to retrieve the list of all job applications for a specific company (must be logged in)
 @login_required
 def jobs_datings(request):
 
@@ -341,7 +343,8 @@ def jobs_datings(request):
             return redirect("/")
 
 
-# job datings detail view (must be logged in)
+
+# Used to handle job applications (must be logged in)
 @login_required
 def jobs_datings_detail(request, job_dating_id):
 
@@ -425,7 +428,7 @@ def jobs_datings_detail(request, job_dating_id):
         return HttpResponse(status=NO_CONTENT)
 
 
-# job inspect to see more information about the job datings (must be logged in)
+# Used to retrieve details of a specific job application (must be logged in)
 @login_required
 def job_inspect(request, job_id):
     try:

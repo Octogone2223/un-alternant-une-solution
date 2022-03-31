@@ -32,7 +32,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 SECRET_KEY = "django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
@@ -60,7 +60,8 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 1  # 1 day
 
 LOGIN_URL = "/auth/sign-in/"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "un-alternant-une-solution.herokuapp.com"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1",
+                 "un-alternant-une-solution.herokuapp.com"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -193,7 +194,8 @@ USE_I18N = True
 LANGUAGE_CODE = "fr"
 LANGUAGES = [("fr", "Français"), ("en", "English"), ("cn", "China")]
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, "app"),
+    os.path.join(BASE_DIR, "course"),
+    os.path.join(BASE_DIR, "core"),
     os.path.join(BASE_DIR, "job"),
     os.path.join(BASE_DIR, "authentication"),
 ]
@@ -202,4 +204,19 @@ WEBPUSH_SETTINGS = {
     "VAPID_PUBLIC_KEY": "BL-yp3qqe3izbS-nHx6tbaUtk42WusvV-VDRp_ARe3kMjtnmtyrjneHG8hZIIjQQHCXhf10wwFyWjj78lm6XPrE",
     "VAPID_PRIVATE_KEY": "loe-ul0KZcQTJ_DJfJix_SB05EZbaHDXbjv4xkIdJoA",
     "VAPID_ADMIN_EMAIL": "tom.leveque@ynov.com",
+}
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
 }

@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
 
-# Create your models here.
+# Creates a JobCode model
 
 
 class JobCode(models.Model):
@@ -12,6 +12,8 @@ class JobCode(models.Model):
 
     def __str__(self):
         return self.name
+
+# Creates a Job model
 
 
 class Job(models.Model):
@@ -42,6 +44,7 @@ class Job(models.Model):
         return self.name
 
 
+# Creates a JobStatus model
 class JobStatus(models.Model):
     class Status(models.TextChoices):
         OPEN = "OP", _("Open")
@@ -60,6 +63,7 @@ class JobStatus(models.Model):
         return self.name
 
 
+# Creates a LastIndexApi model
 class LastIndexApi(models.Model):
     last_index = models.IntegerField()
     update_at = models.DateTimeField(auto_now=True)
@@ -68,6 +72,7 @@ class LastIndexApi(models.Model):
         return self.last_index
 
 
+# Creates a JobIdFromPreviousRequest model
 class JobIdFromPreviousRequest(models.Model):
 
     # RELATIONS
@@ -80,6 +85,7 @@ class JobIdFromPreviousRequest(models.Model):
         return self.job_id
 
 
+# Creates a JobDating model
 class JobDating(models.Model):
     class Status(models.TextChoices):
         ACCEPTED = "AC", _("ACCEPTED")
