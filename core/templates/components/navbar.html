@@ -92,10 +92,14 @@
 
     </div>
 
-    <div>
+    <div class="dropdown dropdown-hover dropdown-end">
       <a href="{% url 'core:profile' %}" class="text-white text-sm hover:text-primary font-bold">
         <i class="fas fa-user-circle hover:text-primary text-white text-2xl"></i>
       </a>
+
+      <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-secondary  text-white rounded-box w-52">
+        <li><a href="{% url 'authentication:sign_out' %}">{% trans 'Déconnexion' %}</a></li>
+      </ul>
     </div>
   </div>
   </div>
@@ -191,21 +195,9 @@
         } else {
           localStorage.setItem("popupNotif", 'false')
         }
+        this.setButtonText()
 
-      tab_button_push_accept.forEach(button => {
-        this.setButtonText(button)
-        button.onclick = () => {
-          webpush_subscribe_button.click();
-          
-          if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
-            localStorage.setItem("popupNotif", 'true')
-          } else {
-            localStorage.setItem("popupNotif", 'false')
-          }
-  
-          this.setButtonText(button)
-        };
-      })
+      }
     },
   }).mount("#app");
 </script>
