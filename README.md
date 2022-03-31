@@ -20,13 +20,12 @@ Le cours a été dispensé par [Antoine NGUYEN](https://github.com/tonioo).
 
 - Python 3.9 ou ultérieur
 
-- Postgres Database
+- Docker : 
+  - [Postgres Database](https://hub.docker.com/_/postgres)
+  - [Python](https://hub.docker.com/_/python)
+  - [Redis](https://hub.docker.com/_/redis)
 
-- [Celery](https://docs.celeryproject.org/en/stable/getting-started/introduction.html)
-
-- [Redis](https://redis.io/)
-
-
+- [Make](https://community.chocolatey.org/packages/make) (facultatif)
 
 
 ### Installations
@@ -39,19 +38,50 @@ Le cours a été dispensé par [Antoine NGUYEN](https://github.com/tonioo).
 2. Ajouter les variables d'environnement dans un fichier .env à la racine du projet
 
   ```bin
-    DATABASE_URL = postgres://YOUR_DATABASE_USERNAME:YOUR_DATABASE_PASSWORD@YOUR_DATABASE_HOST/YOUR_DATABASE_NAME:5432
+    DATABASE_PASSWORD=
+    DATABASE_NAME=
+    DATABASE_USER=
+    DATABASE_HOST=
+    DATABASE_PORT=
+    DATABASE_URL=
   ```
+  
+  Les variables d'environnement permettront par la suite d'initier votre container Docker avec ces variables. Votre base de données POSTGRES tournera alors aux valeurs assignées, ce qui signifie que le fichier docker-compose n'a pas à être modifié.
 
 3. Lancer une migration la base de données
 
   ```sh
     python manager.py migrate
   ```
+  
+4. Récupération des données initiales
 
-4. Lancer l'application
+  Si vous n'avez pas la dépendance Make d'installer, il vous faudrat lancer les fixtures unes à unes.
+  
+  ```sh
+    python	.\manage.py loaddata .\authentication\fixtures\schools.json
+    python	.\manage.py loaddata .\job\fixtures\jobCodes.json
+    python	.\manage.py loaddata .\course\fixtures\courses.json
+    python	.\manage.py loaddata .\course\fixtures\refCourseJobCodes.json
+    python	.\manage.py loaddata .\course\fixtures\refSchoolCourses.json
+   ```
+ 
+  Cependant, si vous possedez Make, vous pouvez simplement lancer la commande :
+ 
+  ```sh
+  make loaddata
+  ```
+  
+  L'opération peut durée une petit moment.
+ 
+5. Lancer l'application
+
+  L'application est prête à être lancer localement ! Il vous suffit d'exécuter la commande :
+  
   ```sh
     python manager.py runserver
   ```
+  
   L'application tourne maintenant à l'adresse `localhost:8000` ou `127.0.0.1:8000`
 
 ---
