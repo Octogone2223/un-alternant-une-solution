@@ -109,7 +109,8 @@ def sign_up(request):
 
             try:
                 if userSerializer.is_valid():
-                    user = User.objects.create_user(**userSerializer.validated_data)
+                    user = User.objects.create_user(
+                        **userSerializer.validated_data)
 
                     student = Student.objects.create(user=user)
 
@@ -172,17 +173,17 @@ def user(request):
         try:
 
             if (
-                userType == "Company"
-                and userSerializer.is_valid()
-                and CompanySerializer(data=bodyJson["dataSend"]).is_valid()
+                userType == "Company" and userSerializer.is_valid() and CompanySerializer(data=bodyJson["dataSend"]).is_valid()
             ):
 
                 idUser = bodyJson["userSend"]["id"]
-                companySerializer = CompanySerializer(data=bodyJson["dataSend"])
+                companySerializer = CompanySerializer(
+                    data=bodyJson["dataSend"])
 
                 try:
                     if companySerializer.is_valid():
-                        User.objects.filter(id=idUser).update(**bodyJson["userSend"])
+                        User.objects.filter(id=idUser).update(
+                            **bodyJson["userSend"])
                         Company.objects.filter(id=bodyJson["dataSend"]["id"]).update(
                             **bodyJson["dataSend"]
                         )
@@ -195,9 +196,7 @@ def user(request):
                     return HttpResponseBadRequest(json.dumps(e.detail))
 
             elif (
-                userType == "School"
-                and userSerializer.is_valid()
-                and SchoolSerializer(data=bodyJson["dataSend"]).is_valid()
+                userType == "School" and userSerializer.is_valid() and SchoolSerializer(data=bodyJson["dataSend"]).is_valid()
             ):
 
                 idUser = bodyJson["userSend"]["id"]
@@ -205,7 +204,8 @@ def user(request):
                 print(schoolSerializer.is_valid())
                 try:
                     if schoolSerializer.is_valid():
-                        User.objects.filter(id=idUser).update(**bodyJson["userSend"])
+                        User.objects.filter(id=idUser).update(
+                            **bodyJson["userSend"])
                         School.objects.filter(id=bodyJson["dataSend"]["id"]).update(
                             **bodyJson["dataSend"]
                         )
@@ -223,15 +223,18 @@ def user(request):
                 if bodyJson["dataSend"]["cv_file"]:
                     pathCv = f"authentication/files/cv/public_{idUser}.{cv_path}"
                     text_file = open(f"{settings.BASE_DIR}/{pathCv}", "wb")
-                    text_file.write(base64.b64decode(bodyJson["dataSend"]["cv_file"]))
+                    text_file.write(base64.b64decode(
+                        bodyJson["dataSend"]["cv_file"]))
                     text_file.close()
 
                 bodyJson["dataSend"].pop("cv_file")
-                studentSerializer = StudentSerializer(data=bodyJson["dataSend"])
+                studentSerializer = StudentSerializer(
+                    data=bodyJson["dataSend"])
                 try:
                     if studentSerializer.is_valid():
                         # Model.objects.filter(id = 223).update(field1 = 2)
-                        User.objects.filter(id=idUser).update(**bodyJson["userSend"])
+                        User.objects.filter(id=idUser).update(
+                            **bodyJson["userSend"])
                         Student.objects.filter(id=bodyJson["dataSend"]["id"]).update(
                             **bodyJson["dataSend"]
                         )
@@ -253,9 +256,11 @@ def user(request):
     if userType == "Student":
         data = list(Student.objects.filter(user=request.user).values())[0]
     elif userType == "Company":
-        data = list(Company.objects.filter(user=request.user).company.values())[0]
+        data = list(Company.objects.filter(
+            user=request.user).company.values())[0]
     else:
-        data = list(School.objects.filter(user=request.user).school.values())[0]
+        data = list(School.objects.filter(
+            user=request.user).school.values())[0]
     return JsonResponse({"data": data, "user": userJSON, "userType": userType})
 
 
@@ -325,7 +330,8 @@ def photo(request, id):
         text_file.write(base64.b64decode(bodyJson["filePhoto"]))
         text_file.close()
 
-        User.objects.filter(id=id).update(extension_picture=bodyJson["extensionFile"])
+        User.objects.filter(id=id).update(
+            extension_picture=bodyJson["extensionFile"])
         return JsonResponse({"status": "success"})
 
     try:
@@ -360,7 +366,8 @@ def school_photo(request, id):
         text_file.write(base64.b64decode(bodyJson["fileEntity"]))
         text_file.close()
 
-        School.objects.filter(id=id).update(extension_picture=bodyJson["extensionFile"])
+        School.objects.filter(id=id).update(
+            extension_picture=bodyJson["extensionFile"])
         return JsonResponse({"status": "success"})
 
     try:
