@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-25 15:30+0000\n"
+"POT-Creation-Date: 2022-03-31 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,9 @@ msgstr "我们是谁？"
 
 #: core/templates/about.html:13
 msgid "Qui sommes-nous ?2"
-msgstr "作为Ynov的全栈开发模块的一部分，将在2022年为计算机科学硕士课程的学生进行，我们必须响应项目的呼吁。这个项目必须是有用和创新的。"
+msgstr ""
+"作为Ynov的全栈开发模块的一部分，将在2022年为计算机科学硕士课程的学生进行，我"
+"们必须响应项目的呼吁。这个项目必须是有用和创新的。"
 
 #: core/templates/about.html:17
 msgid "Qui sommes-nous ?3"
@@ -31,12 +33,16 @@ msgstr "其目的是创建一个网络平台，方便人们了解法国市场上
 
 #: core/templates/about.html:21
 msgid "Qui sommes-nous ?4"
-msgstr "这个网络平台应该使公司能够发布其与工作有关的培训提议，查阅、修改、删除这些提议，查阅收到的申请，接受或拒绝它们。"
+msgstr ""
+"这个网络平台应该使公司能够发布其与工作有关的培训提议，查阅、修改、删除这些提"
+"议，查阅收到的申请，接受或拒绝它们。"
 
 #: core/templates/about.html:25
 msgid "Qui sommes-nous ?5"
 msgstr ""
-"学生们则应该能够将自己定位在公司发布的勤工俭学报价上，从而从个人空间关注自己的申请进展。他们还可以修改自己的个人资料，特别是表明他们的学校，输入简历，并输入他们的社会网络。"
+"学生们则应该能够将自己定位在公司发布的勤工俭学报价上，从而从个人空间关注自己"
+"的申请进展。他们还可以修改自己的个人资料，特别是表明他们的学校，输入简历，并"
+"输入他们的社会网络。"
 
 #: core/templates/about.html:29
 msgid "Qui sommes-nous ?6"
@@ -145,7 +151,9 @@ msgstr "需要帮助吗？"
 
 #: core/templates/components/home/section2.html:8
 msgid "HelpNeedMessage"
-msgstr "没有找到你要找的信息？你的在线程序是否遇到了困难？要找到答案或解决你的问题，请查阅工作联系培训门户网站的常见问题。"
+msgstr ""
+"没有找到你要找的信息？你的在线程序是否遇到了困难？要找到答案或解决你的问题，"
+"请查阅工作联系培训门户网站的常见问题。"
 
 #: core/templates/components/home/section3.html:5
 msgid "Nos Récentes Offres"
@@ -171,11 +179,7 @@ msgstr "替代方案"
 msgid "Courses"
 msgstr "培训"
 
-#: core/templates/components/navbar.html:23
-msgid "Assistance"
-msgstr "支持"
-
-#: core/templates/components/navbar.html:136
+#: core/templates/components/navbar.html:137
 msgid "Subscribe to Push Messaging"
 msgstr "获取WebPush"
 
@@ -263,11 +267,11 @@ msgstr "查看我的报价"
 msgid "Créer une offre"
 msgstr "创建一个报价"
 
-#: core/templates/profile.html:24
+#: core/templates/profile.html:32
 msgid "Voir mes candidatures"
 msgstr "查看我的申请"
 
-#: core/templates/profile.html:53
+#: core/templates/profile.html:61
 msgid "Valider"
 msgstr "验证"
 
@@ -282,3 +286,6 @@ msgstr "学生"
 #: core/templates/student_detail.html:25
 msgid "Télécharger le CV"
 msgstr "下载简历"
+
+#~ msgid "Assistance"
+#~ msgstr "支持"
