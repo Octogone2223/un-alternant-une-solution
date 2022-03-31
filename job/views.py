@@ -437,7 +437,7 @@ def job_dating_inspect_cv(request, job_dating_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "Company":
+        if request.user.getUserType() != "company":
             return redirect("/")
 
         # get the job dating from the database associated to the user company
@@ -459,7 +459,7 @@ def job_dating_inspect_letter(request, job_dating_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "Company":
+        if request.user.getUserType() != "company":
             return redirect("/")
 
         # get the job dating from the database associated to the user company
