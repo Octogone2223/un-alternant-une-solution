@@ -1,35 +1,36 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 
 {% block content %}
 
-<div class="w-full p-8 container" id="jobsList">
+<div class="w-full p-8 container" id="jobsList" style="min-height: 75vh">
     <div
         class="flex flex-col lg:flex-row justify-center border-[1px] items-center border-gray-200 h-fit p-5 lg:p-0 lg:h-24 rounded-md lg:rounded-full w-full mt-20 space-x-5 space-y-5 lg:space-y-0">
 
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-search text-primary"></i>
-            <input type="text" placeholder="Métier recherché" class="border-none py-2 px-2 outline-none"
+            <input type="text" placeholder="{% trans "Métier recherché" %}" class="border-none py-2 px-2 outline-none"
                 v-model="search.profession" />
         </div>
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-map-marker-alt text-primary"></i>
-            <input type="text" placeholder="Lieu de travail" class="border-none py-2 px-2 outline-none"
+            <input type="text" placeholder="{% trans "Lieu de travail" %}" class="border-none py-2 px-2 outline-none"
                 v-model="search.location" />
         </div>
         <div class="flex flex-row items-center space-x-5 h-full">
             <i class="fas fa-graduation-cap text-primary"></i>
-            <input type="text" placeholder="Type de contrat (CDD, etc.)" class="border-none py-2 px-2 outline-none"
+            <input type="text" placeholder="{% trans "Type de contrat (CDD, etc.)" %}" class="border-none py-2 px-2 outline-none"
                 v-model="search.contract_type" />
         </div>
         <button class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary"
-            @click="searchJobs">Rechercher</button>
+            @click="searchJobs">{% trans "Rechercher" %}</button>
     </div>
 
     {% if not jobs %}
     <div class="flex w-full flex-col">
         <p class="font-bold mx-auto my-16">
-            Aucune offre ne correspond
+            {% trans "Aucune offre ne correspond" %}
         </p>
         <img src="/static/img/empty-state.png" alt="" class="mx-auto w-1/4">
     </div>
@@ -58,8 +59,8 @@
                 <p class="">{{job.description|slice:'0:150'}}...</p>
 
                 <div class="flex flex-row justify-between items-center">
-                    <p>Offre postée le : <i>{{job.create_at|date:"d F, Y" }}</i></p>
-                    <button class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary">Postuler</button>
+                    <p>{% trans "Offre postée le" %} : <i>{{job.create_at|date:"d F, Y" }}</i></p>
+                    <button class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary">{% trans "Postuler" %}</button>
                 </div>
             </div>
 
@@ -98,12 +99,12 @@
                     {% endif %}
                 </div>
                 <div class="space-y-4">
-                    <h3 class="font-bold text-lg">Description</h3>
+                    <h3 class="font-bold text-lg">{% trans "Description" %}</h3>
                     <p>{{jobs.0.description|slice:'0:700'}}</p>
                 </div>
 
                 <div class="w-full flex flex-row justify-center">
-                    <a class="btn bg-secondary hover:bg-primary w-48 border-none" href="{{jobs.0.id}}">Postuler</a>
+                    <a class="btn bg-secondary hover:bg-primary w-48 border-none" href="{{jobs.0.id}}">{% trans "Postuler" %}</a>
                 </div>
             </div>
 
@@ -133,13 +134,13 @@
                     </div>
                 </div>
                 <div class="space-y-4">
-                    <h3 class="font-bold text-lg">Description</h3>
+                    <h3 class="font-bold text-lg">{% trans "Description" %}</h3>
                     <p>[[ job.description.substring(0, 700) ]] ...</p>
                 </div>
 
                 <div class="w-full flex flex-row justify-center">
                     <button class="btn bg-secondary hover:bg-primary w-48 border-none"
-                        @click="redirectToDetail(job.id)">Postuler</button>
+                        @click="redirectToDetail(job.id)">{% trans "Postuler" %}</button>
                 </div>
 
             </div>
@@ -179,10 +180,13 @@
         },
 
         methods: {
+
+            //This function redirect user to the detail page of a job.
             redirectToDetail(jobId) {
                 window.location.href = `/jobs/${jobId}`;
             },
 
+            //This function get jobs details and display on html view or redirect to job detail page.
             async getJobDetail(e) {
                 const jobId = e.currentTarget.dataset.jobId
                 const isButtonTarget = e.target.classList.contains('btn')
@@ -207,6 +211,7 @@
                 }
             },
 
+            //This function get jobs list with parameters and display on html view.
             searchJobs() {
                 location.href =
                     `?profession=${this.search.profession}&location=${this.search.location}&contract_type=${this.search.contract_type}`
@@ -216,29 +221,5 @@
     }).mount('#jobsList')
 </script>
 
-<style>
-    * {
-        box-sizing: border-box;
-        /* SCROLLBAR */
-        scrollbar-width: thin;
-        scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
-    }
-
-    /* SCROLLBAR */
-    *::-webkit-scrollbar,
-    *::-webkit-scrollbar-thumb {
-        width: 10px;
-        height: 10px;
-        border-radius: 13px;
-        background-clip: padding-box;
-        border: 2px solid transparent;
-        color: rgba(0, 0, 0, 0.3);
-        background: transparent;
-    }
-
-    *::-webkit-scrollbar-thumb {
-        box-shadow: inset 0 0 0 10px;
-    }
-</style>
 
 {% endblock %}

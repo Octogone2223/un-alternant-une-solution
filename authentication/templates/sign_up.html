@@ -7,30 +7,31 @@
 
       {% csrf_token %}
       <div class="mt-10">
-        <h2 class="font-bold">Type de compte:</h2>
+        <h2 class="font-bold">{% trans "Type de compte" %}:</h2>
         <div class="flex flex-row flex-wrap space-x-5">
           <div class="mt-5 flex flex-row items-center space-x-2">
-            <label for="" class="font-medium">Entreprise</label>
+            <label for="" class="font-medium">{% trans "Entreprise" %}</label>
             <input type="radio" name="account_type" class="" v-model="accountType" value="1" />
           </div>
           <div class="mt-5 flex flex-row items-center space-x-2">
-            <label for="" class="font-medium">École</label>
+            <label for="" class="font-medium">{% trans "École" %}</label>
             <input type="radio" name="account_type" class="" v-model="accountType" value="2" />
           </div>
           <div class="mt-5 flex flex-row items-center space-x-2">
-            <label for="" class="font-medium">Étudiant</label>
+            <label for="" class="font-medium">{% trans "Étudiant" %}</label>
             <input type="radio" name="account_type" class="" v-model="accountType" value="3" />
           </div>
         </div>
       </div>
+
       <transition-group mode="out-in">
-        <Transition name="fade">
+        <Transition name="fade" key="1">
           {% include './components/student_signup.html'%}
         </Transition>
-        <Transition name="fade">
+        <Transition name="fade" key="2">
           {% include './components/company_signup.html'%}
         </Transition>
-        <Transition name="fade">
+        <Transition name="fade" key="3">
           {% include './components/school_signup.html'%}
         </Transition>
       </transition-group>
@@ -44,8 +45,8 @@
 
         </button>
         <div class="text-secondary mt-4">
-          Déjà un compte ? <a href="/auth/sign-in"
-            class="font-semibold text-primary cursor-pointer hover:text-secondary">Se connecter</a>
+          {% trans "Déjà un compte ?" %} <a href="/auth/sign-in"
+            class="font-semibold text-primary cursor-pointer hover:text-secondary">{% trans "Connexion" %}</a>
         </div>
       </div>
 
@@ -53,10 +54,8 @@
         class="mt-10 space-y-10 lg:space-y-0 w-full flex flex-col lg:flex-row justify-center lg:items-center lg:justify-between"
         v-if="accountType !=3">
         <div class="lg:w-3/6">
-          <h3 class="text-secondary font-medium text-2xl mb-5 text-center lg:text-left">Besoin d’aide ?</h3>
-          <p>Vous n'avez pas trouvé l'information que vous recherchiez ? Vous rencontrez des difficultés dans vos
-            démarches en ligne ? Pour trouver une réponse ou une solution à votre problème, consultez la foire aux
-            questions du portail de l'alternance.</p>
+          <h3 class="text-secondary font-medium text-2xl mb-5 text-center lg:text-left"> {% trans 'HelpNeed' %}</h3>
+          <p>{% trans 'HelpNeedMessage' %}</p>
         </div>
         <div class="flex flex-col items-center lg:items-end lg:w-fit">
           <button @click="handleRegister"
@@ -64,8 +63,8 @@
             {% trans 'Inscription' %}
           </button>
           <div class="text-secondary mt-4">
-            Déjà un compte ? <a href="/auth/sign-in"
-              class="font-semibold text-primary cursor-pointer hover:text-secondary">Se connecter</a>
+            {% trans "Déjà un compte ?" %} <a href="/auth/sign-in"
+              class="font-semibold text-primary cursor-pointer hover:text-secondary">{% trans "Connexion" %}</a>
           </div>
         </div>
       </div>
@@ -101,7 +100,10 @@
         classObject: {
           'lg:grid-cols-2': this.activeAccount == 3
         },
-        accountType: '2',
+        accountType: new URL(location.href).searchParams.get('type') && new URL(location.href).searchParams.get(
+            'type') !=
+          'null' ? new URL(location.href).searchParams.get(
+            'type') : 3,
         registerFormStudent: {
           first_name: '',
           last_name: '',
@@ -176,7 +178,7 @@
           this.handleSubmitRegisterStudent()
         }
       },
-      
+
       async register(form) {
         const response = await fetch('/auth/sign-up/', {
           method: 'POST',

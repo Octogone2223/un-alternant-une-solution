@@ -1,0 +1,168 @@
+{% load i18n %}
+<nav class="flex flex-col justify-center bg-primary w-full z-50 top-0 sticky shadow-lg">
+  <div class="container flex flex-row justify-between items-center px-8 w-full">
+    <div class="flex flex-row items-center">
+      <a href="/" class="mr-8">
+        <img class="w-48 md:w-36" alt="Marketplace logo" src="../../static/assets/logo.png" />
+      </a>
+      <div class="hidden lg:block">
+        <a href="/" class="text-white text-sm hover:text-secondary font-bold">{% trans 'Home' %}</a>
+        <a href="/jobs" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Apprenticeship' %}</a>
+        <a href="/courses" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'Courses' %}</a>
+        <a href="/about" class="text-white text-sm hover:text-secondary font-bold ml-4">{% trans 'APropos' %}</a>
+      </div>
+    </div>
+    <div class="block lg:hidden cursor-pointer" v-on:click="toggleMenu()">
+      <i class="fas fa-bars text-white text-2xl hover:text-secondary"></i>
+    </div>
+    <div class="hidden lg:block">
+      <div class="flex flex-row items-center">
+        <div class="dropdown dropdown-hover dropdown-end">
+
+          <a href="{% url 'core:profile' %}" class="text-white text-sm hover:text-secondary font-bold ml-4">
+            <i class="fas fa-user-circle hover:text-secondary text-white text-2xl ml-4"></i>
+          </a>
+          
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-secondary  text-white rounded-box w-52">
+            <li><a href="{% url 'authentication:sign_out' %}">{% trans 'Déconnexion' %}</a></li>
+          </ul>
+
+        </div>
+
+
+        <div class="flex pl-5">
+
+          <button name="button-push-accept"
+            class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer">FFF</button>
+          {% load webpush_notifications %}
+
+          {% webpush_button with_class="hidden text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer" %}
+        </div>
+        <div class="flex pl-10">
+          {% csrf_token %}
+          <input name="next" id='nextInputFlag' type="hidden" value="{{ redirect_to }}">
+          <div class="flag pr-2 cursor-pointer" v-on:click="changeLang('fr')">🇫🇷</div>
+          <div class="flag pr-2 cursor-pointer" v-on:click="changeLang('en')">🇬🇧</div>
+          <div class="flag cursor-pointer" v-on:click="changeLang('cn')">🇨🇳</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lg:hidden bg-secondary h-[400px] shadow-xl flex flex-col items-center justify-center space-y-4"
+    v-show="displayMenu === true">
+    <div>
+      <a href="" class="text-white text-sm hover:text-primary font-bold">{% trans 'Home' %}</a>
+    </div>
+    <div>
+      <a href="" class="text-white text-sm hover:text-primary font-bold">{% trans 'Apprenticeship' %}</a>
+    </div>
+    <div>
+      <a href="" class="text-white text-sm hover:text-primary font-bold">{% trans 'Courses' %}</a>
+    </div>
+    <div>
+      <a href="" class="text-white text-sm hover:text-primary font-bold">{% trans 'APropos' %}</a>
+    </div>
+
+    <div>
+
+      <button name="button-push-accept" class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer">FFF</button>
+      
+      <div class="flex pl-10">
+        {% csrf_token %}
+        <input name="next" id='nextInputFlag' type="hidden" value="{{ redirect_to }}">
+        <div class="flag pr-2 cursor-pointer" v-on:click="changeLang('fr')">🇫🇷</div>
+        <div class="flag pr-2 cursor-pointer" v-on:click="changeLang('en')">🇬🇧</div>
+        <div class="flag cursor-pointer" v-on:click="changeLang('cn')">🇨🇳</div>
+      </div>
+
+    </div>
+
+    <div>
+      <a href="{% url 'core:profile' %}" class="text-white text-sm hover:text-primary font-bold">
+        <i class="fas fa-user-circle hover:text-primary text-white text-2xl"></i>
+      </a>
+    </div>
+  </div>
+  </div>
+</nav>
+
+{% block vueJs %}
+<script>
+  const app = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        displayMenu: false
+      }
+    },
+    methods: {
+
+      //This function is used to toggle the menu
+      toggleMenu: function () {
+        this.displayMenu = !this.displayMenu
+      },
+
+      // This function is called when the user clicks on the flag icon in the navbar 
+      // to change the language of the website to French or English or Chinese respectively and it's use Django's i18n endpoint.
+      changeLang: async function (lang) {
+
+        const details = {
+          language: lang,
+          next: document.getElementById("nextInputFlag").value
+        };
+
+        let formBody = [];
+        for (const property in details) {
+          const encodedKey = encodeURIComponent(property);
+          const encodedValue = encodeURIComponent(details[property]);
+          formBody.push(encodedKey + "=" + encodedValue);
+        }
+        formBody = formBody.join("&");
+
+        await fetch('/i18n/setlang/', {
+          body: formBody,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            "X-CSRFToken": document.getElementsByName("csrfmiddlewaretoken")[0].value
+          },
+        })
+        .then((response) => location.reload())
+
+        window.location.reload()
+      },
+
+      //This function have a button element in parameters and change button text base on the user's webpush subscription status. 
+      setButtonText(button) {
+        if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
+          button.innerHTML = `{% trans 'Subscribe to Push Messaging' %}`;
+        } else {
+          button.innerHTML = `{% trans 'Unsubscribe from Push Messaging' %}`;
+        }
+      },
+    },
+    mounted() {
+      let webpush_subscribe_button = document.getElementById("webpush-subscribe-button");
+      let tab_button_push_accept = document.getElementsByName("button-push-accept");
+
+      tab_button_push_accept.forEach(button => {
+        this.setButtonText(button)
+        button.onclick = () => {
+          webpush_subscribe_button.click();
+          
+          if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
+            localStorage.setItem("popupNotif", 'true')
+          } else {
+            localStorage.setItem("popupNotif", 'false')
+          }
+  
+          this.setButtonText(button)
+        };
+      })
+    },
+  }).mount("#app");
+</script>
+{% endblock %}

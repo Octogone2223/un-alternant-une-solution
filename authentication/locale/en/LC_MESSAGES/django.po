@@ -1,0 +1,150 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-31 08:35+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: authentication/templates/components/company_signup.html:8
+msgid "Nom de l'entreprise"
+msgstr "Company name"
+
+#: authentication/templates/components/company_signup.html:20
+#: authentication/templates/components/school_signup.html:18
+#: authentication/templates/components/student_signup.html:29
+#: authentication/templates/sign_in.html:28
+#: authentication/templates/sign_in.html:76
+msgid "Email"
+msgstr "Email"
+
+#: authentication/templates/components/company_signup.html:33
+#: authentication/templates/components/school_signup.html:30
+#: authentication/templates/components/student_signup.html:5
+msgid "Nom"
+msgstr "Lastname"
+
+#: authentication/templates/components/company_signup.html:46
+#: authentication/templates/components/school_signup.html:42
+#: authentication/templates/components/student_signup.html:17
+msgid "Prénom"
+msgstr "Firstname"
+
+#: authentication/templates/components/company_signup.html:61
+#: authentication/templates/components/school_signup.html:56
+msgid "Ville"
+msgstr "City"
+
+#: authentication/templates/components/company_signup.html:73
+#: authentication/templates/components/school_signup.html:67
+msgid "Code Postal"
+msgstr "Zip code"
+
+#: authentication/templates/components/company_signup.html:86
+#: authentication/templates/components/school_signup.html:80
+msgid "Rue et numéro"
+msgstr "Street"
+
+#: authentication/templates/components/company_signup.html:101
+#: authentication/templates/components/school_signup.html:95
+msgid "Description de l'activité"
+msgstr "Description"
+
+#: authentication/templates/components/company_signup.html:113
+#: authentication/templates/components/school_signup.html:107
+#: authentication/templates/components/student_signup.html:41
+#: authentication/templates/sign_in.html:42
+msgid "Mot de passe"
+msgstr "Password"
+
+#: authentication/templates/components/company_signup.html:125
+#: authentication/templates/components/school_signup.html:119
+#: authentication/templates/components/student_signup.html:53
+msgid "Confirmation mot de passe"
+msgstr "Password confirmation"
+
+#: authentication/templates/components/school_signup.html:7
+msgid "Nom de l'école"
+msgstr "School name"
+
+#: authentication/templates/sign_in.html:11
+#: authentication/templates/sign_up.html:57
+#: authentication/templates/sign_up.html:81
+msgid "HelpNeed"
+msgstr "Need help?"
+
+#: authentication/templates/sign_in.html:14
+#: authentication/templates/sign_up.html:58
+#: authentication/templates/sign_up.html:83
+msgid "HelpNeedMessage"
+msgstr ""
+"You did not find the information you were looking for? Are you experiencing "
+"difficulties with your online procedures? To find an answer or a solution to "
+"your problem, consult the frequently asked questions of the work-study "
+"portal."
+
+#: authentication/templates/sign_in.html:21
+#: authentication/templates/sign_in.html:59
+#: authentication/templates/sign_up.html:49
+#: authentication/templates/sign_up.html:67
+msgid "Connexion"
+msgstr "Login"
+
+#: authentication/templates/sign_in.html:60
+msgid "Mot de passe oublié"
+msgstr "Forgot password"
+
+#: authentication/templates/sign_in.html:61
+msgid "J'ai oublié"
+msgstr "I forgot"
+
+#: authentication/templates/sign_in.html:62
+msgid "Pas encore de compte ?"
+msgstr "No account yet?"
+
+#: authentication/templates/sign_in.html:63
+#: authentication/templates/sign_up.html:6
+#: authentication/templates/sign_up.html:44
+#: authentication/templates/sign_up.html:63
+msgid "Inscription"
+msgstr "Sign Up"
+
+#: authentication/templates/sign_in.html:73
+msgid "J'ai oublié mon mot de passe"
+msgstr "I forgot my password"
+
+#: authentication/templates/sign_in.html:87
+msgid "Compris"
+msgstr "Ok"
+
+#: authentication/templates/sign_up.html:10
+msgid "Type de compte"
+msgstr "Type of account"
+
+#: authentication/templates/sign_up.html:13
+msgid "Entreprise"
+msgstr "Company"
+
+#: authentication/templates/sign_up.html:17
+msgid "École"
+msgstr "School"
+
+#: authentication/templates/sign_up.html:21
+msgid "Étudiant"
+msgstr "Student"
+
+#: authentication/templates/sign_up.html:48
+#: authentication/templates/sign_up.html:66
+msgid "Déjà un compte ?"
+msgstr "Already have an account?"

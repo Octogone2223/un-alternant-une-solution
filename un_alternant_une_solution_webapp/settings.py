@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-from pathlib import Path
 import environ
 from celery.schedules import crontab
 
@@ -23,33 +22,34 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+'
+SECRET_KEY = "django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django_sass',
-    'authentication',
-    'job',
-    'course',
-    'app',
-    'rest_framework'
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django_sass",
+    "authentication",
+    "job",
+    "course",
+    "core",
+    "rest_framework",
+    "webpush",
 ]
 
 INTERNAL_IPS = [
@@ -58,49 +58,49 @@ INTERNAL_IPS = [
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 1  # 1 day
 
-LOGIN_URL = '/auth/sign-in/'
+LOGIN_URL = "/auth/sign-in/"
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "un-alternant-une-solution.herokuapp.com"
-]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1",
+                 "un-alternant-une-solution.herokuapp.com"]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-ROOT_URLCONF = 'un_alternant_une_solution_webapp.urls'
+ROOT_URLCONF = "un_alternant_une_solution_webapp.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
-            'loaders':[(
-                'django.template.loaders.cached.Loader', [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    'django_components.template_loader.Loader',
-                ]
-            )],
-            'builtins': [
-                'django_components.templatetags.component_tags',
-            ]
+            "loaders": [
+                (
+                    "django.template.loaders.cached.Loader",
+                    [
+                        "django.template.loaders.filesystem.Loader",
+                        "django.template.loaders.app_directories.Loader",
+                        "django_components.template_loader.Loader",
+                    ],
+                )
+            ],
+            "builtins": [
+                "django_components.templatetags.component_tags",
+            ],
         },
     },
 ]
@@ -108,35 +108,35 @@ TEMPLATES = [
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-url = env('DATABASE_URL')
-DATABASE_HOST = ((url.split('/')[2]).split(':')[1]).split('@')[1]
-DATABASE_NAME = url.split('/')[3]
-DATABASE_PASSWORD = ((url.split('/')[2]).split(':')[1]).split('@')[0]
+url = env("DATABASE_URL")
+DATABASE_HOST = ((url.split("/")[2]).split(":")[1]).split("@")[1]
+DATABASE_NAME = url.split("/")[3]
+DATABASE_PASSWORD = ((url.split("/")[2]).split(":")[1]).split("@")[0]
 DATABASE_PORT = 5432
-DATABASE_USER = (url.split('/')[2]).split(':')[0]
+DATABASE_USER = (url.split("/")[2]).split(":")[0]
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': url.split('/')[3],
-        'USER': DATABASE_USER,
-        'PASSWORD': DATABASE_PASSWORD,
-        'HOST': DATABASE_HOST,
-        'PORT': DATABASE_PORT,
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": url.split("/")[3],
+        "USER": DATABASE_USER,
+        "PASSWORD": DATABASE_PASSWORD,
+        "HOST": DATABASE_HOST,
+        "PORT": DATABASE_PORT,
     }
 }
 
 """ CELERY """
-CELERY_BROKER_URL = 'redis://redis:6379'
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Europe/Paris'
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "Europe/Paris"
 
 CELERY_BEAT_SCHEDULE = {
-    'la_bonne_alternance_api_job': {
-        'task': 'job.tasks.get_api_data',
-        'schedule': crontab(minute='*/1'),
+    "la_bonne_alternance_api_job": {
+        "task": "job.tasks.get_api_data",
+        "schedule": crontab(minute="*/1"),
     }
 }
 
@@ -145,16 +145,16 @@ CELERY_BEAT_SCHEDULE = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -162,9 +162,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -173,34 +173,50 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 # STATIC_ROOT = '/static/'
 
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static/'),
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'authentication.User'
+AUTH_USER_MODEL = "authentication.User"
 
 
 USE_I18N = True
-LANGUAGE_CODE = 'fr'
-LANGUAGES = [
-    ('fr', 'Français'),
-    ('en', 'English'),
-    ('cn', 'China')
-]
+LANGUAGE_CODE = "fr"
+LANGUAGES = [("fr", "Français"), ("en", "English"), ("cn", "China")]
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'app'),
-    os.path.join(BASE_DIR, 'job'),
-    os.path.join(BASE_DIR, 'authentifcation'),
+    os.path.join(BASE_DIR, "course"),
+    os.path.join(BASE_DIR, "core"),
+    os.path.join(BASE_DIR, "job"),
+    os.path.join(BASE_DIR, "authentication"),
 ]
+
+WEBPUSH_SETTINGS = {
+    "VAPID_PUBLIC_KEY": "BL-yp3qqe3izbS-nHx6tbaUtk42WusvV-VDRp_ARe3kMjtnmtyrjneHG8hZIIjQQHCXhf10wwFyWjj78lm6XPrE",
+    "VAPID_PRIVATE_KEY": "loe-ul0KZcQTJ_DJfJix_SB05EZbaHDXbjv4xkIdJoA",
+    "VAPID_ADMIN_EMAIL": "tom.leveque@ynov.com",
+}
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}

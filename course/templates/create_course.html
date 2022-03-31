@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+
+<div id="createCourse" class="w-full flex-col items-center px-8 lg:px-16 mb-20">
+  <div class="container mt-20">
+    <h1 class="font-bold text-2xl">{% trans "Création d’une formation" %}</h1>
+
+    <div class="lg:grid lg:grid-cols-4 mt-20 lg:gap-8 lg:space-y-0 space-y-8">
+      <div class="flex flex-col col-span-4">
+        <label for="" class="font-bold mb-2 hover  block text-sm text-slate-700">{% trans "Nom de la formation" %}:</label>
+        <input type="text" v-model="form.name" :class="{'border-red-500': errors.name.length}" @focus="errors.name=[]"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+          placeholder="Expert Développement Web" />
+        <div v-if="errors.name.length">
+          <span class="text-red-500 text-xs italic" v-for="error in errors.name" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
+      <div class="flex flex-col col-span-4">
+        <label for="" class="font-bold mb-2 hover  block text-sm text-slate-700"> {% trans "Description" %}:</label>
+        <textarea minlength="100" v-model="form.description" :class="{'border-red-500': errors.description.length}"
+          @focus="errors.description=[]"
+          class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"></textarea>
+        <small class="self-end">{% trans "Au moins 100 caractères sont attendus" %}</small>
+        <div v-if="errors.description.length">
+          <span class="text-red-500 text-xs italic" v-for="error in errors.description" :key="error">
+            [[ error ]]</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-row lg:justify-end justify-center mt-10">
+      <button v-on:click="handleFormSubmit()" class="btn bg-secondary hover:bg-primary border-none w-56">{% trans "Créer" %}</button>
+    </div>
+
+    <div class="mt-20 flex flex-col lg:flex-row justify-center items-center lg:space-y-0 space-y-4 lg:space-x-8">
+      <div class="avatar">
+        <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+          <img src="/auth/school/{{school.id}}/photo" onerror='this.onerror=false;this.src="/static/img/avatar.png"' />
+        </div>
+      </div>
+      <span class="font-bold">{{school.name}}</span>
+    </div>
+  </div>
+</div>
+
+
+{% include './components/footer.html' %}
+
+{% endblock %}
+
+
+{% block vueJs %}
+<script>
+  const createCourse = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        form: {
+          name: "",
+          description: "",
+          school_id: "{{school.id}}"
+        },
+        errors: {
+          name: [],
+          description: []
+        }
+      }
+    },
+    methods: {
+      //This function reset errors on each input of form.
+      resetError() {
+        this.errors = {
+          name: [],
+          description: []
+        }
+      },
+
+      //This function check if the form is valid.
+      async handleFormChange() {
+        return new Promise((resolve, reject) => {
+          this.resetError()
+          if (!this.form.name) {
+            this.errors.name.push('Veuillez entrer un nom de formation')
+          }
+          if (!this.form.description) {
+            this.errors.description.push("Veuillez entrer une description")
+          }
+          if (Object.entries(this.errors).some(([key, val]) => val.length > 0)) {
+            resolve(false);
+          }
+          else {
+            resolve(true);
+          }
+        })
+      },
+
+      //This function submit the form to create a new course.
+      async handleFormSubmit() {
+        if (await this.handleFormChange()) {
+          data = {
+            name: this.form.name,
+            description: this.form.description,
+            school_id: this.form.school_id
+          }
+
+          fetch('/courses/create-course/', {
+            method: 'POST',
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify(data)
+          }).then((res) => {
+            return res.json()
+          }).then(json => {
+            console.log(json)
+            if (json.status === 'success') {
+              Toastify({
+                text: "Votre formation a bien été publiée",
+                duration: 3000
+              }).showToast();
+            }
+          })
+        }
+
+      }
+    }
+  }).mount('#createCourse')
+</script>
+{% endblock %}

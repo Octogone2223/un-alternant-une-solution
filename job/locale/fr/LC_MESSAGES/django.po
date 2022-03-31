@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 11:17+0100\n"
+"POT-Creation-Date: 2022-03-31 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,244 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: job/models.py:47
+#: job/models.py:46
 msgid "Open"
 msgstr "Open"
 
-#: job/models.py:48
+#: job/models.py:47
 msgid "Closed"
 msgstr "Closed"
 
-#: job/models.py:49
+#: job/models.py:48
 msgid "Canceled"
 msgstr "Canceled"
+
+#: job/models.py:81
+msgid "ACCEPTED"
+msgstr "ACCEPTED"
+
+#: job/models.py:82
+msgid "REJECTED"
+msgstr "REJECTED"
+
+#: job/models.py:83
+msgid "PENDING"
+msgstr "PENDING"
+
+#: job/templates/create_job.html:10
+msgid "Création d’une offre"
+msgstr "Création d’une offre"
+
+#: job/templates/create_job.html:14 job/templates/update_job.html:14
+msgid "Titre"
+msgstr "Titre"
+
+#: job/templates/create_job.html:25 job/templates/update_job.html:25
+msgid "Début du contrat"
+msgstr "Début du contrat"
+
+#: job/templates/create_job.html:35 job/templates/update_job.html:35
+msgid "Salaire proposé"
+msgstr "Salaire proposé"
+
+#: job/templates/create_job.html:45 job/templates/update_job.html:45
+msgid "Type de contrat"
+msgstr "Type de contrat"
+
+#: job/templates/create_job.html:50 job/templates/update_job.html:50
+msgid "Veuillez sélectionner un type de contrat"
+msgstr "Veuillez sélectionner un type de contrat"
+
+#: job/templates/create_job.html:51 job/templates/update_job.html:51
+msgid "CDI"
+msgstr "CDI"
+
+#: job/templates/create_job.html:52 job/templates/update_job.html:52
+msgid "CDD"
+msgstr "CDD"
+
+#: job/templates/create_job.html:53 job/templates/update_job.html:53
+msgid "Alternance"
+msgstr "Alternance"
+
+#: job/templates/create_job.html:61 job/templates/update_job.html:61
+msgid "Nombre d'heure"
+msgstr "Nombre d'heure"
+
+#: job/templates/create_job.html:71 job/templates/list_jobs.html:102
+#: job/templates/list_jobs.html:137 job/templates/update_job.html:71
+msgid "Description"
+msgstr "Description"
+
+#: job/templates/create_job.html:75 job/templates/update_job.html:75
+msgid "Au moins 100 caractères sont attendus"
+msgstr "Au moins 100 caractères sont attendus"
+
+#: job/templates/create_job.html:83
+msgid "Créer"
+msgstr "Créer"
+
+#: job/templates/job_details.html:77 job/templates/job_inspect.html:22
+msgid "CV"
+msgstr "CV"
+
+#: job/templates/job_details.html:84 job/templates/job_inspect.html:23
+msgid "Lettre de motivation"
+msgstr "Lettre de motivation"
+
+#: job/templates/job_details.html:89
+msgid "Renseignement"
+msgstr "Renseignement"
+
+#: job/templates/job_details.html:90
+msgid "Si vous avez des informations supplémentaires à renseigner ...."
+msgstr "Si vous avez des informations supplémentaires à renseigner ...."
+
+#: job/templates/job_details.html:96 job/templates/list_jobs.html:63
+#: job/templates/list_jobs.html:107 job/templates/list_jobs.html:143
+msgid "Postuler"
+msgstr "Postuler"
+
+#: job/templates/job_details.html:102
+msgid "Vous ne pouvez pas postuler à une offre d'alternance"
+msgstr "Vous ne pouvez pas postuler à une offre d'alternance"
+
+#: job/templates/job_details.html:106
+msgid "Vous avez déjà postulez pour cette alternance"
+msgstr "Vous avez déjà postulez pour cette alternance"
+
+#: job/templates/job_inspect.html:9
+msgid "Liste des candidatures pour"
+msgstr "Liste des candidatures pour"
+
+#: job/templates/job_inspect.html:19
+msgid "Candidat"
+msgstr "Candidat"
+
+#: job/templates/job_inspect.html:20
+msgid "Formation"
+msgstr "Formation"
+
+#: job/templates/job_inspect.html:21
+msgid "Date de naissance"
+msgstr "Date de naissance"
+
+#: job/templates/job_inspect.html:30
+msgid "Vous n'avez pas encore reçu de candidature."
+msgstr "Vous n'avez pas encore reçu de candidature."
+
+#: job/templates/job_inspect.html:39
+msgid "Aucune formation"
+msgstr "Aucune formation"
+
+#: job/templates/job_inspect.html:42
+msgid "Non renseigné"
+msgstr "Non renseigné"
+
+#: job/templates/jobs_datings_company.html:9
+msgid "Liste des offres d’alternances"
+msgstr "Liste des offres d’alternances"
+
+#: job/templates/jobs_datings_company.html:16
+msgid "Intitulé"
+msgstr "Intitulé"
+
+#: job/templates/jobs_datings_company.html:17
+msgid "Nombre de canditure"
+msgstr "Nombre de candidature"
+
+#: job/templates/jobs_datings_company.html:18
+#: job/templates/jobs_datings_student.html:18
+msgid "Date de début"
+msgstr "Date de début"
+
+#: job/templates/jobs_datings_company.html:25
+msgid "Vous n'avez pas encore publier de candidature."
+msgstr "Vous n'avez pas encore publier de candidature."
+
+#: job/templates/jobs_datings_company.html:46
+#: job/templates/jobs_datings_student.html:53
+msgid "Une confirmation est nécessaire"
+msgstr "Une confirmation est nécessaire"
+
+#: job/templates/jobs_datings_company.html:47
+msgid "Voulez-vous vraiment supprimer cette offre d'alternance ?"
+msgstr "Voulez-vous vraiment supprimer cette offre d'alternance ?"
+
+#: job/templates/jobs_datings_company.html:49
+#: job/templates/jobs_datings_student.html:56
+msgid "Non !"
+msgstr "Non !"
+
+#: job/templates/jobs_datings_company.html:51
+#: job/templates/jobs_datings_student.html:58
+msgid "Supprimer"
+msgstr "Supprimer"
+
+#: job/templates/jobs_datings_student.html:9
+msgid "Liste de vos candidatures"
+msgstr "Liste de vos candidatures"
+
+#: job/templates/jobs_datings_student.html:16
+msgid "Poste"
+msgstr "Poste"
+
+#: job/templates/jobs_datings_student.html:17
+msgid "Entreprise"
+msgstr "Entreprise"
+
+#: job/templates/jobs_datings_student.html:19
+msgid "Statut"
+msgstr "Statut"
+
+#: job/templates/jobs_datings_student.html:26
+msgid "Vous n'avez pas de candidatures"
+msgstr "Vous n'avez pas de candidatures"
+
+#: job/templates/jobs_datings_student.html:37
+msgid "Accepté"
+msgstr "Accepté"
+
+#: job/templates/jobs_datings_student.html:39
+msgid "Refusé"
+msgstr "Refusé"
+
+#: job/templates/jobs_datings_student.html:41
+msgid "En attente"
+msgstr "En attente"
+
+#: job/templates/jobs_datings_student.html:54
+msgid "Voulez-vous vraiment supprimer cette candidature ?"
+msgstr "Voulez-vous vraiment supprimer cette candidature ?"
+
+#: job/templates/list_jobs.html:13
+msgid "Métier recherché"
+msgstr "Métier recherché"
+
+#: job/templates/list_jobs.html:18
+msgid "Lieu de travail"
+msgstr "Lieu de travail"
+
+#: job/templates/list_jobs.html:23
+msgid "Type de contrat (CDD, etc.)"
+msgstr "Type de contrat (CDD, etc.)"
+
+#: job/templates/list_jobs.html:27
+msgid "Rechercher"
+msgstr "Rechercher"
+
+#: job/templates/list_jobs.html:33
+msgid "Aucune offre ne correspond"
+msgstr "Aucune offre ne correspond"
+
+#: job/templates/list_jobs.html:62
+msgid "Offre postée le"
+msgstr "Offre postée le"
+
+#: job/templates/update_job.html:10
+msgid "Mettre à jour votre offre"
+msgstr "Mettre à jour votre offre"
+
+#: job/templates/update_job.html:84
+msgid "Modifier"
+msgstr "Modifier"

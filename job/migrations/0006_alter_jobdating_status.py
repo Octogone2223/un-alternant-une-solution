@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('job', '0005_job_company'),
+        ("job", "0005_job_company"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='jobdating',
-            name='status',
-            field=models.CharField(choices=[('AC', 'ACCEPTED'), ('RE', 'REJECTED'), ('PE', 'PENDING')], max_length=2),
+            model_name="jobdating",
+            name="status",
+            field=models.CharField(
+                choices=[("AC", "ACCEPTED"), ("RE", "REJECTED"), ("PE", "PENDING")],
+                max_length=2,
+            ),
         ),
     ]

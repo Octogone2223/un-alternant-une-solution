@@ -1,27 +1,29 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 
 {% block content %}
 
-<div class="flex justify-center my-12" id="jobDatings">
+<div class="flex justify-center my-12" id="jobDatings" style="min-height: 75vh">
     <div class="w-full max-w-screen-lg flex-clumn">
-        <h1 class="font-bold text-4xl mb-4">Liste de vos candidatures</h1>
+        <h1 class="font-bold text-4xl mb-12">{% trans "Liste de vos candidatures" %}</h1>
         {% csrf_token %}
         <div class="overflow-x-auto">
             <table class="table w-full">
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th>Poste</th>
-                        <th>Entreprise</th>
-                        <th>Date de début</th>
+                        <th>{% trans "Poste" %}</th>
+                        <th>{% trans "Entreprise" %}</th>
+                        <th>{% trans "Date de début" %}</th>
+                        <th>{% trans "Statut" %}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% if not job_datings %}
                     <tr>
-                        <td colspan="4">Vous n'avez pas de candidatures</td>
+                        <td colspan="4">{% trans "Vous n'avez pas de candidatures" %}</td>
                     </tr>
                     {% else %}
 
@@ -30,6 +32,15 @@
                         <th>{{ job_dating.job.name|slice:'0:30' }}...</th>
                         <td>{{ job_dating.job.company.name }}</td>
                         <td>{{ job_dating.job.start_date }}</td>
+
+                        {% if job_dating.status == 'AC' %}
+                        <td class="text-green-500">{% trans "Accepté" %}</td>
+                        {% elif job_dating.status == 'RE' %}
+                        <td class="text-red-500">{% trans "Refusé" %}</td>
+                        {% else %}
+                        <td class="text-orange-500">{% trans "En attente" %}</td>
+                        {% endif %}
+
                         <td>
                             <a href="/jobs/{{job_dating.job.id}}">
                                 <i class="fas fa-eye mx-3 cursor-pointer"></i>
@@ -39,16 +50,17 @@
                             <input type="checkbox" id="my-modal" class="modal-toggle">
                             <div class="modal">
                                 <div class="modal-box">
-                                    <h3 class="font-bold text-lg">Une confirmation est nécessaire</h3>
-                                    <p class="my-3">Voulez-vous vraiment supprimer cette candidature ?</p>
+                                    <h3 class="font-bold text-lg">{% trans "Une confirmation est nécessaire" %}</h3>
+                                    <p class="my-3">{% trans "Voulez-vous vraiment supprimer cette candidature ?" %}</p>
                                     <div class="modal-action">
-                                        <label for="my-modal" class="btn">Non !</label>
+                                        <label for="my-modal" class="btn">{% trans "Non !" %}</label>
                                         <button class="btn btn-outline btn-error" data-job-dating-id="{{job_dating.id}}"
-                                            @click="handleDeleteJob">Supprimer</button>
+                                            @click="handleDeleteJob">{% trans "Supprimer" %}</button>
                                     </div>
                                 </div>
                             </div>
                         </td>
+
                     </tr>
                     {% endfor %}
 
@@ -69,6 +81,8 @@
     const appJobDatings = Vue.createApp({
         delimiters: ["[[", "]]"],
         methods: {
+
+            //This function is used to delete a job dating.
             async handleDeleteJob(event) {
                 const jobDatingId = event.target.dataset.jobDatingId;
                 const url = `${jobDatingId}`;

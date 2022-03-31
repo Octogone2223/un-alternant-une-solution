@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<div id="about flex ">
+    <div class="max-w-screen-lg mx-auto my-16 px-8">
+        <h1 class="text-3xl text-secondary font-bold text-center mb-16">
+            {% trans 'Qui sommes-nous ?' %}
+        </h1>
+        <p>
+            {% trans 'Qui sommes-nous ?2' %}
+        </p>
+
+        <p class="mt-4">
+            {% trans 'Qui sommes-nous ?3' %}
+        </p>
+
+        <p class="mt-4">
+            {% trans 'Qui sommes-nous ?4' %}
+        </p>
+
+        <p class="mt-4">
+            {% trans 'Qui sommes-nous ?5' %}
+        </p>
+
+        <p class="mt-4">
+            {% trans 'Qui sommes-nous ?6' %}
+        </p>
+
+        <p class="mt-4">
+            {% trans 'Qui sommes-nous ?7' %}
+        </p>
+    </div>
+    <div class="mb-24">
+        <div class="w-4/6 mx-auto my-16 px-4">
+            <h1 class="text-3xl text-secondary font-bold text-center mb-16">
+                {% trans 'Notre équipe' %}
+            </h1>
+        </div>
+        <div class="flex justify-center flex-wrap w-full">
+            <div class="avatar mx-16 flex flex-col mt-6 w-full sm:w-1/4 lg:w-fit">
+                <div class="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                        src="https://media-exp1.licdn.com/dms/image/C4D03AQGe5DlEcJMiVw/profile-displayphoto-shrink_200_200/0/1632319742113?e=2147483647&v=beta&t=6pLIVpOHR369bBxCGwMNOGtg1Km4ItVmhD6mhqraEF0" />
+                </div>
+                <span class="mx-auto font-bold mt-3">KOTTO Yann</span>
+            </div>
+            <div class="avatar mx-16 flex flex-col mt-6 w-full sm:w-1/4 lg:w-fit">
+                <div class="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img src="https://www.babelio.com/users/AVT_Tom-Leveque_487.jpg" />
+                </div>
+                <span class="mx-auto font-bold mt-3">LEVEQUE Tom</span>
+            </div>
+            <div class="avatar mx-16 flex flex-col mt-6 w-full sm:w-1/4 lg:w-fit">
+                <div class="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                        src="https://media-exp1.licdn.com/dms/image/C4D03AQGULMZx8XdctQ/profile-displayphoto-shrink_200_200/0/1605795324670?e=1652918400&v=beta&t=zA_FYQcBO_OSZSE2nEIOe5_hMJhPRFPzIUNjEfwOaDk" />
+                </div>
+                <span class="mx-auto font-bold mt-3">OUVRARD Lilian</span>
+            </div>
+            <div class="avatar mx-16 flex flex-col mt-6 w-full sm:w-1/4 lg:w-fit">
+                <div class="w-24 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                        src="https://media-exp1.licdn.com/dms/image/C5603AQElMrZBBPxg7g/profile-displayphoto-shrink_200_200/0/1561275134418?e=2147483647&v=beta&t=EPJ_Y7FtWfyVOV1_iBIx0MSVhMRfZzRQz6Q1Qx7vSCU" />
+                </div>
+                <span class="mx-auto font-bold mt-3">KAYM Kassai</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include './components/footer.html' %}
+
+{% endblock %}
+
+{% block vueJs %}
+<script>
+    const appAbout = Vue.createApp({
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                title: 'Hello ABOUT PAGE!',
+            }
+        },
+    }).mount('#about')
+</script>
+
+{% endblock %}
