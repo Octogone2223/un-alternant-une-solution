@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
 
-# Create your models here.
+# Creates a JobCode model
 
 
 class JobCode(models.Model):
@@ -12,6 +12,8 @@ class JobCode(models.Model):
 
     def __str__(self):
         return self.name
+
+# Creates a Job model
 
 
 class Job(models.Model):
@@ -28,7 +30,8 @@ class Job(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
-    job_datings = models.ManyToManyField("job.JobDating", related_name="job_datings+")
+    job_datings = models.ManyToManyField(
+        "job.JobDating", related_name="job_datings+")
 
     company = models.ForeignKey(
         "authentication.company", on_delete=models.CASCADE, related_name="job_company+"
@@ -41,6 +44,7 @@ class Job(models.Model):
         return self.name
 
 
+# Creates a JobStatus model
 class JobStatus(models.Model):
     class Status(models.TextChoices):
         OPEN = "OP", _("Open")
@@ -57,6 +61,7 @@ class JobStatus(models.Model):
         return self.name
 
 
+# Creates a LastIndexApi model
 class LastIndexApi(models.Model):
     last_index = models.IntegerField()
     update_at = models.DateTimeField(auto_now=True)
@@ -65,6 +70,7 @@ class LastIndexApi(models.Model):
         return self.last_index
 
 
+# Creates a JobIdFromPreviousRequest model
 class JobIdFromPreviousRequest(models.Model):
 
     job_codes = ArrayField(base_field=models.CharField(max_length=255))
@@ -76,15 +82,18 @@ class JobIdFromPreviousRequest(models.Model):
         return self.job_id
 
 
+# Creates a JobDating model
 class JobDating(models.Model):
     class Status(models.TextChoices):
         ACCEPTED = "AC", _("ACCEPTED")
         REJECTED = "RE", _("REJECTED")
         PENDING = "PE", _("PENDING")
 
-    student = models.ForeignKey("authentication.Student", on_delete=models.CASCADE)
+    student = models.ForeignKey(
+        "authentication.Student", on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    motivation_letter_path = models.CharField(max_length=255, verbose_name="Job Name")
+    motivation_letter_path = models.CharField(
+        max_length=255, verbose_name="Job Name")
     cv_path = models.CharField(max_length=255, verbose_name="Job Name")
     status = models.CharField(
         max_length=2,
