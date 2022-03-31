@@ -358,7 +358,7 @@ def jobs_datings_detail(request, job_dating_id):
                 payload["head"] = "Candidature Accepté !"
                 payload[
                     "body"
-                ] = f"Votre candidature pour '${job_dating.job.name}' a été acceptée 😁!"
+                ] = f"Votre candidature pour '{job_dating.job.name}' a été acceptée 😁!"
 
             # if the status is reject
             elif body_json["status"] == "REJECTED":
@@ -370,7 +370,7 @@ def jobs_datings_detail(request, job_dating_id):
                 payload["head"] = "Candidature Rejeté !"
                 payload[
                     "body"
-                ] = f"Votre candidature pour '${job_dating.job.name}' a été rejetée 😖!"
+                ] = f"Votre candidature pour '{job_dating.job.name}' a été rejetée 😖!"
 
             # pass the webhook payload to the webhook and send a notification to the student
             send_user_notification(
