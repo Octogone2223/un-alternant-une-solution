@@ -15,12 +15,10 @@
 
       <div class='flex flex-col lg:flex-row justify-center items-center lg:space-x-10 my-4 lg:my-0'>
         <div v-if="userType === 'Company'" class="mb-4 lg:mb-0">
-          <a href="/jobs/datings"
-            class=" btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Voir mes offres' %}</a>
+          <a href="/jobs/datings" class=" btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Voir mes offres' %}</a>
         </div>
         <div v-if="userType === 'Company'" class="mb-4 lg:mb-0">
-          <a href="/jobs/create-job"
-            class="btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Créer une offre' %}</a>
+          <a href="/jobs/create-job" class="btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Créer une offre' %}</a>
         </div>
         <div v-if="userType === 'School'" class="mb-4 lg:mb-0">
           <a href="/jobs/create-job" class="btn btn-sm bg-primary border-none hover:bg-secondary">Voir mes
@@ -31,8 +29,7 @@
             formation</a>
         </div>
         <div v-if="userType === 'Student'" class="mb-4 lg:mb-0">
-          <a href="/jobs/datings/"
-            class="btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Voir mes candidatures' %}</a>
+          <a href="/jobs/datings/" class="btn btn-sm bg-primary border-none hover:bg-secondary">{% trans 'Voir mes candidatures' %}</a>
         </div>
         <div v-on:click="updatePhoto()" class="avatar flex items-end justify-end cursor-pointer ">
           <input type="file" accept="image/*" id="filePhoto" class="hidden"></input>
@@ -188,7 +185,7 @@
               this.errors.birthday.push('Veuillez entrer une date de naissance')
             }
             if (!this.profileForm.linkedin_url || (!this.profileForm.linkedin_url.includes("http") && !this
-                .profileForm.linkedin_url.includes("https"))) {
+              .profileForm.linkedin_url.includes("https"))) {
               this.errors.linkedin_url.push('Veuillez un lien Linkedin valide')
             }
           } else {
@@ -257,20 +254,20 @@
           }
 
           fetch('/auth/user/', {
-              method: 'POST',
-              headers: {
-                "X-CSRFToken": getCookie("csrftoken"),
+            method: 'POST',
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({
+              userSend: {
+                ...userSend
               },
-              body: JSON.stringify({
-                userSend: {
-                  ...userSend
-                },
-                dataSend: {
-                  ...dataSend
-                },
-                userType: this.userType
-              }),
-            })
+              dataSend: {
+                ...dataSend
+              },
+              userType: this.userType
+            }),
+          })
             .then((response) => {
               return response.json()
             })
@@ -283,6 +280,11 @@
               }
             })
         }
+
+
+        /*
+         */
+
       },
 
       resetErrorPassword() {
@@ -324,21 +326,22 @@
           }
 
           fetch('/auth/user/password', {
-              method: 'PATCH',
-              headers: {
-                "X-CSRFToken": getCookie("csrftoken"),
-              },
-              body: JSON.stringify({
+            method: 'PATCH',
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({
 
-                userSend: {
-                  ...userSend
-                }
-              }),
-            })
+              userSend: {
+                ...userSend
+              }
+            }),
+          })
             .then((response) => {
               return response.json()
             })
             .then((json) => {
+              console.log(json);
               if (json.status === 'success') {
                 Toastify({
                   text: "Votre mot de passe a été mis à jour",
@@ -361,18 +364,18 @@
 
       this.filePhoto.onchange = async () => {
         fetch(`/auth/user/${this.id}/photo`, {
-            method: 'PUT',
-            headers: {
-              "X-CSRFToken": getCookie("csrftoken"),
+          method: 'PUT',
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({
+            userSend: {
+              id: this.id
             },
-            body: JSON.stringify({
-              userSend: {
-                id: this.id
-              },
-              filePhoto: await this.readFile(this.filePhoto.files[0]),
-              extensionFile: this.filePhoto.files[0].type.split('/')[1].split('+')[0]
-            }),
-          })
+            filePhoto: await this.readFile(this.filePhoto.files[0]),
+            extensionFile: this.filePhoto.files[0].type.split('/')[1].split('+')[0]
+          }),
+        })
           .then((response) => {
             return response.json()
           })
@@ -390,10 +393,10 @@
 
 
       this.fileEntity = document.getElementById("fileEntity");
-
-      this.fileEntity.onchange = async () => {
-
-        fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`, {
+      if (this.fileEntity) {
+        this.fileEntity.onchange = async () => {
+  
+          fetch(`/auth/${this.userType.toLowerCase()}/${this.idD}/photo`, {
             method: 'PUT',
             headers: {
               "X-CSRFToken": getCookie("csrftoken"),
@@ -406,19 +409,20 @@
               extensionFile: this.fileEntity.files[0].type.split('/')[1].split('+')[0]
             }),
           })
-          .then((response) => {
-            return response.json()
-          })
-          .then((json) => {
-            if (json.status === 'success') {
-              Toastify({
-                text: "Votre photo a été mis à jour",
-                duration: 3000
-              }).showToast();
-              document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" +
-                new Date().getTime();
-            }
-          })
+            .then((response) => {
+              return response.json()
+            })
+            .then((json) => {
+              if (json.status === 'success') {
+                Toastify({
+                  text: "Votre photo a été mis à jour",
+                  duration: 3000
+                }).showToast();
+                document.getElementById("pictureEntity").src = "/auth/{{userType|lower}}/{{data.id}}/photo?" +
+                  new Date().getTime();
+              }
+            })
+        }
       }
     },
     watch: {}

@@ -72,6 +72,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     first_name = models.CharField(max_length=75, verbose_name="First Name")
     last_name = models.CharField(max_length=75, verbose_name="Last Name")
+    logo = models.ImageField(
+        upload_to='authentication/files/picture', blank=True, null=True)
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
     )
@@ -125,10 +127,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Company(models.Model):
 
     name = models.CharField(max_length=75, verbose_name="Company Name")
-    description = models.TextField(verbose_name="Company Description", null=True)
+    description = models.TextField(
+        verbose_name="Company Description", null=True)
     city = models.CharField(max_length=75, verbose_name="City", null=True)
     street = models.CharField(max_length=75, verbose_name="Street", null=True)
-    zip_code = models.CharField(max_length=75, verbose_name="Zip Code", null=True)
+    logo = models.ImageField(
+        upload_to='authentication/files/picture/company', blank=True, null=True)
+    zip_code = models.CharField(
+        max_length=75, verbose_name="Zip Code", null=True)
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
     )
@@ -145,12 +151,16 @@ class Student(models.Model):
 
     birthday = models.DateField(verbose_name="Birthday", null=True)
     linkedin_url = models.URLField(verbose_name="LinkedIn URL", null=True)
-    cv_path = models.CharField(max_length=255, verbose_name="CV Path", null=True)
+    cv_path = models.CharField(
+        max_length=255, verbose_name="CV Path", null=True)
     description = models.TextField(verbose_name="Description", null=True)
+    cv = models.FileField(
+        upload_to='authentication/files/cv', blank=True, null=True)
 
     # RELATIONS
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    course = models.ForeignKey("course.Course", on_delete=models.CASCADE, null=True)
+    course = models.ForeignKey(
+        "course.Course", on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
@@ -159,17 +169,21 @@ class Student(models.Model):
 class School(models.Model):
 
     name = models.CharField(max_length=150, verbose_name="School Name")
-    description = models.TextField(verbose_name="School Description", null=True)
+    description = models.TextField(
+        verbose_name="School Description", null=True)
     city = models.CharField(max_length=75, verbose_name="City")
     street = models.CharField(max_length=75, verbose_name="Street")
     zip_code = models.CharField(max_length=75, verbose_name="Zip Code")
+    logo = models.ImageField(
+        upload_to='authentication/files/picture/school', blank=True, null=True)
     extension_picture = models.CharField(
         max_length=20, default="NULL", verbose_name="Picture Extension"
     )
 
     # RELATIONS
     users = models.ManyToManyField(User)
-    courses = models.ManyToManyField("course.Course", related_name="school_courses+")
+    courses = models.ManyToManyField(
+        "course.Course", related_name="school_courses+")
 
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
