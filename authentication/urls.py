@@ -10,7 +10,6 @@ urlpatterns = [
     path("sign-up/", views.sign_up, name="sign_up"),
     path("sign-in/", views.sign_in, name="sign_in"),
     path("sign-out/", views.sign_out, name="sign_out"),
-    path("private-test/", views.private, name="private"),
     path("user/", views.user, name="user"),
     path("user/password", views.updatePassword, name="changePassword"),
     path("user/cvPublic/<int:id>", views.cvPublic, name="cvPublic"),

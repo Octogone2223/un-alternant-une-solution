@@ -22,3 +22,7 @@ blackall:
 removeimport:
 	@echo "Autokflake..."
 	autoflake --in-place --remove-unused-variables --remove-all-unused-imports --recursive .
+
+pycodestyle:
+	@echo "Pycodestyle..."
+	pycodestyle --statistics --ignore=E501 .
