@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 
 {% block content %}
 
 <div class="flex justify-center my-12" id="jobInspect" style="min-height: 75vh">
     <div class=" w-full max-w-screen-lg flex-clumn">
-        <h1 class="font-bold text-4xl mb-12">Liste des candidatures pour: <span class="font-normal">
+        <h1 class="font-bold text-4xl mb-12">{% trans "Liste des candidatures pour" %}: <span class="font-normal">
                 {{job.name}}
             </span>
         </h1>
@@ -15,18 +16,18 @@
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th>Candidat</th>
-                        <th>Formation</th>
-                        <th>Date de naissance</th>
-                        <th>CV</th>
-                        <th>Lettre de motivation</th>
+                        <th>{% trans "Candidat" %}</th>
+                        <th>{% trans "Formation" %}</th>
+                        <th>{% trans "Date de naissance" %}</th>
+                        <th>{% trans "CV" %}</th>
+                        <th>{% trans "Lettre de motivation" %}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% if not job_datings %}
                     <tr>
-                        <td colspan="4">Vous n'avez pas encore reçu de candidature.</td>
+                        <td colspan="4">{% trans "Vous n'avez pas encore reçu de candidature." %}</td>
                     </tr>
                     {% else %}
                     {% for job_dating in job_datings %}
@@ -35,10 +36,10 @@
                         <th>
                             {{ job_dating.student.user.first_name }} {{ job_dating.student.user.last_name }}</th>
                         <td> {% if job.student.course.name %} {{job.student.course.name}} {% else %}
-                            <i>Aucune formation</i>
+                            <i>{% trans "Aucune formation" %}</i>
                             {% endif %} </td>
                         <td>{% if condition %}{{ job_dating.stuent.birthday }} {% else %}
-                            <i>Non renseigné</i>
+                            <i>{% trans "Non renseigné" %}</i>
                             {% endif %}
                         </td>
                         <td>
@@ -78,6 +79,8 @@
     const appJobInspect = Vue.createApp({
         delimiters: ["[[", "]]"],
         methods: {
+
+            //This function is used to update the status of a job dating.
             async updateStatus(event, status) {
                 const jobDatingId = event.target.dataset.jobDatingId;
 

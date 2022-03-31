@@ -194,7 +194,8 @@ USE_I18N = True
 LANGUAGE_CODE = "fr"
 LANGUAGES = [("fr", "Français"), ("en", "English"), ("cn", "China")]
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, "app"),
+    os.path.join(BASE_DIR, "course"),
+    os.path.join(BASE_DIR, "core"),
     os.path.join(BASE_DIR, "job"),
     os.path.join(BASE_DIR, "authentication"),
 ]

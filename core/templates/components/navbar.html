@@ -32,7 +32,7 @@
 
         <div class="flex pl-5">
 
-          <button id="button-push-accept"
+          <button name="button-push-accept"
             class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer">FFF</button>
           {% load webpush_notifications %}
 
@@ -52,7 +52,7 @@
   </div>
 
   <div class="lg:hidden bg-secondary h-[400px] shadow-xl flex flex-col items-center justify-center space-y-4"
-    v-if="displayMenu === true">
+    v-show="displayMenu === true">
     <div>
       <a href="" class="text-white text-sm hover:text-primary font-bold">{% trans 'Home' %}</a>
     </div>
@@ -68,17 +68,14 @@
 
     <div>
 
-      <button id="button-push-accept" class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer">FFF</button>
-      {% load webpush_notifications %}
-
-      {% webpush_button with_class="hidden text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer" %}
-     
+      <button name="button-push-accept" class="text-white text-sm font-bold bg-secondary py-2 px-8 w-48 h-14 rounded-full hover:text-primary flex justify-center items-center cursor-pointer">FFF</button>
+      
       <div class="flex pl-10">
         {% csrf_token %}
         <input name="next" id='nextInputFlag' type="hidden" value="{{ redirect_to }}">
-        <div class="flag pr-2 cursor-pointer" v-on:click="alertT('fr')">🇫🇷</div>
-        <div class="flag pr-2 cursor-pointer" v-on:click="alertT('en')">🇬🇧</div>
-        <div class="flag cursor-pointer" v-on:click="alertT('cn')">🇨🇳</div>
+        <div class="flag pr-2 cursor-pointer" v-on:click="changeLang('fr')">🇫🇷</div>
+        <div class="flag pr-2 cursor-pointer" v-on:click="changeLang('en')">🇬🇧</div>
+        <div class="flag cursor-pointer" v-on:click="changeLang('cn')">🇨🇳</div>
       </div>
 
     </div>
@@ -103,10 +100,13 @@
     },
     methods: {
 
+      //This function is used to toggle the menu
       toggleMenu: function () {
         this.displayMenu = !this.displayMenu
       },
 
+      // This function is called when the user clicks on the flag icon in the navbar 
+      // to change the language of the website to French or English or Chinese respectively and it's use Django's i18n endpoint.
       changeLang: async function (lang) {
 
         const details = {
@@ -134,33 +134,34 @@
 
         window.location.reload()
       },
-      setButtonText() {
-        let button_push_accept = document.getElementById("button-push-accept");
+
+      //This function have a button element in parameters and change button text base on the user's webpush subscription status. 
+      setButtonText(button) {
         if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
-          button_push_accept.innerHTML = `{% trans 'Subscribe to Push Messaging' %}`;
+          button.innerHTML = `{% trans 'Subscribe to Push Messaging' %}`;
         } else {
-          button_push_accept.innerHTML = `{% trans 'Unsubscribe from Push Messaging' %}`;
+          button.innerHTML = `{% trans 'Unsubscribe from Push Messaging' %}`;
         }
       },
     },
     mounted() {
       let webpush_subscribe_button = document.getElementById("webpush-subscribe-button");
-      let button_push_accept = document.getElementById("button-push-accept");
+      let tab_button_push_accept = document.getElementsByName("button-push-accept");
 
-      this.setButtonText()
-
-      button_push_accept.onclick = () => {
-        webpush_subscribe_button.click();
-
-        //localStorage.setItem("popupNotif",true)
-        if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
-          localStorage.setItem("popupNotif", 'true')
-        } else {
-          localStorage.setItem("popupNotif", 'false')
-        }
-
-        this.setButtonText()
-      };
+      tab_button_push_accept.forEach(button => {
+        this.setButtonText(button)
+        button.onclick = () => {
+          webpush_subscribe_button.click();
+          
+          if (localStorage.getItem("popupNotif") === null || localStorage.getItem("popupNotif") === 'false') {
+            localStorage.setItem("popupNotif", 'true')
+          } else {
+            localStorage.setItem("popupNotif", 'false')
+          }
+  
+          this.setButtonText(button)
+        };
+      })
     },
   }).mount("#app");
 </script>
