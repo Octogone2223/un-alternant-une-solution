@@ -140,7 +140,7 @@ def create_course(request):
     user_type = request.user.getUserType()
 
     # if the user is a school, return the create course page, else set school to None and return the create course page
-    if user_type == "School":
+    if user_type == "school":
 
         # get the school from the database
         school = list(School.objects.filter(users=request.user).values())[0]
