@@ -75,17 +75,3 @@
 {% include './components/footer.html' %}
 
 {% endblock %}
-
-{% block vueJs %}
-<script>
-    const appAbout = Vue.createApp({
-        delimiters: ["[[", "]]"],
-        data() {
-            return {
-                title: 'Hello ABOUT PAGE!',
-            }
-        },
-    }).mount('#about')
-</script>
-
-{% endblock %}

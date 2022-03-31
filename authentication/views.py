@@ -38,10 +38,6 @@ api_secret = "c216714c0f3ed0af7d3b915b86df7cb9"
 # Sign up view
 def sign_up(request):
 
-    # If the user is already connected, he is redirected to the home page
-    if request.user is not None and request.user.is_authenticated:
-        return redirect("/")
-
     # if user submit the form to sign up
     if request.method == "POST":
 
@@ -175,10 +171,6 @@ def sign_up(request):
 
 # Sign in view
 def sign_in(request):
-
-    # If the user is already connected, he is redirected to the home page
-    if request.user is not None and request.user.is_authenticated:
-        return redirect("/")
 
     # If the user submit the form to sign in
     if request.method == "POST":
@@ -320,24 +312,28 @@ def user(request):
             else:
 
                 # get the path of the actual profile picture
-                cv_path = user_serializer.validated_data["cv_path"]
+                if user_serializer.is_valid():
+                    cv_path = body_json["dataSend"]["cv_path"]
 
-                # if the user has already profile picture
-                if cv_path is not None:
+                    # if the user has already profile picture
+                    if cv_path is not None:
 
-                    # get the path of the actual profile picture
-                    server_path_to_cv = (
-                        f"authentication/files/cv/public_{user_id}.{cv_path}"
-                    )
+                        # get the path of the actual profile picture
+                        server_path_to_cv = (
+                            f"authentication/files/cv/public_{user_id}.{cv_path}"
+                        )
 
-                    # replace the path of the actual profile picture by the new one
-                    text_file = open(
-                        f"{settings.BASE_DIR}/{server_path_to_cv}", "wb")
-                    text_file.write(
-                        base64.b64decode(
-                            user_serializer.validated_data["cv_path"])
-                    )
-                    text_file.close()
+                        # replace the path of the actual profile picture by the new one
+                        text_file = open(
+                            f"{settings.BASE_DIR}/{server_path_to_cv}", "wb")
+                        text_file.write(
+                            base64.b64decode(
+                                body_json["dataSend"]["cv_file"])
+                        )
+                        text_file.close()
+
+                else:
+                    HttpResponseBadRequest(json.dumps(user_serializer.errors))
 
                 # after the cv is updated, create a student serializer from the body exluced the cv_path
                 body_json["dataSend"].pop("cv_file")
@@ -395,7 +391,7 @@ def user(request):
 
 
 # update the user password (must be logged in)
-@login_required
+@ login_required
 def updatePassword(request):
     if request.method == "PATCH":
 
