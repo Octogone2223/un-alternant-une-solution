@@ -376,7 +376,7 @@ def jobs_datings_detail(request, job_dating_id):
                 job_dating.status = "AC"
 
                 # set the payload head and body
-                payload["head"] = "Candidature Accepté !"
+                payload["head"] = "Candidature Acceptée !"
                 payload[
                     "body"
                 ] = f"Votre candidature pour '${job_dating.job.name}' a été acceptée 😁!"
@@ -388,7 +388,7 @@ def jobs_datings_detail(request, job_dating_id):
                 job_dating.status = "RE"
 
                 # set the payload head and body
-                payload["head"] = "Candidature Rejeté !"
+                payload["head"] = "Candidature Rejetée !"
                 payload[
                     "body"
                 ] = f"Votre candidature pour '${job_dating.job.name}' a été rejetée 😖!"
