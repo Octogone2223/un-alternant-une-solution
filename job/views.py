@@ -53,7 +53,7 @@ def create_job(request):
     if request.method == "POST":
 
         # if not logged in as a company raise unauthorized
-        if(request.user.getUserType() != "company"):
+        if(request.user.getUserType() != "Company"):
             return HttpResponse("You are not a school", status=UNAUTHORIZED)
 
         # get the body of the request
@@ -112,7 +112,7 @@ def update_job(request, job_id):
     if request.method == "PUT":
 
         # if not logged in as a company raise unauthorized
-        if(request.user.getUserType() != "company"):
+        if(request.user.getUserType() != "Company"):
             return HttpResponse("You are not a school", status=UNAUTHORIZED)
 
         # get the body of the request
@@ -431,7 +431,7 @@ def job_inspect(request, job_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "company":
+        if request.user.getUserType() != "Company":
             return redirect("/")
 
         # get the job from the database associated to the user company and all the job datings associated to the job
@@ -455,7 +455,7 @@ def job_dating_inspect_cv(request, job_dating_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "company":
+        if request.user.getUserType() != "Company":
             return redirect("/")
 
         # get the job dating from the database associated to the user company
@@ -477,7 +477,7 @@ def job_dating_inspect_letter(request, job_dating_id):
     try:
 
         # if the user is not a company redirect to home page
-        if request.user.getUserType() != "company":
+        if request.user.getUserType() != "Company":
             return redirect("/")
 
         # get the job dating from the database associated to the user company
