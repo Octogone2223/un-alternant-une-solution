@@ -8,6 +8,7 @@ from job.celery import app as celery_app
 from job.models import Job, JobCode, JobIdFromPreviousRequest, LastIndexApi
 
 
+# Used to retrieve list of job posts from an external api with celery and format the data to be stored according to the our model
 @celery_app.task
 def get_api_data():
     last_index_api, created = LastIndexApi.objects.get_or_create(
@@ -65,6 +66,7 @@ def get_api_data():
     )
 
 
+# Methods used to create a company object from the data received from the external api
 def createCompany(company):
     if "description" in company:
         description = company["description"]
@@ -92,6 +94,7 @@ def createCompany(company):
         return company
 
 
+# Methods used to create a job object from the data received from the external api
 def createJob(request, company):
 
     if "title" in request:
@@ -135,6 +138,7 @@ def createJob(request, company):
         return job
 
 
+# Methods used to delete old jobs from the database
 def deleteOldJobs(listJobIdFromResponse, jobs_codes_request):
     old_jobs = JobIdFromPreviousRequest.objects.filter(
         job_codes__contains=jobs_codes_request

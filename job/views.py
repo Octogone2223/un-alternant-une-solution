@@ -14,6 +14,7 @@ from django.conf import settings
 from webpush import send_user_notification
 
 
+# Used to handle the fetch of all saved jobs
 def list_jobs(request):
     filters = {}
 
@@ -36,6 +37,7 @@ def list_jobs(request):
     return render(request, "list_jobs.html", {"jobs": jobs})
 
 
+# Used to handle the creation of a new job for a specific user
 @login_required
 def create_job(request):
     if request.method == "POST":
@@ -72,6 +74,7 @@ def create_job(request):
         return redirect("/profile")
 
 
+# Used to handle the update of a job for a specific user
 @login_required
 def update_job(request, job_id):
 
@@ -116,6 +119,7 @@ def update_job(request, job_id):
         return HttpResponseBadRequest()
 
 
+# Used to fetch the details of a specific job
 def preview_job(request, job_id):
     job = list(
         Job.objects.filter(id=job_id).values(
@@ -136,6 +140,7 @@ def preview_job(request, job_id):
     return JsonResponse({"job": job})
 
 
+# Used to handle the upload of a file
 def handle_uploaded_file(f, type):
     file_name_with_timeseconds = (
         f.name + str(datetime.datetime.now().timestamp()) + ".pdf"
@@ -148,6 +153,7 @@ def handle_uploaded_file(f, type):
     return f"core/files/{type}/{file_name_with_timeseconds}"
 
 
+# Used to handle the deletion of a file
 def handle_delete_file(file_path):
     if os.path.exists(file_path):
         os.remove(file_path)
@@ -212,6 +218,7 @@ def job_detail(request, job_id):
     )
 
 
+# Used to retrieve the list of all job applications for a specific company
 @login_required
 def jobs_datings(request):
 
@@ -234,6 +241,7 @@ def jobs_datings(request):
             return redirect("/")
 
 
+# Used to handle job applications
 @login_required
 def jobs_datings_detail(request, job_dating_id):
     if request.method == "PATCH":
@@ -278,18 +286,21 @@ def jobs_datings_detail(request, job_dating_id):
         return HttpResponse(status=204)
 
 
+# Used to retrieve details of a specific job application
 @login_required
 def job_inspect(request, job_id):
     try:
         job = Job.objects.get(id=job_id, company__users__pk=request.user.id)
         job_datings = job.job_datings.all()
         return render(
-            request, "job_inspect.html", {"job": job, "job_datings": job_datings}
+            request, "job_inspect.html", {
+                "job": job, "job_datings": job_datings}
         )
     except Job.DoesNotExist:
         return redirect("/")
 
 
+# Used to retrieve the uploaded resume of a specific job application
 @login_required
 def job_dating_inspect_cv(request, job_dating_id):
     try:
@@ -301,6 +312,7 @@ def job_dating_inspect_cv(request, job_dating_id):
         return redirect("/")
 
 
+# Used to retrieve the uploaded motivation letter of a specific job application
 @login_required
 def job_dating_inspect_letter(request, job_dating_id):
     try:

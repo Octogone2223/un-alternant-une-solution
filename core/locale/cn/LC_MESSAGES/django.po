@@ -187,6 +187,10 @@ msgstr "获取WebPush"
 msgid "Unsubscribe from Push Messaging"
 msgstr "停止获得WebPush"
 
+#: core/templates/components/navbar.html:27
+msgid "Déconnexion"
+msgstr "登出"
+
 #: core/templates/components/profile/changePassword.html:5
 msgid "Modifier votre mot de passe"
 msgstr "改变你的密码"
