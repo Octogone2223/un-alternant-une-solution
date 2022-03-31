@@ -86,11 +86,14 @@
             async handleDeleteJob(event) {
                 const jobDatingId = event.target.dataset.jobDatingId;
                 const url = `${jobDatingId}`;
-                const response = await fetch(url, {
+                fetch(url, {
                     method: 'DELETE',
                     headers: {
                         "X-CSRFToken": getCookie("csrftoken"),
                     }
+                })
+                .then((response) => {
+                    window.location.reload();
                 })
             }
         },
