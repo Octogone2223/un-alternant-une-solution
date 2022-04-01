@@ -33,10 +33,10 @@ def list_courses(request):
     school = request.GET.get("school", None)
     if school:
         filters["school__name__icontains"] = school
-
+    print(school)
     # get courses from database with filters, only 20 courses at a time
     courses = Course.objects.filter(**filters)[:20]
-
+    print(courses)
     # return list of courses page with courses
     return render(request, "list_courses.html", {"courses": courses})
 
