@@ -72,7 +72,7 @@ def course_detail(request, course_id):
     student = None
 
     # if user is logged in is a student, get student from database
-    if request.user.getUserType() == "Student":
+    if request.user.getUserType() == "student":
         student = Student.objects.get(user=request.user)
 
     # if method is PATCH, update the course of the student by the id in the url parameter, save it and return a status code success
