@@ -44,19 +44,16 @@ class JobTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_jobs_datings_logged_page(self):
-        
         response = self.client.get("/jobs/datings/")
         self.assertEqual(response.status_code, 200)
 
     def test_job_detail_page(self):
         response = self.client.get(reverse('job_detail'))
         # self.assertEqual(resolve(reverse('job_detail')).func.__name__,job_detail.as_view().__name__)
-        self.assertTemplateUsed(response.status_code,'job/jobs_datings_student.html')
-
+        self.assertTemplateUsed(response.status_code, 'job/jobs_datings_student.html')
 
 
 class JobSeleniumTests(StaticLiveServerTestCase):
-
     fixtures = ["all.json"]
 
     @classmethod
@@ -126,4 +123,3 @@ class JobSeleniumTests(StaticLiveServerTestCase):
         )
 
         assert elem is not None
-        

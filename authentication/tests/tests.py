@@ -63,7 +63,6 @@ class AuthenticationSeleniumTests(StaticLiveServerTestCase):
             '//a[contains(text(),"Je suis étudiant")]'
         )
         assert elem is not None
-        
 
     def test_signup_signin_student(self):
         # Access to Sign up page
