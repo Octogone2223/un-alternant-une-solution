@@ -8,6 +8,7 @@ on:
 
 env:
   DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+  DEBUG: True
 
 jobs:
   health-check-job: 
