@@ -35,7 +35,7 @@
                         class="hover {% if job_dating.status == 'AC' %} bg-green-200 {% elif job_dating.status == 'RE' %} bg-red-200 {% endif %}">
                         <th>
                             {{ job_dating.student.user.first_name }} {{ job_dating.student.user.last_name }}</th>
-                        <td> {% if job.student.course.name %} {{job.student.course.name}} {% else %}
+                        <td> {% if job_dating.student.course.name %} {{job_dating.student.course.name}} {% else %}
                             <i>{% trans "Aucune formation" %}</i>
                             {% endif %} </td>
                         <td>{% if condition %}{{ job_dating.stuent.birthday }} {% else %}
