@@ -17,6 +17,10 @@ loaddataprod:
 	python manage.py loaddata course/fixtures/refCourseJobCodes.json
 	python manage.py loaddata course/fixtures/refSchoolCourses.json
 
+loadalldataprod:
+	@echo "Extract data..."
+	python manage.py loaddata core/fixtures/all_prod.json
+
 blackall:
 	@echo "Black code..."
 	python -m black ./
