@@ -32,7 +32,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 SECRET_KEY = "django-insecure-3j_oxh7c=b*p+p$2u2ac!8(1etp7_y&%pn3-b+(*oz4w98+!(+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
