@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<div class="flex flex-col justify-between h-full container px-8 lg:px-16 mb-20" id="courseDetails">
+    <div class="mt-20 text-center space-y-5">
+        <h1 class="font-bold text-2xl">{{course.name}}</h1>
+        <div class="space-y-2">
+            <a href="" class="font-bold underline hover:text-primary">{{course.school.name}}</a>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto w-full mt-20">
+        <table class="table w-full">
+            <!-- head -->
+            <thead>
+                <tr>
+                    <th><i class="text-2xl fas fa-map-marker-alt mr-4"></i>{% trans 'Adresse postale' %}</th>
+                    <th><i class="text-2xl fas fa-school mr-4"></i>{% trans 'Ecole' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- row 1 -->
+                <tr>
+                    <td>
+                        {{course.school.city}}, {{course.school.zip_code}}, {{course.school.street}}
+                    </td>
+                    <td>
+                        {{course.school.name}}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="mt-20 space-y-5">
+        <h2 class="font-bold text-xl">{{course.name}}</h2>
+        <p>
+            {{course.description}}
+        </p>
+    </div>
+    {% if not has_already_enrolled and student %}
+    <div class="self-center mt-20 w-96 space-y-5">
+        <div>
+            <button class="btn bg-secondary rounded-md border-none btn-block hover:bg-primary"
+                @click="handleSubmit">{% trans "Rejoindre" %}</button>
+        </div>
+    </div>
+    {% elif not student %}
+
+    <div class="self-center mt-20 w-96 space-y-5">
+        <p class="text-sm">{% trans "Vous ne pouvez pas rejoindre une formation." %}</p>
+    </div>
+
+    {% else %}
+
+    <div class="self-center mt-20 w-96 space-y-5">
+        <p class="text-sm">{% trans " Vous êtes déjà dans la formation" %} : <br> {{student.course.name}}</p>
+        <div>
+            <button class="btn bg-secondary rounded-md border-none btn-block hover:bg-primary"
+                @click="handleSubmit">{% trans "Changer de formation" %}</button>
+        </div>
+    </div>
+    {% endif %}
+</div>
+</div>
+
+
+{% include './components/footer.html' %}
+
+{% endblock %}
+
+{% block vueJs %}
+<script>
+    const appCourseDetails = Vue.createApp({
+        delimiters: ["[[", "]]"],
+
+        methods: {
+
+            //This function is called when the user clicks on the button to join the course
+            async handleSubmit() {
+                const courseId = window.location.pathname.split("/")[2];
+
+                const response = await fetch(`/courses/${courseId}/`, {
+                    method: 'PATCH',
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    },
+                });
+
+                if (response.ok) {
+                    location.href = `/courses/`
+                }
+            }
+        },
+
+    }).mount('#courseDetails')
+</script>
+
+{% endblock %}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+
+  {# FAVICON #}
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+  <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+
+  {# STYLE #}
+  <link rel="stylesheet" href="{% static 'styles/css/app.css' %}" />
+
+  {# HOT RELOAD SCRIPT #}
+  {# <script src="https://livejs.com/live.js" defer></script>#}
+
+  {# FONT AWESOME SCRIPT #}
+  <script
+    src="https://gistcdn.githack.com/Lilian-MMI/f23496a8c50ca94d62ec20d0d3591851/raw/52867fe3589247dd300846262e0a71866326cfd6/fontawesome.min.js">
+  </script>
+
+  {# DAISYUI #}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/2.9.0/full.min.css"
+    integrity="sha512-cRY3HtkOja2mHLEvA0tgwuaVysmMN2PijT7mRN3Lj4WfqCDdnDKAoSPk250WAGBGbLmMaBqZT2qCZNA2Pngk5A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  {# TAILWINDCSS #}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00AFB9",
+            secondary: "#243A48",
+          },
+          container: {
+            center: true,
+          },
+        },
+      },
+    };
+  </script>
+
+  {# TOASTIFY #}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"
+    integrity="sha512-zrRn+TvTc4KgDOtlKOgThphx1DGCZ8zR/xGWtG/WiKp6G+/xUBWow3p2lWu8DHfdHYWfwvIY0I89b3q22POHSw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css"
+    integrity="sha512-ecfz7BsZIyMBMdXTx7GU2128lQ7MTiqGJwAqCumba6v8y7YDhYEHueqy+iUtUdZsnsKhCyoCcFGGMhpwQOy6xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  {# VUEJS #}
+  <script src="https://unpkg.com/vue@3"></script>
+
+  {% load webpush_notifications %}
+  {% webpush_header %}
+
+  <script>
+    const getCookie = (c_name) => {
+      if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+          c_start = c_start + c_name.length + 1;
+          c_end = document.cookie.indexOf(";", c_start);
+          if (c_end == -1) c_end = document.cookie.length;
+          return unescape(document.cookie.substring(c_start, c_end));
+        }
+      }
+      return "";
+    }
+  </script>
+
+  <style>
+    /* VUEJS TRANSITION */
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 0.5s ease;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+      opacity: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      /* SCROLLBAR */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+    }
+
+    /* SCROLLBAR */
+    *::-webkit-scrollbar,
+    *::-webkit-scrollbar-thumb {
+      width: 10px;
+      height: 10px;
+      border-radius: 13px;
+      background-clip: padding-box;
+      border: 2px solid transparent;
+      color: rgba(0, 0, 0, 0.3);
+      background: transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 0 10px;
+    }
+  </style>
+
+  <title>1alternant1solution</title>
+</head>
+
+</html>

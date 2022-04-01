@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_DB: ${DATABASE_NAME} 
+    networks:
+      - backend
+  redis:
+    image: "redis:alpine"
+    networks:
+      - backend
+  
+  celery:
+    build: .
+    command: celery -A un_alternant_une_solution_webapp worker -l info
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_HOST: "db"
+      DATABASE_URL: postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}
+    networks:
+      - backend
+      
+  celery-beat:
+    build: .
+    command: celery -A un_alternant_une_solution_webapp beat -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    networks:
+      - backend
+
+networks:
+  backend:
+volumes:
+  redis_data:
+    driver: local

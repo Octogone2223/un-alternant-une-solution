@@ -1,0 +1,295 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-31 08:35+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: core/templates/about.html:10
+msgid "Qui sommes-nous ?"
+msgstr "我们是谁？"
+
+#: core/templates/about.html:13
+msgid "Qui sommes-nous ?2"
+msgstr ""
+"作为Ynov的全栈开发模块的一部分，将在2022年为计算机科学硕士课程的学生进行，我"
+"们必须响应项目的呼吁。这个项目必须是有用和创新的。"
+
+#: core/templates/about.html:17
+msgid "Qui sommes-nous ?3"
+msgstr "其目的是创建一个网络平台，方便人们了解法国市场上各种与工作有关的培训。"
+
+#: core/templates/about.html:21
+msgid "Qui sommes-nous ?4"
+msgstr ""
+"这个网络平台应该使公司能够发布其与工作有关的培训提议，查阅、修改、删除这些提"
+"议，查阅收到的申请，接受或拒绝它们。"
+
+#: core/templates/about.html:25
+msgid "Qui sommes-nous ?5"
+msgstr ""
+"学生们则应该能够将自己定位在公司发布的勤工俭学报价上，从而从个人空间关注自己"
+"的申请进展。他们还可以修改自己的个人资料，特别是表明他们的学校，输入简历，并"
+"输入他们的社会网络。"
+
+#: core/templates/about.html:29
+msgid "Qui sommes-nous ?6"
+msgstr "最后，学校必须能够推广他们的课程，并为学生提供一个与工作相关的安置。"
+
+#: core/templates/about.html:33
+msgid "Qui sommes-nous ?7"
+msgstr "学生、学校和公司应该能够改变他们的个人和联系信息。"
+
+#: core/templates/about.html:39
+msgid "Notre équipe"
+msgstr "我们的团队"
+
+#: core/templates/company_detail.html:15
+msgid "Entreprise"
+msgstr "公司"
+
+#: core/templates/company_detail.html:24 core/templates/school_detail.html:24
+#: core/templates/student_detail.html:28
+#, fuzzy
+#| msgid "Inscription"
+msgid "Description"
+msgstr "注册"
+
+#: core/templates/company_detail.html:30 core/templates/school_detail.html:30
+#: core/templates/student_detail.html:33
+msgid "Contacter"
+msgstr "联系我们"
+
+#: core/templates/components/footer.html:11
+#: core/templates/components/footer.html:13
+#: core/templates/components/footer.html:21
+#: core/templates/components/footer.html:29
+#: core/templates/components/navbar.html:12
+#: core/templates/components/navbar.html:62
+msgid "APropos"
+msgstr "关于我们"
+
+#: core/templates/components/footer.html:14
+#: core/templates/components/footer.html:22
+#: core/templates/components/footer.html:30
+msgid "Mentions légales"
+msgstr "法律信息"
+
+#: core/templates/components/footer.html:15
+#: core/templates/components/footer.html:23
+#: core/templates/components/footer.html:31
+msgid "Politique de confidentialité"
+msgstr "隐私政策"
+
+#: core/templates/components/footer.html:19
+msgid "Plan du site"
+msgstr "网站地图"
+
+#: core/templates/components/footer.html:27
+msgid "Newsletter"
+msgstr "通讯"
+
+#: core/templates/components/home/hero.html:6
+msgid "HomeHeroSentences1"
+msgstr "大力动员商业网络"
+
+#: core/templates/components/home/hero.html:7
+msgid "HomeHeroSentences2"
+msgstr "为青年服务!"
+
+#: core/templates/components/home/hero.html:11
+msgid "IamStudent"
+msgstr "我是一名学生"
+
+#: core/templates/components/home/hero.html:13
+msgid "IamCompany"
+msgstr "我是一名雇主"
+
+#: core/templates/components/home/section1.html:4
+msgid "S1Title"
+msgstr "你的工作经验只需点击几下"
+
+#: core/templates/components/home/section1.html:9
+msgid "SAtitle"
+msgstr "你的梦想工作"
+
+#: core/templates/components/home/section1.html:11
+msgid "SAmessage"
+msgstr "输入你想从事的职业和地点（城市或邮政编码）。"
+
+#: core/templates/components/home/section1.html:16
+msgid "SBtitle"
+msgstr "在一眨眼的时间里"
+
+#: core/templates/components/home/section1.html:18
+msgid "SBmessage"
+msgstr "获取你附近的培训课程和公司名单，这些都是你所寻找的领域。"
+
+#: core/templates/components/home/section1.html:23
+msgid "SCtitle"
+msgstr "轻松接触"
+
+#: core/templates/components/home/section1.html:25
+msgid "SCmessage"
+msgstr "轻松地联系培训中心或公司来申请。"
+
+#: core/templates/components/home/section2.html:7
+msgid "HelpNeed"
+msgstr "需要帮助吗？"
+
+#: core/templates/components/home/section2.html:8
+msgid "HelpNeedMessage"
+msgstr ""
+"没有找到你要找的信息？你的在线程序是否遇到了困难？要找到答案或解决你的问题，"
+"请查阅工作联系培训门户网站的常见问题。"
+
+#: core/templates/components/home/section3.html:5
+msgid "Nos Récentes Offres"
+msgstr "我们最近的报价"
+
+#: core/templates/components/home/section3.html:38
+msgid "Postuler"
+msgstr "申请地点"
+
+#: core/templates/components/navbar.html:9
+#: core/templates/components/navbar.html:53
+msgid "Home"
+msgstr "首页"
+
+#: core/templates/components/navbar.html:10
+#: core/templates/components/navbar.html:56
+msgid "Apprenticeship"
+msgstr "替代方案"
+
+#: core/templates/components/navbar.html:11
+#: core/templates/components/navbar.html:59
+#: core/templates/components/profile/sectionStudent.html:6
+msgid "Courses"
+msgstr "培训"
+
+#: core/templates/components/navbar.html:137
+msgid "Subscribe to Push Messaging"
+msgstr "获取WebPush"
+
+#: core/templates/components/navbar.html:139
+msgid "Unsubscribe from Push Messaging"
+msgstr "停止获得WebPush"
+
+#: core/templates/components/navbar.html:27
+msgid "Déconnexion"
+msgstr "登出"
+
+#: core/templates/components/profile/changePassword.html:5
+msgid "Modifier votre mot de passe"
+msgstr "改变你的密码"
+
+#: core/templates/components/profile/changePassword.html:13
+msgid "Votre mot de passe actuel"
+msgstr "您当前的密码"
+
+#: core/templates/components/profile/changePassword.html:25
+msgid "Nouveau votre mot de passe"
+msgstr "新密码"
+
+#: core/templates/components/profile/changePassword.html:37
+msgid "Confirmation de votre mot de passe"
+msgstr "确认你的密码"
+
+#: core/templates/components/profile/changePassword.html:45
+msgid "Changer"
+msgstr "变化"
+
+#: core/templates/components/profile/sectionCityStreet.html:7
+msgid "Ville"
+msgstr "城市"
+
+#: core/templates/components/profile/sectionCityStreet.html:19
+msgid "Code Postal"
+msgstr "邮政编号"
+
+#: core/templates/components/profile/sectionCityStreet.html:31
+msgid "Rue et numéro"
+msgstr "街道和号码"
+
+#: core/templates/components/profile/sectionCityStreet.html:47
+msgid "Nom de votre Entité"
+msgstr "您的实体名称"
+
+#: core/templates/components/profile/sectionCityStreet.html:60
+msgid "Photo de votre Entité"
+msgstr "你的实体的照片"
+
+#: core/templates/components/profile/sectionNameDescription.html:7
+msgid "Nom"
+msgstr "命名"
+
+#: core/templates/components/profile/sectionNameDescription.html:19
+msgid "Prénom"
+msgstr "名字"
+
+#: core/templates/components/profile/sectionNameDescription.html:31
+msgid "Email"
+msgstr "电子邮件"
+
+#: core/templates/components/profile/sectionNameDescription.html:46
+msgid "Description de l'activité"
+msgstr "活动描述"
+
+#: core/templates/components/profile/sectionStudent.html:16
+msgid "CV Public"
+msgstr "简历公开"
+
+#: core/templates/components/profile/sectionStudent.html:34
+msgid "Date de naissance"
+msgstr "出生日期"
+
+#: core/templates/components/profile/sectionStudent.html:45
+msgid "Linkedin"
+msgstr "链接"
+
+#: core/templates/profile.html:14
+msgid "Modifier son profil"
+msgstr "修改你的个人资料"
+
+#: core/templates/profile.html:18
+msgid "Voir mes offres"
+msgstr "查看我的报价"
+
+#: core/templates/profile.html:21
+msgid "Créer une offre"
+msgstr "创建一个报价"
+
+#: core/templates/profile.html:32
+msgid "Voir mes candidatures"
+msgstr "查看我的申请"
+
+#: core/templates/profile.html:61
+msgid "Valider"
+msgstr "验证"
+
+#: core/templates/school_detail.html:15
+msgid "École"
+msgstr "学校"
+
+#: core/templates/student_detail.html:18
+msgid "Étudiant"
+msgstr "学生"
+
+#: core/templates/student_detail.html:25
+msgid "Télécharger le CV"
+msgstr "下载简历"
+
+#~ msgid "Assistance"
+#~ msgstr "支持"

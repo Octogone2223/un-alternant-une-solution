@@ -1,0 +1,235 @@
+{% extends "base.html" %} {% load i18n %} {% block content %}
+
+<div class="w-full p-8 container" id="jobsList" style="min-height: 75vh">
+  <div
+    class="flex flex-col lg:flex-row justify-center border-[1px] items-center border-gray-200 h-fit p-5 lg:p-0 lg:h-24 rounded-md lg:rounded-full w-full mt-20 space-x-5 space-y-5 lg:space-y-0"
+  >
+    <div class="flex flex-row items-center space-x-5 h-full">
+      <i class="fas fa-search text-primary"></i>
+      <input type="text" placeholder="{% trans "Métier recherché" %}"
+      class="border-none py-2 px-2 outline-none" v-model="search.profession" />
+    </div>
+    <div class="flex flex-row items-center space-x-5 h-full">
+      <i class="fas fa-map-marker-alt text-primary"></i>
+      <input type="text" placeholder="{% trans "Lieu de travail" %}"
+      class="border-none py-2 px-2 outline-none" v-model="search.location" />
+    </div>
+    <div class="flex flex-row items-center space-x-5 h-full">
+      <i class="fas fa-graduation-cap text-primary"></i>
+      <input type="text" placeholder="{% trans "Type de contrat (CDD, etc.)" %}"
+      class="border-none py-2 px-2 outline-none" v-model="search.contract_type"
+      />
+    </div>
+    <button
+      class="btn bg-secondary border-none rounded-full w-full lg:w-72 hover:bg-primary"
+      @click="searchJobs"
+    >
+      {% trans "Rechercher" %}
+    </button>
+  </div>
+
+  {% if not jobs %}
+  <div class="flex w-full flex-col">
+    <p class="font-bold mx-auto my-16">
+      {% trans "Aucune offre ne correspond" %}
+    </p>
+    <img src="/static/img/empty-state.png" alt="" class="mx-auto w-1/4" />
+  </div>
+  {% else %}
+
+  <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-20">
+    <div class="h-screen overflow-scroll space-y-5 w-full lg:col-span-2">
+      {% for job in jobs %}
+
+      <!-- Single Job Post -->
+      <div
+        class="lg:cursor-pointer bg-white shadow-md h-80 w-full flex flex-col justify-between gap-4 px-4 py-4 rounded-lg overflow-scroll border-[1px] border-gray-100"
+        data-job-id="{{ job.id }}"
+        @click="getJobDetail"
+      >
+        <h2 class="font-bold">{{job.name}}</h2>
+
+        <a
+          href="/company/{{job.company_id}}"
+          class="uppercase text-primary underline"
+          >{{job.company}}</a
+        >
+
+        <p class="uppercase">
+          {% if job.company.city %} {{job.company.city}} {% else %} 44000 Nantes
+          {% endif %}
+        </p>
+
+        <p class="">{{job.description|slice:'0:150'}}...</p>
+
+        <div class="flex flex-row justify-between items-center">
+          <p>
+            {% trans "Offre postée le" %} :
+            <i>{{job.create_at|date:"d F, Y" }}</i>
+          </p>
+          <button
+            class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary"
+          >
+            {% trans "Postuler" %}
+          </button>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+
+    <div
+      class="hidden lg:block lg:col-span-3 h-screen bg-white border-[2px] border-secondary rounded-lg p-10"
+    >
+      <div class="flex flex-col justify-between h-full" v-if="!job">
+        <div class="space-y-5">
+          <h2 class="text-2xl font-bold">{{jobs.0.name}}</h2>
+          <p>{{jobs.0.company}}</p>
+          <p>
+            {% if jobs.0.company.city %} {{jobs.0.company.city}} {% else %}
+            44000 Nantes {% endif %}
+          </p>
+        </div>
+        <div class="flex flex-row flex-wrap justify-between">
+          {% if jobs.0.wage %}
+          <div class="flex flex-row items-center space-x-4">
+            <i class="fas fa-euro-sign"></i>
+            <span>{{jobs.0.wage}}</span>
+          </div>
+          {% endif %}
+          <div class="flex flex-row items-center space-x-4">
+            <i class="fas fa-file-signature"></i>
+            <span>{{jobs.0.schedule}}</span>
+          </div>
+          {% if jobs.0.start_date %}
+          <div class="flex flex-row items-center space-x-4">
+            <i class="fas fa-calendar-alt"></i>
+            <span>{{jobs.0.start_date}}</span>
+          </div>
+          {% endif %}
+        </div>
+        <div class="space-y-4">
+          <h3 class="font-bold text-lg">{% trans "Description" %}</h3>
+          <p>{{jobs.0.description|slice:'0:700'}}</p>
+        </div>
+
+        <div class="w-full flex flex-row justify-center">
+          <a
+            class="btn bg-secondary hover:bg-primary w-48 border-none"
+            href="{{jobs.0.id}}"
+            >{% trans "Postuler" %}</a
+          >
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-between h-full" v-else>
+        <div class="space-y-5">
+          <h2 class="text-2xl font-bold">[[ job.name ]]</h2>
+          <p>[[ job.company__name ]]</p>
+          <p>[[ job.company__city ? job.company__city : '44000 Nantes' ]]</p>
+        </div>
+
+        <div class="flex flex-row flex-wrap justify-between">
+          <div class="flex flex-row items-center space-x-4" v-if="job.wage">
+            <i class="fas fa-euro-sign"></i>
+            <span>[[ job.wage ]]</span>
+          </div>
+          <div class="flex flex-row items-center space-x-4" v-if="job.schedule">
+            <i class="fas fa-file-signature"></i>
+            <span>[[ job.schedule ]]</span>
+          </div>
+          <div
+            class="flex flex-row items-center space-x-4"
+            v-if="job.start_date"
+          >
+            <i class="fas fa-calendar-alt"></i>
+            <span>[[ job.start_date ]]</span>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h3 class="font-bold text-lg">{% trans "Description" %}</h3>
+          <p>[[ job.description.substring(0, 700) ]] ...</p>
+        </div>
+
+        <div class="w-full flex flex-row justify-center">
+          <button
+            class="btn bg-secondary hover:bg-primary w-48 border-none"
+            @click="redirectToDetail(job.id)"
+          >
+            {% trans "Postuler" %}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endif %}
+</div>
+
+{% include './components/footer.html' %} {% endblock %} {% block vueJs %}
+<script>
+  const appJobsList = Vue.createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        job: null,
+        search: {
+          profession: "",
+          location: "",
+          contract_type: "",
+        },
+      };
+    },
+
+    created() {
+      const uri = window.location.search.substring(1);
+      const params = new URLSearchParams(uri);
+      this.search.profession = params.get("profession")
+        ? params.get("profession")
+        : "";
+      this.search.location = params.get("location")
+        ? params.get("location")
+        : "";
+      this.search.contract_type = params.get("contract_type")
+        ? params.get("contract_type")
+        : "";
+    },
+
+    methods: {
+      //This function redirect user to the detail page of a job.
+      redirectToDetail(jobId) {
+        window.location.href = `/jobs/${jobId}`;
+      },
+
+      //This function get jobs details and display on html view or redirect to job detail page.
+      async getJobDetail(e) {
+        const jobId = e.currentTarget.dataset.jobId;
+        const isButtonTarget = e.target.classList.contains("btn");
+
+        if (window.innerWidth < 1024 && isButtonTarget) {
+          location.href = `/jobs/${jobId}`;
+        }
+
+        const response = await fetch(`/jobs/preview/${jobId}`, {
+          method: "GET",
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+        });
+
+        if (response.ok) {
+          const { job } = await response.json();
+
+          this.job = job;
+        }
+      },
+
+      //This function get jobs list with parameters and display on html view.
+      searchJobs() {
+        location.href = `?profession=${this.search.profession}&location=${this.search.location}&contract_type=${this.search.contract_type}`;
+      },
+    },
+  }).mount("#jobsList");
+</script>
+
+{% endblock %}

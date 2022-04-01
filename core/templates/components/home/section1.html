@@ -1,0 +1,30 @@
+{% load i18n %}
+<section>
+  <div class="flex flex-col justify-center items-center">
+    <h1 class="font-bold text-secondary text-xl lg:text-2xl">{% trans 'S1Title' %}</h1>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 place-items-center gap-10 lg:gap-20 mt-10">
+      <div class="flex flex-col">
+        <img src="../../../static/assets/first_step.png" alt="" class="w-72">
+        <h1 class="font-bold text-secondary text-xl">{% trans 'SAtitle' %}</h1>
+        <div class="w-72 mt-4">
+          <p class="font-medium text-sm">{% trans 'SAmessage' %}</p>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <img src="../../../static/assets/second_step.png" alt="" class="w-72">
+        <h1 class="font-bold text-secondary text-xl">{% trans 'SBtitle' %}</h1>
+        <div class="w-72 mt-4">
+          <p class="font-medium text-sm">{% trans 'SBmessage' %}</p>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <img src="../../../static/assets/third_step.png" alt="" class="w-72">
+        <h1 class="font-bold text-secondary text-xl">{% trans 'SCtitle' %}</h1>
+        <div class="w-72 mt-4">
+          <p class="font-medium text-sm">{% trans 'SCmessage' %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

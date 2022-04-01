@@ -1,0 +1,1 @@
+web: gunicorn un_alternant_une_solution_webapp.wsgi
