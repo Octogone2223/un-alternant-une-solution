@@ -57,7 +57,7 @@ jobs:
         run: python manage.py collectstatic --noinput
       - name: Run Authentication Tests
         run: |
-          python manage.py test authentication.tests.AuthenticationTests
+          python manage.py test authentication.tests.tests.AuthenticationTests
       - name: Run Job Tests
         run: |
-          python manage.py test job.tests.JobTests
+          python manage.py test job.tests.tests.JobTests
