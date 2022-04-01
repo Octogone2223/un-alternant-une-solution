@@ -9,11 +9,13 @@ loaddata:
 
 loaddataprod:
 	@echo "Extract data..."
-	python	manage.py loaddata authentication/fixtures/schools.json
-	python	manage.py loaddata job/fixtures/jobCodes2.json
-	python	manage.py loaddata course/fixtures/courses.json
-	python	manage.py loaddata course/fixtures/refCourseJobCodes.json
-	python	manage.py loaddata course/fixtures/refSchoolCourses.json
+	python manage.py loaddata authentication/fixtures/schools.json
+	python manage.py loaddata authentication/fixtures/company.json
+	python manage.py loaddata job/fixtures/jobCodes2.json
+	python manage.py loaddata job/fixtures/job.json
+	python manage.py loaddata course/fixtures/courses.json
+	python manage.py loaddata course/fixtures/refCourseJobCodes.json
+	python manage.py loaddata course/fixtures/refSchoolCourses.json
 
 blackall:
 	@echo "Black code..."
