@@ -60,7 +60,7 @@ Le cours a été dispensé par [Antoine NGUYEN](https://github.com/tonioo).
     - 1 image [Redis](https://redis.io/)
     - 1 image [POSTGRES](https://www.postgresql.org/)
     - 1 image python chargée d'exécuter notre tâche [celery](https://docs.celeryproject.org/)
-    - 1 seconde python chargée d'éxcuter notre script celery avec [celery beat](https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html) à interval de temps régulier (1min)
+    - 1 seconde python chargée d'exécuter notre script celery avec [celery beat](https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html) à interval de temps régulier (1min)
 
 4. Lancer une migration la base de données
 
