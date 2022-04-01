@@ -34,12 +34,21 @@ class AuthenticationTests(TestCase):
         response = self.client.post("/auth/sign-up/", python_dict, "application/json")
         self.assertEqual(response.status_code, 200)
 
+    def test_student_login(self):
+        python_dict = json.dumps(
+            {"email": "student@test.com", "password": "TestStudent"}
+        )
+        response = self.client.post("/auth/sign-in/", python_dict, "application/json")
+        self.assertEqual(response.status_code, 200)
 
-class MySeleniumTests(StaticLiveServerTestCase):
+
+class AuthenticationSeleniumTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = webdriver.Chrome(ChromeDriverManager().install())
+        option = webdriver.ChromeOptions()
+        option.add_argument("start-maximized")
+        cls.selenium = webdriver.Chrome(ChromeDriverManager().install(), options=option)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -54,6 +63,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
             '//a[contains(text(),"Je suis étudiant")]'
         )
         assert elem is not None
+        
 
     def test_signup_signin_student(self):
         # Access to Sign up page
@@ -92,6 +102,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         # Check if we're on private page
         elem = self.selenium.find_element_by_xpath(
-            '//*[contains(text(),"je suis bien")]'
+            '//*[contains(text(),"Modifier son profil")]'
         )
         assert elem is not None

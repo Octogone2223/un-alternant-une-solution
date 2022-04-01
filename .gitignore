@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 djangoenv
+test
 
 # C extensions
 *.so
@@ -155,3 +156,4 @@ authentication/files/cv/**.pdf
 authentication/files/cv/**.mp4
 
 .vscode/
+un_alternant_une_solution_webapp/staticfiles/

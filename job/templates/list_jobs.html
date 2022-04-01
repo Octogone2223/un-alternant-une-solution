@@ -68,6 +68,7 @@
             <i>{{job.create_at|date:"d F, Y" }}</i>
           </p>
           <button
+            id="btn_apply"
             class="btn bg-primary w-48 block lg:hidden border-none hover:bg-secondary"
           >
             {% trans "Postuler" %}
@@ -115,6 +116,7 @@
 
         <div class="w-full flex flex-row justify-center">
           <a
+            id="btn_apply"
             class="btn bg-secondary hover:bg-primary w-48 border-none"
             href="{{jobs.0.id}}"
             >{% trans "Postuler" %}</a
@@ -153,6 +155,7 @@
 
         <div class="w-full flex flex-row justify-center">
           <button
+            id="btn_apply"
             class="btn bg-secondary hover:bg-primary w-48 border-none"
             @click="redirectToDetail(job.id)"
           >

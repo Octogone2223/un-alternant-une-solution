@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ 56-rédaction-des-tests-dans-job ]
   pull_request:
-    branches: [ develop ]
+    branches: [ 56-rédaction-des-tests-dans-job ]
 
 env:
   DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
@@ -57,3 +57,6 @@ jobs:
       - name: Run Authentication Tests
         run: |
           python manage.py test authentication.tests.AuthenticationTests
+      - name: Run Job Tests
+        run: |
+          python manage.py test job.tests.JobTests
