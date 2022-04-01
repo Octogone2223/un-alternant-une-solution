@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ develop ]
+    branches: [ main ]
 
 env:
   DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
